@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>2</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    :root{
+      --panel:#0b1118;--panel2:#0f1722;--border:#2b2f3a;--text:#e8eefb;--muted:#8892a6;--shadow:0 10px 30px rgba(0,0,0,.40);
+      --logoW:110px; --logoH:44px;
+      --busA:#3aa0ff; --busB:#8b5cf6; --busC:#22c55e; --busD:#f59e0b; --busE:#ef4444;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+    #map{position:fixed;inset:0}
+    .leaflet-container,html,body,#map{background:#000}
+
+    /* Libellés de villes */
+    .city-label{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      color:#fff;font-weight:600;white-space:nowrap;text-align:center;
+      text-shadow:0 2px 4px rgba(0,0,0,.8);
+      pointer-events:auto; cursor:pointer;
+    }
+    .city-selected{color:#ffda3a !important;text-shadow:0 0 0 rgba(0,0,0,0),0 2px 6px rgba(0,0,0,.9)}
+
+    /* Barre de recherche + bouton DBus */
+    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:600px;max-width:min(92vw,920px)}
+    .search-row{display:flex;gap:8px;align-items:center}
+    .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
+    .search-input::placeholder{color:var(--muted)}
+    .btn{padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
+    .btn:hover{background:#101926}
+    .results{margin-top:6px;max-height:42vh;overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+    .result-item{display:flex;align-items:center;gap:12px;padding:10px 12px;cursor:pointer;border-bottom:1px solid #1f2732;color:var(--text);font-size:14px}
+    .result-item:last-child{border-bottom:none}
+    .result-item:hover{background:#101926}
+    .result-item img.ico{width:var(--logoW);height:var(--logoH);flex:0 0 auto;border-radius:6px;object-fit:contain}
+    .result-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;line-height:1.2}
+
+    /* Panneau Lignes DBus */
+    .dbus-panel{margin-top:6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);display:none;max-height:62vh;overflow:auto}
+    .dbus-header{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:13px}
+    .dbus-list{padding:6px}
+    .dbus-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #1f2732;border-radius:10px;background:var(--panel2);cursor:pointer;margin:6px}
+    .dbus-item:hover{background:#101926}
+    .dbus-item .badge{display:flex;align-items:center;justify-content:center;width:72px;height:32px;border-radius:8px;font-weight:800;font-size:16px}
+    .dbus-item .rname{color:var(--text);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .dbus-none{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px dashed #223047;border-radius:10px;background:#0c1421;color:#9fb1cc;cursor:pointer;margin:6px}
+    .legend{display:flex;flex-wrap:wrap;gap:10px;padding:10px 12px;border-top:1px solid #1f2732;color:var(--muted);font-size:12px}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid #223047;border-radius:999px;background:#0c1421}
+    .chip .dot{width:12px;height:12px;border-radius:50%}
+
+    /* Watermark */
+    .watermark{position:fixed;right:14px;bottom:14px;z-index:400;pointer-events:none;opacity:.125;filter:grayscale(10%);mix-blend-mode:screen}
+    .watermark img{display:block;width:220px;max-width:32vw;height:auto}
+
+    @media (max-width:800px){
+      .search-panel{min-width:300px;max-width:92vw}
+      .search-input{min-width:180px}
+      .watermark img{width:180px}
+    }
+
+    .selected-chip{
+      margin-top:6px;
+      display:none;
+      width:100%;
+    }
+    .line-chip{
+      display:flex;
+      align-items:center;
+      padding:6px 6.5px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:color-mix(in oklab, var(--panel) 92%, #000 8%);
+      box-shadow:var(--shadow);
+      width:fit-content;
+    }
+    .line-chip .close{
+      border:none;
+      background:transparent;
+      color:#ef4444;
+      font-weight:900;
+      font-size:22px;
+      cursor:pointer;
+      line-height:1;
+    }
+    .line-chip .close:hover{ color:#ff6666; }
+    .line-chip .label{
+      color:var(--text);font-size:14px;font-weight:600;white-space:nowrap
+    }
+    .line-chip .logo{
+      width:44px;height:28px;display:block;object-fit:contain;
+      background:#0c1421;border:1px solid #223047;border-radius:6px;
+    }
+    .line-chip .label{color:var(--text);font-size:14px;font-weight:600;white-space:nowrap}
+    .line-chip .close{
+      margin-left:10px;
+      border:none;
+      background:transparent;
+      color:#ef4444;          /* rouge vif */
+      font-weight:900;
+      font-size:22px;         /* plus grand */
+      cursor:pointer;
+      line-height:1;
+    }
+    .line-chip .close:hover{
+      color:#ff6666;          /* rouge clair au hover */
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Barre de recherche + bouton DBus -->
+  <div class="search-panel">
+    <div class="search-row">
+      <input id="search" class="search-input" type="search" placeholder="Rechercher une ville ou une entreprise…" autocomplete="off"/>
+      <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
+    </div>
+    <div id="selectedChip" class="selected-chip"></div>
+    <div id="results" class="results" hidden></div>
+
+    <!-- Panneau DBus -->
+    <div id="dbusPanel" class="dbus-panel">
+      <div class="dbus-header">
+      </div>
+      <div id="dbusList" class="dbus-list"></div>
+    </div>
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark">
+    <img src="./Overlays/idf_logo.png" alt="IDF logo watermark">
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    /* ===================== CARTE ===================== */
+    const minNativeZoom=0,maxNativeZoom=8,tileSize=256,TILE_BASE="./Tiles";
+    const widthPx=tileSize*Math.pow(2,maxNativeZoom),heightPx=tileSize*Math.pow(2,maxNativeZoom);
+
+    const map=L.map('map',{crs:L.CRS.Simple,attributionControl:false,minZoom:minNativeZoom+3,maxZoom:maxNativeZoom,maxBoundsViscosity:1.0,inertia:true});
+    const fullBounds=L.latLngBounds(map.unproject(L.point(0,heightPx),maxNativeZoom),map.unproject(L.point(widthPx,0),maxNativeZoom));
+    const MARGIN=64;
+    function innerBounds(m){const sw=L.point(0+m,heightPx-m),ne=L.point(widthPx-m,0+m);return L.latLngBounds(map.unproject(sw,maxNativeZoom),map.unproject(ne,maxNativeZoom));}
+
+    L.tileLayer(`${TILE_BASE}/{z}/{x}/{y}.png`,{tileSize,minNativeZoom,maxNativeZoom,maxZoom:maxNativeZoom,noWrap:true,bounds:fullBounds,crossOrigin:true,referrerPolicy:"no-referrer"}).addTo(map);
+    function applyBounds(){const ib=innerBounds(MARGIN);map.setMaxBounds(ib);map.panInsideBounds(ib,{animate:false});}
+    map.fitBounds(innerBounds(MARGIN),{animate:false});applyBounds();map.on('zoomend resize',applyBounds);
+
+    /* ====== NE PAS MODIFIER ====== */
+    let TileMapInfo;
+    fetch('./TileMapInfo.json')
+      .then(r => {
+        if (!r.ok) throw new Error('');
+        return r.json();
+      })
+      .then(info => {
+        TileMapInfo = info;
+      })
+      .catch(console.error);
+    function toLatLng(X,Y){const px=(X-TileMapInfo.x1)/(TileMapInfo.x2-TileMapInfo.x1)*widthPx;const py=(Y-TileMapInfo.y1)/(TileMapInfo.y2-TileMapInfo.y1)*heightPx;return map.unproject([px,py],maxNativeZoom);}
+
+    /* ===================== WIKIPEDIA HELPER ===================== */
+    function wikiTitleForCity(name){
+      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème)?$/i.exec(name.trim());
+      if (m){
+        const n = parseInt(m[1], 10);
+        const suffix = (n === 1) ? "er" : "e";
+        return `${n}${suffix}_arrondissement_de_Paris`;
+      }
+      return name.replaceAll(" ", "_");
+    }
+    function normalizeParisArrondissement(urlOrTitle){
+      const m = /Paris[_\s]+(\d{1,2})(?:er|e|eme|ème)?[_\s]+Arrondissement/i.exec(urlOrTitle);
+      if(m){
+        const n = parseInt(m[1],10);
+        const suffix = (n === 1) ? "er" : "e";
+        return `${n}${suffix}_arrondissement_de_Paris`;
+      }
+      return urlOrTitle;
+    }
+    async function fetchWikiSummary(title){
+      const url = "https://fr.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(title);
+      const r = await fetch(url);
+      if (!r.ok) throw new Error("wiki fetch");
+      return r.json();
+    }
+
+    /* ===================== VILLES ===================== */
+    const cityLayer=L.layerGroup().addTo(map);
+    const cityMarkers=[],searchIndex=[];
+    let selectedCityMarker = null;
+
+    function highlightCity(marker){
+      if (selectedCityMarker){
+        const oldEl = selectedCityMarker.getElement();
+        if (oldEl){
+          const oldSpan = oldEl.querySelector(".city-label");
+          if (oldSpan) oldSpan.classList.remove("city-selected");
+        }
+      }
+      selectedCityMarker = marker;
+      const el = marker.getElement();
+      if (el){
+        const span = el.querySelector(".city-label");
+        if (span) span.classList.add("city-selected");
+      }
+    }
+
+    const HOMONYMIES = new Set([
+      "page d’homonymie de wikimédia",
+      "page d'homonymie de wikimédia"
+    ]);
+    const WIKI_SUFFIXES_IDF = [
+      "_(Commune_française)",
+      "_(Val-de-Marne)",
+      "_(Essonne)",
+      "_(Hauts-de-Seine)",
+      "_(Seine-Saint-Denis)",
+      "_(Val-d'Oise)",
+      "_(Seine-et-Marne)",
+      "_(Yvelines)",
+    ];
+
+    function isHomonymy(desc) {
+      if (!desc) return false;
+      const d = String(desc).trim().toLowerCase();
+      return HOMONYMIES.has(d);
+    }
+
+    async function resolveWikiSummary(baseTitle) {
+      // 1) tente le titre de base
+      try {
+        const d0 = await fetchWikiSummary(baseTitle);
+        if (d0 && !isHomonymy(d0?.description)) {
+          return { title: baseTitle, data: d0 };
+        }
+      } catch { /* ignore */ }
+
+      // 2) si homonymie (ou échec), essaie les suffixes
+      for (const suf of WIKI_SUFFIXES_IDF) {
+        const t = baseTitle + suf;
+        try {
+          const d = await fetchWikiSummary(t);
+          if (d && !isHomonymy(d?.description)) {
+            return { title: t, data: d };
+          }
+        } catch { /* ignore et continue */ }
+      }
+
+      // 3) rien trouvé de mieux
+      return { title: baseTitle, data: null };
+    }
+
+    function buildChipHtml(lineNumber, routeName){
+      const safeNum = String(lineNumber||"").trim();
+      const logo = `./Overlays/bus_${safeNum}.png`;
+      const rn = routeName && routeName.includes(":") ? routeName.split(":")[1].trim() : (routeName||"");
+      return `
+        <div class="line-chip">
+          <img class="logo" src="${logo}" alt="bus ${safeNum}">
+          <button type="button" class="close" aria-label="Fermer">×</button>
+        </div>`;
+    }
+
+    function renderSelectedChip(){
+      const host = document.getElementById("selectedChip");
+
+      // visible seulement si une route est sélectionnée ET que le panneau est fermé
+      if(!currentSelectedKey || $panelDbus.style.display === "block"){
+        host.style.display = "none";
+        host.innerHTML = "";
+        return;
+      }
+
+      const [lineUid, routeUid] = currentSelectedKey.split(":");
+      const line = DBUS_LINES.find(l => l.uid === lineUid);
+      if(!line){ host.style.display="none"; host.innerHTML=""; return; }
+      const route = line.routes.find(r => r.uid === routeUid);
+      const rn = route?.name && route.name.includes(":") ? route.name.split(":")[1].trim() : (route?.name || "");
+      const safeNum = String(line.number||"").trim();
+
+      // conteneur collé à droite
+      host.innerHTML = "";
+      host.style.display = "flex";
+      host.style.justifyContent = "flex-end";
+
+      // chip
+      const chip = document.createElement("div");
+      chip.className = "line-chip";
+
+      // badge créé par ton script (taille compacte)
+      const badge = makeLineBadge(safeNum, "#444", "#fff", "60x28"); // gris le temps du recoloriage
+      chip.appendChild(badge);
+
+      // bouton fermer
+      const close = document.createElement("button");
+      close.type = "button";
+      close.className = "close";
+      close.setAttribute("aria-label", "Fermer");
+      close.textContent = "×";
+      close.onclick = () => {
+        currentSelectedKey = "";
+        hideAllRoutes();
+        $dbusList?.querySelectorAll(".dbus-item")?.forEach(it => it.style.outline="none");
+        renderSelectedChip();
+      };
+      chip.appendChild(close);
+
+      host.appendChild(chip);
+
+      // recolorer le badge avec la vraie couleur de ligne
+      getLineColors(safeNum).then(([bg, text])=>{
+        badge.style.background = bg;
+        badge.style.color = text;
+      }).catch(()=>{});
+    }
+
+    async function openCityPopup(cityObj, marker) {
+      highlightCity(marker);
+      const latlng = marker.getLatLng();
+
+      let rawTitle = wikiTitleForCity(cityObj.Name);
+      rawTitle = normalizeParisArrondissement(rawTitle);
+
+      const p = L.popup({ maxWidth: 380, autoPan: true })
+        .setLatLng(latlng)
+        .setContent(`<b>${cityObj.Name}</b><br><i>Chargement...</i>`);
+      p.openOn(map);
+
+      try {
+        const { title: resolvedTitle, data } = await resolveWikiSummary(rawTitle);
+
+        // URL de secours (si jamais pas de content_urls)
+        let pageUrl = "https://fr.wikipedia.org/wiki/" + resolvedTitle;
+
+        if (data?.content_urls?.desktop?.page) {
+          // on respecte ta normalisation arrdt au cas où
+          pageUrl = "https://fr.wikipedia.org/wiki/" +
+            normalizeParisArrondissement(data.content_urls.desktop.page);
+        }
+
+        const desc = data?.description || "";
+        const img = data?.thumbnail?.source || "";
+
+        let html = "";
+        if (!data || isHomonymy(desc)) {
+          // soit on n'a rien, soit encore une homonymie après essais
+          html = `
+            <div style="min-width:0">
+              <div style="font-weight:700;margin-bottom:6px">${cityObj.Name}</div>
+              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">
+                Voir sur Wikipédia
+              </a>
+            </div>`;
+        } else {
+          html = `
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              ${img ? `<img src="${img}" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;flex:0 0 auto">` : ``}
+              <div style="min-width:0">
+                <div style="font-weight:700;margin-bottom:4px">${cityObj.Name}</div>
+                <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${desc}</div>
+                <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+              </div>
+            </div>`;
+        }
+        p.setContent(html);
+
+      } catch {
+        const wikiHref = "https://fr.wikipedia.org/wiki/" + rawTitle;
+        p.setContent(`
+          <div style="min-width:0">
+            <div style="font-weight:700;margin-bottom:6px">${cityObj.Name}</div>
+            <a href="${wikiHref}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+          </div>
+        `);
+      }
+
+      map.once("popupclose", () => {
+        const el = marker.getElement();
+        if (el) {
+          const span = el.querySelector(".city-label");
+          if (span) span.classList.remove("city-selected");
+        }
+        selectedCityMarker = null;
+      });
+    }
+
+    fetch("Cities.json").then(r=>r.json()).then(cities=>{
+      cities.forEach(city=>{
+        const icon=L.divIcon({className:"",html:`<span class="city-label">${city.Name}</span>`,iconSize:[0,0]});
+        const m=L.marker(toLatLng(city.X,city.Y),{icon,interactive:true,bubblingMouseEvents:true}).addTo(cityLayer);
+        m.on("click", ()=> openCityPopup(city, m));
+        cityMarkers.push(m);
+        searchIndex.push({type:"Ville",name:city.Name||"Ville",city:"",center:m.getLatLng(),open:()=>openCityPopup(city, m)});
+      });
+      updateCityLabels();
+    }).catch(err=>console.error("Erreur chargement Cities.json",err));
+
+    function updateCityLabels(){
+      const zMin=map.getMinZoom(),zMax=map.getMaxZoom(),z=map.getZoom(),SMALL=8,LARGE=20,t=(z-zMin)/Math.max(1,(zMax-zMin)),px=Math.round(SMALL+t*(LARGE-SMALL));
+      cityMarkers.forEach(m=>{const el=m.getElement();if(!el)return;const span=el.querySelector(".city-label");if(!span)return;span.style.fontSize=px+"px";span.style.opacity=(t<0.05)?0.8:1;});
+    }
+    map.on("zoomend",updateCityLabels);
+
+    /* ===================== OVERLAYS ===================== */
+    fetch("Overlays.json").then(r=>r.json()).then(overlays=>{
+      overlays.forEach(ov=>{
+        let width=ov.Width,height=ov.Height;
+        if(ov.IconId==="bus_ico"){width=32;height=32;}
+        const topLeft=toLatLng(ov.X-width/2,ov.Y+height/2);
+        const bottomRight=toLatLng(ov.X+width/2,ov.Y-height/2);
+        const bounds=L.latLngBounds(topLeft,bottomRight);
+
+        if(
+          ov.IconId==="train_ico" || ov.IconId==="port_overlay" ||
+          (ov.IconId && (
+            (ov.IconId.startsWith("bus_") && ov.IconId !== "bus_ico") ||
+            ov.IconId.startsWith("uk_") || ov.IconId.startsWith("fr_") ||
+            ov.IconId.startsWith("b_")  || ov.IconId.startsWith("bg_") ||
+            ov.IconId.startsWith("d334p")
+          ))
+        ){ return; }
+
+        if(ov.Type==="Company"){
+          const compTopLeft=toLatLng(ov.X,ov.Y),compBottomRight=toLatLng(ov.X+20,ov.Y-20);
+          const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
+          const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
+          overlay.bindPopup(`
+            <div style="text-align:center">
+              <img src="./Overlays/${ov.IconId}.png" style="max-width:100px;display:block;margin:0 auto 8px"/>
+              <b>${ov.Name}</b><br/><i>${ov.City||""}</i>
+            </div>
+          `);
+          searchIndex.push({
+            type:"Entreprise",
+            name:ov.Name||"Entreprise",
+            city:ov.City||"",
+            center:compBounds.getCenter(),
+            open:()=>{ overlay.openPopup(compBounds.getCenter()); },
+            logo:`./Overlays/${ov.IconId}.png`
+          });
+        }
+        else if(ov.IconId==="viewpoint"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Cinématique</b>`);
+        }
+        else if(ov.IconId==="gas_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Station Service</b>`);
+        }
+        else if(ov.IconId==="bus_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Gare Routière</b>`);
+        }
+        else if(ov.IconId==="service_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Atelier</b>`);
+        }
+        else if(ov.IconId==="garage_large_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Garage</b>`);
+        }
+        else if(ov.IconId==="recruitment_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Agence de recrutement</b>`);
+        }
+        else if(ov.IconId==="dealer_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Concessionnaire</b>`);
+        }
+        else if(ov.IconId==="border_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Contrôle d'Identité</b>`);
+        }
+        else if(ov.IconId==="toll_ico"){
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>Péage</b>`);
+        }
+        else{
+          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true}).addTo(map).bindPopup(`<b>${ov.Name}</b><br>Type: ${ov.Type}`);
+        }
+      });
+    }).catch(err=>console.error("Erreur chargement Overlays.json",err));
+
+    const routeAnimHandles = new Map(); // key -> handle
+
+    function animatePolyline(poly, { speed = 1.2, dash = "14 10", reverse = false } = {}) {
+      const apply = (path) => {
+        path.style.strokeDasharray = dash;
+        let offset = 0;
+        let raf = 0;
+        const tick = () => {
+          offset = (offset + speed) % 10000;
+          path.style.strokeDashoffset = reverse ? String(-offset) : String(offset);
+          raf = requestAnimationFrame(tick);
+        };
+        tick();
+        return () => {
+          cancelAnimationFrame(raf);
+          path.style.strokeDasharray = "";
+          path.style.strokeDashoffset = "";
+        };
+      };
+
+      let stopFn = null;
+
+      // si déjà rendu → on applique direct
+      if (poly._path) {
+        stopFn = apply(poly._path);
+      } else {
+        // sinon on attend l’ajout au DOM
+        poly.once("add", () => {
+          if (poly._path) stopFn = apply(poly._path);
+        });
+      }
+
+      return { stop: () => { try { stopFn && stopFn(); } catch {} } };
+    }
+
+    function startLineAnim(key, poly) {
+      stopLineAnim(key);
+      const handle = animatePolyline(poly, { speed: 0.1, dash: "30 10", reverse: true });
+      routeAnimHandles.set(key, handle);
+    }
+    function stopLineAnim(key) {
+      const h = routeAnimHandles.get(key);
+      if (h) { h.stop(); routeAnimHandles.delete(key); }
+    }
+
+    /* ===================== DBUS (Lignes/Arrêts/Tracés) ===================== */
+    const dbusRoot = "DBus/IDF MAP";
+    const dbusLayers = L.layerGroup().addTo(map);
+    const dbusRouteLayers = new Map(); // key: "lineUid:routeUid" -> {group, poly, stops[], pts}
+    let currentSelectedKey = "";
+
+    // Parse XML util
+    async function fetchXml(path){
+      const res = await fetch(path);
+      if(!res.ok) throw new Error("XML load failed: "+path);
+      const txt = await res.text();
+      const parser = new DOMParser();
+      return parser.parseFromString(txt, "text/xml");
+    }
+
+    // Stops: id -> {id, name, X, Y, latlng}
+    let DBUS_STOPS = new Map();
+    async function loadStops(){
+      const xml = await fetchXml(`${dbusRoot}/stops.xml`);
+      const nodes = [...xml.querySelectorAll("busstops > busstop")];
+      DBUS_STOPS = new Map(nodes.map(node=>{
+        const id = parseInt(node.querySelector("id")?.textContent.trim()||"0",10);
+        const name = (node.querySelector("name")?.textContent||"").trim();
+        const locRaw = (node.querySelector("location")?.textContent||"").trim();
+        const parts = locRaw.split(";").map(x=>parseFloat(x));
+        const X = parts[0], Z = parts[2]; // Z -> Y (SCS)
+        const latlng = toLatLng(X, Z);
+        return [id, {id, name, X, Y: Z, latlng}];
+      }));
+    }
+
+    // Lines
+    let DBUS_LINES = []; // {uid, number, routes:[{uid, name, stopIds:[]}]}
+    async function loadLines(){
+      const xml = await fetchXml(`${dbusRoot}/lines.xml`);
+      DBUS_LINES = [...xml.querySelectorAll("lines > line")].map(line=>{
+        const lineUid = line.getAttribute("uid");
+        const number = line.getAttribute("number") || "?";
+        const routes = [...line.querySelectorAll(":scope > route")].map(rt=>{
+          const rUid = rt.getAttribute("uid");
+          const rName = rt.getAttribute("name") || "";
+          const stops = [...rt.querySelectorAll(":scope > busstop")].map(b=> parseInt(b.getAttribute("uid"),10));
+          return {uid:rUid, name:rName, stopIds:stops};
+        });
+        return {uid:lineUid, number, routes};
+      });
+    }
+
+    /* ===== Couleur ligne : palette fallback ===== */
+    const BUS_COLORS = [getComputedStyle(document.documentElement).getPropertyValue('--busA').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--busB').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--busC').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--busD').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--busE').trim()];
+    function colorFor(index){ return BUS_COLORS[index % BUS_COLORS.length] || "#3aa0ff"; }
+
+    /* ===== Flèches espacées ===== */
+    // Une flèche centrée sur chaque tronçon entre deux arrêts
+    function placeArrowsAlongPath(pts, color, group){
+      if(!pts || pts.length < 2) return;
+
+      for(let i=1;i<pts.length;i++){
+        const a = pts[i-1], b = pts[i];
+        // position au milieu du segment
+        const lat = (a.lat + b.lat)/2;
+        const lng = (a.lng + b.lng)/2;
+        const pos = L.latLng(lat,lng);
+        // angle du segment
+        const ang = Math.atan2(b.lat - a.lat, b.lng - a.lng) * (180/Math.PI);
+
+        const div = L.divIcon({
+          className:"", iconSize:[0,0],
+          html:`<div style="transform:translate(-50%,-50%) rotate(${-ang}deg);
+                            font-size:20px;line-height:1;
+                            color:${color};
+                            text-shadow:0 1px 2px rgba(0,0,0,.85)">➤</div>`
+        });
+        L.marker(pos,{icon:div,interactive:false}).addTo(group);
+      }
+    }
+
+
+    async function getTwoDominantColors(src){
+  return new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = src;
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width  = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+      // Compteurs
+      const counts = {};           // histogramme des couleurs (hors quasi noir/blanc)
+      let whiteCount = 0;          // pixels quasi blancs
+      let blackCount = 0;          // pixels quasi noirs
+
+      // Seuils
+      const STEP = 16;             // échantillonnage pour aller plus vite
+      const WHITE_LUM = 0.92;      // > => quasi blanc
+      const BLACK_LUM = 0.08;      // < => quasi noir
+
+      for (let i = 0; i < data.length; i += 4*STEP) {
+        const a = data[i+3];
+        if (a < 128) continue; // transparent -> ignore
+
+        const r = data[i], g = data[i+1], b = data[i+2];
+        const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+
+        // Comptage noir/blanc
+        if (lum > WHITE_LUM) { whiteCount++; continue; }
+        if (lum < BLACK_LUM) { blackCount++; continue; }
+
+        // Sinon: participe à la couleur principale
+        const rq = r >> 4, gq = g >> 4, bq = b >> 4; // quantification /16
+        const key = `${rq},${gq},${bq}`;
+        counts[key] = (counts[key] || 0) + 1;
+      }
+
+      // Choix de la couleur principale (jamais noir/blanc grâce aux seuils)
+      const entries = Object.entries(counts).sort((a,b)=> b[1]-a[1]);
+      let bg = "#444"; // fallback
+      if (entries.length) {
+        const [rq,gq,bq] = entries[0][0].split(",").map(v => (parseInt(v,10) << 4) + 8);
+        bg = `rgb(${rq},${gq},${bq})`;
+      }
+
+      // Choix texte: prend la couleur (noir/blanc) la plus présente
+      const text = (whiteCount >= blackCount) ? "#fff" : "#000";
+
+      resolve([bg, text]);
+    };
+
+    img.onerror = () => resolve(["#444","#fff"]);
+  });
+}
+
+
+
+
+
+
+    // === Couleur par numéro de ligne (fallback si pas de logo) ===
+    const RATP_COLOR_BY_NUMBER = {
+      "1":"#FFCE00","2":"#0064B0","3":"#9F9825","3bis":"#98D4E2","4":"#C04191",
+      "5":"#F28E42","6":"#83C491","7":"#F3A4BA","7bis":"#83C491","8":"#CEADD2",
+      "9":"#D5C900","10":"#E3B32A","11":"#8D5E2A","12":"#00814F","13":"#98D4E2",
+      "14":"#662483","15":"#B90845","16":"#F3A4BA","17":"#D5C900","18":"#00A88F"
+    };
+    function normalizeLineNumber(n){
+      if(!n) return "";
+      return String(n).trim().toLowerCase().replace(/\s+/g,""); // "7 bis" -> "7bis"
+    }
+    function bestTextFor(bg){ // noir/blanc le plus lisible
+      const hex = bg.replace("#",""); const r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
+      const L = (0.2126*(r/255)**2.2 + 0.7152*(g/255)**2.2 + 0.0722*(b/255)**2.2);
+      return (L > 0.45) ? "#000" : "#fff";
+    }
+    // Essaie logo -> sinon couleur par numéro
+    async function getLineColorsByLogoOrNumber(lineNumber){
+      const n = String(lineNumber||"").trim();
+      const logoPath = `./Overlays/bus_${n}.png`;
+      const [bgLogo, textLogo] = await getTwoDominantColors(logoPath);
+      // si l’analyse retourne le fallback (blanc/noir), on bascule sur la table
+      const isFallback = (bgLogo === "#fff" && textLogo === "#000");
+      if(!isFallback) return [bgLogo, textLogo];
+
+      const key = normalizeLineNumber(n);
+      const bg = RATP_COLOR_BY_NUMBER[key];
+      if(bg) return [bg, bestTextFor(bg)];
+      // pas dans la table -> défaut stable
+      return ["#3aa0ff", "#000"]; // fond bleu clair + texte noir
+    }
+
+
+    /* ===== Cache couleur par numéro de ligne ===== */
+    const LINE_COLOR_CACHE = new Map(); // number -> Promise<[bg,text]>
+    function getLineColors(number){
+      const n = String(number||"").trim();
+      if(LINE_COLOR_CACHE.has(n)) return LINE_COLOR_CACHE.get(n);
+      const p = getTwoDominantColors(`./Overlays/bus_${n}.png`).catch(()=>["#444","#fff"]);
+      LINE_COLOR_CACHE.set(n, p);
+      return p;
+    }
+
+    /* ===== Badge DOM pour une ligne ===== */
+    function makeLineBadge(number, bg="#444", text="#fff", size="72x32"){
+      const [w,h] = size.split("x").map(v=>parseInt(v,10));
+      const badge = document.createElement("div");
+      badge.className = "badge";
+      badge.style.width = w+"px";
+      badge.style.height = h+"px";
+      badge.style.borderRadius = "8px";
+      badge.style.display = "flex";
+      badge.style.alignItems = "center";
+      badge.style.justifyContent = "center";
+      badge.style.fontWeight = "800";
+      badge.style.fontSize = (h>=32? "16px":"14px");
+      badge.style.background = bg;
+      badge.style.color = text;
+      badge.style.textShadow = "0 1px 2px rgba(0,0,0,.35)";
+      badge.textContent = String(number||"").trim();
+      return badge;
+    }
+
+    // Dessiner une route (épaisse, flèches multiples, gros arrêts, Départ/Terminus) avec couleur issue du logo
+    function drawRoute(lineIdx, line, route){
+      const key = `${line.uid}:${route.uid}`;
+      if(dbusRouteLayers.has(key)) return dbusRouteLayers.get(key);
+
+      const group = L.layerGroup().addTo(dbusLayers);
+
+      // couleur provisoire (fallback palette) en attendant la dominante
+      let lineColor = colorFor(lineIdx);
+
+      // Points depuis les arrêts
+      const pts = route.stopIds.map(id => DBUS_STOPS.get(id)?.latlng).filter(Boolean);
+      const poly = L.polyline(pts,{color:lineColor,weight:8,opacity:1}).addTo(group);
+      startLineAnim(key, poly);
+
+      // Flèches (avec couleur provisoire)
+      //placeArrowsAlongPath(pts, lineColor, group);
+
+      // Quand la couleur dominante est prête -> on recolore poly + flèches
+      getLineColors(line.number).then(([bg, text])=>{
+        lineColor = bg || lineColor;
+        poly.setStyle({color: lineColor});
+        // retirer anciennes flèches puis reposer avec la bonne couleur
+        const toRemove=[];
+        group.eachLayer(l=>{
+          if(l instanceof L.Marker && !l.getPopup){ toRemove.push(l); }
+        });
+        toRemove.forEach(l=> group.removeLayer(l));
+        //placeArrowsAlongPath(pts, lineColor, group);
+      });
+
+      // Arrêts (popup avec badge couleur de la ligne)
+      const stops = route.stopIds.map((id,idx,arr)=>{
+        const st = DBUS_STOPS.get(id); if(!st) return null;
+        const isFirst = (idx===0);
+        const isLast  = (idx===arr.length-1);
+        const title = isFirst ? "Départ" : (isLast ? "Terminus" : "Arrêt");
+
+        // badge par défaut (gris) puis patch couleur lorsque prête
+        const n = String(line.number||"").trim();
+        const html = `
+          <div style="display:flex;align-items:center;gap:16px;min-width:360px">
+            <div>
+              <span class="dbus-badge"
+                    style="display:inline-flex;align-items:center;justify-content:center;
+                           font-weight:800;font-size:22px;background:#444;color:#fff;
+                           text-shadow:none;
+                           padding:6px 14px;border-radius:8px;min-width:48px;text-align:center">${n}</span>
+            </div>
+            <div>
+              <div style="font-weight:700;margin-bottom:6px">${title}</div>
+              <div style="font-size:15px">${st.name}</div>
+            </div>
+          </div>
+        `;
+        const marker = L.circleMarker(st.latlng,{
+          radius:isFirst||isLast ? 10 : 9,
+          fill:true,fillOpacity:1,fillColor:"#ffffff",
+          color:"#000",weight:1,opacity:0.95
+        }).addTo(group).bindPopup(html);
+
+        // Patch badge avec vraie couleur de la ligne
+        getLineColors(n).then(([bg,text])=>{
+          const pop = marker.getPopup();
+          if(!pop) return;
+          const el = pop.getContent();
+          const updated = el
+            .replace("background:#444", `background:${bg}`)
+            .replace("color:#fff", `color:${text}`);
+          if (updated !== el) pop.setContent(updated);
+        });
+
+        return marker;
+      }).filter(Boolean);
+
+      const bundle = {group, poly, stops, pts};
+      dbusRouteLayers.set(key, bundle);
+      return bundle;
+    }
+
+    function hideAllRoutes(){
+      dbusLayers.clearLayers();
+      // coupe toutes les animations en cours
+      routeAnimHandles.forEach(h => h.stop());
+      routeAnimHandles.clear();
+    }
+
+    function showOnlyRoute(lineIdx, line, route){
+      hideAllRoutes();
+      const key = `${line.uid}:${route.uid}`;
+      const existing = dbusRouteLayers.get(key);
+      let bundle;
+
+      if (existing) {
+        // ré-ajoute la couche
+        dbusLayers.addLayer(existing.group);
+        bundle = existing;
+
+        // 🔁 RELANCE L’ANIM SUR LA POLYLINE EXISTANTE
+        if (existing.poly?._path) {
+          startLineAnim(key, existing.poly);
+        } else {
+          // si pas encore dans le DOM, attends l’event 'add'
+          existing.poly.once('add', () => startLineAnim(key, existing.poly));
+        }
+      } else {
+        bundle = drawRoute(lineIdx, line, route); // drawRoute démarre déjà l’anim au premier affichage
+      }
+
+      // centre + zoom sur le départ
+      if(route.stopIds.length){
+        const first = DBUS_STOPS.get(route.stopIds[0]);
+        if(first?.latlng){
+          map.setView(first.latlng, maxNativeZoom - 1);
+          const marker = bundle.stops[0];
+          if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
+        }
+      } else if(bundle?.poly){
+        map.fitBounds(bundle.poly.getBounds(), {maxZoom: maxNativeZoom - 1});
+      }
+      return bundle;
+    }
+
+
+    // Recalcule les flèches au changement de zoom (pour la route affichée)
+    map.on('zoomend', ()=>{
+      if(!currentSelectedKey) return;
+      const bundle = dbusRouteLayers.get(currentSelectedKey);
+      if(!bundle) return;
+      const {group, poly, pts} = bundle;
+      // supprimer anciennes flèches (markers divIcon sans popup)
+      const toRemove=[];
+      group.eachLayer(l=>{
+        if(l instanceof L.Marker && !l.getPopup){ toRemove.push(l); }
+      });
+      toRemove.forEach(l=> group.removeLayer(l));
+      const color = poly.options.color || "#3aa0ff";
+      //placeArrowsAlongPath(pts || poly.getLatLngs(), color, group);
+    });
+
+    /* ===================== UI DBus ===================== */
+    const $btnDbus = document.getElementById("btnDbus");
+    const $panelDbus = document.getElementById("dbusPanel");
+    const $dbusList = document.getElementById("dbusList");
+
+    $btnDbus.addEventListener("click",()=>{
+      $panelDbus.style.display = ($panelDbus.style.display==="block") ? "none" : "block";
+      renderSelectedChip();
+    });
+
+    
+
+    async function initDbusUI(){
+      try{
+        await loadStops();
+        await loadLines();
+      }catch(err){
+        console.error("DBus: chargement échoué", err);
+        return;
+      }
+
+      // "Aucun"
+      $dbusList.innerHTML = "";
+      const none = document.createElement("div");
+      none.className = "dbus-none";
+      none.textContent = "Aucun";
+      none.addEventListener("click", ()=>{
+        currentSelectedKey = "";
+        hideAllRoutes();
+        $dbusList.querySelectorAll(".dbus-item").forEach(it=> it.style.outline="none");
+        renderSelectedChip(); 
+      });
+      $dbusList.appendChild(none);
+
+      // Tri des lignes par numéro croissant
+      DBUS_LINES
+        .slice()
+        .sort((a,b)=> parseInt(a.number,10) - parseInt(b.number,10))
+        .forEach((line, idx)=>{
+          line.routes.forEach(route=>{
+            const item = document.createElement("div");
+            item.className = "dbus-item";
+
+            // Badge : d'abord gris, puis recoloré quand la dominante est prête
+            const badge = makeLineBadge(line.number, "#444", "#fff", "72x32");
+            const title = document.createElement("div");
+            title.className = "rname";
+            title.textContent = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
+
+            item.appendChild(badge);
+            item.appendChild(title);
+
+            // Recolore le badge + mémorise la couleur pour réutiliser sur la carte
+            getLineColors(line.number).then(([bg,text])=>{
+              badge.style.background = bg;
+              badge.style.color = text;
+            });
+
+            item.addEventListener("click", ()=>{
+              // bordure avec la même couleur que la ligne (si dispo)
+              getLineColors(line.number).then(([bg])=>{
+                $dbusList.querySelectorAll(".dbus-item").forEach(it=> it.style.outline="none");
+                item.style.outline = `2px solid ${bg || colorFor(idx)}`;
+              });
+              const key = `${line.uid}:${route.uid}`;
+              currentSelectedKey = key;
+              showOnlyRoute(idx, line, route);
+              renderSelectedChip(); // <= AJOUT
+            });
+
+            $dbusList.appendChild(item);
+          });
+      });
+    }
+    initDbusUI();
+    initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});
+
+    /* ===================== RECHERCHE Villes + Entreprises ===================== */
+    const $search=document.getElementById("search"),$results=document.getElementById("results");
+
+    function renderResults(list){
+      $results.innerHTML="";
+      if(!list.length){$results.hidden=true;return;}
+      list.slice(0,60).forEach(item=>{
+        const div=document.createElement("div");div.className="result-item";
+        if(item.type==="Entreprise" && item.logo){
+          const img=document.createElement("img");
+          img.className="ico"; img.src=item.logo; img.alt="";
+          div.appendChild(img);
+        }
+        const label=item.city?`${item.name} — ${item.city}`:item.name;
+        const span=document.createElement("div");
+        span.className="result-text"; span.textContent = label;
+        div.appendChild(span);
+
+        div.addEventListener("click",()=>{
+          $results.hidden=true;
+          map.setView(item.center, Math.max(map.getZoom(), minNativeZoom+4));
+          if(item.open) setTimeout(()=>item.open(),150);
+        });
+        $results.appendChild(div);
+      });
+      $results.hidden=false;
+    }
+    function doSearch(q){
+      q=(q||"").trim().toLowerCase();
+      if(!q){renderResults([]);return;}
+      const allowed=new Set(["Ville","Entreprise"]);
+      const res=searchIndex
+        .filter(it=> allowed.has(it.type) && [it.type,it.name,it.city].join(" ").toLowerCase().includes(q))
+        .sort((a,b)=> (a.type==="Ville"?0:1)-(b.type==="Ville"?0:1) || a.name.localeCompare(b.name));
+      renderResults(res);
+    }
+    $search.addEventListener("input",e=>doSearch(e.target.value));
+    $search.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const first=$results.querySelector(".result-item"); if(first) first.click(); }});
+  </script>
+</body>
+</html>

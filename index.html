@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>1</title>
+  <title>2</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     html,body {
@@ -21,8 +21,8 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const minNativeZoom = 0;   // premier dossier dans /Tiles/
-    const maxNativeZoom = 8;   // dernier dossier dans /Tiles/
+    const minNativeZoom = 0;
+    const maxNativeZoom = 8;
     const tileSize = 256;
 
     const TILE_BASE = "./Tiles";
@@ -37,7 +37,6 @@
       maxZoom: maxNativeZoom + 4
     });
 
-    // limites en pixels
     const southWest = L.point(0, heightPx);
     const northEast = L.point(widthPx, 0);
     const bounds = L.latLngBounds(

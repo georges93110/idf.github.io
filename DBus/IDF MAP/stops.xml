@@ -1,0 +1,459 @@
+<busstops>
+
+	<busstop>
+		<id>1</id>
+		<name>Le Raincy</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>5210.3;2.19014;-3939.2;-1.71635;-0.0866092</location>
+	</busstop>
+
+	<busstop>
+		<id>2</id>
+		<name>Rungis</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-6971.03;22.1368;6015.75;-2.88634;-0.0871518</location>
+	</busstop>
+
+	<busstop>
+		<id>3</id>
+		<name>Paris bercy</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-4938.21;5.52418;1224.94;-1.08005;-0.391882</location>
+	</busstop>
+
+	<busstop>
+		<id>4</id>
+		<name>Collégien</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>14066.8;16.9306;1146.6;2.90125;-0.121409</location>
+	</busstop>
+
+	<busstop>
+		<id>5</id>
+		<name>Ferrières-en-Brie</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>16382.8;11.3711;920.595;-1.62979;-0.121918</location>
+	</busstop>
+
+	<busstop>
+		<id>6</id>
+		<name>Disneyland Paris</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>22300.1;9.35754;-1775.74;-0.380015;-0.12224</location>
+	</busstop>
+
+	<busstop>
+		<id>7</id>
+		<name>Plateau d'Avron - Pl. de Stalingrad</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>5250.85;49.3088;-2390.76;2.55004;-0.0863685</location>
+	</busstop>
+
+	<busstop>
+		<id>8</id>
+		<name>Parmentier</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4889.59;39.7483;-2435.35;0.52075;-0.0897256</location>
+	</busstop>
+
+	<busstop>
+		<id>9</id>
+		<name>Marcel Douret</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4876.91;32.5292;-2753.2;-0.350741;-0.131503</location>
+	</busstop>
+
+	<busstop>
+		<id>10</id>
+		<name>Hoche</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>5083.59;2.13098;-3083.22;-0.836208;-0.0872268</location>
+	</busstop>
+
+	<busstop>
+		<id>11</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4971.7;2.11832;-3367.21;0.518554;-0.0865941</location>
+	</busstop>
+
+	<busstop>
+		<id>12</id>
+		<name>Général Leclerc</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>5095.82;2.13956;-3567.56;-0.109002;-0.087571</location>
+	</busstop>
+
+	<busstop>
+		<id>13</id>
+		<name>Général Leclerc</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4850.46;2.3499;-3717.23;2.06485;-0.0941742</location>
+	</busstop>
+
+	<busstop>
+		<id>14</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4916.78;2.21024;-3412.98;-2.62502;-0.0873546</location>
+	</busstop>
+
+	<busstop>
+		<id>15</id>
+		<name>Gallieni - Le Raincy - Villemomble - Montfermeil RER</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>5040.1;1.76222;-3979.36;1.24803;-0.0869014</location>
+	</busstop>
+
+	<busstop>
+		<id>16</id>
+		<name>Marius Gonin</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4873;1.7582;-4096.42;0.929861;-0.0870536</location>
+	</busstop>
+
+	<busstop>
+		<id>17</id>
+		<name>Villemomble - Les Coquetiers</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>4730.13;1.76782;-4202.09;0.936898;-0.0869664</location>
+	</busstop>
+
+	<busstop>
+		<id>18</id>
+		<name>Allée de la Tour</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4889.64;1.77223;-4505.38;-0.617921;-0.086953</location>
+	</busstop>
+
+	<busstop>
+		<id>19</id>
+		<name>Marius Gonin</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4858.5;1.76392;-4099.25;-2.21185;-0.0868089</location>
+	</busstop>
+
+	<busstop>
+		<id>20</id>
+		<name>Gallieni - Le Raincy - Villemomble - Montfermeil RER</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>5091.11;1.76156;-3959.54;-1.87711;-0.0869669</location>
+	</busstop>
+
+	<busstop>
+		<id>21</id>
+		<name>Le Raincy - Villemomble - Montfermeil RER</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>5018.89;1.79358;-3872.72;2.17142;-0.0868</location>
+	</busstop>
+
+	<busstop>
+		<id>22</id>
+		<name>Le Raincy - Villemomble - Montfermeil RER</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>5112.58;1.84837;-3820.91;-0.00398472;-0.0875897</location>
+	</busstop>
+
+	<busstop>
+		<id>23</id>
+		<name>Château de Vincennes</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-770.61;16.9386;489.537;1.58366;-0.0871042</location>
+	</busstop>
+
+	<busstop>
+		<id>24</id>
+		<name>Parc Floral</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-1008.46;17.0384;908.378;-3.12117;-0.0874472</location>
+	</busstop>
+
+	<busstop>
+		<id>25</id>
+		<name>Centre Commercial</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-3834.23;11.58;2380.89;-2.31464;-0.0877473</location>
+	</busstop>
+
+	<busstop>
+		<id>26</id>
+		<name>Pont National - Quai de Bercy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4268.4;10.6186;2078.56;1.398;-0.116528</location>
+	</busstop>
+
+	<busstop>
+		<id>27</id>
+		<name>Bastille</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-5000.76;17.7277;-358.333;-0.951786;-0.089472</location>
+	</busstop>
+
+	<busstop>
+		<id>28</id>
+		<name>Val de Fontenay - RER</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>2542.41;2.42486;81.805;-3.09936;-0.0868177</location>
+	</busstop>
+
+	<busstop>
+		<id>29</id>
+		<name>Rosny 2 Nord</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>2617.65;1.22927;-3541.86;1.71902;-0.087565</location>
+	</busstop>
+
+	<busstop>
+		<id>30</id>
+		<name>Rosny 2 Nord</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>2976.92;3.87429;-3611.54;-1.43002;-0.0963531</location>
+	</busstop>
+
+	<busstop>
+		<id>31</id>
+		<name>Bois-Perrier Nord</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3238.22;2.20306;-3617.28;-1.73333;-0.0870311</location>
+	</busstop>
+
+	<busstop>
+		<id>32</id>
+		<name>Les Marnaudes</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3393.77;2.16774;-3582.36;-1.74326;-0.0877025</location>
+	</busstop>
+
+	<busstop>
+		<id>33</id>
+		<name>Cimetière de Villemomble</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3932.71;2.13464;-3536.44;-1.33996;-0.0878132</location>
+	</busstop>
+
+	<busstop>
+		<id>34</id>
+		<name>Meissonier</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4221.05;2.1347;-3635.7;-1.48942;-0.0876041</location>
+	</busstop>
+
+	<busstop>
+		<id>35</id>
+		<name>Avenue du Raincy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4777.8;2.14752;-3578.63;-2.12069;-0.0865133</location>
+	</busstop>
+
+	<busstop>
+		<id>36</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>4927.99;2.1742;-3392.94;-2.60599;-0.0884095</location>
+	</busstop>
+
+	<busstop>
+		<id>37</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>4988.21;2.18845;-3434.38;-1.0284;-0.0870701</location>
+	</busstop>
+
+	<busstop>
+		<id>38</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>4963.33;2.13514;-3381.08;0.552391;-0.0866521</location>
+	</busstop>
+
+	<busstop>
+		<id>39</id>
+		<name>Avenue du Raincy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>4535.48;2.14928;-3622.51;1.44781;-0.0865802</location>
+	</busstop>
+
+	<busstop>
+		<id>40</id>
+		<name>Cimetière de Villemomble</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3890.98;2.13753;-3621.45;1.57268;-0.0875621</location>
+	</busstop>
+
+	<busstop>
+		<id>41</id>
+		<name>Les Marnaudes</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3431.52;2.1496;-3594.96;1.5482;-0.0866913</location>
+	</busstop>
+
+	<busstop>
+		<id>42</id>
+		<name>Bois-Perrier Nord</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>3176.22;2.19519;-3639.43;1.56498;-0.0870707</location>
+	</busstop>
+
+	<busstop>
+		<id>43</id>
+		<name>Château de Villemomble</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>4973.44;2.11361;-3364.13;0.537476;-0.0865373</location>
+	</busstop>
+
+	<busstop>
+		<id>44</id>
+		<name>Terroirs de France</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-4598.04;17.6834;1682.51;1.97986;-0.0864023</location>
+	</busstop>
+
+	<busstop>
+		<id>45</id>
+		<name>Terroirs de France</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-4472.25;17.6117;1637.35;-1.0704;-0.0872003</location>
+	</busstop>
+
+	<busstop>
+		<id>46</id>
+		<name>Centre Commercial</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-3883.79;11.2146;2399.91;0.805664;-0.0880428</location>
+	</busstop>
+
+	<busstop>
+		<id>47</id>
+		<name>Gare de Lyon - Maison de la RATP</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-5065.21;17.2751;445.212;-2.84649;-0.0870225</location>
+	</busstop>
+
+	<busstop>
+		<id>48</id>
+		<name>Ministère de l'Economie et des Finances</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-5004.23;17.2455;709.681;2.85342;-0.0870194</location>
+	</busstop>
+
+	<busstop>
+		<id>49</id>
+		<name>Bercy-Arena</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4878.24;17.3621;949.563;2.68471;-0.087508</location>
+	</busstop>
+
+	<busstop>
+		<id>50</id>
+		<name>Dijon-Lachambeaudie</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4788.49;17.2981;1230.53;-0.888613;-0.087272</location>
+	</busstop>
+
+	<busstop>
+		<id>51</id>
+		<name>Baron le Roy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4517.73;17.2538;1484.15;-2.61372;-0.0878579</location>
+	</busstop>
+
+	<busstop>
+		<id>52</id>
+		<name>Baron le Roy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4565.48;17.2545;1401.53;0.58022;-0.0875692</location>
+	</busstop>
+
+	<busstop>
+		<id>53</id>
+		<name>Lachambeaudie</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4850.05;17.4883;1165.46;0.574926;-0.0879224</location>
+	</busstop>
+
+	<busstop>
+		<id>54</id>
+		<name>Bercy-Arena</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4831.52;17.6349;975.114;0.166164;-0.0865596</location>
+	</busstop>
+
+	<busstop>
+		<id>55</id>
+		<name>Gare de Bercy</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4933.58;17.3062;871.695;1.14333;-0.0928477</location>
+	</busstop>
+
+	<busstop>
+		<id>56</id>
+		<name>Ministère de l'Economie et des Finances</name>
+		<zone></zone>
+		<requestStop>true</requestStop>
+		<location>-4994.53;17.2387;696.87;-0.183854;-0.0874926</location>
+	</busstop>
+
+	<busstop>
+		<id>57</id>
+		<name>Gare de Lyon</name>
+		<zone></zone>
+		<requestStop>false</requestStop>
+		<location>-5042.91;17.2741;496.659;0.30744;-0.0870154</location>
+	</busstop>
+
+</busstops>

@@ -1,0 +1,192 @@
+<lines map_type="other">
+
+	<line uid="0" number="IDF" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="IDF: Marché International de Rungis > Le Raincy - Villemomble - Montfermeil RER">
+
+					<busstop uid="2" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="10" nextStopPrice="0"/>
+					<busstop uid="28" passengersMin="0" passengersMax="30" coefOn="75" nextStopTime="5" nextStopPrice="0"/>
+					<busstop uid="1" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="IDF: Le Raincy - Villemomble - Montfermeil RER > Marché International de Rungis">
+					<busstop uid="1" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="10" nextStopPrice="0"/>
+					<busstop uid="28" passengersMin="0" passengersMax="30" coefOn="75" nextStopTime="5" nextStopPrice="0"/>
+					<busstop uid="2" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+
+			<route uid="3" name="IDF: Château de Vincennes > Bastille">
+
+					<busstop uid="23" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="5" nextStopPrice="0"/>
+					<busstop uid="25" passengersMin="0" passengersMax="30" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="26" passengersMin="0" passengersMax="30" coefOn="25" nextStopTime="3" nextStopPrice="0"/>
+					<busstop uid="27" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="4" name="IDF: Bastille > Château de Vincennes">
+
+					<busstop uid="27" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="5" nextStopPrice="0"/>
+					<busstop uid="25" passengersMin="0" passengersMax="30" coefOn="75" nextStopTime="3" nextStopPrice="0"/>
+					<busstop uid="24" passengersMin="0" passengersMax="30" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="23" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+	</line>
+
+	<line uid="1" number="FLIXBUS" adultCoef="75" reducedRate="15" city="false">
+
+			<route uid="1" name="FLIXBUS: Paris Bercy > Disneyland Paris">
+
+					<busstop uid="3" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="20" nextStopPrice="30"/>
+					<busstop uid="4" passengersMin="0" passengersMax="30" coefOn="90" nextStopTime="5" nextStopPrice="30"/>
+					<busstop uid="5" passengersMin="0" passengersMax="30" coefOn="60" nextStopTime="10" nextStopPrice="30"/>
+					<busstop uid="6" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="FLIXBUS: Disneyland Paris > Paris Bercy">
+					<busstop uid="6" passengersMin="0" passengersMax="30" coefOn="100" nextStopTime="10" nextStopPrice="30"/>
+					<busstop uid="5" passengersMin="0" passengersMax="30" coefOn="60" nextStopTime="5" nextStopPrice="30"/>
+					<busstop uid="4" passengersMin="0" passengersMax="30" coefOn="90" nextStopTime="20" nextStopPrice="30"/>
+					<busstop uid="3" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+	<line uid="2" number="114" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="114: Plateau d'Avron - Pl. de Stalingrad > Le Raincy - Villemomble - Montfermeil RER">
+
+					<busstop uid="7" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="8" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="9" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="10" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="11" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="12" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="22" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="114: Le Raincy - Villemomble - Montfermeil RER > Plateau d'Avron - Pl. de Stalingrad">
+					<busstop uid="21" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="13" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="14" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="7" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+
+			<route uid="3" name="114: Plateau d'Avron - Pl. de Stalingrad > Villemomble - Les Coquetiers">
+
+					<busstop uid="7" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="8" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="9" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="10" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="11" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="12" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="22" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="15" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="16" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="17" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="4" name="114: Villemomble - Les Coquetiers > Plateau d'Avron - Pl. de Stalingrad">
+			        <busstop uid="17" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="18" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="19" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="20" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="21" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="13" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="14" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="7" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+	<line uid="3" number="121" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="121: Château de Villemomble > Bois-Perrier Nord">
+
+					<busstop uid="38" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="39" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="40" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="41" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="42" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="121: Bois-Perrier Nord > Château de Villemomble">
+					<busstop uid="31" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="32" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="33" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="34" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="35" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="37" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+	<line uid="4" number="221" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="221: Château de Villemomble > Rosny 2 Nord">
+
+					<busstop uid="43" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="39" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="40" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="42" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="29" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="221: Rosny 2 Nord > Château de Villemomble">
+					<busstop uid="30" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="31" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="33" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="34" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="35" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="36" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+	<line uid="5" number="109" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="109: Terroirs de France > Centre Commercial">
+
+					<busstop uid="44" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="25" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="109: Centre Commercial > Terroirs de France">
+					<busstop uid="46" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="26" passengersMin="0" passengersMax="50" coefOn="25" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="45" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+	<line uid="6" number="24" adultCoef="75" reducedRate="15" city="true">
+
+			<route uid="1" name="24: Gare de Lyon - Maison de la RATP > Centre Commercial">
+
+					<busstop uid="47" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="48" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="49" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="50" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="51" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="44" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="2" nextStopPrice="0"/>
+					<busstop uid="25" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+
+			</route>
+
+			<route uid="2" name="24: Centre Commercial > Gare de Lyon">
+					<busstop uid="46" passengersMin="0" passengersMax="50" coefOn="100" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="26" passengersMin="0" passengersMax="50" coefOn="25" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="45" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="52" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="53" passengersMin="0" passengersMax="50" coefOn="50" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="54" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="55" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="56" passengersMin="0" passengersMax="50" coefOn="75" nextStopTime="1" nextStopPrice="0"/>
+					<busstop uid="57" passengersMin="0" passengersMax="0" coefOn="0" nextStopTime="0" nextStopPrice="0"/>
+			</route>
+	</line>
+
+</lines>

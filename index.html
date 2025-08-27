@@ -37,6 +37,12 @@
     .result-item:hover{background:#101926}
     .result-item img.ico{width:var(--logoW);height:var(--logoH);flex:0 0 auto;border-radius:6px;object-fit:contain}
     .result-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;line-height:1.2}
+    .result-empty{
+      padding:10px 12px;
+      color:var(--muted);
+      font-size:14px;
+      border-bottom:1px solid #1f2732;
+    }
 
     .dbus-panel{margin-top:6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);display:none;max-height:62vh;overflow:auto}
     .dbus-header{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:13px}
@@ -50,7 +56,7 @@
     .dbus-sec{margin:8px 6px 4px}
     .dbus-sec h4{
       margin:10px 6px 6px;
-      color:var(--muted);
+      color:#a7b2c9;
       font-size:12px;
       font-weight:700;
       letter-spacing:.04em;
@@ -129,16 +135,16 @@
     .stop{
       position:relative;
       display:flex; flex-direction:column; align-items:center;
-      flex:0 0 auto;                 
+      flex:0 0 auto;
       box-sizing:border-box;
       padding-top:calc(var(--rail-h) - var(--dot)/2);
-      margin:0 calc(var(--gap)/2);   
+      margin:0 calc(var(--gap)/2);
     }
 
     .segment{
       height:4px;
-      flex:1 0 60px;   
-      min-width:120px;  
+      flex:1 0 60px;
+      min-width:120px;
       background:var(--lineColor);
       margin-top:calc(var(--rail-h)/2 - 2px);
       border-radius:2px;
@@ -158,9 +164,9 @@
       margin-top:8px;
       font-weight:700;
       height:var(--nameH);
-      white-space:nowrap;        
-      overflow:visible;          
-      text-overflow:clip;       
+      white-space:nowrap;
+      overflow:visible;
+      text-overflow:clip;
     }
 
     .stop .name .inline-ico{ height:1em; vertical-align:-.2em; }
@@ -183,39 +189,36 @@
     .results::-webkit-scrollbar,
     .dbus-panel::-webkit-scrollbar,
     .transit-scroll::-webkit-scrollbar {
-      width: 10px;            
-      height: 10px;           
+      width: 10px;
+      height: 10px;
     }
-
     .results::-webkit-scrollbar-track,
     .dbus-panel::-webkit-scrollbar-track,
     .transit-scroll::-webkit-scrollbar-track {
-      background: var(--panel2);  
+      background: var(--panel2);
       border-radius: 8px;
     }
-
     .results::-webkit-scrollbar-thumb,
     .dbus-panel::-webkit-scrollbar-thumb,
     .transit-scroll::-webkit-scrollbar-thumb {
-      background: var(--muted);   
+      background: var(--muted);
       border-radius: 8px;
       border: 2px solid var(--panel2);
     }
-
     .results::-webkit-scrollbar-thumb:hover,
     .dbus-panel::-webkit-scrollbar-thumb:hover,
     .transit-scroll::-webkit-scrollbar-thumb:hover {
-      background: var(--text);     
+      background: var(--text);
     }
-
     .results,
     .dbus-panel,
     .transit-scroll {
-      scrollbar-width: thin;                       
-      scrollbar-color: var(--muted) var(--panel2); 
+      scrollbar-width: thin;
+      scrollbar-color: var(--muted) var(--panel2);
     }
-
+    
   </style>
+  
 </head>
 <body>
   <div id="map"></div>
@@ -275,6 +278,51 @@
     const OY = parseFloat(QS.get('oy') ?? '0');
     const SX = parseFloat(QS.get('sx') ?? '1');
     const SY = parseFloat(QS.get('sy') ?? '1');
+    
+    const $search = document.getElementById("search");
+    const $results = document.getElementById("results");
+
+    let _resIdx = -1;
+    function highlightResult(i){
+      const items=[...$results.querySelectorAll('.result-item')];
+      items.forEach((el,idx)=> el.style.background = idx===i ? "#101926" : "");
+    }
+    $search.addEventListener('keydown', e=>{
+      const items=[...$results.querySelectorAll('.result-item')];
+      if(!items.length) return;
+      if(e.key==="ArrowDown"){ e.preventDefault(); _resIdx=Math.min(_resIdx+1, items.length-1); highlightResult(_resIdx); }
+      if(e.key==="ArrowUp"){ e.preventDefault(); _resIdx=Math.max(_resIdx-1, 0); highlightResult(_resIdx); }
+      if(e.key==="Enter" && _resIdx>=0){ items[_resIdx].click(); }
+    });
+
+    window.addEventListener('keydown', e=>{
+      if(document.getElementById("linePreviewWrap")?.style.display!=="block") return;
+      if(!currentSelectedKey) return;
+      const route = (()=> {
+        const [lu,ru]=currentSelectedKey.split(":");
+        const line=DBUS_LINES.find(l=>l.uid===lu); if(!line) return null;
+        return line.routes.find(r=>r.uid===ru);
+      })();
+      if(!route) return;
+
+      const ids=route.stopIds;
+      const idx = ids.indexOf(currentActiveStopId);
+      if(e.key==="ArrowRight" && idx>=0 && idx<ids.length-1){
+        const nextId = ids[idx+1];
+        const st=DBUS_STOPS.get(nextId);
+        if(st?.latlng) centerWithPreview(st.latlng);
+        setTimeout(()=> dbusRouteLayers.get(currentSelectedKey)?.stops?.[idx+1]?.openPopup?.(), 120);
+        setActiveStopById(nextId);
+      }
+      if(e.key==="ArrowLeft" && idx>0){
+        const prevId = ids[idx-1];
+        const st=DBUS_STOPS.get(prevId);
+        if(st?.latlng) centerWithPreview(st.latlng);
+        setTimeout(()=> dbusRouteLayers.get(currentSelectedKey)?.stops?.[idx-1]?.openPopup?.(), 120);
+        setActiveStopById(prevId);
+      }
+    });
+
 
     function applyXY(x, y){ return { x: x * SX + OX, y: y * SY + OY }; }
     function toLatLng(X,Y){
@@ -287,9 +335,7 @@
     if (transitScroll) {
       transitScroll.addEventListener("wheel", function (e) {
         if (e.shiftKey) return;
-
         e.preventDefault();
-
         transitScroll.scrollLeft += e.deltaY;
       }, { passive: false });
     }
@@ -297,6 +343,11 @@
     const cityLayer=L.layerGroup().addTo(map);
     const cityMarkers=[],searchIndex=[];
     let selectedCityMarker = null;
+
+    const $btnDbus = document.getElementById("btnDbus");
+    const $panelDbus = document.getElementById("dbusPanel");
+    const $dbusList = document.getElementById("dbusList");
+    const $selectedChip = document.getElementById("selectedChip");
 
     function wikiTitleForCity(name){
       const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème)?$/i.exec(name.trim());
@@ -356,7 +407,7 @@
         .setContent(`<b>${cityObj.Name}</b><br><i>Chargement...</i>`).openOn(map);
       try {
         const { title: finalTitle, data } = await (async function resolveWikiSummary(baseTitle){
-          try { 
+          try {
             const d0 = await fetchWikiSummary(baseTitle);
             if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
           } catch {}
@@ -418,6 +469,26 @@
       for(const p of list){ const dx = pt.x - p.x, dy = pt.y - p.y; if (Math.hypot(dx, dy) < minPx) return true; }
       list.push({x: pt.x, y: pt.y}); _placedByIcon.set(iconId, list); return false;
     }
+
+    const homeBtn = L.control({ position: 'topleft' });
+
+    homeBtn.onAdd = function(map) {
+      const container = L.DomUtil.create('div', 'leaflet-bar leaflet-custom-home');
+      const link = L.DomUtil.create('a', 'home-btn', container);
+      link.innerHTML = '⟲'; 
+      link.href = '#';
+      link.title = 'Revenir à la vue initiale';
+
+      L.DomEvent.on(link, 'click', (e) => {
+        L.DomEvent.stop(e);
+        map.fitBounds(innerBounds(MARGIN), { animate: true });
+        history.replaceState(null, "", location.pathname);
+      });
+
+      return container;
+    };
+
+    homeBtn.addTo(map);
 
     const ICON_NAMES = {
       "viewpoint": "Cinématique",
@@ -482,6 +553,54 @@
             .addTo(map).bindPopup(`<b>${label}</b>`);
         }
       });
+    });
+
+    function updateUrlFromMap() {
+      if (!TileMapInfo) return; 
+      const center = map.getCenter();
+      const zoom   = map.getZoom();
+      const pt     = map.project(center, maxNativeZoom);
+
+      const X = TileMapInfo.x1 + (pt.x / widthPx)  * (TileMapInfo.x2 - TileMapInfo.x1);
+      const Y = TileMapInfo.y1 + (pt.y / heightPx) * (TileMapInfo.y2 - TileMapInfo.y1);
+
+      const qs = new URLSearchParams(location.search);
+      qs.set("x", String(Math.round(X)));
+      qs.set("y", String(Math.round(Y)));
+      qs.set("z", String(zoom));
+
+      history.replaceState(null, "", location.pathname + "?" + qs.toString());
+    }
+
+    map.on("moveend zoomend", updateUrlFromMap);
+
+    function applyInitialView() {
+      const qs = new URLSearchParams(location.search);
+      const x = parseFloat(qs.get("x"));
+      const y = parseFloat(qs.get("y"));
+      const z = parseFloat(qs.get("z"));
+
+      if (Number.isFinite(x) && Number.isFinite(y)) {
+        const ll = toLatLng(x, y);
+
+        const ib = innerBounds(MARGIN);
+        const clamped = L.latLng(
+          Math.max(Math.min(ll.lat, ib.getNorth()), ib.getSouth()),
+          Math.max(Math.min(ll.lng, ib.getEast()),  ib.getWest())
+        );
+
+        const targetZoom = Number.isFinite(z)
+          ? Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), z))
+          : map.getZoom();
+
+        map.setView(clamped, targetZoom, { animate: false });
+      }
+    }
+
+    tileInfoReady.then(() => {
+      applyInitialView();
+      map.on("moveend zoomend", updateUrlFromMap);
+      updateUrlFromMap();
     });
 
     const routeAnimHandles = new Map();
@@ -611,14 +730,14 @@
 
     function cleanRERLabel(label){
       return String(label ?? "")
-        .replace(/\s*[-–—]\s*RER\b/gi, " RER"); 
+        .replace(/\s*[-–—]\s*RER\b/gi, " RER");
     }
 
     function withRERIconInStop(text){
-        const esc = escapeHTML(text ?? "");
-        return esc.replace(/\s*[–—-]?\s*RER\s*[–—-]?\s*/gi,
-          ' <span class="rer-ico" aria-label="RER"></span> ');
-      }
+      const esc = escapeHTML(text ?? "");
+      return esc.replace(/\s*[–—-]?\s*RER\s*[–—-]?\s*/gi,
+        ' <span class="rer-ico" aria-label="RER"></span> ');
+    }
 
     function splitRouteEndpoints(routeTitle){
       const s = decodeHTML(String(routeTitle || "").trim());
@@ -679,12 +798,14 @@
           fillColor: "#ffffff", color: "#000", weight: 1, opacity: 0.95
         }).addTo(group).bindPopup(L.popup({ maxWidth: 420, autoPan: true }).setContent(html));
 
-        marker.on('click', ()=>{
+        marker.on('click', ()=> {
           const stObj = DBUS_STOPS.get(id);
-          if (stObj?.latlng) centerWithPreview(stObj.latlng);
+          if (stObj?.latlng) centerWithPreview(stObj.latlng, { zoom: map.getZoom() });
         });
 
         marker.on('popupopen', ()=>{
+          const stObj = DBUS_STOPS.get(id);
+          if (stObj?.latlng) centerWithPreview(stObj.latlng);
           setActiveStopById(id);
         });
 
@@ -711,7 +832,7 @@
       dbusLayers.clearLayers();
       routeAnimHandles.forEach(h => h.stop());
       routeAnimHandles.clear();
-      hideLinePreview(); 
+      hideLinePreview();
       clearActiveStop()
     }
 
@@ -733,19 +854,16 @@
       if(route.stopIds.length){
         const first = DBUS_STOPS.get(route.stopIds[0]);
         if(first?.latlng){
-          centerWithPreview(first.latlng, { zoom: Math.max(map.getZoom(), maxNativeZoom + 1) });
+          centerWithPreview(first.latlng, { zoom: map.getZoom() }); // ← zoom inchangé
           const marker = bundle.stops[0];
           if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
         }
       } else if(bundle?.poly){
-        map.fitBounds(bundle.poly.getBounds(), {maxZoom: maxNativeZoom - 1});
+        const center = bundle.poly.getBounds().getCenter();
+        centerWithPreview(center, { zoom: map.getZoom() });
       }
 
-      function clearActiveStop(){
-        PREVIEW_STOP_ELEMS.forEach(({el})=> el.classList.remove('active'));
-      }
       renderLinePreview(line, route);
-
       return bundle;
     }
 
@@ -763,26 +881,43 @@
       PREVIEW_STOP_ELEMS.forEach(({el})=> el.classList.remove('active'));
       const rec = PREVIEW_STOP_ELEMS.get(stopId);
       if (rec?.el) rec.el.classList.add('active');
-      currentActiveStopId = stopId;             
+      currentActiveStopId = stopId;
       if (rec?.el?.scrollIntoView) {
         rec.el.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
       }
     }
-    
+
     function centerWithPreview(latlng, { zoom = null } = {}) {
-      const z = (zoom == null) ? map.getZoom() : zoom;
+      const targetZoom = zoom ?? map.getZoom();
 
       const paneH = document.getElementById('linePreview')?.offsetHeight || 0;
       const offsetY = Math.round(paneH / 2);
 
-      const p = map.project(latlng, z);
-      const targetCenterPt = L.point(p.x, p.y + offsetY);
-      const targetCenterLL = map.unproject(targetCenterPt, z);
+      const p = map.project(latlng, targetZoom);
+      let targetPt = L.point(p.x, p.y + offsetY);
 
-      map.setView(targetCenterLL, z, { animate: true });
+      const ib = innerBounds(MARGIN);
+      const sw = map.project(ib.getSouthWest(), targetZoom);
+      const ne = map.project(ib.getNorthEast(), targetZoom);
+      targetPt = L.point(
+        Math.min(Math.max(targetPt.x, sw.x), ne.x),
+        Math.min(Math.max(targetPt.y, ne.y), sw.y)
+      );
 
+      const targetLL = map.unproject(targetPt, targetZoom);
+
+      const prevInertia = map.options.inertia;
+      map.options.inertia = false;
+      map.setView(targetLL, targetZoom, { animate: true });
       map.once('moveend', () => {
-        try { map.panInsideBounds(innerBounds(MARGIN), { animate: true }); } catch {}
+        try {
+          map.options.inertia = prevInertia;
+          const now = map.getCenter();
+          const nowP = map.project(now, targetZoom);
+          if (nowP.distanceTo(targetPt) > 2) {
+            map.setView(targetLL, targetZoom, { animate: false });
+          }
+        } catch {}
       });
     }
 
@@ -809,11 +944,9 @@
       getLineColors(line.number).then(([bg, text]) => {
         badge.style.background = bg;
         badge.style.color = text;
-
         if (transit) transit.style.setProperty('--lineColor', bg);
       }).catch(()=>{});
 
-      
       transit.innerHTML = "";
       const ids = route.stopIds.slice();
       ids.forEach((id, idx) => {
@@ -839,7 +972,8 @@
           const stObj = DBUS_STOPS.get(id);
           if (stObj?.latlng) centerWithPreview(stObj.latlng);
 
-          if (mk?.openPopup) mk.openPopup();
+          setTimeout(()=> { if (mk?.openPopup) mk.openPopup(); }, 120);
+
           if (pop) pop.options.autoPan = true;
 
           setActiveStopById(id);
@@ -875,13 +1009,33 @@
       renderSelectedChip();
     });
 
-    const $btnDbus = document.getElementById("btnDbus");
-    const $panelDbus = document.getElementById("dbusPanel");
-    const $dbusList = document.getElementById("dbusList");
-    const $selectedChip = document.getElementById("selectedChip");
+    function openDbusPanel() {
+      closeSearchUI({ reset: true });
+      $panelDbus.style.display = 'block';
+      $btnDbus?.setAttribute('aria-expanded','true');
+    }
+    function closeDbusPanel() {
+      $panelDbus.style.display = 'none';
+      $btnDbus?.setAttribute('aria-expanded','false');
+    }
+    function isDbusOpen() {
+      return $panelDbus.style.display === 'block';
+    }
+    function openSearchUI() {
+      closeDbusPanel();
+      $results.hidden = false;
+    }
+    function closeSearchUI({ reset = false } = {}) {
+      if (reset) $search.value = '';
+      renderResults([]); 
+      $results.hidden = true;
+      $search.blur();
+    }
+    function isSearchOpen(){ return !$results.hidden; }
 
-    $btnDbus.addEventListener("click",()=>{
-      $panelDbus.style.display = ($panelDbus.style.display==="block") ? "none" : "block";
+    $btnDbus.addEventListener('click', () => {
+      if (isDbusOpen()) closeDbusPanel();
+      else openDbusPanel();
       renderSelectedChip();
     });
 
@@ -893,13 +1047,11 @@
     }
 
     function isNumericOnly(s){ return /^\d+$/.test(String(s||"").trim()); }
-
     function isFlix(line){
       const num = String(line.number||"").toLowerCase();
       if (num.includes("flix")) return true;
       return (line.routes||[]).some(r => String(r.name||"").toLowerCase().includes("flix"));
     }
-
     function getCategory(line){
       if (isFlix(line))               return "FlixBus";
       if (isNumericOnly(line.number)) return "Urbain";
@@ -917,102 +1069,100 @@
 
       $dbusList.innerHTML = "";
 
-    const none = document.createElement("div");
-    none.className = "dbus-none";
-    none.textContent = "Aucune";
-    none.addEventListener("click", ()=>{
-      currentSelectedKey = "";
-      hideAllRoutes();
-      hideLinePreview();
-      $dbusList.querySelectorAll(".dbus-item").forEach(it=> it.classList.remove("active"));
-      renderSelectedChip();
-    });
-    $dbusList.appendChild(none);
-
-    function getCategory(line){
-      if (isFlix(line))               return "FlixBus";
-      if (isNumericOnly(line.number)) return "Urbain";
-      return "Autres";
-    }
-
-    const buckets = {
-      "Urbain": [],
-      "FlixBus": [],
-      "Autres": []
-    };
-
-    DBUS_LINES.forEach(line => {
-      const cat = getCategory(line);
-      buckets[cat].push(line);
-    });
-
-    buckets["Urbain"].sort((a,b)=> (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0));
-    buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
-    buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
-
-    function renderSection(title, lines){
-      if (!lines.length) return;
-      const sec = document.createElement("div");
-      sec.className = "dbus-sec";
-      sec.innerHTML = `<h4>${title}</h4>`;
-      $dbusList.appendChild(sec);
-
-      lines.forEach((line, idxBase)=>{
-        line.routes.forEach(route=>{
-          const item = document.createElement("div");
-          item.className = "dbus-item";
-
-          const badge = makeLineBadge(line.number, "#444", "#fff", "72x32");
-          const titleEl = document.createElement("div");
-          titleEl.className = "rname";
-          const raw = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
-          titleEl.innerHTML = withRERIcon(raw);
-
-          item.appendChild(badge);
-          item.appendChild(titleEl);
-
-          getLineColors(line.number).then(([bg,text])=>{ badge.style.background = bg; badge.style.color = text; });
-
-          item.addEventListener("click", ()=>{
-            $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
-              it.classList.remove("active");
-              it.style.outline = "none";
-            });
-            item.classList.add("active");
-            getLineColors(line.number).then(([bg])=>{
-              item.style.outline = `2px solid ${bg || colorFor(idxBase)}`;
-            });
-
-            const key = `${line.uid}:${route.uid}`;
-            currentSelectedKey = key;
-            showOnlyRoute(idxBase, line, route);
-            renderSelectedChip();
-
-            $panelDbus.style.display = "none";
-          });
-
-          $dbusList.appendChild(item);
+      const none = document.createElement("div");
+      none.className = "dbus-none";
+      none.textContent = "Aucune";
+      none.addEventListener("click", ()=>{
+        currentSelectedKey = "";
+        hideAllRoutes();
+        hideLinePreview();
+        $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
+          it.classList.remove("active");
+          it.style.outline = "none";
         });
+        renderSelectedChip();
       });
-    }
+      $dbusList.appendChild(none);
 
-    renderSection("Urbain",  buckets["Urbain"]);
-    renderSection("FlixBus", buckets["FlixBus"]);
-    renderSection("Autres",  buckets["Autres"]);
+      const buckets = { "Urbain": [], "FlixBus": [], "Autres": [] };
+
+      DBUS_LINES.forEach(line => {
+        const cat = getCategory(line);
+        buckets[cat].push(line);
+      });
+
+      buckets["Urbain"].sort((a,b)=> (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0));
+      buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+      buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+
+      function renderSection(title, lines){
+        if (!lines.length) return;
+        const sec = document.createElement("div");
+        sec.className = "dbus-sec";
+        sec.innerHTML = `<h4>${title}</h4>`;
+        $dbusList.appendChild(sec);
+
+        lines.forEach((line, idxBase)=>{
+          line.routes.forEach(route=>{
+            const item = document.createElement("div");
+            item.className = "dbus-item";
+
+            const badge = makeLineBadge(line.number, "#444", "#fff", "72x32");
+            const titleEl = document.createElement("div");
+            titleEl.className = "rname";
+            const raw = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
+            titleEl.innerHTML = withRERIcon(raw);
+
+            item.appendChild(badge);
+            item.appendChild(titleEl);
+
+            getLineColors(line.number).then(([bg,text])=>{ badge.style.background = bg; badge.style.color = text; });
+
+            item.addEventListener("click", ()=>{
+              $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
+                it.classList.remove("active");
+                it.style.outline = "none";
+              });
+              item.classList.add("active");
+              getLineColors(line.number).then(([bg])=>{
+                item.style.outline = `2px solid ${bg || colorFor(idxBase)}`;
+              });
+
+              const key = `${line.uid}:${route.uid}`;
+              currentSelectedKey = key;
+              showOnlyRoute(idxBase, line, route);
+              renderSelectedChip();
+
+              $panelDbus.style.display = "none";
+            });
+
+            $dbusList.appendChild(item);
+          });
+        });
+      }
+
+      renderSection("Urbain",  buckets["Urbain"]);
+      renderSection("FlixBus", buckets["FlixBus"]);
+      renderSection("Autres",  buckets["Autres"]);
     }
     initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});
 
     let currentActiveStopId = null;
-
     function clearActiveStop(){
       PREVIEW_STOP_ELEMS.forEach(({el}) => el.classList.remove('active'));
       currentActiveStopId = null;
     }
 
-    const $search=document.getElementById("search"),$results=document.getElementById("results");
     function renderResults(list){
       $results.innerHTML="";
-      if(!list.length){$results.hidden=true;return;}
+      if (!list.length){
+        const empty = document.createElement("div");
+        empty.className = "result-empty";
+        empty.textContent = "Aucun résultat";
+        $results.appendChild(empty);
+        $results.hidden = false;
+        return;
+      }
       list.slice(0,60).forEach(item=>{
         const div=document.createElement("div");div.className="result-item";
         if(item.type==="Entreprise" && item.logo){
@@ -1023,9 +1173,11 @@
         const span=document.createElement("div"); span.className="result-text"; span.textContent = label;
         div.appendChild(span);
         div.addEventListener("click",()=>{
-          $results.hidden=true;
-          map.setView(item.center, Math.max(map.getZoom(), minNativeZoom+4));
-          if(item.open) setTimeout(()=>item.open(),150);
+            $search.value = "";
+            $search.blur();
+            $results.hidden = true;
+            map.setView(item.center, Math.max(map.getZoom(), minNativeZoom+4));
+            if(item.open) setTimeout(()=>item.open(),150);
         });
         $results.appendChild(div);
       });
@@ -1040,8 +1192,69 @@
         .sort((a,b)=> (a.type==="Ville"?0:1)-(b.type==="Ville"?0:1) || a.name.localeCompare(b.name));
       renderResults(res);
     }
-    $search.addEventListener("input",e=>doSearch(e.target.value));
-    $search.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const first=$results.querySelector(".result-item"); if(first) first.click(); }});
+
+    function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); } }
+    const doSearchDebounced = debounce(q => {
+      doSearch(q);
+      if ((q||'').trim()) openSearchUI(); else closeSearchUI();
+    }, 120);
+
+    $search.addEventListener('focus', () => {
+      closeDbusPanel();
+      if ($search.value.trim()) $results.hidden = false;
+    });
+    $search.addEventListener('input', e => doSearchDebounced(e.target.value));
+    $search.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const first = $results.querySelector('.result-item');
+        if (first) first.click();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      const searchPanel = document.querySelector('.search-panel');
+      const clickInSearch = !!searchPanel && searchPanel.contains(e.target);
+      const clickInDbus   = !!$panelDbus && ($panelDbus.contains(e.target) || e.target === $btnDbus);
+
+      if (!clickInSearch) closeSearchUI({ reset: true });
+      if (!clickInDbus)   closeDbusPanel();
+    });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('lpClose')?.click();
+        closeSearchUI({ reset: true });
+        closeDbusPanel();
+        try { map.closePopup(); } catch {}
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        $search?.focus();
+      }
+    });
+  </script>
+
+  <script>
+    const CLOSED = false 
+      || (new URLSearchParams(location.search).get('closed') === '1');
+
+    if (CLOSED) {
+      const html = `
+        <div style="
+          position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+          background:#0b1118;color:#e8eefb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+          text-align:center;padding:24px
+        ">
+          <div>
+            <div style="font-size:64px;line-height:1">🛠️</div>
+            <div style="font-size:28px;font-weight:800;margin-bottom:10px">En maintenance</div>
+            <div style="color:#9fb1cc;margin-bottom:18px">La carte sera de nouveau disponible lors de la prochaine version de la map.</div>
+          </div>
+        </div>
+      `;
+      document.body.innerHTML = html;
+      throw new Error('Maintenance mode enabled');
+    }
   </script>
 
 </body>

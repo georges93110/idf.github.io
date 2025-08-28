@@ -8,7 +8,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -12389.6875,
@@ -19,7 +20,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -12188.0859,
@@ -30,7 +32,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -12205.8086,
@@ -41,7 +44,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -12655.41,
@@ -64,7 +68,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -12217.8857,
@@ -75,7 +80,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11916.5352,
@@ -98,7 +104,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11895.3672,
@@ -109,7 +116,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11640.668,
@@ -120,7 +128,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11556.4414,
@@ -131,7 +140,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11272.875,
@@ -142,7 +152,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11273.98,
@@ -153,7 +164,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11115.793,
@@ -164,7 +176,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11101.293,
@@ -175,7 +188,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_32"
+    "IconId": "bus_32",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11074.9883,
@@ -186,7 +200,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11088.43,
@@ -197,7 +212,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_32"
+    "IconId": "bus_32",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10935.8125,
@@ -208,7 +224,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_30"
+    "IconId": "bus_30",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10933.6484,
@@ -219,7 +236,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_30"
+    "IconId": "bus_30",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10723.8242,
@@ -230,7 +248,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_72"
+    "IconId": "bus_72",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10907.3438,
@@ -241,7 +260,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_82"
+    "IconId": "bus_82",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10905.5859,
@@ -252,7 +272,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_30"
+    "IconId": "bus_30",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10892.1328,
@@ -263,7 +284,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_82"
+    "IconId": "bus_82",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10893.8906,
@@ -274,7 +296,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_30"
+    "IconId": "bus_30",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10875.875,
@@ -285,7 +308,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_72"
+    "IconId": "bus_72",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10853.0742,
@@ -296,7 +320,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_72"
+    "IconId": "bus_72",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -11174.7891,
@@ -307,7 +332,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -10933.8164,
@@ -342,7 +368,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "port_overlay"
+    "IconId": "port_overlay",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -4909.962,
@@ -389,7 +416,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "port_overlay"
+    "IconId": "port_overlay",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -5336.9917,
@@ -436,7 +464,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -4519.26953,
@@ -447,7 +476,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_86"
+    "IconId": "bus_86",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5009.949,
@@ -458,7 +488,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_87"
+    "IconId": "bus_87",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -4998.129,
@@ -469,7 +500,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_91"
+    "IconId": "bus_91",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -5019.258,
@@ -480,7 +512,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_29"
+    "IconId": "bus_29",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -6600.78564,
@@ -539,7 +572,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Rungis"
   },
   {
     "X": -6979.52344,
@@ -550,7 +584,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6975.828,
@@ -561,7 +596,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n22"
+    "IconId": "bus_n22",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6979.19141,
@@ -572,7 +608,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_216"
+    "IconId": "bus_216",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6990.77734,
@@ -583,7 +620,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_183"
+    "IconId": "bus_183",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6998.78125,
@@ -594,7 +632,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_192"
+    "IconId": "bus_192",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6981.699,
@@ -605,7 +644,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n71"
+    "IconId": "bus_n71",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6985.06641,
@@ -616,7 +656,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_tvm"
+    "IconId": "bus_tvm",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6973.953,
@@ -627,7 +668,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_tvm"
+    "IconId": "bus_tvm",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6965.19531,
@@ -638,7 +680,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n62"
+    "IconId": "bus_n62",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6968.926,
@@ -649,7 +692,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n22"
+    "IconId": "bus_n22",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6961.328,
@@ -660,7 +704,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_319"
+    "IconId": "bus_319",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -7112.509,
@@ -671,7 +716,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Chevilly-Larue",
+    "Brands": [
+      "renault"
+    ]
   },
   {
     "X": -7103.323,
@@ -682,7 +731,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -5501.457,
@@ -693,7 +743,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Rungis"
   },
   {
     "X": -6429.44336,
@@ -704,7 +755,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6616.75,
@@ -715,7 +767,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "toll_ico"
+    "IconId": "toll_ico",
+    "City": "Rungis"
   },
   {
     "X": -5036.492,
@@ -726,7 +779,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -4424.27734,
@@ -737,7 +791,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -4753.48828,
@@ -796,7 +851,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_109"
+    "IconId": "bus_109",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4475.547,
@@ -807,7 +863,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_111"
+    "IconId": "bus_111",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4606.07031,
@@ -818,7 +875,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_109"
+    "IconId": "bus_109",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4593.97266,
@@ -829,7 +887,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_111"
+    "IconId": "bus_111",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4570.40625,
@@ -840,7 +899,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n32"
+    "IconId": "bus_n32",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4581.629,
@@ -851,7 +911,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4561.047,
@@ -862,7 +923,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n32"
+    "IconId": "bus_n32",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4547.922,
@@ -873,7 +935,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4281.18359,
@@ -884,7 +947,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4270.086,
@@ -895,7 +959,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_109"
+    "IconId": "bus_109",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4258.84,
@@ -906,7 +971,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_111"
+    "IconId": "bus_111",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4103.293,
@@ -929,7 +995,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_215"
+    "IconId": "bus_215",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4941.28125,
@@ -940,7 +1007,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4844.35938,
@@ -951,7 +1019,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n32"
+    "IconId": "bus_n32",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4849.078,
@@ -962,7 +1031,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5028.77734,
@@ -973,7 +1043,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_87"
+    "IconId": "bus_87",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5030.961,
@@ -984,7 +1055,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_63"
+    "IconId": "bus_63",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5033.199,
@@ -995,7 +1067,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5035.547,
@@ -1006,7 +1079,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n35"
+    "IconId": "bus_n35",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5038.10156,
@@ -1017,7 +1091,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_72"
+    "IconId": "bus_72",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5040.84766,
@@ -1028,7 +1103,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_77"
+    "IconId": "bus_77",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -5384.301,
@@ -1039,7 +1115,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_72"
+    "IconId": "bus_72",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -4844.136,
@@ -1050,7 +1127,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4889.28662,
@@ -1061,7 +1139,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4893.24658,
@@ -1072,7 +1151,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -4511.994,
@@ -1083,7 +1163,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Paris 12ème Arrondissement",
+    "Brands": [
+      "daf"
+    ]
   },
   {
     "X": -2869.10571,
@@ -1106,7 +1190,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2819.10156,
@@ -1117,7 +1202,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m3"
+    "IconId": "uk_m3",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2841.92969,
@@ -1128,7 +1214,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2791.30859,
@@ -1163,7 +1250,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2991.564,
@@ -1174,7 +1262,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2928.655,
@@ -1185,7 +1274,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3315.42578,
@@ -1196,7 +1286,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n34"
+    "IconId": "bus_n34",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3326.51953,
@@ -1207,7 +1298,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_102"
+    "IconId": "bus_102",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3337.86719,
@@ -1218,7 +1310,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_76"
+    "IconId": "bus_76",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3349.64844,
@@ -1229,7 +1322,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n16"
+    "IconId": "bus_n16",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3361.88672,
@@ -1240,7 +1334,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2989.66016,
@@ -1251,7 +1346,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_76"
+    "IconId": "bus_76",
+    "City": "Bagnolet"
   },
   {
     "X": -2984.73828,
@@ -1262,7 +1358,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_102"
+    "IconId": "bus_102",
+    "City": "Bagnolet"
   },
   {
     "X": -2979.54688,
@@ -1273,7 +1370,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_318"
+    "IconId": "bus_318",
+    "City": "Bagnolet"
   },
   {
     "X": -2995.23047,
@@ -1284,7 +1382,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Bagnolet"
   },
   {
     "X": -2990.97656,
@@ -1295,7 +1394,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_76"
+    "IconId": "bus_76",
+    "City": "Bagnolet"
   },
   {
     "X": -2986.66016,
@@ -1306,7 +1406,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_318"
+    "IconId": "bus_318",
+    "City": "Bagnolet"
   },
   {
     "X": -3003.36328,
@@ -1317,7 +1418,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_122"
+    "IconId": "bus_122",
+    "City": "Bagnolet"
   },
   {
     "X": -3010.79688,
@@ -1328,7 +1430,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_102"
+    "IconId": "bus_102",
+    "City": "Bagnolet"
   },
   {
     "X": -3019.90234,
@@ -1339,7 +1442,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Bagnolet"
   },
   {
     "X": -3011.97656,
@@ -1350,7 +1454,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Bagnolet"
   },
   {
     "X": -3047.57031,
@@ -1361,7 +1466,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Bagnolet"
   },
   {
     "X": -2848.65625,
@@ -1372,7 +1478,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m3"
+    "IconId": "uk_m3",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -2971.67188,
@@ -1383,7 +1490,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Bagnolet"
   },
   {
     "X": -1638.11328,
@@ -1394,7 +1502,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a3"
+    "IconId": "fr_a3",
+    "City": "Bagnolet"
   },
   {
     "X": -3319.44141,
@@ -1429,7 +1538,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Paris 20ème Arrondissement",
+    "Brands": [
+      "scania"
+    ]
   },
   {
     "X": -2909.61987,
@@ -1440,7 +1553,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "recruitment_ico"
+    "IconId": "recruitment_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -1018.82031,
@@ -1451,7 +1565,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_281"
+    "IconId": "bus_281",
+    "City": "Créteil"
   },
   {
     "X": -1029.41406,
@@ -1462,7 +1577,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_172"
+    "IconId": "bus_172",
+    "City": "Créteil"
   },
   {
     "X": -1033.87109,
@@ -1473,7 +1589,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_172"
+    "IconId": "bus_172",
+    "City": "Créteil"
   },
   {
     "X": -1045.33594,
@@ -1484,7 +1601,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_281"
+    "IconId": "bus_281",
+    "City": "Créteil"
   },
   {
     "X": -702.093933,
@@ -1519,7 +1637,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_b"
+    "IconId": "bus_b",
+    "City": "Créteil"
   },
   {
     "X": -1100.03516,
@@ -1530,7 +1649,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o1"
+    "IconId": "bus_o1",
+    "City": "Créteil"
   },
   {
     "X": -1094.24609,
@@ -1541,7 +1661,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o2"
+    "IconId": "bus_o2",
+    "City": "Créteil"
   },
   {
     "X": -1105.25781,
@@ -1552,7 +1673,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o2"
+    "IconId": "bus_o2",
+    "City": "Créteil"
   },
   {
     "X": -1111.48047,
@@ -1563,7 +1685,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o1"
+    "IconId": "bus_o1",
+    "City": "Créteil"
   },
   {
     "X": -1118.33984,
@@ -1574,7 +1697,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_b"
+    "IconId": "bus_b",
+    "City": "Créteil"
   },
   {
     "X": -1125.15234,
@@ -1585,7 +1709,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_281"
+    "IconId": "bus_281",
+    "City": "Créteil"
   },
   {
     "X": -725.6328,
@@ -1596,7 +1721,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_281"
+    "IconId": "bus_281",
+    "City": "Créteil"
   },
   {
     "X": -713.1797,
@@ -1607,7 +1733,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_281"
+    "IconId": "bus_281",
+    "City": "Créteil"
   },
   {
     "X": -703.664063,
@@ -1618,7 +1745,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_172"
+    "IconId": "bus_172",
+    "City": "Créteil"
   },
   {
     "X": -697.6094,
@@ -1629,7 +1757,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_b"
+    "IconId": "bus_b",
+    "City": "Créteil"
   },
   {
     "X": -693.7539,
@@ -1640,7 +1769,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o1"
+    "IconId": "bus_o1",
+    "City": "Créteil"
   },
   {
     "X": -690.269531,
@@ -1651,7 +1781,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o2"
+    "IconId": "bus_o2",
+    "City": "Créteil"
   },
   {
     "X": -2187.21,
@@ -1662,7 +1793,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Créteil"
   },
   {
     "X": -2208.27612,
@@ -1673,7 +1805,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Créteil"
   },
   {
     "X": -2211.47534,
@@ -1684,7 +1817,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Créteil"
   },
   {
     "X": -2750.01563,
@@ -1695,7 +1829,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Créteil"
   },
   {
     "X": -2100.01245,
@@ -1706,7 +1841,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Créteil"
   },
   {
     "X": -2074.27832,
@@ -1717,7 +1853,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Créteil"
   },
   {
     "X": -2069.423,
@@ -1728,7 +1865,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Créteil"
   },
   {
     "X": -169.90625,
@@ -1739,7 +1877,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m2"
+    "IconId": "uk_m2",
+    "City": "Créteil"
   },
   {
     "X": -685.1992,
@@ -1750,7 +1889,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_a1"
+    "IconId": "b_a1",
+    "City": "Créteil"
   },
   {
     "X": -510.6455,
@@ -1785,7 +1925,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Vincennes",
+    "Brands": [
+      "iveco"
+    ]
   },
   {
     "X": -876.039063,
@@ -1796,7 +1940,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "border_ico"
+    "IconId": "border_ico",
+    "City": "Vincennes"
   },
   {
     "X": -1105.38672,
@@ -1807,7 +1952,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_56"
+    "IconId": "bus_56",
+    "City": "Vincennes"
   },
   {
     "X": -1097.293,
@@ -1818,7 +1964,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_115"
+    "IconId": "bus_115",
+    "City": "Vincennes"
   },
   {
     "X": -1089.32031,
@@ -1829,7 +1976,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_118"
+    "IconId": "bus_118",
+    "City": "Vincennes"
   },
   {
     "X": -1081.34766,
@@ -1840,7 +1988,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Vincennes"
   },
   {
     "X": -1055.69922,
@@ -1851,7 +2000,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n33"
+    "IconId": "bus_n33",
+    "City": "Vincennes"
   },
   {
     "X": -1073.082,
@@ -1862,7 +2012,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_318"
+    "IconId": "bus_318",
+    "City": "Vincennes"
   },
   {
     "X": -1064.39063,
@@ -1873,7 +2024,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_325"
+    "IconId": "bus_325",
+    "City": "Vincennes"
   },
   {
     "X": -912.664063,
@@ -1884,7 +2036,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Vincennes"
   },
   {
     "X": -1004.03906,
@@ -1895,7 +2048,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Saint-Maurice"
   },
   {
     "X": -1047.30078,
@@ -1906,7 +2060,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_77"
+    "IconId": "bus_77",
+    "City": "Saint-Maurice"
   },
   {
     "X": -955.035156,
@@ -1917,7 +2072,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_77"
+    "IconId": "bus_77",
+    "City": "Saint-Maurice"
   },
   {
     "X": -664.0625,
@@ -1952,7 +2108,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -1086.82813,
@@ -1963,7 +2120,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -1068.05469,
@@ -1974,7 +2132,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -1059.32031,
@@ -1985,7 +2144,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -973.8633,
@@ -1996,7 +2156,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -965.1289,
@@ -2007,7 +2168,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -918.101563,
@@ -2018,7 +2180,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -925.78125,
@@ -2029,7 +2192,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -603.1992,
@@ -2040,7 +2204,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Saint-Maurice"
   },
   {
     "X": -635.2539,
@@ -2051,7 +2216,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Saint-Maurice"
   },
   {
     "X": -843.7031,
@@ -2062,7 +2228,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -836.71875,
@@ -2073,7 +2240,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -829.472656,
@@ -2084,7 +2252,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -836.5117,
@@ -2095,7 +2264,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_201"
+    "IconId": "bus_201",
+    "City": "Vincennes"
   },
   {
     "X": -3666.629,
@@ -2178,7 +2348,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_64"
+    "IconId": "bus_64",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3437.5625,
@@ -2189,7 +2360,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_26"
+    "IconId": "bus_26",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3453.75,
@@ -2200,7 +2372,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_26"
+    "IconId": "bus_26",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3461.23047,
@@ -2211,7 +2384,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_64"
+    "IconId": "bus_64",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3245.73438,
@@ -2222,7 +2396,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3221.53125,
@@ -2233,7 +2408,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_86"
+    "IconId": "bus_86",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3208.61719,
@@ -2244,7 +2420,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_215"
+    "IconId": "bus_215",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3195.48828,
@@ -2255,7 +2432,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3436.92578,
@@ -2266,7 +2444,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_86"
+    "IconId": "bus_86",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3424.07422,
@@ -2277,7 +2456,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_215"
+    "IconId": "bus_215",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3411.00781,
@@ -2288,7 +2468,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3402.78516,
@@ -2299,7 +2480,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_86"
+    "IconId": "bus_86",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3428.586,
@@ -2310,7 +2492,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3415.57813,
@@ -2321,7 +2504,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_215"
+    "IconId": "bus_215",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3213.18359,
@@ -2332,7 +2516,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_351"
+    "IconId": "bus_351",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3200.17578,
@@ -2343,7 +2528,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_215"
+    "IconId": "bus_215",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3187.38281,
@@ -2354,7 +2540,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_86"
+    "IconId": "bus_86",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3670.754,
@@ -2365,7 +2552,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "train_ico"
+    "IconId": "train_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3888.711,
@@ -2376,7 +2564,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n32"
+    "IconId": "bus_n32",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3880.32031,
@@ -2387,7 +2576,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_109"
+    "IconId": "bus_109",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3872.44531,
@@ -2398,7 +2588,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3835.52344,
@@ -2409,7 +2600,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_109"
+    "IconId": "bus_109",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3844.07813,
@@ -2420,7 +2612,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_24"
+    "IconId": "bus_24",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3883.09961,
@@ -2431,7 +2624,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3995.78516,
@@ -2478,7 +2672,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "border_ico"
+    "IconId": "border_ico",
+    "City": "Vincennes"
   },
   {
     "X": -784.773438,
@@ -2489,7 +2684,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Vincennes"
   },
   {
     "X": -751.273438,
@@ -2500,7 +2696,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Vincennes"
   },
   {
     "X": -763.2656,
@@ -2511,7 +2708,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_210"
+    "IconId": "bus_210",
+    "City": "Vincennes"
   },
   {
     "X": -775.4336,
@@ -2522,7 +2720,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n33"
+    "IconId": "bus_n33",
+    "City": "Vincennes"
   },
   {
     "X": -836.398438,
@@ -2533,7 +2732,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -824.2422,
@@ -2544,7 +2744,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_56"
+    "IconId": "bus_56",
+    "City": "Vincennes"
   },
   {
     "X": -813.4492,
@@ -2555,7 +2756,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_46"
+    "IconId": "bus_46",
+    "City": "Vincennes"
   },
   {
     "X": -797.8672,
@@ -2566,7 +2768,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_118"
+    "IconId": "bus_118",
+    "City": "Vincennes"
   },
   {
     "X": -780.3711,
@@ -2577,7 +2780,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Vincennes"
   },
   {
     "X": -766.0469,
@@ -2588,7 +2792,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_325"
+    "IconId": "bus_325",
+    "City": "Vincennes"
   },
   {
     "X": -759.472656,
@@ -2599,7 +2804,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_318"
+    "IconId": "bus_318",
+    "City": "Vincennes"
   },
   {
     "X": -773.8008,
@@ -2610,7 +2816,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_115"
+    "IconId": "bus_115",
+    "City": "Vincennes"
   },
   {
     "X": -785.28125,
@@ -2621,7 +2828,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Vincennes"
   },
   {
     "X": -798.3633,
@@ -2632,7 +2840,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n33"
+    "IconId": "bus_n33",
+    "City": "Vincennes"
   },
   {
     "X": -1012.01172,
@@ -2643,7 +2852,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -1012.57813,
@@ -2654,7 +2864,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_46"
+    "IconId": "bus_46",
+    "City": "Vincennes"
   },
   {
     "X": -945.847656,
@@ -2665,7 +2876,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_46"
+    "IconId": "bus_46",
+    "City": "Vincennes"
   },
   {
     "X": -933.53125,
@@ -2676,7 +2888,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_112"
+    "IconId": "bus_112",
+    "City": "Vincennes"
   },
   {
     "X": -2797.87866,
@@ -2687,7 +2900,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Saint-Mandé"
   },
   {
     "X": -2795.49878,
@@ -2698,7 +2912,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Saint-Mandé"
   },
   {
     "X": -378.8203,
@@ -2709,7 +2924,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n32"
+    "IconId": "bus_n32",
+    "City": "Créteil"
   },
   {
     "X": -382.9922,
@@ -2720,7 +2936,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_217"
+    "IconId": "bus_217",
+    "City": "Créteil"
   },
   {
     "X": -389.625,
@@ -2731,7 +2948,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_104"
+    "IconId": "bus_104",
+    "City": "Créteil"
   },
   {
     "X": -2333.375,
@@ -2742,7 +2960,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Saint-Maurice"
   },
   {
     "X": -409.113281,
@@ -2753,7 +2972,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_a15"
+    "IconId": "b_a15",
+    "City": "Créteil"
   },
   {
     "X": -401.631042,
@@ -2764,7 +2984,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Créteil"
   },
   {
     "X": -665.875,
@@ -2775,7 +2996,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_a15"
+    "IconId": "b_a15",
+    "City": "Créteil"
   },
   {
     "X": -1163.08594,
@@ -2786,7 +3008,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Créteil"
   },
   {
     "X": -201.082031,
@@ -2797,7 +3020,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Saint-Maurice"
   },
   {
     "X": -3683.03076,
@@ -2808,7 +3032,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3722.57983,
@@ -2819,7 +3044,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3696.36743,
@@ -2830,7 +3056,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": 22539.13,
@@ -2865,7 +3092,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "border_ico"
+    "IconId": "border_ico",
+    "City": "Chessy"
   },
   {
     "X": 22240.21,
@@ -2900,7 +3128,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o47"
+    "IconId": "bus_o47",
+    "City": "Chessy"
   },
   {
     "X": 22285.3828,
@@ -2911,7 +3140,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Chessy"
   },
   {
     "X": 22261.8516,
@@ -2922,7 +3152,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o38"
+    "IconId": "bus_o38",
+    "City": "Chessy"
   },
   {
     "X": 22302.207,
@@ -2933,7 +3164,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_3213"
+    "IconId": "bus_3213",
+    "City": "Chessy"
   },
   {
     "X": 22292.7,
@@ -2944,7 +3176,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o50"
+    "IconId": "bus_o50",
+    "City": "Chessy"
   },
   {
     "X": 22271.2734,
@@ -2955,7 +3188,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o19"
+    "IconId": "bus_o19",
+    "City": "Chessy"
   },
   {
     "X": 22281.4219,
@@ -2966,7 +3200,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o62e"
+    "IconId": "bus_o62e",
+    "City": "Chessy"
   },
   {
     "X": 22311.4453,
@@ -2977,7 +3212,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o17e"
+    "IconId": "bus_o17e",
+    "City": "Chessy"
   },
   {
     "X": 22374.79,
@@ -2988,7 +3224,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_o17"
+    "IconId": "bus_o17",
+    "City": "Chessy"
   },
   {
     "X": 22548.7012,
@@ -2999,7 +3236,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Chessy"
   },
   {
     "X": 20351.3613,
@@ -3034,7 +3272,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4"
+    "IconId": "uk_m4",
+    "City": "Villeneuve-Saint-Denis"
   },
   {
     "X": 22649.18,
@@ -3045,7 +3284,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "d334p"
+    "IconId": "d334p",
+    "City": "Chessy"
   },
   {
     "X": 20789.0078,
@@ -3056,7 +3296,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Villeneuve-Saint-Denis"
   },
   {
     "X": 19759.8379,
@@ -3079,7 +3320,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4"
+    "IconId": "uk_m4",
+    "City": "Ferrières-en-Brie"
   },
   {
     "X": 17387.0234,
@@ -3090,7 +3332,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4"
+    "IconId": "uk_m4",
+    "City": "Pontcarré"
   },
   {
     "X": 16958.63,
@@ -3161,7 +3404,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 17061.4668,
@@ -3172,7 +3416,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Bussy-Saint-Georges",
+    "Brands": [
+      "mercedes"
+    ]
   },
   {
     "X": 17065.7246,
@@ -3183,7 +3431,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19367.81,
@@ -3194,7 +3443,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19309.5137,
@@ -3205,7 +3455,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19311.6133,
@@ -3216,7 +3467,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19396.998,
@@ -3227,7 +3479,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19455.2,
@@ -3238,7 +3491,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 19453.08,
@@ -3249,7 +3503,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 18036.3867,
@@ -3260,7 +3515,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 16103.0938,
@@ -3271,7 +3527,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4"
+    "IconId": "uk_m4",
+    "City": "Pontcarré"
   },
   {
     "X": 16341.5313,
@@ -3282,7 +3539,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m5"
+    "IconId": "uk_m5",
+    "City": "Pontcarré"
   },
   {
     "X": 16387.168,
@@ -3293,7 +3551,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_t27"
+    "IconId": "bus_t27",
+    "City": "Ferrières-en-Brie"
   },
   {
     "X": 15777.1738,
@@ -3352,7 +3611,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Collégien"
   },
   {
     "X": 14086.4375,
@@ -3363,7 +3623,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_t13"
+    "IconId": "bus_t13",
+    "City": "Collégien"
   },
   {
     "X": 14064.293,
@@ -3374,7 +3635,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_t13"
+    "IconId": "bus_t13",
+    "City": "Collégien"
   },
   {
     "X": 15757.8242,
@@ -3385,7 +3647,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m6"
+    "IconId": "uk_m6",
+    "City": "Ferrières-en-Brie"
   },
   {
     "X": 14767.1484,
@@ -3396,7 +3659,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m5"
+    "IconId": "uk_m5",
+    "City": "Collégien"
   },
   {
     "X": 13849.0469,
@@ -3407,7 +3671,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m5"
+    "IconId": "uk_m5",
+    "City": "Collégien"
   },
   {
     "X": 12171.8164,
@@ -3418,7 +3683,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Collégien"
   },
   {
     "X": 13136.2227,
@@ -3429,7 +3695,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a104"
+    "IconId": "fr_a104",
+    "City": "Collégien"
   },
   {
     "X": 13971.499,
@@ -3440,7 +3707,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Collégien"
   },
   {
     "X": 14011.084,
@@ -3451,7 +3719,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Collégien"
   },
   {
     "X": 14001.6631,
@@ -3462,7 +3731,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Collégien"
   },
   {
     "X": 9131.504,
@@ -3473,7 +3743,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 10499.84,
@@ -3484,7 +3755,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Collégien"
   },
   {
     "X": 4874.198,
@@ -3531,7 +3803,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4875.449,
@@ -3542,7 +3815,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4733.41,
@@ -3553,7 +3827,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4889.742,
@@ -3564,7 +3839,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Le Raincy"
   },
   {
     "X": 4006.945,
@@ -3623,7 +3899,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5101.85547,
@@ -3646,7 +3923,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Villemomble"
   },
   {
     "X": 5105.453,
@@ -3681,7 +3959,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5085.699,
@@ -3692,7 +3971,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5018.8125,
@@ -3703,7 +3983,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5168.35156,
@@ -3714,7 +3995,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_605"
+    "IconId": "bus_605",
+    "City": "Villemomble"
   },
   {
     "X": 5187.004,
@@ -3725,7 +4007,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_603"
+    "IconId": "bus_603",
+    "City": "Villemomble"
   },
   {
     "X": 5210.5625,
@@ -3736,7 +4019,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_602"
+    "IconId": "bus_602",
+    "City": "Villemomble"
   },
   {
     "X": 5178.367,
@@ -3747,7 +4031,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Villemomble"
   },
   {
     "X": 5252.02344,
@@ -3758,7 +4043,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5308.64063,
@@ -3769,7 +4055,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4893.492,
@@ -3780,7 +4067,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4876.59766,
@@ -3791,7 +4079,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5085.672,
@@ -3802,7 +4091,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4849.164,
@@ -3813,7 +4103,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 5098.992,
@@ -3824,7 +4115,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4963.508,
@@ -3835,7 +4127,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 4981.6875,
@@ -3846,7 +4139,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_303"
+    "IconId": "bus_303",
+    "City": "Villemomble"
   },
   {
     "X": 4976.67969,
@@ -3857,7 +4151,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 4972.3125,
@@ -3868,7 +4163,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4989.754,
@@ -3879,7 +4175,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 4921.35938,
@@ -3890,7 +4187,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 4915.80859,
@@ -3901,7 +4199,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_114"
+    "IconId": "bus_114",
+    "City": "Villemomble"
   },
   {
     "X": 4927.59766,
@@ -3912,7 +4211,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Villemomble"
   },
   {
     "X": 4763.98047,
@@ -3923,7 +4223,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 4771.13672,
@@ -3934,7 +4235,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 4777.164,
@@ -3945,7 +4247,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Villemomble"
   },
   {
     "X": 4550.90625,
@@ -3956,7 +4259,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 4538.496,
@@ -3967,7 +4271,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 4524.30859,
@@ -3978,7 +4283,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Villemomble"
   },
   {
     "X": 4224.60938,
@@ -3989,7 +4295,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Villemomble"
   },
   {
     "X": 4206.51953,
@@ -4000,7 +4307,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 5018.617,
@@ -4011,7 +4319,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "viewpoint"
+    "IconId": "viewpoint",
+    "City": "Villemomble"
   },
   {
     "X": 4866.72656,
@@ -4022,7 +4331,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_e40"
+    "IconId": "b_e40",
+    "City": "Villemomble"
   },
   {
     "X": 4916.98047,
@@ -4033,7 +4343,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bg_2"
+    "IconId": "bg_2",
+    "City": "Villemomble"
   },
   {
     "X": 4448.24658,
@@ -4044,7 +4355,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Villemomble"
   },
   {
     "X": 4446.67871,
@@ -4055,7 +4367,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Villemomble"
   },
   {
     "X": 7112.91,
@@ -4066,7 +4379,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 5234.15625,
@@ -4077,7 +4391,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 2915.8042,
@@ -4160,7 +4475,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_245"
+    "IconId": "bus_245",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3153.46484,
@@ -4171,7 +4487,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_245"
+    "IconId": "bus_245",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3062.55469,
@@ -4182,7 +4499,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3050.418,
@@ -4193,7 +4511,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3074.42578,
@@ -4204,7 +4523,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3086.164,
@@ -4215,7 +4535,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_346"
+    "IconId": "bus_346",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2663.57422,
@@ -4238,7 +4559,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3010.17969,
@@ -4261,7 +4583,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2733.13281,
@@ -4272,7 +4595,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_143"
+    "IconId": "bus_143",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2719.84375,
@@ -4283,7 +4607,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2646.164,
@@ -4294,7 +4619,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2790.26953,
@@ -4305,7 +4631,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_143"
+    "IconId": "bus_143",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2788.07031,
@@ -4316,7 +4643,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2699.65625,
@@ -4363,7 +4691,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_143"
+    "IconId": "bus_143",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2719.10938,
@@ -4374,7 +4703,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2717.29688,
@@ -4385,7 +4715,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 247.710938,
@@ -4396,7 +4727,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a3"
+    "IconId": "fr_a3",
+    "City": "Montreuil"
   },
   {
     "X": 1271.12427,
@@ -4407,7 +4739,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 1210.91089,
@@ -4418,7 +4751,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 1210.34717,
@@ -4429,7 +4763,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2330.60547,
@@ -4440,7 +4775,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2388.70215,
@@ -4451,7 +4787,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2382.55469,
@@ -4546,7 +4883,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_346"
+    "IconId": "bus_346",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2951.34375,
@@ -4557,7 +4895,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_346"
+    "IconId": "bus_346",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2632.164,
@@ -4568,7 +4907,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2620.32422,
@@ -4579,7 +4919,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2608.32031,
@@ -4590,7 +4931,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2986.668,
@@ -4601,7 +4943,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2962.92188,
@@ -4612,7 +4955,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2974.68359,
@@ -4623,7 +4967,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3208.57422,
@@ -4634,7 +4979,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_102"
+    "IconId": "bus_102",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3245.67188,
@@ -4645,7 +4991,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3221.94922,
@@ -4656,7 +5003,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3233.67188,
@@ -4667,7 +5015,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3178.98047,
@@ -4678,7 +5027,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3191.168,
@@ -4689,7 +5039,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3166.85547,
@@ -4700,7 +5051,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3398.74219,
@@ -4711,7 +5063,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3383.961,
@@ -4722,7 +5075,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3427.46875,
@@ -4733,7 +5087,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3442.02344,
@@ -4744,7 +5099,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n23"
+    "IconId": "bus_n23",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3120.76343,
@@ -4755,7 +5111,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "recruitment_ico"
+    "IconId": "recruitment_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2995.71875,
@@ -4766,7 +5123,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_e40"
+    "IconId": "b_e40",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3722.457,
@@ -4777,7 +5135,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bg_2"
+    "IconId": "bg_2",
+    "City": "Villemomble"
   },
   {
     "X": 3272.89063,
@@ -4788,7 +5147,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3309.94922,
@@ -4799,7 +5159,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "garage_large_ico"
+    "IconId": "garage_large_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3307.59424,
@@ -4810,7 +5171,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3957.18359,
@@ -4821,7 +5183,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "b_e40"
+    "IconId": "b_e40",
+    "City": "Villemomble"
   },
   {
     "X": 3910.69531,
@@ -4832,7 +5195,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 3889.67578,
@@ -4843,7 +5207,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_303"
+    "IconId": "bus_303",
+    "City": "Villemomble"
   },
   {
     "X": 3900.53516,
@@ -4854,7 +5219,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 3846.48755,
@@ -4865,7 +5231,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Villemomble",
+    "Brands": [
+      "man"
+    ]
   },
   {
     "X": 3866.39063,
@@ -4876,7 +5246,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Villemomble"
   },
   {
     "X": 3938.40625,
@@ -4887,7 +5258,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_303"
+    "IconId": "bus_303",
+    "City": "Villemomble"
   },
   {
     "X": 3927.78125,
@@ -4898,7 +5270,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_221"
+    "IconId": "bus_221",
+    "City": "Villemomble"
   },
   {
     "X": 3917.85547,
@@ -4909,7 +5282,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_121"
+    "IconId": "bus_121",
+    "City": "Villemomble"
   },
   {
     "X": 3050.711,
@@ -4920,7 +5294,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a25"
+    "IconId": "fr_a25",
+    "City": "Rosny-sous-Bois"
   },
   {
     "X": 2496.64746,
@@ -4931,7 +5306,11 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dealer_ico"
+    "IconId": "dealer_ico",
+    "City": "Champigny-sur-Marne",
+    "Brands": [
+      "volvo"
+    ]
   },
   {
     "X": 2325.96484,
@@ -4942,7 +5321,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_301"
+    "IconId": "bus_301",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2334.46484,
@@ -4953,7 +5333,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_122"
+    "IconId": "bus_122",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2343.6875,
@@ -4964,7 +5345,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_118"
+    "IconId": "bus_118",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2581.48828,
@@ -4975,7 +5357,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2610.46875,
@@ -4986,7 +5369,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_145"
+    "IconId": "bus_145",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2497.75342,
@@ -5033,7 +5417,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2330.52051,
@@ -5044,7 +5429,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2326.53784,
@@ -5055,7 +5441,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2323.35645,
@@ -5066,7 +5453,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2319.37378,
@@ -5077,7 +5465,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2621.832,
@@ -5088,7 +5477,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_116"
+    "IconId": "bus_116",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2571.18359,
@@ -5099,7 +5489,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_116"
+    "IconId": "bus_116",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2436.36719,
@@ -5110,7 +5501,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_116"
+    "IconId": "bus_116",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2450.78516,
@@ -5121,7 +5513,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_301"
+    "IconId": "bus_301",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2475.82422,
@@ -5132,7 +5525,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n142"
+    "IconId": "bus_n142",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2463.90234,
@@ -5143,7 +5537,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_124"
+    "IconId": "bus_124",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2492.5,
@@ -5154,7 +5549,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n34"
+    "IconId": "bus_n34",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2484.44922,
@@ -5165,7 +5561,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_118"
+    "IconId": "bus_118",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2461.11328,
@@ -5176,7 +5573,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n142"
+    "IconId": "bus_n142",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2469.75781,
@@ -5187,7 +5585,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_n34"
+    "IconId": "bus_n34",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2477.664,
@@ -5198,7 +5597,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_116"
+    "IconId": "bus_116",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2487.08984,
@@ -5209,7 +5609,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_118"
+    "IconId": "bus_118",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2538.51172,
@@ -5220,7 +5621,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "bus_122"
+    "IconId": "bus_122",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2439.22266,
@@ -5231,7 +5633,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "bus_ico"
+    "IconId": "bus_ico",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": 2505.454,
@@ -5242,7 +5645,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Champigny-sur-Marne"
   },
   {
     "X": 2510.446,
@@ -5253,7 +5657,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "gas_ico"
+    "IconId": "gas_ico",
+    "City": "Champigny-sur-Marne"
   },
   {
     "X": 2499.1543,
@@ -5264,7 +5669,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "service_ico"
+    "IconId": "service_ico",
+    "City": "Champigny-sur-Marne"
   },
   {
     "X": 920.277344,
@@ -5275,7 +5681,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Champigny-sur-Marne"
   },
   {
     "X": 2972.34766,
@@ -5286,7 +5693,8 @@
     "Height": 64,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a4"
+    "IconId": "fr_a4",
+    "City": "Champigny-sur-Marne"
   },
   {
     "X": 2649.78516,
@@ -5297,7 +5705,8 @@
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "fr_a2"
+    "IconId": "fr_a2",
+    "City": "Fontenay-sous-Bois"
   },
   {
     "X": -11382.6328,
@@ -5308,7 +5717,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Paris 16ème Arrondissement"
   },
   {
     "X": -6516.89844,
@@ -5319,7 +5729,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6460.90234,
@@ -5330,7 +5741,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6520.85547,
@@ -5341,7 +5753,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Rungis"
   },
   {
     "X": -4612.164,
@@ -5352,7 +5765,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Paris 12ème Arrondissement"
   },
   {
     "X": -2977.01172,
@@ -5363,7 +5777,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -3743.01172,
@@ -5374,7 +5789,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3764.129,
@@ -5385,7 +5801,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3777.57422,
@@ -5396,7 +5813,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3788.789,
@@ -5407,7 +5825,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3764.14063,
@@ -5418,7 +5837,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3751.94141,
@@ -5429,7 +5849,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3779.03125,
@@ -5440,7 +5861,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3788.375,
@@ -5451,7 +5873,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3808.46875,
@@ -5462,7 +5885,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3840.07422,
@@ -5473,7 +5897,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3846.211,
@@ -5484,7 +5909,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3822.76563,
@@ -5495,7 +5921,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -3878.84375,
@@ -5506,7 +5933,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -2819.67578,
@@ -5517,7 +5945,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Saint-Mandé"
   },
   {
     "X": -2932.77734,
@@ -5528,7 +5957,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Saint-Mandé"
   },
   {
     "X": -2990.39453,
@@ -5539,7 +5969,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Saint-Mandé"
   },
   {
     "X": 19991.7188,
@@ -5550,7 +5981,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Villeneuve-Saint-Denis"
   },
   {
     "X": 19029.86,
@@ -5561,7 +5993,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": true,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Ferrières-en-Brie"
   },
   {
     "X": 17628.1445,
@@ -5572,7 +6005,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Pontcarré"
   },
   {
     "X": 17282.582,
@@ -5583,7 +6017,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 15822.8359,
@@ -5594,7 +6029,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Pontcarré"
   },
   {
     "X": 14903.9219,
@@ -5605,7 +6041,8 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Collégien"
   },
   {
     "X": 2207.01172,
@@ -5616,6 +6053,7 @@
     "Height": 32,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "parking_ico"
+    "IconId": "parking_ico",
+    "City": "Champigny-sur-Marne"
   }
 ]

@@ -538,6 +538,19 @@
       list.push({x: pt.x, y: pt.y}); _placedByIcon.set(iconId, list); return false;
     }
 
+    function bindPopupWithImage(layer, html){
+      layer.bindPopup(html);
+      layer.on('popupopen', (e) => {
+        const el = e.popup.getElement();
+        const img = el && el.querySelector('img[data-autosize]');
+        if (img && !img.complete) {
+          img.addEventListener('load', () => {
+            try { e.popup.update(); } catch {}
+          }, { once: true });
+        }
+      });
+    }
+
     const homeBtn = L.control({ position: 'topleft' });
 
     homeBtn.onAdd = function(map) {
@@ -597,25 +610,30 @@
         const bottomRight = toLatLng(ov.X + (width/2), ov.Y - (height/2));
         const bounds = L.latLngBounds(topLeft, bottomRight);
 
-        if(ov.Type==="Company"){
-          const compTopLeft=toLatLng(ov.X,ov.Y), compBottomRight=toLatLng(ov.X+20,ov.Y-20);
-          const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
-          const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
-          overlay.bindPopup(`
-            <div style="text-align:center">
-              <img src="./Overlays/${ov.IconId}.png" style="max-width:100px;display:block;margin:0 auto 8px"/>
-              <b>${ov.Name}</b><br/><i>${ov.City||""}</i>
-            </div>
-          `);
-          searchIndex.push({
-            type:"Entreprise",
-            name:ov.Name||"Entreprise",
-            city:ov.City||"",
-            center:compBounds.getCenter(),
-            open:()=>{ overlay.openPopup(compBounds.getCenter()); },
-            logo:`./Overlays/${ov.IconId}.png`
-          });
-          } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
+       if (ov.Type==="Company"){
+        const compTopLeft=toLatLng(ov.X,ov.Y), compBottomRight=toLatLng(ov.X+20,ov.Y-20);
+        const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
+        const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
+
+        const logoPath = `./Overlays/${ov.IconId}.png`;
+
+        bindPopupWithImage(overlay, `
+          <div style="text-align:center">
+            <img data-autosize src="${logoPath}"
+                style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+            <b>${escapeHTML(ov.Name)}</b><br/><i>${escapeHTML(ov.City||"")}</i>
+          </div>
+        `);
+
+        searchIndex.push({
+          type:"Entreprise",
+          name:ov.Name||"Entreprise",
+          city:ov.City||"",
+          center:compBounds.getCenter(),
+          open:()=>{ overlay.openPopup(compBounds.getCenter()); },
+          logo:logoPath
+        });
+      } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
             const btxt = brandsText(ov) || '—';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
@@ -623,12 +641,13 @@
             const brandKey = dealerBrandKeyFrom(ov);
             const brandLogo = brandKey ? `./Overlays/dealer_${brandKey}.png` : `./Overlays/dealer_ico.png`;
 
-            overlay.bindPopup(`
-              <div style="text-align:center">
-                <img src="${brandLogo}" style="max-width:168px;display:block;margin:0 auto 10px"/>
-                <b>${titleLine}</b><br/><i>${escapeHTML(ov.City || "")}</i>
-              </div>
-            `);
+              bindPopupWithImage(overlay, `
+                <div style="text-align:center">
+                  <img data-autosize src="${brandLogo}"
+                      style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+                  <b>Concessionnaire ${escapeHTML(btxt || "—")}</b><br/><i>${escapeHTML(ov.City || "")}</i>
+                </div>
+              `);
 
             overlay.on("click", () => {
               overlay.openPopup(bounds.getCenter());
@@ -1477,8 +1496,14 @@
 
     function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); } }
     const doSearchDebounced = debounce(q => {
+      const txt = String(q||'').trim();
+      if (!txt){
+        _resIdx = -1;
+        openSearchUI(); 
+        return;
+      }
       doSearch(q);
-      if ((q||'').trim()) openSearchUI(); else closeSearchUI();
+      openSearchUI();
     }, 120);
 
     $search.addEventListener('focus', () => {

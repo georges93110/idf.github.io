@@ -25,7 +25,7 @@
     }
     .city-selected{color:#ffda3a !important;text-shadow:0 0 0 rgba(0,0,0,0),0 2px 6px rgba(0,0,0,.9)}
 
-    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:600px;max-width:min(92vw,920px)}
+    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:750px;max-width:min(92vw,920px)}
     .search-row{display:flex;gap:8px;align-items:center}
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
     .search-input::placeholder{color:var(--muted)}
@@ -42,6 +42,26 @@
       color:var(--muted);
       font-size:14px;
       border-bottom:1px solid #1f2732;
+    }
+    .result-item img.ico {
+      width: var(--logoW);
+      height: var(--logoH);
+    }
+
+    .result-item img.ico.ico-service {
+      width: calc(var(--logoW) / 2);
+      height: calc(var(--logoH) / 2);
+    }
+
+    .result-sechead{
+      padding:8px 10px;
+      color:#a7b2c9;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      border-bottom:1px solid #1f2732;
+      background:var(--panel2);
     }
 
     .dbus-panel{margin-top:6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);display:none;max-height:62vh;overflow:auto}
@@ -216,6 +236,18 @@
       scrollbar-width: thin;
       scrollbar-color: var(--muted) var(--panel2);
     }
+
+    .result-sechead{
+      display:flex;align-items:center;justify-content:space-between;
+      cursor:pointer; user-select:none;
+    }
+    .result-sechead .chev{
+      font-size:14px; opacity:.9; transition:transform .18s ease;
+    }
+    .result-sechead[aria-expanded="false"] .chev{
+      transform:rotate(-90deg);
+    }
+    .result-secbody[hidden]{ display:none !important; }
     
   </style>
   
@@ -282,6 +314,23 @@
     const $search = document.getElementById("search");
     const $results = document.getElementById("results");
 
+    const BRAND_DISPLAY = {
+      renault: 'Renault Trucks',
+      daf: 'DAF',
+      mercedes: 'Mercedes-Benz',
+      volvo : 'Volvo Trucks'
+    };
+    function brandLabel(key){
+      const k = String(key||'').trim().toLowerCase();
+      if (!k) return '';
+      if (BRAND_DISPLAY[k]) return BRAND_DISPLAY[k];
+      return k.charAt(0).toUpperCase() + k.slice(1);
+    }
+    function brandsText(ov){
+      const arr = Array.isArray(ov.Brands) ? ov.Brands : (ov.Brands ? [ov.Brands] : []);
+      return arr.map(brandLabel).join(', ');
+    }
+
     let _resIdx = -1;
     function highlightResult(i){
       const items=[...$results.querySelectorAll('.result-item')];
@@ -294,6 +343,25 @@
       if(e.key==="ArrowUp"){ e.preventDefault(); _resIdx=Math.max(_resIdx-1, 0); highlightResult(_resIdx); }
       if(e.key==="Enter" && _resIdx>=0){ items[_resIdx].click(); }
     });
+
+    function dealerBrandKeyFrom(ov){
+      const arr = Array.isArray(ov.Brands) ? ov.Brands : (ov.Brands ? [ov.Brands] : []);
+      const raw = String(arr[0] || "").toLowerCase().trim();
+      if (!raw) return "";
+
+      const MAP = {
+        "renault trucks": "renault",
+        "DAF": "daf",
+        "mercedes-benz": "mercedes",
+        "volvo trucks": "volvo",
+      };
+      const canonical = MAP[raw] || raw;
+
+      return canonical
+        .replace(/trucks?|camions?/g, "")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+    }
 
     window.addEventListener('keydown', e=>{
       if(document.getElementById("linePreviewWrap")?.style.display!=="block") return;
@@ -547,32 +615,73 @@
             open:()=>{ overlay.openPopup(compBounds.getCenter()); },
             logo:`./Overlays/${ov.IconId}.png`
           });
+          } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
+            const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
+            const btxt = brandsText(ov) || '—';
+            const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
+
+            const brandKey = dealerBrandKeyFrom(ov);
+            const brandLogo = brandKey ? `./Overlays/dealer_${brandKey}.png` : `./Overlays/dealer_ico.png`;
+
+            overlay.bindPopup(`
+              <div style="text-align:center">
+                <img src="${brandLogo}" style="max-width:168px;display:block;margin:0 auto 10px"/>
+                <b>${titleLine}</b><br/><i>${escapeHTML(ov.City || "")}</i>
+              </div>
+            `);
+
+            overlay.on("click", () => {
+              overlay.openPopup(bounds.getCenter());
+            });
+
+            searchIndex.push({
+              type: "Concessionnaire",
+              name: `${btxt}`.trim(),         
+              brand: btxt,                   
+              city: ov.City || "",
+              center: bounds.getCenter(),
+              open: () => { overlay.openPopup(bounds.getCenter()); },
+              logo: brandLogo,
+              fallbackLogo: `./Overlays/dealer_ico.png`
+            });
+          
         } else {
-          const label = ICON_NAMES[ov.IconId] || ov.Name || ov.Type || "Lieu";
-          L.imageOverlay(`./Overlays/${ov.IconId}.png`,bounds,{interactive:true})
-            .addTo(map).bindPopup(`<b>${label}</b>`);
+           const label = ICON_NAMES[ov.IconId] || ov.Name || ov.Type || "Lieu";
+          const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true })
+            .addTo(map)
+            .bindPopup(`<b>${escapeHTML(label)}</b>`);
+
+          const typeTag =
+            ov.IconId === "service_ico"       ? "Atelier" :
+            ov.IconId === "recruitment_ico"   ? "Agence"  :
+            ov.IconId === "garage_large_ico"  ? "Garage"  :
+            null;
+
+          if (typeTag) {
+            const logoPath =
+              ov.IconId === "service_ico"      ? `./Overlays/service_ico.png` :
+              ov.IconId === "recruitment_ico"  ? `./Overlays/recruitment_ico.png` :
+              ov.IconId === "garage_large_ico" ? `./Overlays/garage_large_ico.png` :
+              `./Overlays/${ov.IconId}.png`;
+
+            const keywordName =
+              typeTag === "Atelier" ? `Atelier de réparation ${ov.City || ""}` :
+              typeTag === "Agence"  ? `Agence de recrutement ${ov.City || ""}` :
+                          `Garage ${ov.City || ""}`;
+
+            searchIndex.push({
+              type: typeTag,               
+              name: keywordName.trim(),    
+              city: ov.City || "",
+              center: bounds.getCenter(),
+              open: () => { overlay.openPopup(bounds.getCenter()); },
+              logo: logoPath,
+              fallbackLogo: logoPath
+            });
+          }
         }
       });
     });
-
-    function updateUrlFromMap() {
-      if (!TileMapInfo) return; 
-      const center = map.getCenter();
-      const zoom   = map.getZoom();
-      const pt     = map.project(center, maxNativeZoom);
-
-      const X = TileMapInfo.x1 + (pt.x / widthPx)  * (TileMapInfo.x2 - TileMapInfo.x1);
-      const Y = TileMapInfo.y1 + (pt.y / heightPx) * (TileMapInfo.y2 - TileMapInfo.y1);
-
-      const qs = new URLSearchParams(location.search);
-      qs.set("x", String(Math.round(X)));
-      qs.set("y", String(Math.round(Y)));
-      qs.set("z", String(zoom));
-
-      history.replaceState(null, "", location.pathname + "?" + qs.toString());
-    }
-
-    map.on("moveend zoomend", updateUrlFromMap);
 
     function applyInitialView() {
       const qs = new URLSearchParams(location.search);
@@ -599,8 +708,6 @@
 
     tileInfoReady.then(() => {
       applyInitialView();
-      map.on("moveend zoomend", updateUrlFromMap);
-      updateUrlFromMap();
     });
 
     const routeAnimHandles = new Map();
@@ -854,7 +961,7 @@
       if(route.stopIds.length){
         const first = DBUS_STOPS.get(route.stopIds[0]);
         if(first?.latlng){
-          centerWithPreview(first.latlng, { zoom: map.getZoom() }); // ← zoom inchangé
+          centerWithPreview(first.latlng, { zoom: map.getZoom() });
           const marker = bundle.stops[0];
           if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
         }
@@ -1153,8 +1260,46 @@
       currentActiveStopId = null;
     }
 
+        function norm(s){
+          return String(s||"")
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/\p{Diacritic}/gu,'')
+            .replace(/\s+/g,' ')
+            .trim();
+        }
+        function includesNorm(hay, needle){
+          return norm(hay).includes(norm(needle));
+        }
+
+      function detectTypeFilter(q){
+        const n = norm(q);
+
+        const MAP = [
+          {types:["Atelier"],      keys:["atelier","atelier de reparation","reparation","atelier reparation"]},
+          {types:["Agence"],       keys:["agence","agence de recrutement","recrutement"]},
+          {types:["Garage"],       keys:["garage"]},
+          {types:["Concessionnaire"], keys:["concessionnaire","dealer","concess"]},
+          {types:["Entreprise"],   keys:["entreprise","societe","company"]},
+          {types:["Ville"],        keys:["ville","commune","city"]},
+        ];
+
+        for(const row of MAP){
+          for(const k of row.keys){
+            if(n === k || n.startsWith(k+" ") || n.endsWith(" "+k) || n.includes(" "+k+" ")){
+              return { types: row.types, hit: k };
+            }
+          }
+        }
+        return null;
+      }
+      
+    let sectionState = {};
+    function getExpanded(key){ return sectionState[key] !== false; }
+    function setExpanded(key, val){ sectionState[key] = !!val; }
+
     function renderResults(list){
-      $results.innerHTML="";
+      $results.innerHTML = "";
       if (!list.length){
         const empty = document.createElement("div");
         empty.className = "result-empty";
@@ -1163,35 +1308,172 @@
         $results.hidden = false;
         return;
       }
-      list.slice(0,60).forEach(item=>{
-        const div=document.createElement("div");div.className="result-item";
-        if(item.type==="Entreprise" && item.logo){
-          const img=document.createElement("img"); img.className="ico"; img.src=item.logo; img.alt="";
+
+      const buckets = {
+        "Ville": [],
+        "Atelier": [],
+        "Agence": [],
+        "Garage": [],
+        "Concessionnaire": [],
+        "Entreprise": []
+      };
+      for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
+
+      function addSectionBlock(typeKey, label){
+        const head = document.createElement("div");
+        head.className = "result-sechead";
+        head.setAttribute('role','button');
+        head.setAttribute('tabindex','0');
+        head.dataset.key = typeKey;
+
+        const spanLbl = document.createElement("span");
+        spanLbl.textContent = label;
+
+        const chev = document.createElement("span");
+        chev.className = "chev";
+        chev.textContent = "▾";
+
+        head.appendChild(spanLbl);
+        head.appendChild(chev);
+
+        const body = document.createElement("div");
+        body.className = "result-secbody";
+
+        const expanded = getExpanded(typeKey);
+        head.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (!expanded) body.hidden = true;
+
+        function toggle(open){
+          const willOpen = (typeof open === 'boolean') ? open : (head.getAttribute('aria-expanded') !== 'true');
+          head.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+          body.hidden = !willOpen;
+          setExpanded(typeKey, willOpen);
+        }
+        head.addEventListener('click', ()=> toggle());
+        head.addEventListener('keydown', e=>{
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+          if (e.key === 'ArrowRight') toggle(true);
+          if (e.key === 'ArrowLeft')  toggle(false);
+        });
+
+        $results.appendChild(head);
+        $results.appendChild(body);
+        return body;
+      }
+
+      function addItem(container, item){
+        const div = document.createElement("div");
+        div.className = "result-item";
+        let logoPath = item.logo;
+        let useServiceSize = false;
+
+        if (!logoPath && item.type === "Ville") {
+          logoPath = "./Overlays/city_ico.png"; 
+          useServiceSize = true; 
+        }
+
+        if (logoPath){
+          const img = document.createElement("img");
+          img.className = "ico";
+          if (["Atelier","Agence","Garage","Ville"].includes(item.type) || useServiceSize) {
+            img.classList.add("ico-service"); 
+          }
+          img.src = logoPath;
+          img.alt = "";
+          img.onerror = () => {
+            if (item.fallbackLogo && img.src !== item.fallbackLogo) img.src = item.fallbackLogo;
+          };
           div.appendChild(img);
         }
-        const label=item.city?`${item.name} — ${item.city}`:item.name;
-        const span=document.createElement("div"); span.className="result-text"; span.textContent = label;
+
+        let label;
+        if (item.type === "Concessionnaire"){
+          const brand = (item.brand || String(item.name||"").replace(/^Concessionnaire\s+/i,"")).trim();
+          label = item.city ? `${brand} — ${item.city}` : brand;
+        } else if (["Atelier","Agence","Garage"].includes(item.type)){
+          label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
+        } else {
+          label = item.city ? `${item.name} — ${item.city}` : item.name;
+        }
+
+        const span = document.createElement("div");
+        span.className = "result-text";
+        span.textContent = label;
         div.appendChild(span);
-        div.addEventListener("click",()=>{
-            $search.value = "";
-            $search.blur();
-            $results.hidden = true;
-            map.setView(item.center, Math.max(map.getZoom(), minNativeZoom+4));
-            if(item.open) setTimeout(()=>item.open(),150);
+
+        div.addEventListener("click", () => {
+          $search.value = "";
+          $search.blur();
+          $results.hidden = true;
+          map.setView(item.center, Math.max(map.getZoom(), minNativeZoom + 4));
+          if (item.open) setTimeout(()=> item.open(), 150);
         });
-        $results.appendChild(div);
-      });
-      $results.hidden=false;
+
+        container.appendChild(div);
+      }
+
+      const ORDER = [
+        ["Ville","Villes"],
+        ["Atelier","Ateliers de réparation"],
+        ["Agence","Agences de recrutement"],
+        ["Concessionnaire","Concessionnaires"],
+        ["Entreprise","Entreprises"]
+      ];
+
+      let shown = 0;
+      for (const [typeKey,label] of ORDER){
+        const arr = buckets[typeKey];
+        if (!arr.length) continue;
+        const body = addSectionBlock(typeKey,label);
+        for (const it of arr){
+          if (shown >= 60) break;
+          addItem(body,it);
+          shown++;
+        }
+        if (shown >= 60) break;
+      }
+
+      $results.hidden = false;
     }
     function doSearch(q){
-      q=(q||"").trim().toLowerCase();
-      if(!q){renderResults([]);return;}
-      const allowed=new Set(["Ville","Entreprise"]);
-      const res=searchIndex
-        .filter(it=> allowed.has(it.type) && [it.type,it.name,it.city].join(" ").toLowerCase().includes(q))
-        .sort((a,b)=> (a.type==="Ville"?0:1)-(b.type==="Ville"?0:1) || a.name.localeCompare(b.name));
-      renderResults(res);
+    const raw = String(q||"");
+    const nQ  = norm(raw);
+    if(!nQ){ renderResults([]); return; }
+
+    const ALLOWED = new Set(["Ville","Atelier","Agence","Concessionnaire","Entreprise"]);
+
+    const typeInfo = detectTypeFilter(nQ);
+
+    let filtered = searchIndex.filter(it => ALLOWED.has(it.type));
+
+    if(typeInfo){
+      filtered = filtered.filter(it => typeInfo.types.includes(it.type));
+
+      let rest = norm(
+        raw.replace(new RegExp(typeInfo.hit,'i'), '').trim()
+      ).replace(/^[\s,;:>-]+|[\s,;:>-]+$/g,'');
+
+      if(rest){
+        filtered = filtered.filter(it => {
+          const hay = [it.name, it.city, it.brand].filter(Boolean).join(" ");
+          return includesNorm(hay, rest);
+        });
+      }
+    } else {
+      filtered = filtered.filter(it => {
+        const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
+        return includesNorm(hay, raw);
+      });
     }
+
+    filtered.sort((a,b)=>{
+      const pa = (a.type==="Ville")?0:1, pb=(b.type==="Ville")?0:1;
+      if(pa!==pb) return pa-pb;
+      return String(a.name).localeCompare(String(b.name),'fr',{numeric:true});
+    });
+
+    renderResults(filtered);
+  }
 
     function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); } }
     const doSearchDebounced = debounce(q => {
@@ -1253,7 +1535,7 @@
         </div>
       `;
       document.body.innerHTML = html;
-      throw new Error('Maintenance mode enabled');
+      throw new Error('Maintenance');
     }
   </script>
 

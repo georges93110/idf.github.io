@@ -257,7 +257,7 @@
 
   <div class="search-panel">
     <div class="search-row">
-      <input id="search" class="search-input" type="search" placeholder="Rechercher une ville ou une entreprise…" autocomplete="off"/>
+      <input id="search" class="search-input" type="search" placeholder="Rechercher..." autocomplete="off"/>
       <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
     </div>
     <div id="selectedChip" class="selected-chip"></div>
@@ -702,6 +702,62 @@
       });
     });
 
+    tileInfoReady
+      .then(() => fetch("Monuments.json"))
+      .then(r => r.ok ? r.json() : Promise.reject("Monuments.json"))
+      .then(monuments => {
+        const slug = s => String(s||"")
+          .toLowerCase()
+          .normalize('NFD').replace(/\p{Diacritic}/gu,'')
+          .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+
+        monuments.forEach(ov => {
+          const width = 32, height = 32;
+
+          const centerLL = toLatLng(ov.X, ov.Y);
+          const topLeft = toLatLng(ov.X - (width/2), ov.Y + (height/2));
+          const bottomRight = toLatLng(ov.X + (width/2), ov.Y - (height/2));
+          const bounds = L.latLngBounds(topLeft, bottomRight);
+
+          const key = "overlay_monument";
+          const minPx = Math.max(DEDUPE_MIN_PX_BASE, Math.max(width, height) * 0.75);
+          if (_isTooClose(key, centerLL, minPx)) return;
+
+          const overlay = L.imageOverlay(`./Overlays/overlay_monument.png`, bounds, { interactive: true }).addTo(map);
+
+          const name = String(ov.Name || "").trim();
+          const city = String(ov.City || "").trim();
+
+          const specificFile =
+            ov.IconId ? `./Overlays/${ov.IconId}.png`
+                      : `./Overlays/monument_${slug(name)}.png`;
+
+          const html = `
+            <div style="text-align:center">
+              <img data-autosize src="${specificFile}"
+                  onerror="this.style.display='none'"
+                  style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+              <b>${escapeHTML(name)}</b><br/>
+              <i>${escapeHTML(city)}</i>
+            </div>
+          `;
+          bindPopupWithImage(overlay, html);
+
+          searchIndex.push({
+            type: "Monument",
+            name,
+            city,
+            center: bounds.getCenter(),
+            open: () => { overlay.openPopup(bounds.getCenter()); },
+            logo: `./Overlays/overlay_monument.png`,
+            fallbackLogo: `./Overlays/overlay_monument.png`
+          });
+        });
+      })
+      .catch(err => console.error("Monuments.json error:", err));
+
+
+      
     function applyInitialView() {
       const qs = new URLSearchParams(location.search);
       const x = parseFloat(qs.get("x"));
@@ -1301,6 +1357,7 @@
           {types:["Concessionnaire"], keys:["concessionnaire","dealer","concess"]},
           {types:["Entreprise"],   keys:["entreprise","societe","company"]},
           {types:["Ville"],        keys:["ville","commune","city"]},
+          {types:["Monument"], keys:["monument","monuments","monu"]},
         ];
 
         for(const row of MAP){
@@ -1334,7 +1391,8 @@
         "Agence": [],
         "Garage": [],
         "Concessionnaire": [],
-        "Entreprise": []
+        "Entreprise": [],
+        "Monument": []    
       };
       for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
 
@@ -1394,7 +1452,7 @@
         if (logoPath){
           const img = document.createElement("img");
           img.className = "ico";
-          if (["Atelier","Agence","Garage","Ville"].includes(item.type) || useServiceSize) {
+          if (["Atelier","Agence","Garage","Ville","Monument"].includes(item.type) || useServiceSize) {
             img.classList.add("ico-service"); 
           }
           img.src = logoPath;
@@ -1411,6 +1469,8 @@
           label = item.city ? `${brand} — ${item.city}` : brand;
         } else if (["Atelier","Agence","Garage"].includes(item.type)){
           label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
+        } else if (item.type === "Monument"){
+          label = item.city ? `${item.name} — ${item.city}` : item.name;   // ⬅️ nom + ville
         } else {
           label = item.city ? `${item.name} — ${item.city}` : item.name;
         }
@@ -1433,6 +1493,7 @@
 
       const ORDER = [
         ["Ville","Villes"],
+        ["Monument","Monuments"], 
         ["Atelier","Ateliers de réparation"],
         ["Agence","Agences de recrutement"],
         ["Concessionnaire","Concessionnaires"],
@@ -1459,7 +1520,7 @@
     const nQ  = norm(raw);
     if(!nQ){ renderResults([]); return; }
 
-    const ALLOWED = new Set(["Ville","Atelier","Agence","Concessionnaire","Entreprise"]);
+    const ALLOWED = new Set(["Ville","Atelier","Agence","Concessionnaire","Entreprise","Monument"]);
 
     const typeInfo = detectTypeFilter(nQ);
 

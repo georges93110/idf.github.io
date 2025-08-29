@@ -1,0 +1,23 @@
+[
+  {
+    "X": 22061.26,
+    "Y": -2255.27,
+    "Name": "Disneyland Paris",
+    "IconId": "monument_disney",
+    "City": "Chessy"
+  },
+  {
+    "X": -10727.75,
+    "Y": -762.81,
+    "Name": "Tour Eiffel",
+    "IconId": "monument_eiffel",
+    "City": "Paris 7ème Arrondissement"
+  },
+  {
+    "X": -4998.54,
+    "Y": -450.09,
+    "Name": "Place de la Bastille",
+    "IconId": "monument_bastille",
+    "City": "Paris 4ème Arrondissement"
+  }
+]

@@ -249,6 +249,42 @@
     }
     .result-secbody[hidden]{ display:none !important; }
     
+    .results-filters{
+      position: sticky; top: 0; z-index: 2;
+      display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+      padding:8px 10px; border-bottom:1px solid #1f2732;
+      background:var(--panel2); backdrop-filter:blur(6px);
+    }
+    .rf-chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border:1px solid var(--border); border-radius:999px;
+      background:var(--panel); color:var(--text); font-size:12px; cursor:pointer; user-select:none;
+    }
+    .rf-chip input{ appearance:none; width:16px; height:16px; border:2px solid #5b6b85; border-radius:4px; display:inline-block; }
+    .rf-chip input:checked{ background:#3aa0ff; border-color:#3aa0ff; }
+    .rf-chip .dot{ width:10px; height:10px; border-radius:50%; opacity:.95; }
+    .rf-chip[data-type="Ville"]              .dot{ background:#9ca3af; }
+    .rf-chip[data-type="Monument"]           .dot{ background:#f59e0b; }
+    .rf-chip[data-type="Atelier"]            .dot{ background:#22c55e; }
+    .rf-chip[data-type="Agence"]             .dot{ background:#8b5cf6; }
+    .rf-chip[data-type="Concessionnaire"]    .dot{ background:#3aa0ff; }
+    .rf-chip[data-type="Entreprise"]         .dot{ background:#ef4444; }
+    .rf-chip[data-type="Centre commercial"]  .dot{ background:#10b981; }
+
+    .rf-actions{ margin-left:auto; display:flex; gap:6px; }
+    .rf-btn{ padding:6px 10px; font-size:12px; border-radius:10px; border:1px solid var(--border);
+      background:color-mix(in oklab, var(--panel) 92%, #000 8%); color:var(--text); cursor:pointer; }
+    .rf-btn:hover{ background:#101926; }
+
+    .rf-chip .dot{ display:none !important; }
+
+    .result-sechead{
+      display:block;
+      cursor:default;
+      user-select:text;
+    }
+    .result-sechead .chev{ display:none !important; }
+
   </style>
   
 </head>
@@ -257,11 +293,14 @@
 
   <div class="search-panel">
     <div class="search-row">
-      <input id="search" class="search-input" type="search" placeholder="Rechercher une ville ou une entreprise…" autocomplete="off"/>
+      <input id="search" class="search-input" type="search" placeholder="Rechercher..." autocomplete="off"/>
       <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
     </div>
+    
     <div id="selectedChip" class="selected-chip"></div>
-    <div id="results" class="results" hidden></div>
+    <div id="results" class="results" hidden>
+      
+    </div>
 
     <div id="dbusPanel" class="dbus-panel">
       <div class="dbus-header"></div>
@@ -538,6 +577,19 @@
       list.push({x: pt.x, y: pt.y}); _placedByIcon.set(iconId, list); return false;
     }
 
+    function bindPopupWithImage(layer, html){
+      layer.bindPopup(html);
+      layer.on('popupopen', (e) => {
+        const el = e.popup.getElement();
+        const img = el && el.querySelector('img[data-autosize]');
+        if (img && !img.complete) {
+          img.addEventListener('load', () => {
+            try { e.popup.update(); } catch {}
+          }, { once: true });
+        }
+      });
+    }
+
     const homeBtn = L.control({ position: 'topleft' });
 
     homeBtn.onAdd = function(map) {
@@ -559,7 +611,6 @@
     homeBtn.addTo(map);
 
     const ICON_NAMES = {
-      "viewpoint": "Cinématique",
       "gas_ico": "Station service",
       "bus_ico": "Gare routière",
       "service_ico": "Atelier de réparation",
@@ -570,6 +621,109 @@
       "toll_ico": "Péage",
       "parking_ico": "Parking"
     };
+
+    tileInfoReady
+      .then(() => fetch("CentreCommerciaux.json"))
+      .then(r => r.ok ? r.json() : Promise.reject("CentreCommerciaux.json"))
+      .then(malls => {
+        malls.forEach(ov => {
+          const width = 32, height = 32;
+
+          const centerLL = toLatLng(ov.X, ov.Y);
+          const topLeft = toLatLng(ov.X - (width/2), ov.Y + (height/2));
+          const bottomRight = toLatLng(ov.X + (width/2), ov.Y - (height/2));
+          const bounds = L.latLngBounds(topLeft, bottomRight);
+
+          const key = "overlay_centrecom";
+          const minPx = Math.max(DEDUPE_MIN_PX_BASE, Math.max(width, height) * 0.75);
+          if (_isTooClose(key, centerLL, minPx)) return;
+
+          const overlay = L.imageOverlay(`./Overlays/overlay_centrecom.png`, bounds, { interactive: true }).addTo(map);
+          const popup = L.popup({ maxWidth: 420, autoPan: true });
+          overlay.bindPopup(popup);
+
+          overlay.on('popupopen', (e) => {
+            const el = e.popup.getElement();
+            const img = el && el.querySelector('img[data-autosize]');
+            if (img && !img.complete) {
+              img.addEventListener('load', () => { try { e.popup.update(); } catch {} }, { once:true });
+            }
+          });
+
+          const name = "Centre Commercial " + String(ov.Name || "").trim();
+          const city = String(ov.City || "").trim();
+          const wikiKey = String(ov.wiki || "").trim();
+
+          overlay.on("click", async () => {
+            const p = overlay.getPopup();
+            p.setLatLng(bounds.getCenter());
+
+            if (!wikiKey) {
+              p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
+              overlay.openPopup();
+              return;
+            }
+
+            p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><i>Chargement…</i></div>`);
+            overlay.openPopup();
+
+            try {
+              const baseTitle = wikiTitleFrom(wikiKey);
+              const { title: finalTitle, data } = await (async function resolveWikiSummary(title){
+                try {
+                  const d0 = await fetchWikiSummary(title);
+                  if (d0?.type !== "disambiguation") return { title, data: d0 };
+                } catch {}
+                for (const suf of [
+                  "_(Paris)", "_(Île-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+                  "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
+                  "_(Centre_commercial)", "_(Centre_commercial_en_France)"
+                ]) {
+                  try {
+                    const d = await fetchWikiSummary(title + suf);
+                    if (d?.type !== "disambiguation") return { title: title + suf, data: d };
+                  } catch {}
+                }
+                return { title, data: null };
+              })(baseTitle);
+
+              const pageUrl = "https://fr.wikipedia.org/wiki/" + finalTitle;
+              const desc = data?.description || "";
+              const img = data?.thumbnail?.source || "";
+
+              const html = data ? `
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  ${img ? `<img data-autosize src="${img}" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;flex:0 0 auto">` : ``}
+                  <div style="min-width:0">
+                    <div style="font-weight:700;margin-bottom:4px">${escapeHTML(name)}</div>
+                    ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:6px">${escapeHTML(city)}</div>` : ``}
+                    <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(desc)}</div>
+                    <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+                  </div>
+                </div>` :
+                `<div style="min-width:0">
+                  <div style="font-weight:700;margin-bottom:6px">${escapeHTML(name)}</div>
+                  ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(city)}</div>` : ``}
+                </div>`;
+
+              p.setContent(html);
+            } catch {
+              p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
+            }
+          });
+
+          searchIndex.push({
+            type: "Centre commercial",
+            name,
+            city,
+            center: bounds.getCenter(),
+            open: () => { overlay.fire('click'); },
+            logo: `./Overlays/overlay_centrecom.png`,
+            fallbackLogo: `./Overlays/overlay_centrecom.png`
+          });
+        });
+      })
+      .catch(err => console.error("CentreCommerciaux.json error:", err));
 
     tileInfoReady.then(()=> fetch("Overlays.json")).then(r=>r.json()).then(overlays=>{
       overlays.forEach(ov=>{
@@ -586,7 +740,8 @@
           ov.IconId.startsWith("bg_")  ||
           ov.IconId.startsWith("train_ico")  ||
           ov.IconId.startsWith("port_overlay")  ||
-          ov.IconId.startsWith("d334p")
+          ov.IconId.startsWith("d334p")  ||
+          ov.IconId.startsWith("viewpoint")
         ){ return; }
 
         const key = ov.IconId || ov.Type || "__misc";
@@ -961,7 +1116,7 @@
       if(route.stopIds.length){
         const first = DBUS_STOPS.get(route.stopIds[0]);
         if(first?.latlng){
-          centerWithPreview(first.latlng, { zoom: map.getZoom() }); // ← zoom inchangé
+          centerWithPreview(first.latlng, { zoom: map.getZoom() });
           const marker = bundle.stops[0];
           if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
         }
@@ -1485,13 +1640,14 @@
 
     function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); } }
     const doSearchDebounced = debounce(q => {
-      doSearch(q);
-      if ((q||'').trim()) openSearchUI(); else closeSearchUI();
+      doSearch(String(q||''));
+      openSearchUI();
+      _resIdx = -1;
     }, 120);
 
     $search.addEventListener('focus', () => {
       closeDbusPanel();
-      if ($search.value.trim()) $results.hidden = false;
+      doSearch($search.value);
     });
     $search.addEventListener('input', e => doSearchDebounced(e.target.value));
     $search.addEventListener('keydown', e => {

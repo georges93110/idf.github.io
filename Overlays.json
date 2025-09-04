@@ -372,18 +372,6 @@
     "City": "Paris 16ème Arrondissement"
   },
   {
-    "X": -4909.962,
-    "Y": -228.933578,
-    "Name": "La Poste",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "laposte",
-    "City": "Paris 4ème Arrondissement"
-  },
-  {
     "X": -4430.37256,
     "Y": -105.70829,
     "Name": "Eiffage Construction",
@@ -394,6 +382,18 @@
     "IsSecret": false,
     "IconId": "eiffagec",
     "City": "Paris 12ème Arrondissement"
+  },
+  {
+    "X": -4909.962,
+    "Y": -228.933578,
+    "Name": "La Poste",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "laposte",
+    "City": "Paris 4ème Arrondissement"
   },
   {
     "X": -5305.286,
@@ -516,16 +516,40 @@
     "City": "Paris 4ème Arrondissement"
   },
   {
-    "X": -6600.78564,
-    "Y": 7080.476,
-    "Name": "GRG MAISON DES VIANDES",
+    "X": -6406.14063,
+    "Y": 6815.32031,
+    "Name": "Station Essence Engie",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "engie_ess",
+    "City": "Chevilly-Larue"
+  },
+  {
+    "X": -7113.462,
+    "Y": 6192.26367,
+    "Name": "VIANOV",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "vianov",
+    "City": "Chevilly-Larue"
+  },
+  {
+    "X": -6481.30371,
+    "Y": 6851.539,
+    "Name": "GRG Maison des Viandes",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "grg",
-    "City": "Rungis"
+    "City": "Chevilly-Larue"
   },
   {
     "X": -6512.56641,
@@ -540,28 +564,16 @@
     "City": "Rungis"
   },
   {
-    "X": -6481.30371,
-    "Y": 6851.539,
-    "Name": "GRG MAISON DES VIANDES",
+    "X": -6600.78564,
+    "Y": 7080.476,
+    "Name": "GRG Maison des Viandes",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "grg",
-    "City": "Chevilly-Larue"
-  },
-  {
-    "X": -7113.462,
-    "Y": 6192.26367,
-    "Name": "VIANOV",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "vianov",
-    "City": "Chevilly-Larue"
+    "City": "Rungis"
   },
   {
     "X": -6526.78125,
@@ -795,27 +807,15 @@
     "City": "Chevilly-Larue"
   },
   {
-    "X": -4753.48828,
-    "Y": 2677.4375,
-    "Name": "Ciments Calcia",
+    "X": -4905.754,
+    "Y": 562.6289,
+    "Name": "Total Energies",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "calcia",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -4311.674,
-    "Y": 45.96118,
-    "Name": "Vinci Construction",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "vincic",
+    "IconId": "total_ener",
     "City": "Paris 12ème Arrondissement"
   },
   {
@@ -831,6 +831,18 @@
     "City": "Paris 12ème Arrondissement"
   },
   {
+    "X": -4311.674,
+    "Y": 45.96118,
+    "Name": "Vinci Construction",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "vincic",
+    "City": "Paris 12ème Arrondissement"
+  },
+  {
     "X": -4897.91064,
     "Y": 1128.07056,
     "Name": "Au Forum du Bâtiment",
@@ -841,6 +853,18 @@
     "IsSecret": false,
     "IconId": "forumbat",
     "City": "Paris 12ème Arrondissement"
+  },
+  {
+    "X": -4753.48828,
+    "Y": 2677.4375,
+    "Name": "Ciments Calcia",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "calcia",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -4463.94531,
@@ -1557,6 +1581,42 @@
     "City": "Paris 20ème Arrondissement"
   },
   {
+    "X": -2248.51172,
+    "Y": 5167.10547,
+    "Name": "Total Energies",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "total_ener",
+    "City": "Créteil"
+  },
+  {
+    "X": -2042.14844,
+    "Y": 4944.81641,
+    "Name": "Total Energies",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "total_ener",
+    "City": "Créteil"
+  },
+  {
+    "X": -658.3711,
+    "Y": 4395.293,
+    "Name": "Hôpital Henri-Mondor AP-HP",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "hop_henri_mo",
+    "City": "Créteil"
+  },
+  {
     "X": -1018.82031,
     "Y": 4283.35156,
     "Name": "bus_281",
@@ -1893,16 +1953,16 @@
     "City": "Créteil"
   },
   {
-    "X": -510.6455,
-    "Y": 3737.45947,
-    "Name": "DIR",
+    "X": -3313.461,
+    "Y": -3.12109375,
+    "Name": "Ville de Paris",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "dirif",
-    "City": "Créteil"
+    "IconId": "city_paris_r",
+    "City": "Paris 20ème Arrondissement"
   },
   {
     "X": -1415.22034,
@@ -1915,6 +1975,42 @@
     "IsSecret": false,
     "IconId": "vincic",
     "City": "Saint-Maurice"
+  },
+  {
+    "X": -510.6455,
+    "Y": 3737.45947,
+    "Name": "DIR",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "dirif",
+    "City": "Créteil"
+  },
+  {
+    "X": -2782.88672,
+    "Y": 400.5586,
+    "Name": "Avia",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "avia",
+    "City": "Saint-Mandé"
+  },
+  {
+    "X": -3780.77344,
+    "Y": 2248.65234,
+    "Name": "UPS",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "ups",
+    "City": "Charenton-le-Pont"
   },
   {
     "X": -1565.15881,
@@ -2628,6 +2724,30 @@
     "City": "Charenton-le-Pont"
   },
   {
+    "X": -3894.88013,
+    "Y": 2130.19629,
+    "Name": "GEODIS",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "geodis",
+    "City": "Charenton-le-Pont"
+  },
+  {
+    "X": -3946.18359,
+    "Y": 2094.871,
+    "Name": "Derichebourg",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "derichb",
+    "City": "Charenton-le-Pont"
+  },
+  {
     "X": -3995.78516,
     "Y": 2160.10156,
     "Name": "Bercy 2",
@@ -3021,7 +3141,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "fr_a2",
-    "City": "Saint-Maurice"
+    "City": "Créteil"
   },
   {
     "X": -3683.03076,
@@ -3060,18 +3180,6 @@
     "City": "Charenton-le-Pont"
   },
   {
-    "X": 22539.13,
-    "Y": -1719.84741,
-    "Name": "Disneyland",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "disney2",
-    "City": "Chessy"
-  },
-  {
     "X": 22356.4453,
     "Y": -1219.98218,
     "Name": "Police Nationale",
@@ -3081,6 +3189,18 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "pn",
+    "City": "Chessy"
+  },
+  {
+    "X": 22539.13,
+    "Y": -1719.84741,
+    "Name": "Disneyland",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "disney2",
     "City": "Chessy"
   },
   {
@@ -3312,28 +3432,28 @@
     "City": "Villeneuve-Saint-Denis"
   },
   {
-    "X": 18988.89,
-    "Y": 3686.92188,
-    "Name": "uk_m4",
-    "Type": "Overlay",
-    "Width": 128,
+    "X": 19442.25,
+    "Y": 1594.3125,
+    "Name": "Total Energies",
+    "Type": "Company",
+    "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4",
-    "City": "Ferrières-en-Brie"
+    "IconId": "total_ener",
+    "City": "Bussy-Saint-Georges"
   },
   {
-    "X": 17387.0234,
-    "Y": 3318.918,
-    "Name": "uk_m4",
-    "Type": "Overlay",
-    "Width": 128,
+    "X": 19322.8242,
+    "Y": 1694.40234,
+    "Name": "Total Energies",
+    "Type": "Company",
+    "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "uk_m4",
-    "City": "Pontcarré"
+    "IconId": "total_ener",
+    "City": "Bussy-Saint-Georges"
   },
   {
     "X": 16958.63,
@@ -3360,18 +3480,6 @@
     "City": "Bussy-Saint-Georges"
   },
   {
-    "X": 16938.45,
-    "Y": 506.0295,
-    "Name": "McDonald's",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "mcdo",
-    "City": "Bussy-Saint-Georges"
-  },
-  {
     "X": 16344.1025,
     "Y": 932.0453,
     "Name": "Carrefour",
@@ -3394,6 +3502,42 @@
     "IsSecret": false,
     "IconId": "eiffager",
     "City": "Ferrières-en-Brie"
+  },
+  {
+    "X": 16938.45,
+    "Y": 506.0295,
+    "Name": "McDonald's",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "mcdo",
+    "City": "Bussy-Saint-Georges"
+  },
+  {
+    "X": 18988.89,
+    "Y": 3686.92188,
+    "Name": "uk_m4",
+    "Type": "Overlay",
+    "Width": 128,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "uk_m4",
+    "City": "Ferrières-en-Brie"
+  },
+  {
+    "X": 17387.0234,
+    "Y": 3318.918,
+    "Name": "uk_m4",
+    "Type": "Overlay",
+    "Width": 128,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "uk_m4",
+    "City": "Pontcarré"
   },
   {
     "X": 17278.6328,
@@ -3555,6 +3699,30 @@
     "City": "Ferrières-en-Brie"
   },
   {
+    "X": 15499.999,
+    "Y": 1315.08508,
+    "Name": "Ferme",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "ferme",
+    "City": "Ferrières-en-Brie"
+  },
+  {
+    "X": 14164.3613,
+    "Y": 1233.71069,
+    "Name": "Microcertec",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "microcertec",
+    "City": "Collégien"
+  },
+  {
     "X": 15777.1738,
     "Y": 3151.06055,
     "Name": "Microcertec",
@@ -3576,30 +3744,6 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "idfvert",
-    "City": "Ferrières-en-Brie"
-  },
-  {
-    "X": 14164.3613,
-    "Y": 1233.71069,
-    "Name": "Microcertec",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "microcertec",
-    "City": "Collégien"
-  },
-  {
-    "X": 15499.999,
-    "Y": 1315.08508,
-    "Name": "Ferme",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "ferme",
     "City": "Ferrières-en-Brie"
   },
   {
@@ -3780,7 +3924,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "razel",
-    "City": "Le Raincy"
+    "City": "Villemomble"
   },
   {
     "X": 4850.221,
@@ -3840,7 +3984,31 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_114",
-    "City": "Le Raincy"
+    "City": "Villemomble"
+  },
+  {
+    "X": 5011.27246,
+    "Y": -2848.56177,
+    "Name": "Alliance Forêts Bois",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "alliancef",
+    "City": "Villemomble"
+  },
+  {
+    "X": 5321.19531,
+    "Y": -2474.67529,
+    "Name": "SFCP",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "sfcp",
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 4006.945,
@@ -3855,27 +4023,15 @@
     "City": "Villemomble"
   },
   {
-    "X": 5321.19531,
-    "Y": -2474.67529,
-    "Name": "SFCP",
+    "X": 4468.60156,
+    "Y": -3644.75,
+    "Name": "Esso",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
     "DlcGuard": 0,
     "IsSecret": false,
-    "IconId": "sfcp",
-    "City": "Villemomble"
-  },
-  {
-    "X": 5011.27246,
-    "Y": -2848.56177,
-    "Name": "Alliance Forêts Bois",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "alliancef",
+    "IconId": "esso",
     "City": "Villemomble"
   },
   {
@@ -4044,7 +4200,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_114",
-    "City": "Villemomble"
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 5308.64063,
@@ -4056,7 +4212,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_114",
-    "City": "Villemomble"
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 4893.492,
@@ -4068,7 +4224,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_114",
-    "City": "Villemomble"
+    "City": "Neuilly-Plaisance"
   },
   {
     "X": 4876.59766,
@@ -4407,18 +4563,6 @@
     "City": "Rosny-sous-Bois"
   },
   {
-    "X": 3745.78442,
-    "Y": -3544.47852,
-    "Name": "Marché Frais Géant",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "marchefrais",
-    "City": "Villemomble"
-  },
-  {
     "X": 3901.9917,
     "Y": -3570.647,
     "Name": "SFCP",
@@ -4455,6 +4599,162 @@
     "City": "Rosny-sous-Bois"
   },
   {
+    "X": 3745.78442,
+    "Y": -3544.47852,
+    "Name": "Marché Frais Géant",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "marchefrais",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3203.27222,
+    "Y": -3721.111,
+    "Name": "garage_large_ico",
+    "Type": "Garage",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "garage_large_ico",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3092.121,
+    "Y": -3728.44531,
+    "Name": "Zolpan",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "zolpan",
+    "City": "Rosny-sous-Bois"
+  },
+  {
+    "X": 3176.20313,
+    "Y": -3661.836,
+    "Name": "Loxam",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "loxam",
+    "City": "Rosny-sous-Bois"
+  },
+  {
+    "X": 3191.54688,
+    "Y": -3654.85156,
+    "Name": "Francofa Eurodis",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "francofa",
+    "City": "Rosny-sous-Bois"
+  },
+  {
+    "X": 3274.09717,
+    "Y": -3654.69922,
+    "Name": "Lidl",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "lidl",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3422.51563,
+    "Y": -3577.03516,
+    "Name": "bus_n23",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_n23",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3407.586,
+    "Y": -3578.80078,
+    "Name": "bus_121",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_121",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3229.55469,
+    "Y": -3637.6875,
+    "Name": "bus_121",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_121",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3253.59375,
+    "Y": -3634.0625,
+    "Name": "bus_n23",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_n23",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3241.15234,
+    "Y": -3635.418,
+    "Name": "bus_221",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_221",
+    "City": "Villemomble"
+  },
+  {
+    "X": 3216.35547,
+    "Y": -3640.04688,
+    "Name": "bus_245",
+    "Type": "Overlay",
+    "Width": 32,
+    "Height": 32,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bus_245",
+    "City": "Villemomble"
+  },
+  {
+    "X": 1250.98828,
+    "Y": -3137.25,
+    "Name": "Esso",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "esso",
+    "City": "Rosny-sous-Bois"
+  },
+  {
     "X": 3736.289,
     "Y": -3489.35938,
     "Name": "Sapeurs-Pompiers",
@@ -4469,18 +4769,6 @@
   {
     "X": 2394.94922,
     "Y": -2782.27734,
-    "Name": "bus_245",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_245",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3153.46484,
-    "Y": -3642.55078,
     "Name": "bus_245",
     "Type": "Overlay",
     "Width": 32,
@@ -4863,18 +5151,6 @@
     "City": "Rosny-sous-Bois"
   },
   {
-    "X": 3218.179,
-    "Y": -3686.43677,
-    "Name": "Lidl",
-    "Type": "Company",
-    "Width": 512,
-    "Height": 128,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "lidl",
-    "City": "Rosny-sous-Bois"
-  },
-  {
     "X": 2596.40234,
     "Y": -3540.05859,
     "Name": "bus_346",
@@ -4971,8 +5247,8 @@
     "City": "Rosny-sous-Bois"
   },
   {
-    "X": 3208.57422,
-    "Y": -3619.48047,
+    "X": 3242.11328,
+    "Y": -3614.07031,
     "Name": "bus_102",
     "Type": "Overlay",
     "Width": 32,
@@ -4980,11 +5256,11 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_102",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
-    "X": 3245.67188,
-    "Y": -3614.28125,
+    "X": 3278.95313,
+    "Y": -3607.26172,
     "Name": "bus_n23",
     "Type": "Overlay",
     "Width": 32,
@@ -4992,11 +5268,11 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_n23",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
-    "X": 3221.94922,
-    "Y": -3618.14453,
+    "X": 3255.40625,
+    "Y": -3612.15234,
     "Name": "bus_121",
     "Type": "Overlay",
     "Width": 32,
@@ -5004,11 +5280,11 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_121",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
-    "X": 3233.67188,
-    "Y": -3616.13672,
+    "X": 3267.039,
+    "Y": -3609.63281,
     "Name": "bus_221",
     "Type": "Overlay",
     "Width": 32,
@@ -5016,67 +5292,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_221",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3178.98047,
-    "Y": -3641.67578,
-    "Name": "bus_221",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_221",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3191.168,
-    "Y": -3642.01172,
-    "Name": "bus_n23",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_n23",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3166.85547,
-    "Y": -3642.13672,
-    "Name": "bus_121",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_121",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3398.74219,
-    "Y": -3579.875,
-    "Name": "bus_n23",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_n23",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3383.961,
-    "Y": -3582.64063,
-    "Name": "bus_121",
-    "Type": "Overlay",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "bus_121",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
     "X": 3427.46875,
@@ -5088,7 +5304,7 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_121",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
     "X": 3442.02344,
@@ -5100,11 +5316,11 @@
     "DlcGuard": 0,
     "IsSecret": false,
     "IconId": "bus_n23",
-    "City": "Rosny-sous-Bois"
+    "City": "Villemomble"
   },
   {
-    "X": 3120.76343,
-    "Y": -3685.29688,
+    "X": 3120.86572,
+    "Y": -3663.83887,
     "Name": "recruitment_ico",
     "Type": "Recruitment",
     "Width": 32,
@@ -5137,42 +5353,6 @@
     "IsSecret": false,
     "IconId": "bg_2",
     "City": "Villemomble"
-  },
-  {
-    "X": 3272.89063,
-    "Y": -3671.504,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "parking_ico",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3309.94922,
-    "Y": -3688.65356,
-    "Name": "garage_large_ico",
-    "Type": "Garage",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "garage_large_ico",
-    "City": "Rosny-sous-Bois"
-  },
-  {
-    "X": 3307.59424,
-    "Y": -3650.105,
-    "Name": "gas_ico",
-    "Type": "Fuel",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": false,
-    "IconId": "gas_ico",
-    "City": "Rosny-sous-Bois"
   },
   {
     "X": 3957.18359,
@@ -5298,6 +5478,18 @@
     "City": "Rosny-sous-Bois"
   },
   {
+    "X": 2339.40625,
+    "Y": 204.75,
+    "Name": "BP",
+    "Type": "Company",
+    "Width": 512,
+    "Height": 128,
+    "DlcGuard": 0,
+    "IsSecret": false,
+    "IconId": "bp",
+    "City": "Fontenay-sous-Bois"
+  },
+  {
     "X": 2496.64746,
     "Y": 2137.709,
     "Name": "dealer_ico",
@@ -5399,7 +5591,7 @@
   {
     "X": 2500.03247,
     "Y": 2174.441,
-    "Name": "Volvo dealer",
+    "Name": "Volvo",
     "Type": "Company",
     "Width": 512,
     "Height": 128,
@@ -5781,152 +5973,8 @@
     "City": "Paris 20ème Arrondissement"
   },
   {
-    "X": -3743.01172,
-    "Y": 2270.95313,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3764.129,
-    "Y": 2252.96484,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3777.57422,
-    "Y": 2241.44922,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
     "X": -3788.789,
     "Y": 2234.246,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3764.14063,
-    "Y": 2292.92188,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3751.94141,
-    "Y": 2303.39063,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3779.03125,
-    "Y": 2279.92578,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3788.375,
-    "Y": 2272.17969,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3808.46875,
-    "Y": 2213.69531,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3840.07422,
-    "Y": 2228.39063,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3846.211,
-    "Y": 2223.504,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3822.76563,
-    "Y": 2202.01953,
-    "Name": "parking_ico",
-    "Type": "Parking",
-    "Width": 32,
-    "Height": 32,
-    "DlcGuard": 0,
-    "IsSecret": true,
-    "IconId": "parking_ico",
-    "City": "Charenton-le-Pont"
-  },
-  {
-    "X": -3878.84375,
-    "Y": 2193.418,
     "Name": "parking_ico",
     "Type": "Parking",
     "Width": 32,
@@ -5994,7 +6042,7 @@
     "DlcGuard": 0,
     "IsSecret": true,
     "IconId": "parking_ico",
-    "City": "Ferrières-en-Brie"
+    "City": "Villeneuve-Saint-Denis"
   },
   {
     "X": 17628.1445,

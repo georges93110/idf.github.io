@@ -25,7 +25,7 @@
     }
     .city-selected{color:#ffda3a !important;text-shadow:0 0 0 rgba(0,0,0,0),0 2px 6px rgba(0,0,0,.9)}
 
-    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:750px;max-width:min(92vw,920px)}
+    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:950px;max-width:min(92vw,920px)}
     .search-row{display:flex;gap:8px;align-items:center}
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
     .search-input::placeholder{color:var(--muted)}
@@ -402,6 +402,19 @@
         .replace(/^_+|_+$/g, "");
     }
 
+    function addSectionBlock(typeKey, label){
+      const head = document.createElement("div");
+      head.className = "result-sechead";
+      head.textContent = label;
+      $results.appendChild(head);
+
+      const body = document.createElement("div");
+      body.className = "result-secbody";
+      $results.appendChild(body);
+
+      return body;
+    }
+
     window.addEventListener('keydown', e=>{
       if(document.getElementById("linePreviewWrap")?.style.display!=="block") return;
       if(!currentSelectedKey) return;
@@ -752,25 +765,30 @@
         const bottomRight = toLatLng(ov.X + (width/2), ov.Y - (height/2));
         const bounds = L.latLngBounds(topLeft, bottomRight);
 
-        if(ov.Type==="Company"){
-          const compTopLeft=toLatLng(ov.X,ov.Y), compBottomRight=toLatLng(ov.X+20,ov.Y-20);
-          const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
-          const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
-          overlay.bindPopup(`
-            <div style="text-align:center">
-              <img src="./Overlays/${ov.IconId}.png" style="max-width:100px;display:block;margin:0 auto 8px"/>
-              <b>${ov.Name}</b><br/><i>${ov.City||""}</i>
-            </div>
-          `);
-          searchIndex.push({
-            type:"Entreprise",
-            name:ov.Name||"Entreprise",
-            city:ov.City||"",
-            center:compBounds.getCenter(),
-            open:()=>{ overlay.openPopup(compBounds.getCenter()); },
-            logo:`./Overlays/${ov.IconId}.png`
-          });
-          } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
+       if (ov.Type==="Company"){
+        const compTopLeft=toLatLng(ov.X,ov.Y), compBottomRight=toLatLng(ov.X+20,ov.Y-20);
+        const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
+        const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
+
+        const logoPath = `./Overlays/${ov.IconId}.png`;
+
+        bindPopupWithImage(overlay, `
+          <div style="text-align:center">
+            <img data-autosize src="${logoPath}"
+                style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+            <b>${escapeHTML(ov.Name)}</b><br/><i>${escapeHTML(ov.City||"")}</i>
+          </div>
+        `);
+
+        searchIndex.push({
+          type:"Entreprise",
+          name:ov.Name||"Entreprise",
+          city:ov.City||"",
+          center:compBounds.getCenter(),
+          open:()=>{ overlay.openPopup(compBounds.getCenter()); },
+          logo:logoPath
+        });
+      } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
             const btxt = brandsText(ov) || '—';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
@@ -778,12 +796,13 @@
             const brandKey = dealerBrandKeyFrom(ov);
             const brandLogo = brandKey ? `./Overlays/dealer_${brandKey}.png` : `./Overlays/dealer_ico.png`;
 
-            overlay.bindPopup(`
-              <div style="text-align:center">
-                <img src="${brandLogo}" style="max-width:168px;display:block;margin:0 auto 10px"/>
-                <b>${titleLine}</b><br/><i>${escapeHTML(ov.City || "")}</i>
-              </div>
-            `);
+              bindPopupWithImage(overlay, `
+                <div style="text-align:center">
+                  <img data-autosize src="${brandLogo}"
+                      style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+                  <b>Concessionnaire ${escapeHTML(btxt || "—")}</b><br/><i>${escapeHTML(ov.City || "")}</i>
+                </div>
+              `);
 
             overlay.on("click", () => {
               overlay.openPopup(bounds.getCenter());
@@ -838,6 +857,121 @@
       });
     });
 
+    function wikiTitleFrom(urlOrTitle){
+      const s = String(urlOrTitle||"").trim();
+      if (!s) return "";
+      try{
+        const u = new URL(s);
+        const m = /\/wiki\/(.+)$/.exec(u.pathname);
+        return m ? decodeURIComponent(m[1]) : s.replaceAll(" ", "_");
+      }catch{
+        return s.replaceAll(" ", "_");
+      }
+    }
+
+
+  tileInfoReady
+  .then(() => fetch("Monuments.json"))
+  .then(r => r.ok ? r.json() : Promise.reject("Monuments.json"))
+  .then(monuments => {
+    monuments.forEach(ov => {
+      const width = 32, height = 32;
+
+      const centerLL = toLatLng(ov.X, ov.Y);
+      const topLeft = toLatLng(ov.X - (width/2), ov.Y + (height/2));
+      const bottomRight = toLatLng(ov.X + (width/2), ov.Y - (height/2));
+      const bounds = L.latLngBounds(topLeft, bottomRight);
+
+      const key = "overlay_monument";
+      const minPx = Math.max(DEDUPE_MIN_PX_BASE, Math.max(width, height) * 0.75);
+      if (_isTooClose(key, centerLL, minPx)) return;
+
+      const overlay = L.imageOverlay(`./Overlays/overlay_monument.png`, bounds, { interactive: true }).addTo(map);
+      const popup = L.popup({ maxWidth: 420, autoPan: true });
+      overlay.bindPopup(popup);
+
+      overlay.on('popupopen', (e) => {
+        const el = e.popup.getElement();
+        const img = el && el.querySelector('img[data-autosize]');
+        if (img && !img.complete) {
+          img.addEventListener('load', () => { try { e.popup.update(); } catch {} }, { once:true });
+        }
+      });
+
+      const name = String(ov.Name || "").trim();
+      const city = String(ov.City || "").trim();
+      const wikiTitle = wikiTitleFrom(ov.wiki || ov.IconId || name);
+
+      overlay.on("click", async () => {
+        const p = overlay.getPopup();
+        p.setLatLng(bounds.getCenter());
+        p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><i>Chargement…</i></div>`);
+        overlay.openPopup();
+
+        try {
+          const { title: finalTitle, data } = await (async function resolveWikiSummary(baseTitle){
+            try {
+              const d0 = await fetchWikiSummary(baseTitle);
+              if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
+            } catch {}
+            for (const suf of [
+              "_(Paris)", "_(Île-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+              "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
+              "_(Monument)"
+            ]) {
+              try {
+                const d = await fetchWikiSummary(baseTitle + suf);
+                if (d?.type !== "disambiguation") return { title: baseTitle + suf, data: d };
+              } catch {}
+            }
+            return { title: baseTitle, data: null };
+          })(wikiTitle);
+
+          const pageUrl = "https://fr.wikipedia.org/wiki/" + finalTitle;
+          const desc = data?.description || "";
+          const img = data?.thumbnail?.source || "";
+
+          const html = data ? `
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              ${img ? `<img data-autosize src="${img}" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;flex:0 0 auto">` : ``}
+              <div style="min-width:0">
+                <div style="font-weight:700;margin-bottom:4px">${escapeHTML(name)}</div>
+                ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:6px">${escapeHTML(city)}</div>` : ``}
+                <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(desc)}</div>
+                <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+              </div>
+            </div>` :
+            `<div style="min-width:0">
+              <div style="font-weight:700;margin-bottom:6px">${escapeHTML(name)}</div>
+              ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(city)}</div>` : ``}
+              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+            </div>`;
+
+          p.setContent(html);
+        } catch {
+          p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
+        }
+      });
+
+      searchIndex.push({
+        type: "Monument",
+        name,
+        city,
+        center: bounds.getCenter(),
+        open: () => { 
+          const p = overlay.getPopup();
+          if (p) { p.setLatLng(bounds.getCenter()); }
+          overlay.fire('click');
+        },
+        logo: `./Overlays/overlay_monument.png`,
+        fallbackLogo: `./Overlays/overlay_monument.png`
+      });
+    });
+  })
+  .catch(err => console.error("Monuments.json error:", err));
+
+
+      
     function applyInitialView() {
       const qs = new URLSearchParams(location.search);
       const x = parseFloat(qs.get("x"));
@@ -1437,7 +1571,10 @@
           {types:["Concessionnaire"], keys:["concessionnaire","dealer","concess"]},
           {types:["Entreprise"],   keys:["entreprise","societe","company"]},
           {types:["Ville"],        keys:["ville","commune","city"]},
+          {types:["Monument"],     keys:["monument","monuments","monu","lieu","lieu emblématique","lieux emblématiques","lieux","emblématique","emblématiques"]},
+          {types:["Centre commercial"], keys:["centre commercial","centrecom","centre commerciaux","mall","shopping"]},
         ];
+
 
         for(const row of MAP){
           for(const k of row.keys){
@@ -1452,9 +1589,61 @@
     let sectionState = {};
     function getExpanded(key){ return sectionState[key] !== false; }
     function setExpanded(key, val){ sectionState[key] = !!val; }
+    
+    const ALL_TYPES = [
+      "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise","Centre commercial"
+    ];
+    
+    const ORDER = [
+      ["Ville","Villes"],
+      ["Monument","Lieux Emblématiques"],
+      ["Atelier","Ateliers de réparation"],
+      ["Agence","Agences de recrutement"],
+      ["Concessionnaire","Concessionnaires"],
+      ["Entreprise","Entreprises"],
+      ["Centre commercial","Centres commerciaux"]
+    ];
+    const PLURIEL = Object.fromEntries(ORDER);
 
+    const DEFAULT_OFF = new Set(["Atelier","Agence","Centre commercial"]);
+    let SELECTED_TYPES = new Set(ALL_TYPES.filter(t => !DEFAULT_OFF.has(t)));
+
+    const saveSelectedTypes = () => {};
+
+    function buildResultsFilterBar(host){
+      host.querySelector(".results-filters")?.remove();
+
+      const bar = document.createElement("div");
+      bar.className = "results-filters";
+
+      ALL_TYPES.forEach(type=>{
+        const id = "rf_" + type.replace(/\s+/g,'_');
+        const labelText = PLURIEL[type] || type;
+
+        const chip = document.createElement("label");
+        chip.className = "rf-chip";
+        chip.dataset.type = type;
+        chip.innerHTML = `
+          <span>${labelText}</span>
+          <input type="checkbox" id="${id}" ${SELECTED_TYPES.has(type)?'checked':''} aria-label="${labelText}">
+        `;
+        const input = chip.querySelector("input");
+        input.addEventListener("change", () => {
+          if (input.checked) SELECTED_TYPES.add(type);
+          else SELECTED_TYPES.delete(type);
+          saveSelectedTypes(SELECTED_TYPES);
+          doSearch($search.value);
+        });
+        bar.appendChild(chip);
+      });
+
+      host.prepend(bar);
+    }
+
+    
     function renderResults(list){
       $results.innerHTML = "";
+      buildResultsFilterBar($results);
       if (!list.length){
         const empty = document.createElement("div");
         empty.className = "result-empty";
@@ -1470,69 +1659,41 @@
         "Agence": [],
         "Garage": [],
         "Concessionnaire": [],
-        "Entreprise": []
+        "Entreprise": [],
+        "Monument": [],
+        "Centre commercial": []
       };
       for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
 
       function addSectionBlock(typeKey, label){
         const head = document.createElement("div");
         head.className = "result-sechead";
-        head.setAttribute('role','button');
-        head.setAttribute('tabindex','0');
-        head.dataset.key = typeKey;
-
-        const spanLbl = document.createElement("span");
-        spanLbl.textContent = label;
-
-        const chev = document.createElement("span");
-        chev.className = "chev";
-        chev.textContent = "▾";
-
-        head.appendChild(spanLbl);
-        head.appendChild(chev);
+        head.textContent = label; 
+        $results.appendChild(head);
 
         const body = document.createElement("div");
         body.className = "result-secbody";
-
-        const expanded = getExpanded(typeKey);
-        head.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        if (!expanded) body.hidden = true;
-
-        function toggle(open){
-          const willOpen = (typeof open === 'boolean') ? open : (head.getAttribute('aria-expanded') !== 'true');
-          head.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-          body.hidden = !willOpen;
-          setExpanded(typeKey, willOpen);
-        }
-        head.addEventListener('click', ()=> toggle());
-        head.addEventListener('keydown', e=>{
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-          if (e.key === 'ArrowRight') toggle(true);
-          if (e.key === 'ArrowLeft')  toggle(false);
-        });
-
-        $results.appendChild(head);
         $results.appendChild(body);
+
         return body;
       }
 
       function addItem(container, item){
         const div = document.createElement("div");
         div.className = "result-item";
-        // Icône avant le texte
         let logoPath = item.logo;
         let useServiceSize = false;
 
         if (!logoPath && item.type === "Ville") {
           logoPath = "./Overlays/city_ico.png"; 
-          useServiceSize = true; // → ville = petite taille
+          useServiceSize = true; 
         }
 
         if (logoPath){
           const img = document.createElement("img");
           img.className = "ico";
-          if (["Atelier","Agence","Garage","Ville"].includes(item.type) || useServiceSize) {
-            img.classList.add("ico-service"); // même taille que services
+          if (["Atelier","Agence","Garage","Ville","Monument","Centre commercial"].includes(item.type) || useServiceSize) {
+            img.classList.add("ico-service");
           }
           img.src = logoPath;
           img.alt = "";
@@ -1548,6 +1709,8 @@
           label = item.city ? `${brand} — ${item.city}` : brand;
         } else if (["Atelier","Agence","Garage"].includes(item.type)){
           label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
+        } else if (item.type === "Monument"){
+          label = item.city ? `${item.name} — ${item.city}` : item.name; 
         } else {
           label = item.city ? `${item.name} — ${item.city}` : item.name;
         }
@@ -1568,75 +1731,63 @@
         container.appendChild(div);
       }
 
-      const ORDER = [
-        ["Ville","Villes"],
-        ["Atelier","Ateliers de réparation"],
-        ["Agence","Agences de recrutement"],
-        ["Concessionnaire","Concessionnaires"],
-        ["Entreprise","Entreprises"]
-      ];
-
       let shown = 0;
       for (const [typeKey,label] of ORDER){
         const arr = buckets[typeKey];
         if (!arr.length) continue;
         const body = addSectionBlock(typeKey,label);
         for (const it of arr){
-          if (shown >= 60) break;
+          if (shown >= 250) break;
           addItem(body,it);
           shown++;
         }
-        if (shown >= 60) break;
+        if (shown >= 250) break;
       }
 
       $results.hidden = false;
     }
     function doSearch(q){
-    const raw = String(q||"");
-    const nQ  = norm(raw);
-    if(!nQ){ renderResults([]); return; }
+      const raw = String(q||"");
+      const nQ  = norm(raw);
 
-    // Types autorisés dans le rendu
-    const ALLOWED = new Set(["Ville","Atelier","Agence","Concessionnaire","Entreprise"]);
+      const ALLOWED = new Set(ALL_TYPES.filter(t => SELECTED_TYPES.has(t)));
 
-    // 1) Détecter un filtre de type (ex: "atelier de reparation", "agence", "garage", etc.)
-    const typeInfo = detectTypeFilter(nQ);
+      if (nQ === ""){
+        const all = searchIndex.filter(it => ALLOWED.has(it.type));
+        renderResults(all);
+        $results.hidden = false;
+        return;
+      }
 
-    let filtered = searchIndex.filter(it => ALLOWED.has(it.type));
+      let filtered = searchIndex.filter(it => ALLOWED.has(it.type));
+      const typeInfo = detectTypeFilter(nQ);
 
-    if(typeInfo){
-      // On garde seulement les types demandés
-      filtered = filtered.filter(it => typeInfo.types.includes(it.type));
-
-      // Retirer le mot-clé trouvé de la requête pour obtenir le reste (ville/brand)
-      let rest = norm(
-        raw.replace(new RegExp(typeInfo.hit,'i'), '').trim()
-      ).replace(/^[\s,;:>-]+|[\s,;:>-]+$/g,'');
-
-      // Si on a un reste, on l’utilise pour filtrer par ville/nom/brand
-      if(rest){
+      if (typeInfo){
+        filtered = filtered.filter(it => typeInfo.types.includes(it.type));
+        let rest = norm(raw.replace(new RegExp(typeInfo.hit,'i'), '').trim())
+                    .replace(/^[\s,;:>-]+|[\s,;:>-]+$/g,'');
+        if (rest){
+          filtered = filtered.filter(it => {
+            const hay = [it.name, it.city, it.brand].filter(Boolean).join(" ");
+            return includesNorm(hay, rest);
+          });
+        }
+      } else {
         filtered = filtered.filter(it => {
-          const hay = [it.name, it.city, it.brand].filter(Boolean).join(" ");
-          return includesNorm(hay, rest);
+          const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
+          return includesNorm(hay, raw);
         });
       }
-    } else {
-      // Pas de mot-clé de type : recherche full-text accent-insensible
-      filtered = filtered.filter(it => {
-        const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
-        return includesNorm(hay, raw);
+
+      filtered.sort((a,b)=>{
+        const pa = (a.type==="Ville")?0:1, pb=(b.type==="Ville")?0:1;
+        if(pa!==pb) return pa-pb;
+        return String(a.name).localeCompare(String(b.name),'fr',{numeric:true});
       });
+
+      renderResults(filtered);
+      $results.hidden = false;
     }
-
-    // Classement : Villes d’abord, puis alpha
-    filtered.sort((a,b)=>{
-      const pa = (a.type==="Ville")?0:1, pb=(b.type==="Ville")?0:1;
-      if(pa!==pb) return pa-pb;
-      return String(a.name).localeCompare(String(b.name),'fr',{numeric:true});
-    });
-
-    renderResults(filtered);
-  }
 
     function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); } }
     const doSearchDebounced = debounce(q => {

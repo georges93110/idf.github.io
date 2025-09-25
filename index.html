@@ -11,7 +11,7 @@
     :root{
       --panel:#0b1118;--panel2:#0f1722;--border:#2b2f3a;--text:#e8eefb;--muted:#8892a6;--shadow:0 10px 30px rgba(0,0,0,.40);
       --logoW:110px; --logoH:44px;
-      --busA:#3aa0ff; --busB:#8b5cf6; --busC:#22c55e; --busD:#f59e0b; --busE:#ef4444;
+      --busA:#2b2f3a; --busB:#2b2f3a; --busC:#2b2f3a; --busD:#2b2f3a; --busE:#2b2f3a;
     }
     html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
     #map{position:fixed;inset:0}
@@ -43,15 +43,8 @@
       font-size:14px;
       border-bottom:1px solid #1f2732;
     }
-    .result-item img.ico {
-      width: var(--logoW);
-      height: var(--logoH);
-    }
-
-    .result-item img.ico.ico-service {
-      width: calc(var(--logoW) / 2);
-      height: calc(var(--logoH) / 2);
-    }
+    .result-item img.ico { width: var(--logoW); height: var(--logoH); }
+    .result-item img.ico.ico-service { width: calc(var(--logoW) / 2); height: calc(var(--logoH) / 2); }
 
     .result-sechead{
       padding:8px 10px;
@@ -82,16 +75,33 @@
       letter-spacing:.04em;
       text-transform:uppercase;
     }
+    .dbus-sechead {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      color:#a7b2c9;
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+      border-bottom:1px solid #1f2732;
+      background:var(--panel2);
+      cursor:pointer;
+      user-select:none;
+    }
+    .dbus-sechead .chev {
+      transition: transform .18s ease;
+    }
+    .dbus-sechead[aria-expanded="false"] .chev {
+      transform: rotate(-90deg);
+    }
+    .dbus-secbody[hidden] { display:none; }
+
 
     .watermark{position:fixed;right:14px;bottom:14px;z-index:400;pointer-events:none;opacity:.125;filter:grayscale(10%);mix-blend-mode:screen}
     .watermark img{display:block;width:220px;max-width:32vw;height:auto}
 
-    .inline-ico{
-      height:1.5em;
-      width:auto;
-      vertical-align:-.35em;
-      margin:0 .12em
-    }
+    .inline-ico{ height:1.5em; width:auto; vertical-align:-.35em; margin:0 .12em }
     .rer-invert { filter: invert(1); }
     .leaflet-popup-content{white-space:normal;overflow:visible}
     .dbus-stop-name{font-size:15px;line-height:1.35;word-break:break-word}
@@ -106,37 +116,23 @@
     .line-chip .close{margin-left:10px;border:none;background:transparent;color:#ef4444;font-weight:900;font-size:22px;cursor:pointer;line-height:1}
     .line-chip .close:hover{color:#ff6666}
 
-    .line-preview-wrap{
-      position:fixed;left:0;right:0;bottom:0;z-index:1100;
-      pointer-events:none;
-    }
+    .line-preview-wrap{ position:fixed;left:0;right:0;bottom:0;z-index:1100; pointer-events:none; }
     .line-preview{
-      margin:10px auto 12px;
-      max-width:min(1100px,94vw);
+      margin:10px auto 12px; max-width:min(1100px,94vw);
       background:color-mix(in oklab, var(--panel) 92%, #000 8%);
-      border:1px solid var(--border);
-      border-radius:14px;
-      box-shadow:var(--shadow);
-      padding:10px 12px;
-      pointer-events:auto;
+      border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);
+      padding:10px 12px; pointer-events:auto;
     }
-    .line-preview-header{
-      display:flex;align-items:center;gap:10px;justify-content:space-between;
-      margin-bottom:8px;
-    }
+    .line-preview-header{ display:flex;align-items:center;gap:10px;justify-content:space-between; margin-bottom:8px; }
     .line-preview-title{ display:flex;align-items:center;gap:10px;min-width:0; }
-    .line-preview .badge{
-      display:inline-flex;align-items:center;justify-content:center;
-      min-width:56px;height:28px;border-radius:8px;font-weight:800;font-size:15px;
-      background:#444;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);
+    .line-preview .dbus-badge {
+      font-size:15px;
+      min-width:56px;
+      height:28px;
+      padding:4px 10px;
     }
-    .line-preview-route{
-      color:var(--text);font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
-    .line-preview-close{
-      border:none;background:transparent;color:#ef4444;font-weight:900;
-      font-size:22px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:8px;
-    }
+    .line-preview-route{ color:var(--text);font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .line-preview-close{ border:none;background:transparent;color:#ef4444;font-weight:900; font-size:22px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:8px; }
     .line-preview-close:hover{ color:#ff6666; background:#0f1722; }
 
     .transit-scroll{ overflow-x:auto;overflow-y:hidden;white-space:nowrap; padding-bottom:4px; }
@@ -152,43 +148,14 @@
       padding:2px 2px 6px;
     }
 
-    .stop{
-      position:relative;
-      display:flex; flex-direction:column; align-items:center;
-      flex:0 0 auto;
-      box-sizing:border-box;
-      padding-top:calc(var(--rail-h) - var(--dot)/2);
-      margin:0 calc(var(--gap)/2);
-    }
-
-    .segment{
-      height:4px;
-      flex:1 0 60px;
-      min-width:120px;
-      background:var(--lineColor);
-      margin-top:calc(var(--rail-h)/2 - 2px);
-      border-radius:2px;
-    }
-
-    .stop .dot{
-      position:absolute; left:50%;
-      top:calc(var(--rail-h)/2 - var(--dot)/2);
-      transform:translateX(-50%);
-      width:var(--dot); height:var(--dot); border-radius:50%;
-      background:var(--lineColor);
-      border:none; box-shadow:0 1px 2px rgba(0,0,0,.5);
-    }
-
-    .stop .name{
-      color:var(--text); font-size:12px; line-height:1.25; text-align:center;
-      margin-top:8px;
-      font-weight:700;
-      height:var(--nameH);
-      white-space:nowrap;
-      overflow:visible;
-      text-overflow:clip;
-    }
-
+    .stop{ position:relative; display:flex; flex-direction:column; align-items:center; flex:0 0 auto;
+      box-sizing:border-box; padding-top:calc(var(--rail-h) - var(--dot)/2); margin:0 calc(var(--gap)/2); }
+    .segment{ height:4px; flex:1 0 60px; min-width:120px; background:var(--lineColor);
+      margin-top:calc(var(--rail-h)/2 - 2px); border-radius:2px; }
+    .stop .dot{ position:absolute; left:50%; top:calc(var(--rail-h)/2 - var(--dot)/2);
+      transform:translateX(-50%); width:var(--dot); height:var(--dot); border-radius:50%; background:var(--lineColor);
+      border:none; box-shadow:0 1px 2px rgba(0,0,0,.5); }
+    .stop .name{ color:var(--text); font-size:12px; line-height:1.25; text-align:center; margin-top:8px; font-weight:700; height:var(--nameH); white-space:nowrap; overflow:visible; text-overflow:clip; }
     .stop .name .inline-ico{ height:1em; vertical-align:-.2em; }
     .stop.active .name{ color:#ffda3a; }
 
@@ -206,47 +173,33 @@
               mask: url("./Overlays/o_rer.png") no-repeat center / contain;
     }
 
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner{
+      display:inline-block; width:16px; height:16px;
+      border:2px solid #8892a6; border-top-color:#e8eefb;
+      border-radius:50%; animation:spin .8s linear infinite;
+      vertical-align:-.2em;
+    }
+
     .results::-webkit-scrollbar,
     .dbus-panel::-webkit-scrollbar,
-    .transit-scroll::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
+    .transit-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
     .results::-webkit-scrollbar-track,
     .dbus-panel::-webkit-scrollbar-track,
-    .transit-scroll::-webkit-scrollbar-track {
-      background: var(--panel2);
-      border-radius: 8px;
-    }
+    .transit-scroll::-webkit-scrollbar-track { background: var(--panel2); border-radius: 8px; }
     .results::-webkit-scrollbar-thumb,
     .dbus-panel::-webkit-scrollbar-thumb,
     .transit-scroll::-webkit-scrollbar-thumb {
-      background: var(--muted);
-      border-radius: 8px;
-      border: 2px solid var(--panel2);
+      background: var(--muted); border-radius: 8px; border: 2px solid var(--panel2);
     }
     .results::-webkit-scrollbar-thumb:hover,
     .dbus-panel::-webkit-scrollbar-thumb:hover,
-    .transit-scroll::-webkit-scrollbar-thumb:hover {
-      background: var(--text);
-    }
-    .results,
-    .dbus-panel,
-    .transit-scroll {
-      scrollbar-width: thin;
-      scrollbar-color: var(--muted) var(--panel2);
-    }
+    .transit-scroll::-webkit-scrollbar-thumb:hover { background: var(--text); }
+    .results, .dbus-panel, .transit-scroll { scrollbar-width: thin; scrollbar-color: var(--muted) var(--panel2); }
 
-    .result-sechead{
-      display:flex;align-items:center;justify-content:space-between;
-      cursor:pointer; user-select:none;
-    }
-    .result-sechead .chev{
-      font-size:14px; opacity:.9; transition:transform .18s ease;
-    }
-    .result-sechead[aria-expanded="false"] .chev{
-      transform:rotate(-90deg);
-    }
+    .result-sechead{ display:flex;align-items:center;justify-content:space-between; cursor:pointer; user-select:none; }
+    .result-sechead .chev{ font-size:14px; opacity:.9; transition:transform .18s ease; }
+    .result-sechead[aria-expanded="false"] .chev{ transform:rotate(-90deg); }
     .result-secbody[hidden]{ display:none !important; }
     
     .results-filters{
@@ -255,11 +208,9 @@
       padding:8px 10px; border-bottom:1px solid #1f2732;
       background:var(--panel2); backdrop-filter:blur(6px);
     }
-    .rf-chip{
-      display:inline-flex; align-items:center; gap:8px;
+    .rf-chip{ display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border:1px solid var(--border); border-radius:999px;
-      background:var(--panel); color:var(--text); font-size:12px; cursor:pointer; user-select:none;
-    }
+      background:var(--panel); color:var(--text); font-size:12px; cursor:pointer; user-select:none; }
     .rf-chip input{ appearance:none; width:16px; height:16px; border:2px solid #5b6b85; border-radius:4px; display:inline-block; }
     .rf-chip input:checked{ background:#3aa0ff; border-color:#3aa0ff; }
     .rf-chip .dot{ width:10px; height:10px; border-radius:50%; opacity:.95; }
@@ -278,12 +229,70 @@
 
     .rf-chip .dot{ display:none !important; }
 
-    .result-sechead{
-      display:block;
-      cursor:default;
-      user-select:text;
-    }
+    .result-sechead{ display:block; cursor:default; user-select:text; }
     .result-sechead .chev{ display:none !important; }
+
+    .dbus-badge {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:22px;
+      background:#444;
+      color:#fff;
+      padding:6px 14px;
+      border-radius:8px;
+      min-width:48px;
+      text-align:center;
+      position:relative; 
+    }
+    .dbus-badge .noctilien-stripe {
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:6px;
+      border-bottom-left-radius:8px;
+      border-bottom-right-radius:8px;
+    }
+
+    .badge.fictive {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 10px;
+      box-sizing: border-box;
+    }
+
+    .badge .fictive-stripe {
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      right: 6px;
+      height: 10px;
+      border-radius: 4px;
+      background: #666;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 10px;
+      text-transform: uppercase;
+      pointer-events: none;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .dbus-sechead .chev {
+      transition: transform .18s ease;
+    }
+    .dbus-sechead[aria-expanded="false"] .chev {
+      transform: rotate(-90deg);
+    }
+
+    .dbus-panel, 
+    .results {
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
 
   </style>
   
@@ -295,12 +304,11 @@
     <div class="search-row">
       <input id="search" class="search-input" type="search" placeholder="Rechercher..." autocomplete="off"/>
       <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
+      <!-- <button id="langToggle" class="btn" type="button" aria-label="Langue">FR</button> -->
     </div>
     
     <div id="selectedChip" class="selected-chip"></div>
-    <div id="results" class="results" hidden>
-      
-    </div>
+    <div id="results" class="results" hidden></div>
 
     <div id="dbusPanel" class="dbus-panel">
       <div class="dbus-header"></div>
@@ -312,7 +320,7 @@
     <div class="line-preview" id="linePreview">
       <div class="line-preview-header">
         <div class="line-preview-title">
-          <div class="badge" id="lpBadge">?</div>
+          <div class="dbus-badge" id="lpBadge">?</div>
           <div class="line-preview-route" id="lpRouteTitle">—</div>
         </div>
         <button type="button" class="line-preview-close" id="lpClose" aria-label="Fermer">×</button>
@@ -328,6 +336,130 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+
+  const LINE_STYLES = {
+    "24":         ["#ab5798", "#FFFFFF"],
+    "63":         ["#cdc74f", "#221f20"],
+    "109":        ["#cdc74f", "#221f20"],
+    "112":        ["#e69459", "#221f20"],
+    "114":        ["#8cc299", "#221f20"],
+    "121":        ["#d63e34", "#FFFFFF"],
+    "124":        ["#e6a4b2", "#221f20"],
+    "221":        ["#e7a5b3", "#221f20"],
+    "351":        ["#d7b152", "#221f20"],
+    "FLIXBUS":    ["#a7d245", "#FFFFFF"],
+    "N11":        ["#e9682a", "#221f20"],
+    "N23":        ["#d09835", "#221f20"],
+    "Titus 1":    ["#e63b20", "#FFFFFF"],
+    "Scolaire":   ["#31387e", "#FFFFFF"],
+  };
+
+  const I18N = {
+    fr: {
+      search_placeholder: "Rechercher...",
+      dbus_button: "Lignes DBus",
+      lang_btn: "FR",
+      results_empty: "Aucun résultat",
+      none: "Aucune",
+      villes: "Villes",
+      emblematic: "Lieux Emblématiques",
+      repair_shops: "Ateliers de réparation",
+      agencies: "Agences de recrutement",
+      dealers: "Concessionnaires",
+      companies: "Entreprises",
+      malls: "Centres commerciaux",
+      see_wiki: "Voir sur Wikipédia",
+      loading: "Chargement…",
+      depart: "Départ",
+      terminus: "Terminus",
+      stop: "Arrêt",
+      home_tooltip: "Revenir à la vue initiale",
+      maintenance_title: "En maintenance",
+      maintenance_desc: "La carte sera de nouveau disponible lors de la prochaine version de la map.",
+      close: "Fermer",
+    },
+    en: {
+      search_placeholder: "Search…",
+      dbus_button: "DBus Lines",
+      lang_btn: "EN",
+      results_empty: "No results",
+      none: "None",
+      villes: "Cities",
+      emblematic: "Landmarks",
+      repair_shops: "Repair shops",
+      agencies: "Recruitment agencies",
+      dealers: "Dealers",
+      companies: "Companies",
+      malls: "Shopping centers",
+      see_wiki: "See on Wikipedia",
+      loading: "Loading…",
+      depart: "Departure",
+      terminus: "Terminus",
+      stop: "Stop",
+      home_tooltip: "Return to initial view",
+      maintenance_title: "Under maintenance",
+      maintenance_desc: "The map will be available again with the next map release.",
+      close: "Close",
+    }
+  };
+  const SUPPORTED = new Set(["fr","en"]);
+  function detectInitialLang(){
+    const qs = new URLSearchParams(location.search);
+    const fromURL = (qs.get("lang")||"").toLowerCase();
+    if (SUPPORTED.has(fromURL)) return fromURL;
+    const stored = localStorage.getItem("idf_lang");
+    if (SUPPORTED.has(stored)) return stored;
+    const nav = (navigator.language||"fr").slice(0,2).toLowerCase();
+    return SUPPORTED.has(nav) ? nav : "fr";
+  }
+  let LANG = detectInitialLang();
+  function t(key){ return (I18N[LANG] && I18N[LANG][key]) || (I18N.fr[key]||key); }
+  function wikiBase(){ return LANG === "en" ? "https://en.wikipedia.org/wiki/" : "https://fr.wikipedia.org/wiki/"; }
+  function setLang(lang, {persist=true, apply=true} = {}){
+    if (!SUPPORTED.has(lang)) lang = "fr";
+    LANG = lang;
+    if (persist) localStorage.setItem("idf_lang", lang);
+    document.documentElement.setAttribute("lang", lang);
+    const btn = document.getElementById("langToggle");
+    if (btn) btn.textContent = I18N[lang].lang_btn;
+    if (apply) applyI18N();
+  }
+  function applyI18N(){
+    const $search = document.getElementById("search");
+    if ($search) $search.placeholder = t("search_placeholder");
+    const $btnDbus = document.getElementById("btnDbus");
+    if ($btnDbus) $btnDbus.textContent = t("dbus_button");
+    const $lpClose = document.getElementById("lpClose");
+    if ($lpClose){ $lpClose.setAttribute("aria-label", t("close")); $lpClose.title = t("close"); }
+    const home = document.querySelector(".leaflet-custom-home a.home-btn");
+    if (home) home.title = t("home_tooltip");
+
+    const results = document.getElementById("results");
+    if (results && !results.hidden) {
+      const empty = results.querySelector(".result-empty");
+      if (empty) empty.textContent = t("results_empty");
+      results.querySelectorAll(".result-sechead").forEach(h => {
+        const raw = h.textContent.trim().toLowerCase();
+        const map = {
+          "villes": t("villes"),
+          "lieux emblématiques": t("emblematic"),
+          "ateliers de réparation": t("repair_shops"),
+          "agences de recrutement": t("agencies"),
+          "concessionnaires": t("dealers"),
+          "entreprises": t("companies"),
+          "centres commerciaux": t("malls"),
+        };
+        if (map[raw]) h.textContent = map[raw];
+      });
+    }
+    const none = document.querySelector(".dbus-none");
+    if (none) none.textContent = t("none");
+  }
+  document.getElementById("langToggle")?.addEventListener("click", ()=> setLang(LANG === "fr" ? "en" : "fr"));
+  setLang(LANG, {persist:false, apply:true});
+  </script>
 
   <script>
     const minNativeZoom=0,maxNativeZoom=8,tileSize=256,TILE_BASE="./Tiles";
@@ -353,12 +485,7 @@
     const $search = document.getElementById("search");
     const $results = document.getElementById("results");
 
-    const BRAND_DISPLAY = {
-      renault: 'Renault Trucks',
-      daf: 'DAF',
-      mercedes: 'Mercedes-Benz',
-      volvo : 'Volvo Trucks'
-    };
+    const BRAND_DISPLAY = { renault: 'Renault Trucks', daf: 'DAF', mercedes: 'Mercedes-Benz', volvo : 'Volvo Trucks' };
     function brandLabel(key){
       const k = String(key||'').trim().toLowerCase();
       if (!k) return '';
@@ -387,31 +514,29 @@
       const arr = Array.isArray(ov.Brands) ? ov.Brands : (ov.Brands ? [ov.Brands] : []);
       const raw = String(arr[0] || "").toLowerCase().trim();
       if (!raw) return "";
-
-      const MAP = {
-        "renault trucks": "renault",
-        "DAF": "daf",
-        "mercedes-benz": "mercedes",
-        "volvo trucks": "volvo",
-      };
+      const MAP = { "renault trucks": "renault", "DAF": "daf", "mercedes-benz": "mercedes", "volvo trucks": "volvo" };
       const canonical = MAP[raw] || raw;
-
-      return canonical
-        .replace(/trucks?|camions?/g, "")
-        .replace(/[^a-z0-9]+/g, "_")
-        .replace(/^_+|_+$/g, "");
+      return canonical.replace(/trucks?|camions?/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
     }
 
     function addSectionBlock(typeKey, label){
       const head = document.createElement("div");
       head.className = "result-sechead";
-      head.textContent = label;
+      const labelMap = {
+        "Ville": t("villes"),
+        "Monument": t("emblematic"),
+        "Atelier": t("repair_shops"),
+        "Agence": t("agencies"),
+        "Concessionnaire": t("dealers"),
+        "Entreprise": t("companies"),
+        "Centre commercial": t("malls")
+      };
+      head.textContent = labelMap[typeKey] || label;
       $results.appendChild(head);
 
       const body = document.createElement("div");
       body.className = "result-secbody";
       $results.appendChild(body);
-
       return body;
     }
 
@@ -425,7 +550,7 @@
       })();
       if(!route) return;
 
-      const ids=route.stopIds;
+      const ids=(route.stops||[]).map(s=>s.uid);
       const idx = ids.indexOf(currentActiveStopId);
       if(e.key==="ArrowRight" && idx>=0 && idx<ids.length-1){
         const nextId = ids[idx+1];
@@ -470,17 +595,70 @@
     const $selectedChip = document.getElementById("selectedChip");
 
     function wikiTitleForCity(name){
-      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème)?$/i.exec(name.trim());
-      if (m){ const n = parseInt(m[1], 10); const suffix = (n === 1) ? "er" : "e"; return `${n}${suffix}_arrondissement_de_Paris`; }
-      return name.replaceAll(" ", "_");
+      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème|th|st|nd|rd)?$/i.exec(String(name||"").trim());
+      if (m){
+        const n = parseInt(m[1], 10);
+        if (LANG === "en"){
+          const suf = (n%10===1 && n%100!==11) ? "st" : (n%10===2 && n%100!==12) ? "nd" : (n%10===3 && n%100!==13) ? "rd" : "th";
+          return `${n}${suf}_arrondissement_of_Paris`;
+        } else {
+          const suf = (n === 1) ? "er" : "e";
+          return `${n}${suf}_arrondissement_de_Paris`;
+        }
+      }
+      return String(name||"").replaceAll(" ", "_");
     }
-    function normalizeParisArrondissement(urlOrTitle){
-      const m = /Paris[_\s]+(\d{1,2})(?:er|e|eme|ème)?[_\s]+Arrondissement/i.exec(urlOrTitle);
-      if(m){ const n = parseInt(m[1],10); const suffix = (n === 1) ? "er" : "e"; return `${n}${suffix}_arrondissement_de_Paris`; }
-      return urlOrTitle;
+    function normalizeParisArrondissement(title){
+      const s0 = String(title || "");
+
+      if (/\barrondissement_(de|of)_Paris\b/i.test(s0)) return s0;
+
+      const s = s0
+        .replace(/ /g, "_")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+      let m = /^(\d{1,2})(?:er|e|eme)?_arrondissement_(?:de|of)_paris$/.exec(s);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (LANG === "en") {
+          const suf = (n%10===1 && n%100!==11) ? "st" : (n%10===2 && n%100!==12) ? "nd" : (n%10===3 && n%100!==13) ? "rd" : "th";
+          return `${n}${suf}_arrondissement_of_Paris`;
+        } else {
+          const suf = (n === 1) ? "er" : "e";
+          return `${n}${suf}_arrondissement_de_Paris`;
+        }
+      }
+
+      m = /^paris_(\d{1,2})(?:er|e|eme)?$/.exec(s);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (LANG === "en") {
+          const suf = (n%10===1 && n%100!==11) ? "st" : (n%10===2 && n%100!==12) ? "nd" : (n%10===3 && n%100!==13) ? "rd" : "th";
+          return `${n}${suf}_arrondissement_of_Paris`;
+        } else {
+          const suf = (n === 1) ? "er" : "e";
+          return `${n}${suf}_arrondissement_de_Paris`;
+        }
+      }
+
+      m = /^paris_(\d{1,2})(?:er|e|eme)?_arrondissement$/.exec(s);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (LANG === "en") {
+          const suf = (n%10===1 && n%100!==11) ? "st" : (n%10===2 && n%100!==12) ? "nd" : (n%10===3 && n%100!==13) ? "rd" : "th";
+          return `${n}${suf}_arrondissement_of_Paris`;
+        } else {
+          const suf = (n === 1) ? "er" : "e";
+          return `${n}${suf}_arrondissement_de_Paris`;
+        }
+      }
+
+      return s0;
     }
     async function fetchWikiSummary(title){
-      const url = "https://fr.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(title);
+      const url = (LANG==="en" ? "https://en.wikipedia.org/api/rest_v1/page/summary/" : "https://fr.wikipedia.org/api/rest_v1/page/summary/") + encodeURIComponent(title);
       const r = await fetch(url); if (!r.ok) throw new Error("wiki fetch"); return r.json();
     }
 
@@ -509,7 +687,7 @@
       return t.value;
     }
 
-    function withRERIcon(text, {caseInsensitive=false} = {}){
+    function withRERIcon(text, opts = {}){ const caseInsensitive = !!opts.caseInsensitive;
       const esc = escapeHTML(text ?? "");
       const flags = caseInsensitive ? "gi" : "g";
       return esc
@@ -524,18 +702,20 @@
       let rawTitle = normalizeParisArrondissement(wikiTitleForCity(cityObj.Name));
       const p = L.popup({ maxWidth: 380, autoPan: true })
         .setLatLng(latlng)
-        .setContent(`<b>${cityObj.Name}</b><br><i>Chargement...</i>`).openOn(map);
+        .setContent(`<b>${cityObj.Name}</b><br><span class="spinner" aria-label="${t('loading')}"></span>`).openOn(map);
       try {
         const { title: finalTitle, data } = await (async function resolveWikiSummary(baseTitle){
           try {
             const d0 = await fetchWikiSummary(baseTitle);
             if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
           } catch {}
-          for (const suf of [
-            "_(Commune_française)","_(Val-de-Marne)","_(Essonne)",
-            "_(Hauts-de-Seine)","_(Seine-Saint-Denis)","_(Val-d'Oise)",
-            "_(Seine-et-Marne)","_(Yvelines)"
-          ]) {
+          const sufList = (LANG === "en")
+            ? [",_Val-de-Marne", ",_Essonne", ",_Hauts-de-Seine", ",_Seine-Saint-Denis",
+              ",_Val-d'Oise", ",_Seine-et-Marne", ",_Yvelines"]
+            : ["_(Commune_française)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
+              "_(Seine-Saint-Denis)", "_(Val-d'Oise)", "_(Seine-et-Marne)", "_(Yvelines)"];
+
+          for (const suf of sufList) {
             try {
               const d = await fetchWikiSummary(baseTitle + suf);
               if (d?.type !== "disambiguation") return { title: baseTitle + suf, data: d };
@@ -544,7 +724,7 @@
           return { title: baseTitle, data: null };
         })(rawTitle);
 
-        const pageUrl = "https://fr.wikipedia.org/wiki/" + finalTitle;
+        const pageUrl = wikiBase() + finalTitle;
         const desc = data?.description || "";
         const img = data?.thumbnail?.source || "";
         const html = data ? `
@@ -553,12 +733,12 @@
             <div style="min-width:0">
               <div style="font-weight:700;margin-bottom:4px">${cityObj.Name}</div>
               <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${desc}</div>
-              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">${t("see_wiki")}</a>
             </div>
           </div>` :
           `<div style="min-width:0">
             <div style="font-weight:700;margin-bottom:6px">${cityObj.Name}</div>
-            <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+            <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">${t("see_wiki")}</a>
           </div>`;
         p.setContent(html);
       } catch {}
@@ -610,7 +790,7 @@
       const link = L.DomUtil.create('a', 'home-btn', container);
       link.innerHTML = '⟲'; 
       link.href = '#';
-      link.title = 'Revenir à la vue initiale';
+      link.title = t('home_tooltip');
 
       L.DomEvent.on(link, 'click', (e) => {
         L.DomEvent.stop(e);
@@ -677,7 +857,7 @@
               return;
             }
 
-            p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><i>Chargement…</i></div>`);
+            p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><span class="spinner" aria-label="${t('loading')}"></span></div>`);
             overlay.openPopup();
 
             try {
@@ -700,9 +880,14 @@
                 return { title, data: null };
               })(baseTitle);
 
-              const pageUrl = "https://fr.wikipedia.org/wiki/" + finalTitle;
+              const pageUrlFromAPI = data?.content_urls?.desktop?.page || null;
+              const hasPage = !!pageUrlFromAPI;
               const desc = data?.description || "";
               const img = data?.thumbnail?.source || "";
+
+              const linkHTML = hasPage
+                ? `<a href="${pageUrlFromAPI}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">${t("see_wiki")}</a>`
+                : "";
 
               const html = data ? `
                 <div style="display:flex;gap:10px;align-items:flex-start">
@@ -711,13 +896,14 @@
                     <div style="font-weight:700;margin-bottom:4px">${escapeHTML(name)}</div>
                     ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:6px">${escapeHTML(city)}</div>` : ``}
                     <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(desc)}</div>
-                    <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+                    ${linkHTML}
                   </div>
                 </div>` :
                 `<div style="min-width:0">
                   <div style="font-weight:700;margin-bottom:6px">${escapeHTML(name)}</div>
                   ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(city)}</div>` : ``}
                 </div>`;
+
 
               p.setContent(html);
             } catch {
@@ -800,17 +986,15 @@
             const brandKey = dealerBrandKeyFrom(ov);
             const brandLogo = brandKey ? `./Overlays/dealer_${brandKey}.png` : `./Overlays/dealer_ico.png`;
 
-              bindPopupWithImage(overlay, `
-                <div style="text-align:center">
-                  <img data-autosize src="${brandLogo}"
-                      style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
-                  <b>Concessionnaire ${escapeHTML(btxt || "—")}</b><br/><i>${escapeHTML(ov.City || "")}</i>
-                </div>
-              `);
+            bindPopupWithImage(overlay, `
+              <div style="text-align:center">
+                <img data-autosize src="${brandLogo}"
+                    style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+                <b>${escapeHTML(titleLine)}</b><br/><i>${escapeHTML(ov.City || "")}</i>
+              </div>
+            `);
 
-            overlay.on("click", () => {
-              overlay.openPopup(bounds.getCenter());
-            });
+            overlay.on("click", () => { overlay.openPopup(bounds.getCenter()); });
 
             searchIndex.push({
               type: "Concessionnaire",
@@ -863,7 +1047,6 @@
 
     function wikiTitleFrom(urlOrTitle){
       const s = String(urlOrTitle||"").trim();
-      if (!s) return "";
       try{
         const u = new URL(s);
         const m = /\/wiki\/(.+)$/.exec(u.pathname);
@@ -909,7 +1092,7 @@
       overlay.on("click", async () => {
         const p = overlay.getPopup();
         p.setLatLng(bounds.getCenter());
-        p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><i>Chargement…</i></div>`);
+        p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><span class="spinner" aria-label="${t('loading')}"></span></div>`);
         overlay.openPopup();
 
         try {
@@ -931,7 +1114,7 @@
             return { title: baseTitle, data: null };
           })(wikiTitle);
 
-          const pageUrl = "https://fr.wikipedia.org/wiki/" + finalTitle;
+          const pageUrl = wikiBase() + finalTitle;
           const desc = data?.description || "";
           const img = data?.thumbnail?.source || "";
 
@@ -942,13 +1125,13 @@
                 <div style="font-weight:700;margin-bottom:4px">${escapeHTML(name)}</div>
                 ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:6px">${escapeHTML(city)}</div>` : ``}
                 <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(desc)}</div>
-                <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+                <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">${t("see_wiki")}</a>
               </div>
             </div>` :
             `<div style="min-width:0">
               <div style="font-weight:700;margin-bottom:6px">${escapeHTML(name)}</div>
               ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(city)}</div>` : ``}
-              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">Voir sur Wikipédia</a>
+              <a href="${pageUrl}" target="_blank" rel="noopener" style="color:#3aa0ff;text-decoration:underline">${t("see_wiki")}</a>
             </div>`;
 
           p.setContent(html);
@@ -999,9 +1182,7 @@
       }
     }
 
-    tileInfoReady.then(() => {
-      applyInitialView();
-    });
+    tileInfoReady.then(() => { applyInitialView(); });
 
     const routeAnimHandles = new Map();
     function animatePolyline(poly, { speed = 1.2, dash = "14 10", reverse = false } = {}) {
@@ -1043,9 +1224,15 @@
         const name = (node.querySelector("name")?.textContent||"").trim();
         const locRaw = (node.querySelector("location")?.textContent||"").trim();
         const parts = locRaw.split(";").map(x=>parseFloat(x));
-        const X = parts[0], Z = parts[2];
+
+        const X = parts[0] ?? 0;
+        const Y = parts[1] ?? 0;
+        const Z = parts[2] ?? 0;
+        const rotX = parts[3] ?? 0;
+        const rotY = parts[4] ?? 0;
+
         const latlng = toLatLng(X, Z);
-        return [id, {id, name, X, Y: Z, latlng}];
+        return [id, {id, name, X, Y, Z, rotX, rotY, latlng}];
       }));
     }
 
@@ -1055,16 +1242,26 @@
       DBUS_LINES = [...xml.querySelectorAll("lines > line")].map(line=>{
         const lineUid = line.getAttribute("uid");
         const number  = line.getAttribute("number") || "?";
+
         const routes = [...line.querySelectorAll(":scope > route")].map(rt=>{
           const rUid  = rt.getAttribute("uid");
           const rName = rt.getAttribute("name") || "";
-          const stops = [...rt.querySelectorAll(":scope > busstop")]
-                          .map(b => parseInt(b.getAttribute("uid"), 10));
-          return { uid: rUid, name: rName, stopIds: stops };
+          const stops = [...rt.querySelectorAll(":scope > busstop")].map(b => {
+            return {
+              uid: parseInt(b.getAttribute("uid"), 10),
+              nextStopTime: parseInt(b.getAttribute("nextStopTime") || "0", 10)
+            };
+          });
+
+          const totalMinutes = stops.reduce((sum, s) => sum + (s.nextStopTime || 0), 0);
+
+          return { uid: rUid, name: rName, stops, totalMinutes };
         });
+
         return { uid: lineUid, number, routes };
       });
     }
+
 
     const BUS_COLORS = [getComputedStyle(document.documentElement).getPropertyValue('--busA').trim(),
                         getComputedStyle(document.documentElement).getPropertyValue('--busB').trim(),
@@ -1100,24 +1297,109 @@
         img.onerror = () => resolve(["#444","#fff"]);
       });
     }
+
+    function isNoctilien2(input){
+      const num = typeof input === 'string' ? input : input?.number;
+      return /^N\d+$/.test(String(num || "").trim().toUpperCase());
+    }
+
     const LINE_COLOR_CACHE = new Map();
     function getLineColors(number){
-      const n = String(number||"").trim();
-      if(LINE_COLOR_CACHE.has(n)) return LINE_COLOR_CACHE.get(n);
-      const p = getTwoDominantColors(`./Overlays/bus_${n}.png`).catch(()=>["#444","#fff"]);
-      LINE_COLOR_CACHE.set(n, p);
-      return p;
+      const n = String(number || "").trim();
+      if (isNoctilien2(n)) return Promise.resolve(["#080080", "#FFFFFF"]);
+
+      const STYLE_LC = getLineColors.STYLE_LC || (
+        getLineColors.STYLE_LC = Object.fromEntries(
+          Object.entries(LINE_STYLES).map(([k,v]) => [k.toLowerCase(), v])
+        )
+      );
+      const hit = STYLE_LC[n.toLowerCase()];
+      if (hit) return Promise.resolve(hit);
+
+      const key = n.toLowerCase();
+      const hash = Math.abs([...key].reduce((h,c)=>((h<<5)-h + c.charCodeAt(0))|0,0));
+      const i = (/^\d+$/.test(n) ? (parseInt(n,10) % BUS_COLORS.length) : (hash % BUS_COLORS.length));
+      const bg = BUS_COLORS[i] || "#3aa0ff";
+      const text = (() => {
+        const m = /^#?([0-9a-f]{6})$/i.exec(bg); if(!m) return "#fff";
+        const x = parseInt(m[1],16);
+        const r=(x>>16)&255, g=(x>>8)&255, b=x&255;
+        const L = (0.2126*r + 0.7152*g + 0.0722*b)/255;
+        return L > 0.6 ? "#000" : "#fff";
+      })();
+      return Promise.resolve([bg, text]);
     }
-    function makeLineBadge(number, bg="#444", text="#fff", size="72x32"){
+
+
+    function noctilienStripeColor(number){
+      const DEFAULT = "#080080";
+      const n = String(number||"").trim();
+      if (LINE_STYLES[n] && LINE_STYLES[n][0]) return LINE_STYLES[n][0];
+      return DEFAULT;
+    }
+
+    function ensureStripe(badgeEl, color){
+      badgeEl.style.position = "relative";
+      const old = badgeEl.querySelector(".noctilien-stripe");
+      if (old) old.remove();
+      const stripe = document.createElement("div");
+      stripe.className = "noctilien-stripe";
+      stripe.style.position = "absolute";
+      stripe.style.left = "0";
+      stripe.style.right = "0";
+      stripe.style.bottom = "0";
+      stripe.style.height = "6px";
+      stripe.style.borderBottomLeftRadius = "8px";
+      stripe.style.borderBottomRightRadius = "8px";
+      stripe.style.background = color;
+      badgeEl.appendChild(stripe);
+    }
+
+    function parseRouteName(routeName) {
+      const parts = routeName.split(":");
+      if (parts.length > 1) {
+        return {
+          lineNumber: parts[0].trim(),
+          routeTitle: parts[1].trim()
+        };
+      } else {
+        return {
+          lineNumber: routeName.trim(),
+          routeTitle: routeName.trim()
+        };
+      }
+    }
+
+    function ensureFictiveStripe(badgeEl) {
+      badgeEl.classList.add("fictive");
+      const old = badgeEl.querySelector(".fictive-stripe");
+      if (old) old.remove();
+
+      const stripe = document.createElement("div");
+      stripe.className = "fictive-stripe";
+      stripe.textContent = "FICTIF";
+      badgeEl.appendChild(stripe);
+    }
+
+    function makeLineBadge(number, bg="#444", text="#fff", size="72x32", stripeColor=null, isFictive=false){
       const [w,h] = size.split("x").map(v=>parseInt(v,10));
       const badge = document.createElement("div");
       badge.className = "badge";
-      badge.style.width = w+"px"; badge.style.height = h+"px";
-      badge.style.borderRadius = "8px"; badge.style.display = "flex";
-      badge.style.alignItems = "center"; badge.style.justifyContent = "center";
-      badge.style.fontWeight = "800"; badge.style.fontSize = (h>=32? "16px":"14px");
-      badge.style.background = bg; badge.style.color = text; badge.style.textShadow = "0 1px 2px rgba(0,0,0,.35)";
+      badge.style.width = w+"px"; 
+      badge.style.height = h+"px";
+      badge.style.borderRadius = "8px";
+      badge.style.display = "flex";
+      badge.style.alignItems = "center";
+      badge.style.justifyContent = "center";
+      badge.style.fontWeight = "800";
+      badge.style.fontSize = (h>=32? "16px":"14px");
+      badge.style.background = bg; badge.style.color = text;
+      badge.style.textShadow = "0 1px 2px rgba(0,0,0,.35)";
+      badge.style.position = "relative";
       badge.textContent = String(number||"").trim();
+
+      if (stripeColor) ensureStripe(badge, stripeColor);
+      if (isFictive) ensureFictiveStripe(badge);
       return badge;
     }
 
@@ -1129,8 +1411,7 @@
     }
 
     function cleanRERLabel(label){
-      return String(label ?? "")
-        .replace(/\s*[-–—]\s*RER\b/gi, " RER");
+      return String(label ?? "").replace(/\s*[-–—]\s*RER\b/gi, " RER");
     }
 
     function withRERIconInStop(text){
@@ -1141,10 +1422,37 @@
 
     function splitRouteEndpoints(routeTitle){
       const s = decodeHTML(String(routeTitle || "").trim());
-      const parts = s.split(/\s*(?:>|→|↔|⇄|<->|->|vers|to)\s*/i).filter(Boolean);
+      const parts = s.split(/\s*(?:>|→|↔|⇄|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
       if (parts.length >= 2){ return [parts[0].trim(), parts[parts.length-1].trim()]; }
       return [s, s];
     }
+
+    function getLineColorsSync(number){
+      const n = String(number || "").trim();
+
+      if (isNoctilien2(n)) return ["#080080", "#FFFFFF"];
+
+      const STYLE_LC = Object.fromEntries(
+        Object.entries(LINE_STYLES).map(([k,v]) => [k.toLowerCase(), v])
+      );
+      const hit = STYLE_LC[n.toLowerCase()];
+      if (hit) return hit;
+
+      const key = n.toLowerCase();
+      const hash = Math.abs([...key].reduce((h,c)=>((h<<5)-h + c.charCodeAt(0))|0,0));
+      const i = (/^\d+$/.test(n) ? (parseInt(n,10) % BUS_COLORS.length) : (hash % BUS_COLORS.length));
+      const bg = BUS_COLORS[i] || "#3aa0ff";
+
+      const m = /^#?([0-9a-f]{6})$/i.exec(bg);
+      if (!m) return [bg, "#fff"];
+      const x = parseInt(m[1],16);
+      const r=(x>>16)&255, g=(x>>8)&255, b=x&255;
+      const L = (0.2126*r + 0.7152*g + 0.0722*b)/255;
+      const text = L > 0.6 ? "#000" : "#fff";
+
+      return [bg, text];
+    }
+
 
     function drawRoute(lineIdx, line, route){
       const key = `${line.uid}:${route.uid}`;
@@ -1153,7 +1461,7 @@
       const group = L.layerGroup().addTo(dbusLayers);
       const poly  = L.polyline([], {color: colorFor(lineIdx), weight:8, opacity:1}).addTo(group);
 
-      const latlngs = route.stopIds.map(id => DBUS_STOPS.get(id)?.latlng).filter(Boolean);
+      const latlngs = route.stops.map(s => DBUS_STOPS.get(s.uid)?.latlng).filter(Boolean);
 
       if (latlngs.length >= 2){
         poly.setLatLngs(latlngs);
@@ -1162,51 +1470,103 @@
 
       getLineColors(line.number).then(([bg])=>{ if(bg) poly.setStyle({color:bg}); });
 
-      const routeTitleRaw = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
+      const { lineNumber, routeTitle } = parseRouteName(route.name);
+      const routeTitleRaw = routeTitle;
       const [titleStart0, titleEnd0] = splitRouteEndpoints(routeTitleRaw);
       const titleStart = trimAroundRER(titleStart0, 'start');
       const titleEnd   = trimAroundRER(titleEnd0,   'end');
 
-      const stops = route.stopIds.map((id, idx, arr)=> {
-        const st = DBUS_STOPS.get(id); if(!st) return null;
+      const stops = route.stops.map((s, idx, arr)=> {
+        const id = s.uid;
+        const st = DBUS_STOPS.get(id);
         const isFirst = (idx===0), isLast=(idx===arr.length-1);
         const n = String(line.number||"").trim();
-        const title = isFirst ? "Départ" : (isLast ? "Terminus" : "Arrêt");
+        const title = isFirst ? t("depart") : (isLast ? t("terminus") : t("stop"));
 
-        let displayName = st.name;
+        if (!st) return null;
+        let displayName = st.name || "";
+
         if (isFirst) displayName = titleStart;
         if (isLast)  displayName = titleEnd;
 
         const stopNameHTML = withRERIconInStop(displayName);
+        const coords = `${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)}`;
+        const gotoCmd = `goto ${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)};${st.rotX.toFixed(6)};${st.rotY.toFixed(6)}`;
+
+        const { lineNumber } = parseRouteName(route.name);
+        const [bg, text] = getLineColorsSync(n);
+        let badgeHTML;
+       if (isNoctilien2(lineNumber)) {
+          badgeHTML = `
+            <div class="dbus-badge" style="background:#080080;color:${text}">
+              ${escapeHTML(lineNumber)}
+              <div class="noctilien-stripe" style="background:${noctilienStripeColor(lineNumber)}"></div>
+            </div>`;
+        } else {
+          badgeHTML = `<div class="dbus-badge" style="background:${bg};color:${text}">${escapeHTML(lineNumber)}</div>`;
+        }
 
         const html = `
           <div style="display:flex;align-items:flex-start;gap:16px;min-width:320px;max-width:420px">
             <div>
-              <span class="dbus-badge"
-                    style="display:inline-flex;align-items:center;justify-content:center;font-weight:800;
-                           font-size:22px;background:#444;color:#fff;padding:6px 14px;border-radius:8px;
-                           min-width:48px;text-align:center">${escapeHTML(n)}</span>
+              ${badgeHTML}
             </div>
             <div style="min-width:0;max-width:100%">
               <div style="font-weight:700;margin-bottom:6px">${escapeHTML(title)}</div>
-              <div class="dbus-stop-name">${stopNameHTML}</div>
+              <div class="dbus-stop-name">${withRERIconInStop(displayName)}</div>
+              <div style="margin-top:6px;font-size:12px;line-height:1.4;color:#8b8b8b">
+                <b>Coordonnées : ${coords.replace(/\n/g,"<br>")}</b>
+                <button type="button"
+  title="Copier la commande de téléportation"
+  style="margin-top:1px;padding:1px 1px;border-radius:6px;border:1px solid #8b8b8b;background:#8b8b8b;color:#e8eefb;cursor:pointer"
+  onclick="navigator.clipboard.writeText('${gotoCmd}').then(()=>{this.textContent='✔'; setTimeout(()=>this.textContent='📋',750);})">📋</button>
+              </div>
             </div>
           </div>`;
 
         const marker = L.circleMarker(st.latlng, {
           radius: isFirst || isLast ? 10 : 9, fill: true, fillOpacity: 1,
           fillColor: "#ffffff", color: "#000", weight: 1, opacity: 0.95
-        }).addTo(group).bindPopup(L.popup({ maxWidth: 420, autoPan: true }).setContent(html));
+        }).addTo(group).bindPopup(
+          L.popup({ maxWidth: 420, autoPan: true }).setContent(html)
+        );
+
+        marker._routeKey = key;
 
         marker.on('click', ()=> {
           const stObj = DBUS_STOPS.get(id);
           if (stObj?.latlng) centerWithPreview(stObj.latlng, { zoom: map.getZoom() });
         });
 
-        marker.on('popupopen', ()=>{
-          const stObj = DBUS_STOPS.get(id);
-          if (stObj?.latlng) centerWithPreview(stObj.latlng);
+        marker.on('popupopen', (e) => {
           setActiveStopById(id);
+          if (marker._routeKey !== currentSelectedKey) {
+            e.popup.remove();
+            return;
+          }
+          const el = e.popup.getElement();
+          if (!el) return;
+          const badge = el.querySelector(".dbus-badge");
+          if (!badge) return;
+
+           getLineColors(n).then(([bg, text]) => {
+              const pop = marker.getPopup();
+              if (!pop) return;
+              const el = pop.getElement();
+              if (!el) return;
+              const badge = el.querySelector(".dbus-badge");
+              if (!badge) return;
+
+              if (isNoctilien2(n)) {
+                badge.style.background = "#080080";
+                badge.style.color = text;
+                ensureStripe(badge, noctilienStripeColor(n));
+              } else {
+                badge.style.background = bg;
+                badge.style.color = text;
+              }
+            });
+
         });
 
         marker.on('popupclose', ()=>{
@@ -1214,11 +1574,23 @@
         });
 
         getLineColors(n).then(([bg, text]) => {
-          const pop = marker.getPopup(); if (!pop) return;
-          const el = pop.getContent();
-          const updated = el.replace("background:#444", `background:${bg}`).replace("color:#fff", `color:${text}`);
-          if (updated !== el) pop.setContent(updated);
+          const pop = marker.getPopup();
+          if (!pop) return;
+          const el = pop.getElement();
+          if (!el) return;
+          const badge = el.querySelector(".dbus-badge");
+          if (!badge) return;
+
+          if (isNoctilien2(n)) {
+            badge.style.background = "#080080";
+            badge.style.color = text;
+            ensureStripe(badge, noctilienStripeColor(n));
+          } else {
+            badge.style.background = bg;
+            badge.style.color = text;
+          }
         });
+
 
         return marker;
       }).filter(Boolean);
@@ -1251,19 +1623,26 @@
         bundle = drawRoute(lineIdx, line, route);
       }
 
-      if(route.stopIds.length){
-        const first = DBUS_STOPS.get(route.stopIds[0]);
+      if (route.stops && route.stops.length){
+        const first = DBUS_STOPS.get(route.stops[0].uid);
         if(first?.latlng){
           centerWithPreview(first.latlng, { zoom: map.getZoom() });
           const marker = bundle.stops[0];
           if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
         }
-      } else if(bundle?.poly){
-        const center = bundle.poly.getBounds().getCenter();
-        centerWithPreview(center, { zoom: map.getZoom() });
+      }
+
+      if (route.stops.length){
+        const first = DBUS_STOPS.get(route.stops[0].uid);
+        if(first?.latlng){
+          centerWithPreview(first.latlng, { zoom: map.getZoom() });
+          const marker = bundle.stops[0];
+          if(marker?.openPopup) setTimeout(()=> marker.openPopup(), 300);
+        }
       }
 
       renderLinePreview(line, route);
+
       return bundle;
     }
 
@@ -1278,24 +1657,22 @@
     let PREVIEW_STOP_ELEMS = new Map();
 
     function setActiveStopById(stopId){
-      PREVIEW_STOP_ELEMS.forEach(({el})=> el.classList.remove('active'));
+      PREVIEW_STOP_ELEMS.forEach(({el, routeKey}) => {
+        if (routeKey === currentSelectedKey) el.classList.remove('active');
+      });
       const rec = PREVIEW_STOP_ELEMS.get(stopId);
-      if (rec?.el) rec.el.classList.add('active');
-      currentActiveStopId = stopId;
-      if (rec?.el?.scrollIntoView) {
-        rec.el.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      if (rec && rec.routeKey === currentSelectedKey) {
+        rec.el.classList.add('active');
+        currentActiveStopId = stopId;
       }
     }
 
     function centerWithPreview(latlng, { zoom = null } = {}) {
       const targetZoom = zoom ?? map.getZoom();
-
       const paneH = document.getElementById('linePreview')?.offsetHeight || 0;
       const offsetY = Math.round(paneH / 2);
-
       const p = map.project(latlng, targetZoom);
       let targetPt = L.point(p.x, p.y + offsetY);
-
       const ib = innerBounds(MARGIN);
       const sw = map.project(ib.getSouthWest(), targetZoom);
       const ne = map.project(ib.getNorthEast(), targetZoom);
@@ -1303,9 +1680,7 @@
         Math.min(Math.max(targetPt.x, sw.x), ne.x),
         Math.min(Math.max(targetPt.y, ne.y), sw.y)
       );
-
       const targetLL = map.unproject(targetPt, targetZoom);
-
       const prevInertia = map.options.inertia;
       map.options.inertia = false;
       map.setView(targetLL, targetZoom, { animate: true });
@@ -1333,22 +1708,51 @@
       const { titleStart, titleEnd } = getRouteEndpoints(route);
       const cleanedStart = withRERIcon(titleStart);
       const cleanedEnd   = withRERIcon(titleEnd);
-      title.innerHTML = `${cleanedStart} &gt; ${cleanedEnd}`;
 
-      badge.textContent = String(line.number || "").trim();
+      const stopCount = route.stops.length;
+
+      let durationText;
+      if (route.totalMinutes >= 60) {
+        const h = Math.floor(route.totalMinutes / 60);
+        const m = route.totalMinutes % 60;
+        if (m > 0) {
+          durationText = `${h} h ${m} min`;
+        } else {
+          durationText = `${h} h`;
+        }
+      } else {
+        durationText = `${route.totalMinutes} min`;
+      }
+      
+      title.innerHTML = `
+        <div>${cleanedStart} &gt; ${cleanedEnd}</div>
+        <div style="font-weight:400; font-size:12px; color:#9fb1cc; margin-top:2px">
+          ${stopCount} arrêts • ${durationText}
+        </div>
+      `;
+
+      const { lineNumber } = parseRouteName(route.name);
+      badge.textContent = lineNumber;
       badge.style.background = "#444";
       badge.style.color = "#fff";
 
       if (transit) transit.style.setProperty('--lineColor', '#3aa0ff');
 
+      if (isNoctilien2(line.number)) {
+        ensureStripe(badge, noctilienStripeColor(line.number));
+      }
+
       getLineColors(line.number).then(([bg, text]) => {
         badge.style.background = bg;
         badge.style.color = text;
         if (transit) transit.style.setProperty('--lineColor', bg);
-      }).catch(()=>{});
+        if (isNoctilien2(line.number)) {
+          ensureStripe(badge, noctilienStripeColor(line.number));
+        }
+      });
 
       transit.innerHTML = "";
-      const ids = route.stopIds.slice();
+      const ids = route.stops.map(s => s.uid);
       ids.forEach((id, idx) => {
         const st = DBUS_STOPS.get(id); if(!st) return;
         let label = st.name;
@@ -1362,6 +1766,7 @@
           <div class="dot"></div>
           <div class="name">${withRERIcon(label)}</div>
         `;
+        
         stopEl.addEventListener('click', ()=>{
           const bundle = dbusRouteLayers.get(currentSelectedKey);
           const mk  = bundle?.stops?.[idx];
@@ -1378,7 +1783,8 @@
 
           setActiveStopById(id);
         });
-        PREVIEW_STOP_ELEMS.set(id, { el: stopEl, idx });
+        PREVIEW_STOP_ELEMS.set(id, { el: stopEl, idx, routeKey: currentSelectedKey });
+
         transit.appendChild(stopEl);
 
         if (idx < ids.length-1){
@@ -1389,10 +1795,11 @@
         }
       });
 
-      const firstId = route.stopIds[0];
+      const firstId = route.stops[0]?.uid;
       if (typeof firstId !== 'undefined') setActiveStopById(firstId);
 
       wrap.style.display = "block";
+      applyI18N();
     }
 
     function hideLinePreview(){
@@ -1418,13 +1825,8 @@
       $panelDbus.style.display = 'none';
       $btnDbus?.setAttribute('aria-expanded','false');
     }
-    function isDbusOpen() {
-      return $panelDbus.style.display === 'block';
-    }
-    function openSearchUI() {
-      closeDbusPanel();
-      $results.hidden = false;
-    }
+    function isDbusOpen() { return $panelDbus.style.display === 'block'; }
+    function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
     function closeSearchUI({ reset = false } = {}) {
       if (reset) $search.value = '';
       renderResults([]); 
@@ -1452,9 +1854,16 @@
       if (num.includes("flix")) return true;
       return (line.routes||[]).some(r => String(r.name||"").toLowerCase().includes("flix"));
     }
+    function isNoctilien(line){
+      const num = String(line.number||"").trim().toUpperCase();
+      return /^N\d+$/.test(num);
+    }
     function getCategory(line){
+      if (isNoctilien(line))          return "Noctilien";
       if (isFlix(line))               return "FlixBus";
       if (isNumericOnly(line.number)) return "Urbain";
+      if (/^titus/i.test(line.number)) return "Urbain";
+      if (/^scolaire/i.test(line.number)) return "Scolaire";
       return "Autres";
     }
 
@@ -1471,7 +1880,7 @@
 
       const none = document.createElement("div");
       none.className = "dbus-none";
-      none.textContent = "Aucune";
+      none.textContent = t("none");
       none.addEventListener("click", ()=>{
         currentSelectedKey = "";
         hideAllRoutes();
@@ -1484,66 +1893,183 @@
       });
       $dbusList.appendChild(none);
 
-      const buckets = { "Urbain": [], "FlixBus": [], "Autres": [] };
+      const buckets = { "Urbain": [], "FlixBus": [], "Noctilien": [], "Autres": [], "Scolaire": [] };
 
       DBUS_LINES.forEach(line => {
         const cat = getCategory(line);
         buckets[cat].push(line);
       });
 
-      buckets["Urbain"].sort((a,b)=> (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0));
+      buckets["Urbain"].sort((a,b)=>{
+        const aNum = isNumericOnly(a.number);
+        const bNum = isNumericOnly(b.number);
+
+        if (aNum && !bNum) return -1;
+        if (!aNum && bNum) return 1;
+
+        if (aNum && bNum) {
+          return (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0);
+        }
+
+        return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
+      });
+      buckets["Noctilien"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
       buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
       buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+      buckets["Scolaire"].sort((a, b) => {
+        return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
+      });
 
-      function renderSection(title, lines){
+      function renderSection(title, lines) {
         if (!lines.length) return;
+
         const sec = document.createElement("div");
         sec.className = "dbus-sec";
-        sec.innerHTML = `<h4>${title}</h4>`;
         $dbusList.appendChild(sec);
 
-        lines.forEach((line, idxBase)=>{
-          line.routes.forEach(route=>{
-            const item = document.createElement("div");
-            item.className = "dbus-item";
-
-            const badge = makeLineBadge(line.number, "#444", "#fff", "72x32");
-            const titleEl = document.createElement("div");
-            titleEl.className = "rname";
-            const raw = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
-            titleEl.innerHTML = withRERIcon(raw);
-
-            item.appendChild(badge);
-            item.appendChild(titleEl);
-
-            getLineColors(line.number).then(([bg,text])=>{ badge.style.background = bg; badge.style.color = text; });
-
-            item.addEventListener("click", ()=>{
-              $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
-                it.classList.remove("active");
-                it.style.outline = "none";
-              });
-              item.classList.add("active");
-              getLineColors(line.number).then(([bg])=>{
-                item.style.outline = `2px solid ${bg || colorFor(idxBase)}`;
-              });
-
-              const key = `${line.uid}:${route.uid}`;
-              currentSelectedKey = key;
-              showOnlyRoute(idxBase, line, route);
-              renderSelectedChip();
-
-              $panelDbus.style.display = "none";
-            });
-
-            $dbusList.appendChild(item);
-          });
+        let totalRoutes = 0;
+        lines.forEach(line => {
+          totalRoutes += (line.routes ? line.routes.length : 0);
         });
+
+        const isOpenByDefault = (title === "Urbaines" || title === "Noctiliens");
+
+        const head = document.createElement("div");
+        head.className = "dbus-sechead";
+        head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+        head.innerHTML = `
+          <span>${title} (${totalRoutes})</span>
+          <span class="chev" style="margin-left:auto">▾</span>
+        `;
+        sec.appendChild(head);
+
+        const body = document.createElement("div");
+        body.className = "dbus-secbody";
+        body.hidden = !isOpenByDefault; 
+        sec.appendChild(body);
+
+        head.addEventListener("click", () => {
+          const expanded = head.getAttribute("aria-expanded") === "true";
+          head.setAttribute("aria-expanded", expanded ? "false" : "true");
+          body.hidden = expanded;
+        });
+
+        if (title === "Scolaire") {
+          const allRoutes = [];
+          lines.forEach(line => {
+            line.routes.forEach(route => allRoutes.push({ line, route }));
+          });
+
+          allRoutes.sort((a, b) => {
+            const depA = String(a.route.name).split(">")[0].trim();
+            const depB = String(b.route.name).split(">")[0].trim();
+            return depA.localeCompare(depB, 'fr', { numeric: true, sensitivity: "base" });
+          });
+
+          allRoutes.forEach(({ line, route }) => renderLineItem(line, route, body));
+        } else {
+          lines.forEach(line => {
+            line.routes.forEach(route => renderLineItem(line, route, body));
+          });
+        }
       }
 
-      renderSection("Urbain",  buckets["Urbain"]);
+      function renderLineItem(line, route, container) {
+        const item = document.createElement("div");
+        item.className = "dbus-item";
+
+        const { lineNumber, routeTitle } = parseRouteName(route.name);
+        const badge = makeLineBadge(lineNumber, "#444", "#fff", "72x32");
+        const titleEl = document.createElement("div");
+        titleEl.className = "rname";
+        titleEl.innerHTML = withRERIcon(routeTitle);
+
+        const duration = document.createElement("div");
+        duration.style.marginLeft = "auto";
+        duration.style.color = "#9fb1cc";
+        duration.style.fontSize = "13px";
+
+        const stopCount = route.stops.length;
+
+        let durationText;
+        if (route.totalMinutes >= 60) {
+          const h = Math.floor(route.totalMinutes / 60);
+          const m = route.totalMinutes % 60;
+          if (m > 0) {
+            durationText = `${h} h ${m} min`;
+          } else {
+            durationText = `${h} h`;
+          }
+        } else {
+          durationText = `${route.totalMinutes} min`;
+        }
+
+        duration.textContent = `${stopCount} arrêts (${durationText})`;
+
+        item.appendChild(badge);
+        item.appendChild(titleEl);
+        item.appendChild(duration);
+
+        getLineColors(line.number).then(([bg,text])=>{
+          badge.style.background = bg;
+          badge.style.color = text;
+          if (isNoctilien2(line.number)) {
+            ensureStripe(badge, noctilienStripeColor(line.number));
+          }
+          if (getCategory(line) === "Autres") {
+            ensureFictiveStripe(badge);
+          }
+        });
+
+        item.addEventListener("click", ()=> {
+          $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
+            it.classList.remove("active");
+            it.style.outline = "none";
+          });
+          item.classList.add("active");
+          getLineColors(line.number).then(([bg])=>{
+            item.style.outline = `2px solid ${bg}`;
+          });
+
+          currentSelectedKey = `${line.uid}:${route.uid}`;
+          showOnlyRoute(0, line, route);
+          renderSelectedChip();
+          $panelDbus.style.display = "none";
+        });
+
+        container.appendChild(item);
+      }
+
+      renderSection("Urbaines",  buckets["Urbain"]);
+      renderSection("Noctiliens",  buckets["Noctilien"]);
       renderSection("FlixBus", buckets["FlixBus"]);
+      renderSection("Scolaires",  buckets["Scolaire"]);
       renderSection("Autres",  buckets["Autres"]);
+      applyI18N();
+
+      DBUS_LINES.forEach((line, lineIdx) => {
+        line.routes.forEach(route => {
+          const { titleStart, titleEnd } = getRouteEndpoints(route);
+
+          const firstStop = DBUS_STOPS.get(route.stops[0]?.uid);
+          const center = firstStop?.latlng || map.getCenter();
+
+          searchIndex.push({
+            type: "Lignes DBus",
+            name: `Ligne ${line.number}: ${titleStart} > ${titleEnd}`,
+            city: "",
+            center,
+            logo: "./Overlays/bus_ico.png",
+            fallbackLogo: "./Overlays/bus_ico.png",
+            open: () => {
+              currentSelectedKey = `${line.uid}:${route.uid}`;
+              showOnlyRoute(lineIdx, line, route);
+              renderSelectedChip();
+            }
+          });
+        });
+      });
+
     }
     initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});
 
@@ -1553,51 +2079,46 @@
       currentActiveStopId = null;
     }
 
-        function norm(s){
-          return String(s||"")
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu,'')
-            .replace(/\s+/g,' ')
-            .trim();
-        }
-        function includesNorm(hay, needle){
-          return norm(hay).includes(norm(needle));
-        }
+    function norm(s){
+      return String(s||"")
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .replace(/\s+/g,' ')
+        .trim();
+    }
+    function includesNorm(hay, needle){ return norm(hay).includes(norm(needle)); }
 
-      function detectTypeFilter(q){
-        const n = norm(q);
+    function detectTypeFilter(q){
+      const n = norm(q);
 
-        const MAP = [
-          {types:["Atelier"],      keys:["atelier","atelier de reparation","reparation","atelier reparation"]},
-          {types:["Agence"],       keys:["agence","agence de recrutement","recrutement"]},
-          {types:["Garage"],       keys:["garage"]},
-          {types:["Concessionnaire"], keys:["concessionnaire","dealer","concess"]},
-          {types:["Entreprise"],   keys:["entreprise","societe","company"]},
-          {types:["Ville"],        keys:["ville","commune","city"]},
-          {types:["Monument"],     keys:["monument","monuments","monu","lieu","lieu emblématique","lieux emblématiques","lieux","emblématique","emblématiques"]},
-          {types:["Centre commercial"], keys:["centre commercial","centrecom","centre commerciaux","mall","shopping"]},
-        ];
+      const MAP = [
+        {types:["Atelier"],      keys:["atelier","atelier de reparation","reparation","atelier reparation"]},
+        {types:["Agence"],       keys:["agence","agence de recrutement","recrutement"]},
+        {types:["Garage"],       keys:["garage"]},
+        {types:["Concessionnaire"], keys:["concessionnaire","dealer","concess"]},
+        {types:["Entreprise"],   keys:["entreprise","societe","company"]},
+        {types:["Ville"],        keys:["ville","commune","city"]},
+        {types:["Monument"],     keys:["monument","monuments","monu","lieu","lieu emblématique","lieux emblématiques","lieux","emblématique","emblématiques"]},
+        {types:["Centre commercial"], keys:["centre commercial","centrecom","centre commerciaux","mall","shopping"]},
+        {types:["Lignes DBus"],          keys:["ligne","bus","dbus"]},
+      ];
 
-
-        for(const row of MAP){
-          for(const k of row.keys){
-            if(n === k || n.startsWith(k+" ") || n.endsWith(" "+k) || n.includes(" "+k+" ")){
-              return { types: row.types, hit: k };
-            }
+      for(const row of MAP){
+        for(const k of row.keys){
+          if(n === k || n.startsWith(k+" ") || n.endsWith(" "+k) || n.includes(" "+k+" ")){
+            return { types: row.types, hit: k };
           }
         }
-        return null;
       }
+      return null;
+    }
       
     let sectionState = {};
     function getExpanded(key){ return sectionState[key] !== false; }
     function setExpanded(key, val){ sectionState[key] = !!val; }
     
-    const ALL_TYPES = [
-      "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise","Centre commercial"
-    ];
-    
+    const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise","Centre commercial","Lignes DBus" ];
     const ORDER = [
       ["Ville","Villes"],
       ["Monument","Lieux Emblématiques"],
@@ -1605,11 +2126,12 @@
       ["Agence","Agences de recrutement"],
       ["Concessionnaire","Concessionnaires"],
       ["Entreprise","Entreprises"],
-      ["Centre commercial","Centres commerciaux"]
+      ["Centre commercial","Centres commerciaux"],
+      ["Lignes DBus","Lignes DBus"] 
     ];
     const PLURIEL = Object.fromEntries(ORDER);
 
-    const DEFAULT_OFF = new Set(["Atelier","Agence","Centre commercial"]);
+    const DEFAULT_OFF = new Set(["Atelier","Agence","Centre commercial","Lignes DBus"]);
     let SELECTED_TYPES = new Set(ALL_TYPES.filter(t => !DEFAULT_OFF.has(t)));
 
     const saveSelectedTypes = () => {};
@@ -1622,7 +2144,15 @@
 
       ALL_TYPES.forEach(type=>{
         const id = "rf_" + type.replace(/\s+/g,'_');
-        const labelText = PLURIEL[type] || type;
+        const labelText = ({
+          "Ville": t("villes"),
+          "Monument": t("emblematic"),
+          "Atelier": t("repair_shops"),
+          "Agence": t("agencies"),
+          "Concessionnaire": t("dealers"),
+          "Entreprise": t("companies"),
+          "Centre commercial": t("malls")
+        })[type] || type;
 
         const chip = document.createElement("label");
         chip.className = "rf-chip";
@@ -1644,14 +2174,13 @@
       host.prepend(bar);
     }
 
-    
     function renderResults(list){
       $results.innerHTML = "";
       buildResultsFilterBar($results);
       if (!list.length){
         const empty = document.createElement("div");
         empty.className = "result-empty";
-        empty.textContent = "Aucun résultat";
+        empty.textContent = t("results_empty");
         $results.appendChild(empty);
         $results.hidden = false;
         return;
@@ -1665,14 +2194,24 @@
         "Concessionnaire": [],
         "Entreprise": [],
         "Monument": [],
-        "Centre commercial": []
+        "Centre commercial": [],
+        "Lignes DBus": []
       };
       for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
 
-      function addSectionBlock(typeKey, label){
+      function addSectionBlockLocal(typeKey, label){
         const head = document.createElement("div");
         head.className = "result-sechead";
-        head.textContent = label; 
+        const mapLbl = {
+          "Ville": t("villes"),
+          "Monument": t("emblematic"),
+          "Atelier": t("repair_shops"),
+          "Agence": t("agencies"),
+          "Concessionnaire": t("dealers"),
+          "Entreprise": t("companies"),
+          "Centre commercial": t("malls")
+        };
+        head.textContent = mapLbl[typeKey] || label;
         $results.appendChild(head);
 
         const body = document.createElement("div");
@@ -1696,7 +2235,7 @@
         if (logoPath){
           const img = document.createElement("img");
           img.className = "ico";
-          if (["Atelier","Agence","Garage","Ville","Monument","Centre commercial"].includes(item.type) || useServiceSize) {
+          if (["Atelier","Agence","Garage","Ville","Monument","Centre commercial","Lignes DBus"].includes(item.type) || useServiceSize) {
             img.classList.add("ico-service");
           }
           img.src = logoPath;
@@ -1739,7 +2278,7 @@
       for (const [typeKey,label] of ORDER){
         const arr = buckets[typeKey];
         if (!arr.length) continue;
-        const body = addSectionBlock(typeKey,label);
+        const body = addSectionBlockLocal(typeKey,label);
         for (const it of arr){
           if (shown >= 250) break;
           addItem(body,it);
@@ -1749,7 +2288,9 @@
       }
 
       $results.hidden = false;
+      applyI18N();
     }
+
     function doSearch(q){
       const raw = String(q||"");
       const nQ  = norm(raw);
@@ -1777,16 +2318,18 @@
           });
         }
       } else {
+        const words = norm(raw).split(/\s+/).filter(Boolean);
         filtered = filtered.filter(it => {
           const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
-          return includesNorm(hay, raw);
+          const normHay = norm(hay);
+          return words.every(w => normHay.includes(w));
         });
       }
 
       filtered.sort((a,b)=>{
         const pa = (a.type==="Ville")?0:1, pb=(b.type==="Ville")?0:1;
         if(pa!==pb) return pa-pb;
-        return String(a.name).localeCompare(String(b.name),'fr',{numeric:true});
+        return String(a.name).localeCompare(String(b.name), LANG==='en'?'en':'fr', {numeric:true});
       });
 
       renderResults(filtered);
@@ -1800,17 +2343,9 @@
       _resIdx = -1;
     }, 120);
 
-    $search.addEventListener('focus', () => {
-      closeDbusPanel();
-      doSearch($search.value);
-    });
+    $search.addEventListener('focus', () => { closeDbusPanel(); doSearch($search.value); });
     $search.addEventListener('input', e => doSearchDebounced(e.target.value));
-    $search.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        const first = $results.querySelector('.result-item');
-        if (first) first.click();
-      }
-    });
+    $search.addEventListener('keydown', e => { if (e.key === 'Enter') { const first = $results.querySelector('.result-item'); if (first) first.click(); } });
 
     document.addEventListener('click', (e) => {
       const searchPanel = document.querySelector('.search-panel');
@@ -1848,8 +2383,8 @@
         ">
           <div>
             <div style="font-size:64px;line-height:1">🛠️</div>
-            <div style="font-size:28px;font-weight:800;margin-bottom:10px">En maintenance</div>
-            <div style="color:#9fb1cc;margin-bottom:18px">La carte sera de nouveau disponible lors de la prochaine version de la map.</div>
+            <div style="font-size:28px;font-weight:800;margin-bottom:10px">${t("maintenance_title")}</div>
+            <div style="color:#9fb1cc;margin-bottom:18px">${t("maintenance_desc")}</div>
           </div>
         </div>
       `;

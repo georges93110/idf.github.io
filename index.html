@@ -126,7 +126,7 @@
     .line-preview-header{ display:flex;align-items:center;gap:10px;justify-content:space-between; margin-bottom:8px; }
     .line-preview-title{ display:flex;align-items:center;gap:10px;min-width:0; }
     .line-preview .dbus-badge {
-      font-size:15px;
+      font-size:25px;
       min-width:56px;
       height:28px;
       padding:4px 10px;
@@ -246,6 +246,7 @@
       text-align:center;
       position:relative; 
     }
+    
     .dbus-badge .noctilien-stripe {
       position:absolute;
       left:0; right:0; bottom:0;
@@ -269,7 +270,7 @@
       right: 6px;
       height: 10px;
       border-radius: 4px;
-      background: #666;
+      background: #000000;
       color: #fff;
       font-size: 8px;
       font-weight: 600;
@@ -332,7 +333,7 @@
   </div>
 
   <div class="watermark">
-    <img src="./Overlays/idf_logo.png" alt="IDF logo watermark">
+    <img src="./Overlays/idf_logo.png" alt="IDF Logo">
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -354,6 +355,10 @@
     "N23":        ["#d09835", "#221f20"],
     "Titus 1":    ["#e63b20", "#FFFFFF"],
     "Scolaire":   ["#31387e", "#FFFFFF"],
+    "Express 75": ["#6fb2e1", "#FFFFFF"],
+    "Express 77": ["#6fb2e1", "#FFFFFF"],
+    "Express 93": ["#6fb2e1", "#FFFFFF"],
+    "Express 94": ["#6fb2e1", "#FFFFFF"],
   };
 
   const I18N = {
@@ -1381,7 +1386,7 @@
       badgeEl.appendChild(stripe);
     }
 
-    function makeLineBadge(number, bg="#444", text="#fff", size="72x32", stripeColor=null, isFictive=false){
+    function makeLineBadge(number, bg="#444", text="#fff", size="72x32", stripeColor=null, isFictive=false) {
       const [w,h] = size.split("x").map(v=>parseInt(v,10));
       const badge = document.createElement("div");
       badge.className = "badge";
@@ -1392,11 +1397,21 @@
       badge.style.alignItems = "center";
       badge.style.justifyContent = "center";
       badge.style.fontWeight = "800";
-      badge.style.fontSize = (h>=32? "16px":"14px");
-      badge.style.background = bg; badge.style.color = text;
+      badge.style.background = bg; 
+      badge.style.color = text;
       badge.style.textShadow = "0 1px 2px rgba(0,0,0,.35)";
       badge.style.position = "relative";
       badge.textContent = String(number||"").trim();
+
+      let fontSize = h * 0.6;
+      badge.style.fontSize = fontSize + "px";
+
+      document.body.appendChild(badge);
+      while (badge.scrollWidth > badge.clientWidth && fontSize > 6) {
+        fontSize -= 7;
+        badge.style.fontSize = fontSize + "px";
+      }
+      document.body.removeChild(badge);
 
       if (stripeColor) ensureStripe(badge, stripeColor);
       if (isFictive) ensureFictiveStripe(badge);
@@ -1468,7 +1483,8 @@
         startLineAnim(key, poly);
       }
 
-      getLineColors(line.number).then(([bg])=>{ if(bg) poly.setStyle({color:bg}); });
+      const effNum = getLineNumber(line, route);
+      getLineColors(effNum).then(([bg])=>{ if(bg) poly.setStyle({color:bg}); });
 
       const { lineNumber, routeTitle } = parseRouteName(route.name);
       const routeTitleRaw = routeTitle;
@@ -1493,10 +1509,14 @@
         const coords = `${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)}`;
         const gotoCmd = `goto ${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)};${st.rotX.toFixed(6)};${st.rotY.toFixed(6)}`;
 
-        const { lineNumber } = parseRouteName(route.name);
-        const [bg, text] = getLineColorsSync(n);
+        const { lineNumber } = parseRouteName(route.name || "");
+        const [bg, text] = getLineColorsSync(lineNumber);
+        getLineColors(lineNumber).then(([bg])=>{
+          if(bg) poly.setStyle({color:bg});
+        });
+        
         let badgeHTML;
-       if (isNoctilien2(lineNumber)) {
+        if (isNoctilien2(lineNumber)) {
           badgeHTML = `
             <div class="dbus-badge" style="background:#080080;color:${text}">
               ${escapeHTML(lineNumber)}
@@ -1524,9 +1544,25 @@
             </div>
           </div>`;
 
-        const marker = L.circleMarker(st.latlng, {
-          radius: isFirst || isLast ? 10 : 9, fill: true, fillOpacity: 1,
-          fillColor: "#ffffff", color: "#000", weight: 1, opacity: 0.95
+        const marker = L.marker(st.latlng, {
+          icon: L.divIcon({
+            className: "stop-number",
+            html: `<div style="
+              width:${isFirst || isLast ? 26 : 22}px;
+              height:${isFirst || isLast ? 26 : 22}px;
+              border-radius:50%;
+              background:#fff;
+              border:2px solid #000;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:12px;
+              font-weight:700;
+              color:#000;
+            ">${idx+1}</div>`,
+            iconSize: [isFirst || isLast ? 26 : 22, isFirst || isLast ? 26 : 22],
+            iconAnchor: [(isFirst || isLast ? 26 : 22)/2, (isFirst || isLast ? 26 : 22)/2]
+          })
         }).addTo(group).bindPopup(
           L.popup({ maxWidth: 420, autoPan: true }).setContent(html)
         );
@@ -1549,7 +1585,8 @@
           const badge = el.querySelector(".dbus-badge");
           if (!badge) return;
 
-           getLineColors(n).then(([bg, text]) => {
+          const { lineNumber } = parseRouteName(route.name || "")
+           getLineColors(lineNumber).then(([bg, text]) => {
               const pop = marker.getPopup();
               if (!pop) return;
               const el = pop.getElement();
@@ -1573,7 +1610,7 @@
           if (currentActiveStopId === id) clearActiveStop();
         });
 
-        getLineColors(n).then(([bg, text]) => {
+        getLineColors(lineNumber).then(([bg, text]) => {
           const pop = marker.getPopup();
           if (!pop) return;
           const el = pop.getElement();
@@ -1696,6 +1733,14 @@
       });
     }
 
+    function getLineNumber(line, route) {
+      if (line.number && line.number !== "?") {
+        return line.number;
+      }
+      const { lineNumber } = parseRouteName(route.name || "");
+      return lineNumber || "?";
+    }
+
     function renderLinePreview(line, route){
       PREVIEW_STOP_ELEMS = new Map();
 
@@ -1731,7 +1776,7 @@
         </div>
       `;
 
-      const { lineNumber } = parseRouteName(route.name);
+      const { lineNumber } = parseRouteName(route.name || "");
       badge.textContent = lineNumber;
       badge.style.background = "#444";
       badge.style.color = "#fff";
@@ -1741,13 +1786,13 @@
       if (isNoctilien2(line.number)) {
         ensureStripe(badge, noctilienStripeColor(line.number));
       }
-
-      getLineColors(line.number).then(([bg, text]) => {
+      
+      getLineColors(lineNumber).then(([bg, text])=>{
         badge.style.background = bg;
         badge.style.color = text;
         if (transit) transit.style.setProperty('--lineColor', bg);
-        if (isNoctilien2(line.number)) {
-          ensureStripe(badge, noctilienStripeColor(line.number));
+        if (isNoctilien2(getLineNumber(line, route))) {
+          ensureStripe(badge, noctilienStripeColor(getLineNumber(line, route)));
         }
       });
 
@@ -1790,7 +1835,7 @@
         if (idx < ids.length-1){
           const seg = document.createElement("div");
           seg.className = "segment";
-          getLineColors(line.number).then(([bg]) => { if (bg) seg.style.background = bg; }).catch(()=>{});
+          getLineColors(lineNumber).then(([bg]) => { if (bg) seg.style.background = bg; }).catch(()=>{});
           transit.appendChild(seg);
         }
       });
@@ -1974,6 +2019,14 @@
         }
       }
 
+      function getLineId(line, route) {
+        if (line.number && line.number !== "?") {
+          return line.number;
+        }
+        const { lineNumber } = parseRouteName(route.name || "");
+        return lineNumber || "?";
+      }
+
       function renderLineItem(line, route, container) {
         const item = document.createElement("div");
         item.className = "dbus-item";
@@ -2010,16 +2063,25 @@
         item.appendChild(titleEl);
         item.appendChild(duration);
 
-        getLineColors(line.number).then(([bg,text])=>{
+        function effectiveLineNumber(line, route) {
+          if (line.number && line.number !== "?") return line.number;
+          const { lineNumber } = parseRouteName(route.name || "");
+          return lineNumber || "?";
+        }
+
+        const effNum = effectiveLineNumber(line, route);
+
+        getLineColors(lineNumber).then(([bg,text])=>{
           badge.style.background = bg;
           badge.style.color = text;
-          if (isNoctilien2(line.number)) {
-            ensureStripe(badge, noctilienStripeColor(line.number));
+          if (isNoctilien2(getLineNumber(line, route))) {
+            ensureStripe(badge, noctilienStripeColor(getLineNumber(line, route)));
           }
           if (getCategory(line) === "Autres") {
             ensureFictiveStripe(badge);
           }
         });
+
 
         item.addEventListener("click", ()=> {
           $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
@@ -2027,7 +2089,7 @@
             it.style.outline = "none";
           });
           item.classList.add("active");
-          getLineColors(line.number).then(([bg])=>{
+          getLineColors(lineNumber).then(([bg])=>{
             item.style.outline = `2px solid ${bg}`;
           });
 
@@ -2047,28 +2109,44 @@
       renderSection("Autres",  buckets["Autres"]);
       applyI18N();
 
+      function formatLineName(line, route) {
+        const { titleStart, titleEnd } = getRouteEndpoints(route);
+        const num = line.number && line.number !== "?" ? line.number : (parseRouteName(route.name).lineNumber || "?");
+        return `Ligne ${num}: ${titleStart} > ${titleEnd}`;
+      }
+
       DBUS_LINES.forEach((line, lineIdx) => {
-        line.routes.forEach(route => {
-          const { titleStart, titleEnd } = getRouteEndpoints(route);
+      line.routes.forEach(route => {
+        const { titleStart, titleEnd } = getRouteEndpoints(route);
 
-          const firstStop = DBUS_STOPS.get(route.stops[0]?.uid);
-          const center = firstStop?.latlng || map.getCenter();
+        const firstStop = DBUS_STOPS.get(route.stops[0]?.uid);
+        const center = firstStop?.latlng || map.getCenter();
 
-          searchIndex.push({
-            type: "Lignes DBus",
-            name: `Ligne ${line.number}: ${titleStart} > ${titleEnd}`,
-            city: "",
-            center,
-            logo: "./Overlays/bus_ico.png",
-            fallbackLogo: "./Overlays/bus_ico.png",
-            open: () => {
-              currentSelectedKey = `${line.uid}:${route.uid}`;
-              showOnlyRoute(lineIdx, line, route);
-              renderSelectedChip();
-            }
-          });
+        function extractNum(val) {
+          const m = String(val||"").match(/\d+/);
+          return m ? parseInt(m[0], 10) : Infinity;
+        }
+
+        searchIndex.push({
+          type: "Lignes DBus",
+          name: formatLineName(line, route),
+          city: "",
+          center,
+          logo: "./Overlays/bus_ico.png",
+          fallbackLogo: "./Overlays/bus_ico.png",
+          open: () => {
+            currentSelectedKey = `${line.uid}:${route.uid}`;
+            showOnlyRoute(lineIdx, line, route);
+            renderSelectedChip();
+          },
+          num: extractNum(line.number)
         });
+
+
+
       });
+    });
+
 
     }
     initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});
@@ -2224,45 +2302,78 @@
       function addItem(container, item){
         const div = document.createElement("div");
         div.className = "result-item";
-        let logoPath = item.logo;
-        let useServiceSize = false;
 
-        if (!logoPath && item.type === "Ville") {
-          logoPath = "./Overlays/city_ico.png"; 
-          useServiceSize = true; 
-        }
-
-        if (logoPath){
+        if (item.type === "Lignes DBus") {
           const img = document.createElement("img");
-          img.className = "ico";
-          if (["Atelier","Agence","Garage","Ville","Monument","Centre commercial","Lignes DBus"].includes(item.type) || useServiceSize) {
-            img.classList.add("ico-service");
-          }
-          img.src = logoPath;
-          img.alt = "";
-          img.onerror = () => {
-            if (item.fallbackLogo && img.src !== item.fallbackLogo) img.src = item.fallbackLogo;
-          };
+          img.className = "ico ico-service";
+          img.src = "./Overlays/bus_ico.png";
+          img.alt = "Bus";
           div.appendChild(img);
-        }
 
-        let label;
-        if (item.type === "Concessionnaire"){
-          const brand = (item.brand || String(item.name||"").replace(/^Concessionnaire\s+/i,"")).trim();
-          label = item.city ? `${brand} — ${item.city}` : brand;
-        } else if (["Atelier","Agence","Garage"].includes(item.type)){
-          label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
-        } else if (item.type === "Monument"){
-          label = item.city ? `${item.name} — ${item.city}` : item.name; 
+          let lineNumber = "";
+          let routeName  = "";
+          if (item.name.includes(":")) {
+            const [left, right] = item.name.split(":");
+            lineNumber = left.replace("Ligne","").trim();
+            routeName  = right.trim();
+          } else {
+            lineNumber = item.name.trim();
+            routeName  = "";
+          }
+
+          const category = getCategory({ number: lineNumber });
+
+          if (category !== "Autres") {
+            const [bg, text] = getLineColorsSync(lineNumber);
+            const badge = makeLineBadge(
+              lineNumber,
+              bg,
+              text,
+              "72x32",
+              isNoctilien2(lineNumber) ? noctilienStripeColor(lineNumber) : null,
+              false
+            );
+            div.appendChild(badge);
+          }
+
+          const span = document.createElement("div");
+          span.className = "result-text";
+          span.textContent = routeName;
+          div.appendChild(span);
         } else {
-          label = item.city ? `${item.name} — ${item.city}` : item.name;
+          if (item.logo) {
+            const img = document.createElement("img");
+            img.className = "ico";
+            if (["Atelier","Agence","Garage","Ville","Monument","Centre commercial"].includes(item.type)) {
+              img.classList.add("ico-service");
+            }
+            img.src = item.logo;
+            img.alt = "";
+            img.onerror = () => {
+              if (item.fallbackLogo && img.src !== item.fallbackLogo) img.src = item.fallbackLogo;
+            };
+            div.appendChild(img);
+          }
+
+          let label;
+          if (item.type === "Concessionnaire"){
+            const brand = (item.brand || String(item.name||"").replace(/^Concessionnaire\s+/i,"")).trim();
+            label = item.city ? `${brand} — ${item.city}` : brand;
+          } else if (["Atelier","Agence","Garage"].includes(item.type)){
+            label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
+          } else if (item.type === "Monument"){
+            label = item.city ? `${item.name} — ${item.city}` : item.name; 
+          } else {
+            label = item.city ? `${item.name} — ${item.city}` : item.name;
+          }
+
+          const span = document.createElement("div");
+          span.className = "result-text";
+          span.textContent = label;
+          div.appendChild(span);
         }
 
-        const span = document.createElement("div");
-        span.className = "result-text";
-        span.textContent = label;
-        div.appendChild(span);
-
+        // Clic = aller sur la ligne/lieu
         div.addEventListener("click", () => {
           $search.value = "";
           $search.blur();
@@ -2273,6 +2384,8 @@
 
         container.appendChild(div);
       }
+
+
 
       let shown = 0;
       for (const [typeKey,label] of ORDER){
@@ -2331,6 +2444,15 @@
         if(pa!==pb) return pa-pb;
         return String(a.name).localeCompare(String(b.name), LANG==='en'?'en':'fr', {numeric:true});
       });
+
+      filtered.sort((a,b)=>{
+        if (a.type === "Lignes DBus" && b.type === "Lignes DBus") {
+          return (a.num ?? Infinity) - (b.num ?? Infinity);
+        }
+        return 0;
+      });
+
+
 
       renderResults(filtered);
       $results.hidden = false;

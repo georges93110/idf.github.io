@@ -1536,10 +1536,6 @@
               <div class="dbus-stop-name">${withRERIconInStop(displayName)}</div>
               <div style="margin-top:6px;font-size:12px;line-height:1.4;color:#8b8b8b">
                 <b>Coordonnées : ${coords.replace(/\n/g,"<br>")}</b>
-                <button type="button"
-  title="Copier la commande de téléportation"
-  style="margin-top:1px;padding:1px 1px;border-radius:6px;border:1px solid #8b8b8b;background:#8b8b8b;color:#e8eefb;cursor:pointer"
-  onclick="navigator.clipboard.writeText('${gotoCmd}').then(()=>{this.textContent='✔'; setTimeout(()=>this.textContent='📋',750);})">📋</button>
               </div>
             </div>
           </div>`;
@@ -2516,4 +2512,5 @@
   </script>
 
 </body>
+
 </html>

@@ -478,7 +478,7 @@
 
     .badge.fictive {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       padding-top: 10px;
       box-sizing: border-box;
@@ -501,6 +501,14 @@
       pointer-events: none;
       overflow: hidden;
       white-space: nowrap;
+    }
+
+    .badge-label {
+      display: inline-block;
+      white-space: nowrap;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
     }
 
     .dbus-sechead .chev {
@@ -642,7 +650,7 @@
       depart: "Départ",
       terminus: "Terminus",
       stop: "Arrêt",
-      home_tooltip: "Revenir à  la vue initiale",
+      home_tooltip: "Revenir à la vue initiale",
       maintenance_title: "En maintenance",
       close: "Fermer",
       analyze_mode: "Mode Analyse",
@@ -929,7 +937,7 @@
     });
 
     function wikiTitleForCity(name){
-      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème|th|st|nd|rd)?$/i.exec(String(name||"").trim());
+      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|Ã¨me|th|st|nd|rd)?$/i.exec(String(name||"").trim());
       if (m){
         const n = parseInt(m[1], 10);
         if (LANG === "en"){
@@ -1007,10 +1015,10 @@
       const txt = String(s || "").trim();
       if (!/\bRER\b/i.test(txt)) return txt;
       if (mode === 'start'){
-        const m = txt.match(/^(.*?)\s*[–—-]\s*RER\b/i);
+        const m = txt.match(/^(.*?)\s*[â€“â€”-]\s*RER\b/i);
         return (m && m[1]) ? m[1].trim() : txt;
       } else {
-        const m = txt.match(/\bRER\b\s*[–—-]\s*(.+)$/i);
+        const m = txt.match(/\bRER\b\s*[â€“â€”-]\s*(.+)$/i);
         return (m && m[1]) ? m[1].trim() : txt;
       }
     }
@@ -1046,7 +1054,7 @@
           const sufList = (LANG === "en")
             ? [",_Val-de-Marne", ",_Essonne", ",_Hauts-de-Seine", ",_Seine-Saint-Denis",
               ",_Val-d'Oise", ",_Seine-et-Marne", ",_Yvelines"]
-            : ["_(Commune_franà§aise)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
+            : ["_(Commune_franÃ Â§aise)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
               "_(Seine-Saint-Denis)", "_(Val-d'Oise)", "_(Seine-et-Marne)", "_(Yvelines)"];
 
           for (const suf of sufList) {
@@ -1139,12 +1147,12 @@
 
     const ICON_NAMES = {
       "gas_ico": "Station service",
-      "bus_ico": "Gare routière",
+      "bus_ico": "Gare routiÃ¨re",
       "service_ico": "Atelier de réparation",
       "garage_large_ico": "Garage",
       "recruitment_ico": "Agence de recrutement",
       "dealer_ico": "Concessionnaire",
-      "border_ico": "Contrôle d'identité",
+      "border_ico": "ContrÃ´le d'identité",
       "toll_ico": "Péage",
       "parking_ico": "Parking"
     };
@@ -1202,7 +1210,7 @@
                   if (d0?.type !== "disambiguation") return { title, data: d0 };
                 } catch {}
                 for (const suf of [
-                  "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+                  "_(Paris)", "_(ÃƒÆ’Ã…Â½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
                   "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
                   "_(Centre_commercial)", "_(Centre_commercial_en_France)"
                 ]) {
@@ -1314,7 +1322,7 @@
         });
       } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
-            const btxt = brandsText(ov) || 'Ã¢â‚¬â€';
+            const btxt = brandsText(ov) || 'ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
 
             const brandKey = dealerBrandKeyFrom(ov);
@@ -1436,7 +1444,7 @@
               if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
             } catch {}
             for (const suf of [
-              "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+              "_(Paris)", "_(ÃƒÆ’Ã…Â½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
               "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
               "_(Monument)"
             ]) {
@@ -1724,6 +1732,20 @@
       badgeEl.appendChild(stripe);
     }
 
+    function ensureBadgeLabel(badgeEl, text){
+      if (!badgeEl) return null;
+      let label = badgeEl.querySelector(".badge-label");
+      if (!label){
+        label = document.createElement("span");
+        label.className = "badge-label";
+        badgeEl.appendChild(label);
+      }
+      if (typeof text === "string") {
+        label.textContent = text;
+      }
+      return label;
+    }
+
     function makeLineBadge(number, bg="#444", text="#fff", size="72x32", stripeColor=null, isFictive=false) {
       const [w,h] = size.split("x").map(v=>parseInt(v,10));
       const badge = document.createElement("div");
@@ -1739,15 +1761,16 @@
       badge.style.color = text;
       badge.style.textShadow = "0 1px 2px rgba(0,0,0,.35)";
       badge.style.position = "relative";
-      badge.textContent = String(number||"").trim();
+      const labelText = String(number||"").trim();
+      const labelSpan = ensureBadgeLabel(badge, labelText);
 
       let fontSize = h * 0.6;
-      badge.style.fontSize = fontSize + "px";
+      labelSpan.style.fontSize = fontSize + "px";
 
       document.body.appendChild(badge);
-      while (badge.scrollWidth > badge.clientWidth && fontSize > 6) {
+      while (labelSpan.scrollWidth > badge.clientWidth && fontSize > 6) {
         fontSize -= 7;
-        badge.style.fontSize = fontSize + "px";
+        labelSpan.style.fontSize = fontSize + "px";
       }
       document.body.removeChild(badge);
 
@@ -1814,7 +1837,7 @@
 
     function splitRouteEndpoints(routeTitle){
       const s = decodeHTML(String(routeTitle || "").trim());
-      const parts = s.split(/\s*(?:>|Ã¢â€ â€™|Ã¢â€ â€|Ã¢â€¡â€ž|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
+      const parts = s.split(/\s*(?:>|ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢|ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬Â|ÃƒÂ¢Ã¢â‚¬Â¡Ã¢â‚¬Å¾|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
       if (parts.length >= 2){ return [parts[0].trim(), parts[parts.length-1].trim()]; }
       return [s, s];
     }
@@ -1903,7 +1926,7 @@
           <div class="stop-popup">
             <div class="sp-header">
               <div class="sp-title">${stopNameHTML}${isProvisoireStop ? ' <span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
-              <span>‎ ‎ ‎ ‎ </span>
+              <span>‎  ‎  ‎  ‎  </span>
               <div class="sp-index">${stopOrderLabel}</div>
             </div>
             <div class="sp-body">
@@ -2155,7 +2178,7 @@
       function applyDefaultBadgeToPreview(){
         badge.className = "dbus-badge";
         badge.innerHTML = "";
-        badge.textContent = lineNumber;
+        ensureBadgeLabel(badge, lineNumber);
         badge.style.background = "#444";
         badge.style.color = "#fff";
         previewBadgeChip = badge;
@@ -2180,7 +2203,7 @@
         applyNetworkBadgeToPreview({
           label: lineNumber,
           imgSrc: "./Overlays/bus_logo_idfm.png",
-          alt: "Réseau urbain Île-de-France Mobilités"
+          alt: "Réseau urbain ÃŽle-de-France Mobilités"
         });
       } else {
         applyDefaultBadgeToPreview();
@@ -2331,11 +2354,15 @@
       const num = String(line.number||"").trim().toUpperCase();
       return /^N\d+$/.test(num);
     }
+    function isTitusLine(line){
+      const num = String(line.number||"").trim().toLowerCase();
+      return /titus/i.test(num);
+    }
     function getCategory(line){
       if (isNoctilien(line))          return "Noctilien";
       if (isFlix(line))               return "FlixBus";
       if (isNumericOnly(line.number)) return "Urbain";
-      if (/^réseau titus/i.test(line.number)) return "Urbain";
+      if (isTitusLine(line))          return "Urbain";
       if (/^scolaire/i.test(line.number)) return "Scolaire";
       return "Autres";
     }
@@ -2356,7 +2383,7 @@
       const URBAIN_CUSTOM_ORDER = ["24","63","109","112","114","121","124","221","303","351","reseau titus"]; 
       function normLineId(x){
         return String(x||"").trim().toLowerCase()
-          .replace(/[éèêà«]/g,'e')
+          .replace(/[éÃ¨êÃ Â«]/g,'e')
           .replace(/\.(png|jpg|jpeg|webp)$/,'');
       }
 
@@ -2413,7 +2440,7 @@
         head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
         head.innerHTML = `
           <span>${title} (${totalRoutes})</span>
-          <span class="chev" style="margin-left:auto">▾</span>
+          <span class="chev" style="margin-left:auto">▼</span>
         `;
         sec.appendChild(head);
 
@@ -2486,7 +2513,7 @@
         const head = document.createElement("div");
         head.className = "dbus-sechead";
         head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
-        head.innerHTML = `<span>${title} (${totalRoutes})</span><span class=\"chev\" style=\"margin-left:auto\">▾</span>`;
+        head.innerHTML = `<span>${title} (${totalRoutes})</span><span class=\"chev\" style=\"margin-left:auto\">▼</span>`;
         sec.appendChild(head);
 
         const body = document.createElement("div");
@@ -2544,7 +2571,7 @@
 
         function selectionColorForLine(line) {
           const rawNum = String(line.number || "").trim();
-          if (/titus/i.test(rawNum)) return "#ffffff";
+          if (isTitusLine(line)) return "#ffffff";
           if (/^N\d+$/i.test(rawNum)) return noctilienStripeColor(rawNum);
           return null;
         }
@@ -2557,7 +2584,7 @@
           const wrap = document.createElement('div');
           wrap.className = 'dbus-logo';
 
-          if (isTitus) {
+          if (isTitusLine(line)) {
            
             wrap.classList.add('dbus-logo--titus');
             wrap.style.background = 'transparent';
@@ -3228,5 +3255,11 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 

@@ -57,13 +57,81 @@
       background:var(--panel2);
     }
 
-    .dbus-panel{margin-top:6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);display:none;max-height:62vh;overflow:auto}
-    .dbus-header{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:13px}
+    .dbus-panel{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:1240px;
+      height:760px;
+      padding:12px 18px 0;
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:var(--panel);
+      box-shadow:0 25px 90px rgba(0,0,0,.7);
+      display:none;
+      overflow:hidden;
+      z-index:1200;
+    }
+    .dbus-panel .dbus-content{
+      overflow:auto;
+    }
+    .dbus-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:16px}
+    .dbus-header .dbus-title{font-size:20px;font-weight:700;color:#f8fbff;}
+    .dbus-header .dbus-close{
+      background:transparent;
+      border:none;
+      color:#ef4444;
+      font-size:24px;
+      cursor:pointer;
+      line-height:1;
+    }
     .dbus-list{padding:6px}
+    .dbus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 90px);
+      gap: 4px; 
+      padding: 6px;
+      justify-content: start; 
+      align-items: start;
+    }
+    .dbus-double {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 10px;
+      padding-bottom: 10px;
+      grid-auto-rows: minmax(0, auto);
+    }
+    .dbus-double .dbus-item {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .dbus-double .dbus-item .rname {
+      max-width: 100%;
+      word-break: break-word;
+    }
+    .line-block{display:flex;flex-direction:column;align-items:flex-start}
+    .dbus-logo{width:88px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid #1f2732;background:#223047;color:#fff;font-weight:800;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,0.04)}
+    .dbus-logo--titus{border:none;background:transparent;box-shadow:none}
+    .dbus-logo.dim{opacity:.25; filter:grayscale(100%);}
+    .dbus-logo.sel{position:relative}
+    .dbus-logo.sel::after{content:"";position:absolute;left:14px;right:14px;bottom:-4px;height:2px;border-radius:6px;background:var(--selColor,#3aa0ff);pointer-events:none;z-index:2}
+    
+    .dbus-logo img{display:block;width:100%;height:100%;object-fit:contain;border-radius:10px}
+    .routes-host .dbus-item{margin:2px 6px;padding:8px 10px}
+    .line-routes{margin-top:8px;width:100%}
     .dbus-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #1f2732;border-radius:10px;background:var(--panel2);cursor:pointer;margin:6px}
     .dbus-item:hover{background:#101926}
     .dbus-item .badge{display:flex;align-items:center;justify-content:center;width:72px;height:32px;border-radius:8px;font-weight:800;font-size:16px}
-    .dbus-item .rname{color:var(--text);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .dbus-item .rname{
+      color:var(--text);
+      font-size:14px;
+      white-space:normal;
+      overflow:hidden;
+      text-overflow:clip;
+      word-break:break-word;
+      line-height:1.3;
+    }
     .dbus-none{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px dashed #223047;border-radius:10px;background:#0c1421;color:#9fb1cc;cursor:pointer;margin:6px}
     .dbus-item.active{ outline:2px solid #ffffff55; background:#101926; }
     .dbus-sec{margin:8px 6px 4px}
@@ -105,6 +173,72 @@
     .rer-invert { filter: invert(1); }
     .leaflet-popup-content{white-space:normal;overflow:visible}
     .dbus-stop-name{font-size:15px;line-height:1.35;word-break:break-word}
+    .stop-popup{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width:260px;
+      max-width:420px;
+      font-size:13px;
+      color:#d4dcf0;
+    }
+    .stop-popup .sp-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:8px 10px;
+      border-radius:10px;
+      background:color-mix(in oklab,var(--panel2) 85%, #000 15%);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .stop-popup .sp-title{
+      font-weight:700;
+      font-size:14px;
+      color:#f8fbff;
+    }
+    .stop-popup .sp-index{
+      padding:2px 10px;
+      border-radius:999px;
+      background:#19304a;
+      color:#8dd0ff;
+      font-weight:700;
+      font-size:12px;
+    }
+    .stop-popup .sp-body{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .stop-popup .sp-coords{
+      font-size:12px;
+      line-height:1.5;
+      color:#9fb1cc;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(15,23,34,0.85);
+    }
+    .stop-popup .sp-coords span{
+      display:block;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:11px;
+      margin-bottom:3px;
+      color:#6da8ff;
+    }
+    .stop-popup .sp-coords-code{
+      font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+      font-size:12px;
+      color:#e8eefb;
+    }
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip{
+      background:color-mix(in oklab,var(--panel) 92%, #000 8%);
+      color:var(--text);
+      border:1px solid #1c2533;
+      box-shadow:0 12px 32px rgba(0,0,0,.55);
+    }
 
     @media (max-width:800px){
       .search-panel{min-width:300px;max-width:92vw}
@@ -150,12 +284,46 @@
 
     .stop{ position:relative; display:flex; flex-direction:column; align-items:center; flex:0 0 auto;
       box-sizing:border-box; padding-top:calc(var(--rail-h) - var(--dot)/2); margin:0 calc(var(--gap)/2); }
-    .segment{ height:4px; flex:1 0 60px; min-width:120px; background:var(--lineColor);
-      margin-top:calc(var(--rail-h)/2 - 2px); border-radius:2px; }
+    .segment{
+      position:relative;
+      height:4px;
+      flex:1 0 60px;
+      min-width:120px;
+      background:var(--lineColor);
+      margin-top:calc(var(--rail-h)/2 - 2px);
+      margin-left:calc(var(--gap)*-0.5);
+      margin-right:calc(var(--gap)*-0.5);
+      border-radius:2px;
+    }
     .stop .dot{ position:absolute; left:50%; top:calc(var(--rail-h)/2 - var(--dot)/2);
       transform:translateX(-50%); width:var(--dot); height:var(--dot); border-radius:50%; background:var(--lineColor);
       border:none; box-shadow:0 1px 2px rgba(0,0,0,.5); }
-    .stop .name{ color:var(--text); font-size:12px; line-height:1.25; text-align:center; margin-top:8px; font-weight:700; height:var(--nameH); white-space:nowrap; overflow:visible; text-overflow:clip; }
+    .stop .name{
+      color:var(--text);
+      font-size:12px;
+      line-height:1.3;
+      text-align:center;
+      margin-top:8px;
+      font-weight:700;
+      max-width:110px;
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:2px;
+    }
+    .stop-flag{
+      font-size:10px;
+      color:#fbbf24;
+      background:rgba(251,191,36,0.15);
+      border:1px solid rgba(251,191,36,0.4);
+      border-radius:999px;
+      padding:2px 6px;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+    }
     .stop .name .inline-ico{ height:1em; vertical-align:-.2em; }
     .stop.active .name{ color:#ffda3a; }
 
@@ -183,19 +351,23 @@
 
     .results::-webkit-scrollbar,
     .dbus-panel::-webkit-scrollbar,
+    .dbus-content::-webkit-scrollbar,
     .transit-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
     .results::-webkit-scrollbar-track,
     .dbus-panel::-webkit-scrollbar-track,
+    .dbus-content::-webkit-scrollbar-track,
     .transit-scroll::-webkit-scrollbar-track { background: var(--panel2); border-radius: 8px; }
     .results::-webkit-scrollbar-thumb,
     .dbus-panel::-webkit-scrollbar-thumb,
+    .dbus-content::-webkit-scrollbar-thumb,
     .transit-scroll::-webkit-scrollbar-thumb {
       background: var(--muted); border-radius: 8px; border: 2px solid var(--panel2);
     }
     .results::-webkit-scrollbar-thumb:hover,
     .dbus-panel::-webkit-scrollbar-thumb:hover,
+    .dbus-content::-webkit-scrollbar-thumb:hover,
     .transit-scroll::-webkit-scrollbar-thumb:hover { background: var(--text); }
-    .results, .dbus-panel, .transit-scroll { scrollbar-width: thin; scrollbar-color: var(--muted) var(--panel2); }
+    .results, .dbus-panel, .dbus-content, .transit-scroll { scrollbar-width: thin; scrollbar-color: var(--muted) var(--panel2); }
 
     .result-sechead{ display:flex;align-items:center;justify-content:space-between; cursor:pointer; user-select:none; }
     .result-sechead .chev{ font-size:14px; opacity:.9; transition:transform .18s ease; }
@@ -237,7 +409,7 @@
       align-items:center;
       justify-content:center;
       font-weight:800;
-      font-size:22px;
+      font-size:20px;
       background:#444;
       color:#fff;
       padding:6px 14px;
@@ -247,12 +419,61 @@
       position:relative; 
     }
     
+    .titus-chip{
+      height:30px;
+      padding:0 12px;
+      font-size:16px;
+      min-width:0;
+      width:40px;
+      display:inline-flex;
+      align-items:center;
+    }
+    .network-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .network-badge img{
+      height:36px;
+      width:auto;
+      object-fit:contain;
+    }
+    .network-logo-invert{
+      filter: invert(1);
+    }
+    .network-chip{
+      min-width:48px;
+      height:30px;
+      padding:0 12px;
+      font-size:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #lpBadge.lp-badge-wrapper{
+      display:flex;
+      align-items:center;
+      background:transparent;
+      padding:0;
+    }
+    
     .dbus-badge .noctilien-stripe {
       position:absolute;
       left:0; right:0; bottom:0;
-      height:6px;
+      height:4px;
       border-bottom-left-radius:8px;
       border-bottom-right-radius:8px;
+    }
+
+    .route-flag {
+      font-size:10px;
+      color:#fbbf24;
+      background:rgba(255, 255, 255, 0.15);
+      border:1px solid rgba(251,191,36,0.4);
+      border-radius:999px;
+      padding:1px 5px;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
     }
 
     .badge.fictive {
@@ -295,6 +516,37 @@
       scrollbar-gutter: stable;
     }
 
+    .custom-scale {
+      position: relative;
+      height: 8px;
+      margin: 10px;
+      background: transparent;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,.8);
+      width: fit-content;
+    }
+
+    .custom-scale .bar {
+      height: 3px;
+      background: var(--text);
+      border-radius: 2px;
+    }
+
+    .custom-scale span {
+      position: absolute;
+      top: -18px;
+      left: 0;
+    }
+
+    .analysis-hud{
+      position:fixed; right:8px; bottom:6px; z-index:1500;
+      color:#ffffff; font-size:5px; font-weight:600; letter-spacing:.02em;
+      background:rgba(11,17,24,0.6); border:1px solid rgba(255,255,255,0.05);
+      border-radius:6px; padding:2px 4px; user-select:none; pointer-events:none;
+    }
+
   </style>
   
 </head>
@@ -311,9 +563,14 @@
     <div id="selectedChip" class="selected-chip"></div>
     <div id="results" class="results" hidden></div>
 
-    <div id="dbusPanel" class="dbus-panel">
-      <div class="dbus-header"></div>
-      <div id="dbusList" class="dbus-list"></div>
+  <div id="dbusPanel" class="dbus-panel">
+      <div class="dbus-header">
+        <div class="dbus-title" id="dbusPanelTitle">Lignes DBus</div>
+        <button type="button" class="line-preview-close dbus-close" id="dbusPanelClose" aria-label="Fermer">&times;</button>
+      </div>
+      <div class="dbus-content">
+        <div id="dbusList" class="dbus-list"></div>
+      </div>
     </div>
   </div>
 
@@ -322,9 +579,9 @@
       <div class="line-preview-header">
         <div class="line-preview-title">
           <div class="dbus-badge" id="lpBadge">?</div>
-          <div class="line-preview-route" id="lpRouteTitle">—</div>
+          <div class="line-preview-route" id="lpRouteTitle">-</div>
         </div>
-        <button type="button" class="line-preview-close" id="lpClose" aria-label="Fermer">×</button>
+        <button type="button" class="line-preview-close" id="lpClose" aria-label="Fermer">X</button>
       </div>
       <div class="transit-scroll">
         <div class="transit" id="lpTransit"></div>
@@ -335,6 +592,8 @@
   <div class="watermark">
     <img src="./Overlays/idf_logo.png" alt="IDF Logo">
   </div>
+
+  <!-- <div id="analysisHUD" class="analysis-hud"></div>*/ -->
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -349,11 +608,14 @@
     "121":        ["#d63e34", "#FFFFFF"],
     "124":        ["#e6a4b2", "#221f20"],
     "221":        ["#e7a5b3", "#221f20"],
+    "303":        ["#99974a", "#FFFFFF"],
+    "325":        ["#9ad1dc", "#221f20"],
     "351":        ["#d7b152", "#221f20"],
     "FLIXBUS":    ["#a7d245", "#FFFFFF"],
     "N11":        ["#e9682a", "#221f20"],
     "N23":        ["#d09835", "#221f20"],
     "Titus 1":    ["#e63b20", "#FFFFFF"],
+    "Titus 2":    ["#49713e", "#FFFFFF"],
     "Scolaire":   ["#31387e", "#FFFFFF"],
     "Express 75": ["#6fb2e1", "#FFFFFF"],
     "Express 77": ["#6fb2e1", "#FFFFFF"],
@@ -376,17 +638,17 @@
       companies: "Entreprises",
       malls: "Centres commerciaux",
       see_wiki: "Voir sur Wikipédia",
-      loading: "Chargement…",
+      loading: "Chargement...",
       depart: "Départ",
       terminus: "Terminus",
       stop: "Arrêt",
-      home_tooltip: "Revenir à la vue initiale",
+      home_tooltip: "Revenir à  la vue initiale",
       maintenance_title: "En maintenance",
-      maintenance_desc: "La carte sera de nouveau disponible lors de la prochaine version de la map.",
       close: "Fermer",
+      analyze_mode: "Mode Analyse",
     },
     en: {
-      search_placeholder: "Search…",
+      search_placeholder: "Search...",
       dbus_button: "DBus Lines",
       lang_btn: "EN",
       results_empty: "No results",
@@ -399,14 +661,14 @@
       companies: "Companies",
       malls: "Shopping centers",
       see_wiki: "See on Wikipedia",
-      loading: "Loading…",
+      loading: "Loading...",
       depart: "Departure",
       terminus: "Terminus",
       stop: "Stop",
       home_tooltip: "Return to initial view",
       maintenance_title: "Under maintenance",
-      maintenance_desc: "The map will be available again with the next map release.",
       close: "Close",
+      analyze_mode: "Analyze Mode",
     }
   };
   const SUPPORTED = new Set(["fr","en"]);
@@ -436,6 +698,8 @@
     if ($search) $search.placeholder = t("search_placeholder");
     const $btnDbus = document.getElementById("btnDbus");
     if ($btnDbus) $btnDbus.textContent = t("dbus_button");
+    const panelTitle = document.getElementById("dbusPanelTitle");
+    if (panelTitle) panelTitle.textContent = t("dbus_button");
     const $lpClose = document.getElementById("lpClose");
     if ($lpClose){ $lpClose.setAttribute("aria-label", t("close")); $lpClose.title = t("close"); }
     const home = document.querySelector(".leaflet-custom-home a.home-btn");
@@ -475,6 +739,56 @@
     const MARGIN=64;
     function innerBounds(m){const sw=L.point(0+m,heightPx-m),ne=L.point(widthPx-m,0+m);return L.latLngBounds(map.unproject(sw,maxNativeZoom),map.unproject(ne,maxNativeZoom));}
 
+    const SCALE_RATIO = 0.95;
+
+    function updateCustomScale() {
+      const zoom = map.getZoom();
+      const scaleFactor = Math.pow(2, zoom - maxNativeZoom);
+      const metersPerPixel = SCALE_RATIO / scaleFactor;
+
+      const zoomScales = {
+        [maxNativeZoom - 5]: 16000,
+        [maxNativeZoom - 4]: 8000,
+        [maxNativeZoom - 3]: 4000,
+        [maxNativeZoom - 2]: 2000,
+        [maxNativeZoom - 1]: 1000,
+        [maxNativeZoom]: 500,
+        [maxNativeZoom + 1]: 200,
+        [maxNativeZoom + 2]: 100,
+      };
+
+      let targetMeters = zoomScales[zoom];
+      if (targetMeters === undefined) {
+        const keys = Object.keys(zoomScales).map(k => parseInt(k));
+        const closest = keys.reduce((a, b) =>
+          Math.abs(b - zoom) < Math.abs(a - zoom) ? b : a
+        );
+        targetMeters = zoomScales[closest];
+      }
+
+      const pxLength = targetMeters / metersPerPixel;
+
+      const scaleEl = document.getElementById("custom-scale");
+      if (scaleEl) {
+        scaleEl.style.width = `${pxLength}px`;
+        scaleEl.querySelector("span").textContent =
+          targetMeters >= 1000 ? `${(targetMeters / 1000).toFixed(0)} km` : `${targetMeters} m`;
+      }
+    }
+
+    const scaleDiv = L.control({ position: 'bottomleft' });
+    scaleDiv.onAdd = () => {
+      const div = L.DomUtil.create('div', 'custom-scale');
+      div.id = 'custom-scale';
+      div.innerHTML = '<div class="bar"></div><span></span>';
+      return div;
+    };
+    scaleDiv.addTo(map);
+
+    map.on('zoom', updateCustomScale);
+    updateCustomScale();
+
+
     L.tileLayer(`${TILE_BASE}/{z}/{x}/{y}.png`,{tileSize,minNativeZoom,maxNativeZoom,maxZoom:maxNativeZoom+2,noWrap:true,bounds:fullBounds,crossOrigin:true,referrerPolicy:"no-referrer"}).addTo(map);
     function applyBounds(){const ib=innerBounds(MARGIN);map.setMaxBounds(ib);map.panInsideBounds(ib,{animate:false});}
     map.fitBounds(innerBounds(MARGIN),{animate:false});applyBounds();map.on('zoomend resize',applyBounds);
@@ -489,6 +803,7 @@
     
     const $search = document.getElementById("search");
     const $results = document.getElementById("results");
+    const $analysisHUD = document.getElementById("analysisHUD");
 
     const BRAND_DISPLAY = { renault: 'Renault Trucks', daf: 'DAF', mercedes: 'Mercedes-Benz', volvo : 'Volvo Trucks' };
     function brandLabel(key){
@@ -580,6 +895,12 @@
       const py=(Y-TileMapInfo.y1)/(TileMapInfo.y2-TileMapInfo.y1)*heightPx;
       return map.unproject([px,py],maxNativeZoom);
     }
+    function fromLatLngToXY(latlng){
+      const pt = map.project(latlng, maxNativeZoom);
+      const X = (pt.x/widthPx) * (TileMapInfo.x2 - TileMapInfo.x1) + TileMapInfo.x1;
+      const Y = (pt.y/heightPx) * (TileMapInfo.y2 - TileMapInfo.y1) + TileMapInfo.y1;
+      return { X, Y };
+    }
 
     const transitScroll = document.querySelector(".transit-scroll");
     if (transitScroll) {
@@ -598,6 +919,14 @@
     const $panelDbus = document.getElementById("dbusPanel");
     const $dbusList = document.getElementById("dbusList");
     const $selectedChip = document.getElementById("selectedChip");
+    
+    map.on('mousemove', (e) => {
+      if (!$analysisHUD) return;
+      try{
+        const { X, Y } = fromLatLngToXY(e.latlng);
+        $analysisHUD.textContent = `X: ${X.toFixed(2)}  Y: ${Y.toFixed(2)}`;
+      }catch{}
+    });
 
     function wikiTitleForCity(name){
       const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème|th|st|nd|rd)?$/i.exec(String(name||"").trim());
@@ -696,7 +1025,7 @@
       const esc = escapeHTML(text ?? "");
       const flags = caseInsensitive ? "gi" : "g";
       return esc
-        .replace(new RegExp("(?:\\s*[-–—]\\s*)?\\bRER\\b(?:\\s*[-–—]\\s*)?", flags),
+        .replace(new RegExp("(?:\\s*[---]\\s*)?\\bRER\\b(?:\\s*[---]\\s*)?", flags),
                 ' <span class="rer-ico" aria-label="RER"></span> ')
         .replace(/\s{2,}/g, " ")
         .trim();
@@ -717,7 +1046,7 @@
           const sufList = (LANG === "en")
             ? [",_Val-de-Marne", ",_Essonne", ",_Hauts-de-Seine", ",_Seine-Saint-Denis",
               ",_Val-d'Oise", ",_Seine-et-Marne", ",_Yvelines"]
-            : ["_(Commune_française)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
+            : ["_(Commune_franà§aise)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
               "_(Seine-Saint-Denis)", "_(Val-d'Oise)", "_(Seine-et-Marne)", "_(Yvelines)"];
 
           for (const suf of sufList) {
@@ -793,7 +1122,7 @@
     homeBtn.onAdd = function(map) {
       const container = L.DomUtil.create('div', 'leaflet-bar leaflet-custom-home');
       const link = L.DomUtil.create('a', 'home-btn', container);
-      link.innerHTML = '⟲'; 
+      link.innerHTML = '⟳'; 
       link.href = '#';
       link.title = t('home_tooltip');
 
@@ -873,7 +1202,7 @@
                   if (d0?.type !== "disambiguation") return { title, data: d0 };
                 } catch {}
                 for (const suf of [
-                  "_(Paris)", "_(Île-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+                  "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
                   "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
                   "_(Centre_commercial)", "_(Centre_commercial_en_France)"
                 ]) {
@@ -985,7 +1314,7 @@
         });
       } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
-            const btxt = brandsText(ov) || '—';
+            const btxt = brandsText(ov) || 'Ã¢â‚¬â€';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
 
             const brandKey = dealerBrandKeyFrom(ov);
@@ -1107,7 +1436,7 @@
               if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
             } catch {}
             for (const suf of [
-              "_(Paris)", "_(Île-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+              "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
               "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
               "_(Monument)"
             ]) {
@@ -1360,19 +1689,28 @@
       badgeEl.appendChild(stripe);
     }
 
-    function parseRouteName(routeName) {
-      const parts = routeName.split(":");
-      if (parts.length > 1) {
-        return {
-          lineNumber: parts[0].trim(),
-          routeTitle: parts[1].trim()
-        };
+    function parseRouteName(name){
+      const raw = String(name || "").trim();
+
+      const hasColon = raw.includes(":");
+      const parts = hasColon ? raw.split(":") : [raw];
+
+      let flag = null;
+      const flagMatch = parts[0].match(/\(([^)]+)\)/);
+      if (flagMatch) flag = flagMatch[1].trim();
+
+      let lineNumber = parts[0]
+        .replace(/\s*\([^)]*\)/g, "")
+        .trim();
+
+      let routeTitle;
+      if (hasColon) {
+        routeTitle = raw.substring(raw.indexOf(":") + 1).trim();
       } else {
-        return {
-          lineNumber: routeName.trim(),
-          routeTitle: routeName.trim()
-        };
+        routeTitle = raw;
       }
+
+      return { lineNumber, routeTitle, flag };
     }
 
     function ensureFictiveStripe(badgeEl) {
@@ -1418,26 +1756,65 @@
       return badge;
     }
 
+    function createNetworkBadgeElement({ label, imgSrc, alt, colorKey, chipClass = "dbus-badge network-chip", stripeColor = null, invertLogo = false }) {
+      const wrap = document.createElement("div");
+      wrap.className = "network-badge";
+
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.alt = alt;
+      if (invertLogo) img.classList.add("network-logo-invert");
+      wrap.appendChild(img);
+
+      const [bg, text] = getLineColorsSync(colorKey || label);
+      const chip = document.createElement("div");
+      chip.className = chipClass;
+      chip.dataset.chipRole = "line";
+      chip.dataset.networkBadge = "true";
+      chip.textContent = label;
+      chip.style.background = bg;
+      chip.style.color = text;
+      wrap.appendChild(chip);
+
+      if (stripeColor) ensureStripe(chip, stripeColor);
+
+      return { wrap, chip };
+    }
+
+    function networkBadgeHTML({ label, imgSrc, alt, colorKey, chipClass = "dbus-badge network-chip", stripeColor = null, invertLogo = false }) {
+      const [bg, text] = getLineColorsSync(colorKey || label);
+      const stripe = stripeColor ? `<div class="noctilien-stripe" style="background:${stripeColor}"></div>` : "";
+      return `
+        <div class="network-badge">
+          <img src="${imgSrc}" alt="${escapeHTML(alt)}" ${invertLogo ? 'class="network-logo-invert"' : ''}/>
+          <div class="${chipClass}" data-chip-role="line" data-network-badge="true" style="background:${bg};color:${text};">
+            ${escapeHTML(label)}
+            ${stripe}
+          </div>
+        </div>
+      `;
+    }
+
     function trimByDash(s, mode){
       const txt = String(s || "").trim();
-      const parts = txt.split(/\s*[–—-]\s*/).filter(Boolean);
+      const parts = txt.split(/\s*[---]\s*/).filter(Boolean);
       if (parts.length < 2) return txt;
       return (mode === 'start') ? parts[0].trim() : parts[parts.length - 1].trim();
     }
 
     function cleanRERLabel(label){
-      return String(label ?? "").replace(/\s*[-–—]\s*RER\b/gi, " RER");
+      return String(label ?? "").replace(/\s*[---]\s*RER\b/gi, " RER");
     }
 
     function withRERIconInStop(text){
       const esc = escapeHTML(text ?? "");
-      return esc.replace(/\s*[–—-]?\s*RER\s*[–—-]?\s*/gi,
+      return esc.replace(/\s*[---]?\s*RER\s*[---]?\s*/gi,
         ' <span class="rer-ico" aria-label="RER"></span> ');
     }
 
     function splitRouteEndpoints(routeTitle){
       const s = decodeHTML(String(routeTitle || "").trim());
-      const parts = s.split(/\s*(?:>|→|↔|⇄|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
+      const parts = s.split(/\s*(?:>|Ã¢â€ â€™|Ã¢â€ â€|Ã¢â€¡â€ž|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
       if (parts.length >= 2){ return [parts[0].trim(), parts[parts.length-1].trim()]; }
       return [s, s];
     }
@@ -1486,18 +1863,18 @@
       const effNum = getLineNumber(line, route);
       getLineColors(effNum).then(([bg])=>{ if(bg) poly.setStyle({color:bg}); });
 
-      const { lineNumber, routeTitle } = parseRouteName(route.name);
+      const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
       const routeTitleRaw = routeTitle;
       const [titleStart0, titleEnd0] = splitRouteEndpoints(routeTitleRaw);
       const titleStart = trimAroundRER(titleStart0, 'start');
       const titleEnd   = trimAroundRER(titleEnd0,   'end');
 
+      const lineCategory = getCategory(line);
       const stops = route.stops.map((s, idx, arr)=> {
         const id = s.uid;
         const st = DBUS_STOPS.get(id);
         const isFirst = (idx===0), isLast=(idx===arr.length-1);
         const n = String(line.number||"").trim();
-        const title = isFirst ? t("depart") : (isLast ? t("terminus") : t("stop"));
 
         if (!st) return null;
         let displayName = st.name || "";
@@ -1505,37 +1882,34 @@
         if (isFirst) displayName = titleStart;
         if (isLast)  displayName = titleEnd;
 
-        const stopNameHTML = withRERIconInStop(displayName);
-        const coords = `${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)}`;
+        const isProvisoireStop = /\(provisoire\)/i.test(displayName);
+        const cleanDisplayName = displayName.replace(/\s*\(provisoire\)\s*/i, "");
+        const stopNameHTML = withRERIconInStop(cleanDisplayName);
+        const coordParts = [st.X, st.Y, st.Z].map(v => Number(v).toFixed(2));
+        const coordsDisplay = escapeHTML(coordParts.join(", "));
         const gotoCmd = `goto ${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)};${st.rotX.toFixed(6)};${st.rotY.toFixed(6)}`;
 
         const { lineNumber } = parseRouteName(route.name || "");
-        const [bg, text] = getLineColorsSync(lineNumber);
-        getLineColors(lineNumber).then(([bg])=>{
+        let cleanNum = String(lineNumber || "").trim();
+        cleanNum = cleanNum.replace(/\s*\([^)]*\)/, "").trim();
+
+        const [bg, text] = getLineColorsSync(cleanNum);
+        getLineColors(cleanNum).then(([bg])=>{
           if(bg) poly.setStyle({color:bg});
         });
         
-        let badgeHTML;
-        if (isNoctilien2(lineNumber)) {
-          badgeHTML = `
-            <div class="dbus-badge" style="background:#080080;color:${text}">
-              ${escapeHTML(lineNumber)}
-              <div class="noctilien-stripe" style="background:${noctilienStripeColor(lineNumber)}"></div>
-            </div>`;
-        } else {
-          badgeHTML = `<div class="dbus-badge" style="background:${bg};color:${text}">${escapeHTML(lineNumber)}</div>`;
-        }
-
+        const stopOrderLabel = `${idx+1} / ${arr.length}`;
         const html = `
-          <div style="display:flex;align-items:flex-start;gap:16px;min-width:320px;max-width:420px">
-            <div>
-              ${badgeHTML}
+          <div class="stop-popup">
+            <div class="sp-header">
+              <div class="sp-title">${stopNameHTML}${isProvisoireStop ? ' <span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
+              <span>‎ ‎ ‎ ‎ </span>
+              <div class="sp-index">${stopOrderLabel}</div>
             </div>
-            <div style="min-width:0;max-width:100%">
-              <div style="font-weight:700;margin-bottom:6px">${escapeHTML(title)}</div>
-              <div class="dbus-stop-name">${withRERIconInStop(displayName)}</div>
-              <div style="margin-top:6px;font-size:12px;line-height:1.4;color:#8b8b8b">
-                <b>Coordonnées : ${coords.replace(/\n/g,"<br>")}</b>
+            <div class="sp-body">
+              <div class="sp-coords">
+                <span>Coordonnées</span>
+                <div class="sp-coords-code">${coordsDisplay}</div>
               </div>
             </div>
           </div>`;
@@ -1578,25 +1952,32 @@
           }
           const el = e.popup.getElement();
           if (!el) return;
-          const badge = el.querySelector(".dbus-badge");
-          if (!badge) return;
+          const chip = el.querySelector(".titus-chip") || el.querySelector(".dbus-badge");
+          if (!chip) return;
+          const isNetworkChip = chip.dataset?.networkBadge === "true";
+          if (isNetworkChip) return;
 
-          const { lineNumber } = parseRouteName(route.name || "")
-           getLineColors(lineNumber).then(([bg, text]) => {
+          const { cleanNum } = parseRouteName(route.name || "")
+           getLineColors(cleanNum).then(([bg, text]) => {
               const pop = marker.getPopup();
               if (!pop) return;
               const el = pop.getElement();
               if (!el) return;
-              const badge = el.querySelector(".dbus-badge");
-              if (!badge) return;
+              const chip = el.querySelector(".titus-chip") || el.querySelector(".dbus-badge");
+              if (!chip) return;
+              const isNetworkChip = chip.dataset?.networkBadge === "true";
+
+              if (isNetworkChip) return;
 
               if (isNoctilien2(n)) {
-                badge.style.background = "#080080";
-                badge.style.color = text;
-                ensureStripe(badge, noctilienStripeColor(n));
+                chip.style.background = "#080080";
+                chip.style.color = text;
+                if (!el.querySelector('.noctilien-stripe')) {
+                  ensureStripe(chip, noctilienStripeColor(n));
+                }
               } else {
-                badge.style.background = bg;
-                badge.style.color = text;
+                chip.style.background = bg;
+                chip.style.color = text;
               }
             });
 
@@ -1606,21 +1987,23 @@
           if (currentActiveStopId === id) clearActiveStop();
         });
 
-        getLineColors(lineNumber).then(([bg, text]) => {
+        getLineColors(cleanNum).then(([bg, text]) => {
           const pop = marker.getPopup();
           if (!pop) return;
           const el = pop.getElement();
           if (!el) return;
-          const badge = el.querySelector(".dbus-badge");
-          if (!badge) return;
+          const chip = el.querySelector(".titus-chip") || el.querySelector(".dbus-badge");
+          if (!chip) return;
+          const isNetworkChip = chip.dataset?.networkBadge === "true";
+          if (isNetworkChip) return;
 
           if (isNoctilien2(n)) {
-            badge.style.background = "#080080";
-            badge.style.color = text;
-            ensureStripe(badge, noctilienStripeColor(n));
+            chip.style.background = "#080080";
+            chip.style.color = text;
+            ensureStripe(chip, noctilienStripeColor(n));
           } else {
-            badge.style.background = bg;
-            badge.style.color = text;
+            chip.style.background = bg;
+            chip.style.color = text;
           }
         });
 
@@ -1705,28 +2088,9 @@
       const paneH = document.getElementById('linePreview')?.offsetHeight || 0;
       const offsetY = Math.round(paneH / 2);
       const p = map.project(latlng, targetZoom);
-      let targetPt = L.point(p.x, p.y + offsetY);
-      const ib = innerBounds(MARGIN);
-      const sw = map.project(ib.getSouthWest(), targetZoom);
-      const ne = map.project(ib.getNorthEast(), targetZoom);
-      targetPt = L.point(
-        Math.min(Math.max(targetPt.x, sw.x), ne.x),
-        Math.min(Math.max(targetPt.y, ne.y), sw.y)
-      );
+      const targetPt = L.point(p.x, p.y + offsetY);
       const targetLL = map.unproject(targetPt, targetZoom);
-      const prevInertia = map.options.inertia;
-      map.options.inertia = false;
       map.setView(targetLL, targetZoom, { animate: true });
-      map.once('moveend', () => {
-        try {
-          map.options.inertia = prevInertia;
-          const now = map.getCenter();
-          const nowP = map.project(now, targetZoom);
-          if (nowP.distanceTo(targetPt) > 2) {
-            map.setView(targetLL, targetZoom, { animate: false });
-          }
-        } catch {}
-      });
     }
 
     function getLineNumber(line, route) {
@@ -1768,27 +2132,77 @@
       title.innerHTML = `
         <div>${cleanedStart} &gt; ${cleanedEnd}</div>
         <div style="font-weight:400; font-size:12px; color:#9fb1cc; margin-top:2px">
-          ${stopCount} arrêts • ${durationText}
+          ${stopCount} arrêts - ${durationText}
         </div>
       `;
 
       const { lineNumber } = parseRouteName(route.name || "");
-      badge.textContent = lineNumber;
-      badge.style.background = "#444";
-      badge.style.color = "#fff";
+      const lineCategory = getCategory(line);
+      const mTitusLP = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
+      const isNoctLinePreview = isNoctilien2(lineNumber);
+      let previewBadgeChip = null;
+
+      function applyNetworkBadgeToPreview(opts){
+        badge.innerHTML = "";
+        badge.className = "lp-badge-wrapper";
+        badge.style.background = "transparent";
+        badge.style.color = "#fff";
+        const { wrap, chip } = createNetworkBadgeElement(opts);
+        badge.appendChild(wrap);
+        previewBadgeChip = chip;
+      }
+
+      function applyDefaultBadgeToPreview(){
+        badge.className = "dbus-badge";
+        badge.innerHTML = "";
+        badge.textContent = lineNumber;
+        badge.style.background = "#444";
+        badge.style.color = "#fff";
+        previewBadgeChip = badge;
+      }
+
+      if (mTitusLP) {
+        applyNetworkBadgeToPreview({
+          label: mTitusLP[1],
+          imgSrc: "./Overlays/reseau_titus.png",
+          alt: "Réseau Titus",
+          colorKey: lineNumber,
+          chipClass: "dbus-badge titus-chip"
+        });
+      } else if (isNoctLinePreview) {
+        applyNetworkBadgeToPreview({
+          label: lineNumber,
+          imgSrc: "./Overlays/noctilien_logo_idfm.png",
+          alt: "Noctilien",
+          stripeColor: noctilienStripeColor(lineNumber)
+        });
+      } else if (lineCategory === "Urbain") {
+        applyNetworkBadgeToPreview({
+          label: lineNumber,
+          imgSrc: "./Overlays/bus_logo_idfm.png",
+          alt: "Réseau urbain Île-de-France Mobilités"
+        });
+      } else {
+        applyDefaultBadgeToPreview();
+      }
 
       if (transit) transit.style.setProperty('--lineColor', '#3aa0ff');
 
-      if (isNoctilien2(line.number)) {
-        ensureStripe(badge, noctilienStripeColor(line.number));
+      const previewBadgeTarget = previewBadgeChip || badge;
+      const isPreviewNetwork = previewBadgeTarget?.dataset?.networkBadge === "true";
+      if (!isPreviewNetwork && isNoctilien2(line.number)) {
+        ensureStripe(previewBadgeTarget, noctilienStripeColor(line.number));
       }
-      
-      getLineColors(lineNumber).then(([bg, text])=>{
-        badge.style.background = bg;
-        badge.style.color = text;
+
+      const colorKeyLP = lineNumber || getLineNumber(line, route);
+      getLineColors(colorKeyLP).then(([bg, text])=>{
+        if (previewBadgeTarget && !isPreviewNetwork){
+          previewBadgeTarget.style.background = bg;
+          previewBadgeTarget.style.color = text;
+        }
         if (transit) transit.style.setProperty('--lineColor', bg);
-        if (isNoctilien2(getLineNumber(line, route))) {
-          ensureStripe(badge, noctilienStripeColor(getLineNumber(line, route)));
+        if (!isPreviewNetwork && isNoctilien2(colorKeyLP)) {
+          ensureStripe(previewBadgeTarget, noctilienStripeColor(colorKeyLP));
         }
       });
 
@@ -1803,9 +2217,11 @@
         const stopEl = document.createElement("div");
         stopEl.className = "stop" + (idx===0 ? " first" : (idx===ids.length-1 ? " last" : ""));
         stopEl.dataset.stopId = String(id);
+        const isProvisoire = /\(provisoire\)/i.test(label);
+        const cleanLabel = label.replace(/\s*\(provisoire\)\s*/i, "");
         stopEl.innerHTML = `
           <div class="dot"></div>
-          <div class="name">${withRERIcon(label)}</div>
+          <div class="name">${withRERIcon(cleanLabel)}${isProvisoire ? '<span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
         `;
         
         stopEl.addEventListener('click', ()=>{
@@ -1859,6 +2275,8 @@
 
     function openDbusPanel() {
       closeSearchUI({ reset: true });
+      clearDbusSelection();
+      hideLinePreview();
       $panelDbus.style.display = 'block';
       $btnDbus?.setAttribute('aria-expanded','true');
     }
@@ -1866,6 +2284,7 @@
       $panelDbus.style.display = 'none';
       $btnDbus?.setAttribute('aria-expanded','false');
     }
+    document.getElementById("dbusPanelClose")?.addEventListener("click", closeDbusPanel);
     function isDbusOpen() { return $panelDbus.style.display === 'block'; }
     function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
     function closeSearchUI({ reset = false } = {}) {
@@ -1889,6 +2308,19 @@
       host.innerHTML = "";
     }
 
+    function clearDbusSelection(scope = $dbusList){
+      if (!scope) return;
+      const activeItems = scope.querySelectorAll(".dbus-item.active");
+      if (!activeItems.length) return;
+      activeItems.forEach(item => {
+        item.classList.remove("active");
+        item.style.outline = "none";
+      });
+      currentSelectedKey = "";
+      hideAllRoutes();
+      renderSelectedChip();
+    }
+
     function isNumericOnly(s){ return /^\d+$/.test(String(s||"").trim()); }
     function isFlix(line){
       const num = String(line.number||"").toLowerCase();
@@ -1903,7 +2335,7 @@
       if (isNoctilien(line))          return "Noctilien";
       if (isFlix(line))               return "FlixBus";
       if (isNumericOnly(line.number)) return "Urbain";
-      if (/^titus/i.test(line.number)) return "Urbain";
+      if (/^réseau titus/i.test(line.number)) return "Urbain";
       if (/^scolaire/i.test(line.number)) return "Scolaire";
       return "Autres";
     }
@@ -1919,41 +2351,42 @@
 
       $dbusList.innerHTML = "";
 
-      const none = document.createElement("div");
-      none.className = "dbus-none";
-      none.textContent = t("none");
-      none.addEventListener("click", ()=>{
-        currentSelectedKey = "";
-        hideAllRoutes();
-        hideLinePreview();
-        $dbusList.querySelectorAll(".dbus-item").forEach(it=>{
-          it.classList.remove("active");
-          it.style.outline = "none";
-        });
-        renderSelectedChip();
-      });
-      $dbusList.appendChild(none);
-
       const buckets = { "Urbain": [], "FlixBus": [], "Noctilien": [], "Autres": [], "Scolaire": [] };
+
+      const URBAIN_CUSTOM_ORDER = ["24","63","109","112","114","121","124","221","303","351","reseau titus"]; 
+      function normLineId(x){
+        return String(x||"").trim().toLowerCase()
+          .replace(/[éèêà«]/g,'e')
+          .replace(/\.(png|jpg|jpeg|webp)$/,'');
+      }
+
+      function compareUrbainLines(a,b){
+        const ai = URBAIN_CUSTOM_ORDER.indexOf(normLineId(a.number));
+        const bi = URBAIN_CUSTOM_ORDER.indexOf(normLineId(b.number));
+        if (ai !== -1 || bi !== -1) {
+          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+        }
+
+        const aNum = isNumericOnly(a.number);
+        const bNum = isNumericOnly(b.number);
+        if (aNum && !bNum) return -1;
+        if (!aNum && bNum) return 1;
+        if (aNum && bNum) return (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0);
+
+        return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
+      }
 
       DBUS_LINES.forEach(line => {
         const cat = getCategory(line);
         buckets[cat].push(line);
       });
 
-      buckets["Urbain"].sort((a,b)=>{
-        const aNum = isNumericOnly(a.number);
-        const bNum = isNumericOnly(b.number);
+      if (buckets["Noctilien"] && buckets["Noctilien"].length) {
+        buckets["Urbain"].push(...buckets["Noctilien"]);
+        buckets["Noctilien"] = [];
+      }
 
-        if (aNum && !bNum) return -1;
-        if (!aNum && bNum) return 1;
-
-        if (aNum && bNum) {
-          return (parseInt(a.number,10)||0) - (parseInt(b.number,10)||0);
-        }
-
-        return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
-      });
+      buckets["Urbain"].sort(compareUrbainLines);
       buckets["Noctilien"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
       buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
       buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
@@ -1973,7 +2406,7 @@
           totalRoutes += (line.routes ? line.routes.length : 0);
         });
 
-        const isOpenByDefault = (title === "Urbaines" || title === "Noctiliens");
+        const isOpenByDefault = (title === "IDFM" || title === "Noctiliens");
 
         const head = document.createElement("div");
         head.className = "dbus-sechead";
@@ -1991,8 +2424,31 @@
 
         head.addEventListener("click", () => {
           const expanded = head.getAttribute("aria-expanded") === "true";
+          const willOpen = !expanded;
           head.setAttribute("aria-expanded", expanded ? "false" : "true");
           body.hidden = expanded;
+          if (expanded) {
+            clearDbusSelection(body);
+            return;
+          }
+          if (willOpen) {
+            try {
+              $dbusList.querySelectorAll('.dbus-sechead').forEach(h => {
+                if (h !== head) {
+                  h.setAttribute('aria-expanded','false');
+                  const b = h.nextElementSibling;
+                  if (b && b.classList.contains('dbus-secbody')) {
+                    b.hidden = true;
+                    clearDbusSelection(b);
+                  }
+                }
+              });
+              if (window.__DBUS_GRID_OPEN && typeof window.__DBUS_GRID_OPEN.clear === 'function') {
+                window.__DBUS_GRID_OPEN.clear();
+                window.__DBUS_GRID_OPEN = null;
+              }
+            } catch {}
+          }
         });
 
         if (title === "Scolaire") {
@@ -2015,6 +2471,239 @@
         }
       }
 
+      function renderSectionGrid(title, lines) {
+        if (!lines.length) return;
+
+        const sec = document.createElement("div");
+        sec.className = "dbus-sec";
+        $dbusList.appendChild(sec);
+
+        let totalRoutes = 0;
+        lines.forEach(line => { totalRoutes += (line.routes ? line.routes.length : 0); });
+
+        const isOpenByDefault = (title === "IDFM" || title === "Noctiliens");
+
+        const head = document.createElement("div");
+        head.className = "dbus-sechead";
+        head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+        head.innerHTML = `<span>${title} (${totalRoutes})</span><span class=\"chev\" style=\"margin-left:auto\">▾</span>`;
+        sec.appendChild(head);
+
+        const body = document.createElement("div");
+        body.className = "dbus-secbody";
+        body.hidden = !isOpenByDefault; 
+        sec.appendChild(body);
+
+        function clearLocal(){
+          selectedLineUid = null;
+          routesHost.innerHTML = "";
+          routesHost.style.margin = "8px 6px 0";
+          body.querySelectorAll('.dbus-logo').forEach(el=>{
+            el.style.outline='none';
+            el.classList.remove('dim','sel');
+            el.style.removeProperty('--selColor');
+          });
+          try { currentSelectedKey = ""; } catch {}
+          try { if (typeof hideAllRoutes === 'function') hideAllRoutes(); } catch {}
+          try { if (typeof hideLinePreview === 'function') hideLinePreview(); } catch {}
+        }
+
+        head.addEventListener("click", () => {
+          const expanded = head.getAttribute("aria-expanded") === "true";
+          const willOpen = !expanded;
+          head.setAttribute("aria-expanded", expanded ? "false" : "true");
+          body.hidden = expanded;
+          if (expanded) {
+            clearLocal();
+            if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) {
+              window.__DBUS_GRID_OPEN = null;
+            }
+          }
+          if (willOpen) {
+            try {
+              $dbusList.querySelectorAll('.dbus-sechead').forEach(h => {
+                if (h !== head) {
+                  h.setAttribute('aria-expanded','false');
+                  const b = h.nextElementSibling;
+                  if (b && b.classList.contains('dbus-secbody')) b.hidden = true;
+                }
+              });
+            } catch {}
+          }
+        });
+
+        const grid = document.createElement("div");
+        grid.className = "dbus-grid";
+        body.appendChild(grid);
+
+        const routesHost = document.createElement("div");
+        routesHost.className = "routes-host";
+        routesHost.style.margin = "8px 6px 0";
+
+        let selectedLineUid = null;
+
+        function selectionColorForLine(line) {
+          const rawNum = String(line.number || "").trim();
+          if (/titus/i.test(rawNum)) return "#ffffff";
+          if (/^N\d+$/i.test(rawNum)) return noctilienStripeColor(rawNum);
+          return null;
+        }
+
+        function createLogoForLine(line) {
+          const raw = String(line.number || "").trim();
+          const norm = raw.toLowerCase().replace('é','e');
+          const isTitus = /reseau\s*titus/.test(norm);
+
+          const wrap = document.createElement('div');
+          wrap.className = 'dbus-logo';
+
+          if (isTitus) {
+           
+            wrap.classList.add('dbus-logo--titus');
+            wrap.style.background = 'transparent';
+            const img = document.createElement('img');
+            img.alt = 'Réseau Titus';
+            img.src = './Overlays/reseau_titus.png';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'contain';
+            img.onerror = () => {
+              wrap.textContent = 'Réseau Titus';
+              wrap.style.color = '#522a8a';
+              wrap.style.background = 'transparent';
+            };
+            wrap.appendChild(img);
+            return wrap;
+          }
+
+          const num = raw;
+          const badge = makeLineBadge(num, "#444", "#fff", "88x36");
+          badge.classList.add("dbus-logo");
+          getLineColors(num).then(([bg,text])=>{
+            badge.style.background = bg; badge.style.color = text;
+            if (isNoctilien2(num)) { ensureStripe(badge, noctilienStripeColor(num)); }
+            if (getCategory(line) === "Autres") { ensureFictiveStripe(badge); }
+          });
+          return badge;
+        }
+
+        function renderRoutesForLine(line, container){
+          container.innerHTML = "";
+          line.routes.forEach(route => renderLineItem(line, route, container));
+        }
+
+        if (title === "IDFM") {
+          const normals = lines.filter(l => isNumericOnly(l.number));
+          normals.sort(compareUrbainLines);
+          const nocti = lines.filter(l => isNoctilien(l));
+          const autresReseaux = lines.filter(l => !isNumericOnly(l.number) && !isNoctilien(l));
+
+          function renderSub(label, items){
+            if (!items.length) return;
+          const h = document.createElement('h4'); h.textContent = label; body.appendChild(h);
+            const subGrid = document.createElement('div'); subGrid.className = 'dbus-grid'; body.appendChild(subGrid);
+
+            items.sort((a, b) => {
+                const an = parseInt(a.number.replace(/\D/g,'')) || 0;
+                const bn = parseInt(b.number.replace(/\D/g,'')) || 0;
+                return an - bn;
+            });
+
+            items.forEach(line => {
+              const block = document.createElement('div'); block.className = 'line-block';
+              const logo = createLogoForLine(line); block.appendChild(logo);
+
+              function closeNonGridSections() {
+                try {
+                  const heads = $dbusList.querySelectorAll('.dbus-sechead');
+                  heads.forEach(h => {
+                    const txt = (h.textContent || '').trim().toLowerCase();
+                if (!/^idfm\b/.test(txt) && !/^noctiliens\b/.test(txt)) {
+                      h.setAttribute('aria-expanded','false');
+                      const b = h.nextElementSibling;
+                      if (b && b.classList.contains('dbus-secbody')) b.hidden = true;
+                    }
+                  });
+                } catch {}
+              }
+
+              logo.addEventListener('click', () => {
+                const isSame = (selectedLineUid === line.uid);
+                if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== title) {
+                  try { window.__DBUS_GRID_OPEN.clear && window.__DBUS_GRID_OPEN.clear(); } catch {}
+                  window.__DBUS_GRID_OPEN = null;
+                }
+                if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) { window.__DBUS_GRID_OPEN = null; } return; }
+                clearLocal(); selectedLineUid = line.uid;
+                const raw = String(line.number||''); const norm = raw.toLowerCase().replace('é','e');
+                const selColor = selectionColorForLine(line);
+                if (selColor) { logo.style.setProperty('--selColor', selColor); }
+                else { getLineColors(raw).then(([bg])=>{ logo.style.setProperty('--selColor', bg); }); }
+                routesHost.style.margin = '8px 6px 25px';
+                renderRoutesForLine(line, routesHost);
+                body.querySelectorAll('.dbus-logo').forEach(el=>{ if (el!==logo) el.classList.add('dim'); else el.classList.remove('dim'); });
+                body.querySelectorAll('.dbus-logo.sel').forEach(el=> el.classList.remove('sel'));
+                logo.classList.add('sel');
+                closeNonGridSections();
+                window.__DBUS_GRID_OPEN = { section: title, clear: clearLocal };
+              });
+
+              subGrid.appendChild(block);
+            });
+          }
+
+          renderSub('URBAINES', normals);
+          renderSub('NOCTILIEN', nocti);
+          renderSub('AUTRES RÉSEAUX', autresReseaux);
+          body.appendChild(routesHost);
+        } else {
+          lines.forEach(line => {
+            const block = document.createElement('div');
+            block.className = 'line-block';
+            const logo = createLogoForLine(line);
+            block.appendChild(logo);
+
+            function closeNonGridSections() {
+              try {
+                const heads = $dbusList.querySelectorAll('.dbus-sechead');
+                heads.forEach(h => {
+                  const txt = (h.textContent || '').trim().toLowerCase();
+              if (!/^idfm\b/.test(txt) && !/^noctiliens\b/.test(txt)) {
+                    h.setAttribute('aria-expanded','false');
+                    const b = h.nextElementSibling;
+                    if (b && b.classList.contains('dbus-secbody')) b.hidden = true;
+                  }
+                });
+              } catch {}
+            }
+
+            logo.addEventListener('click', () => {
+              const isSame = (selectedLineUid === line.uid);
+              if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== title) {
+                try { window.__DBUS_GRID_OPEN.clear && window.__DBUS_GRID_OPEN.clear(); } catch {}
+                window.__DBUS_GRID_OPEN = null;
+              }
+              if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) { window.__DBUS_GRID_OPEN = null; } return; }
+              clearLocal(); selectedLineUid = line.uid;
+              const raw = String(line.number||''); const norm = raw.toLowerCase().replace('é','e');
+              const selColor = selectionColorForLine(line);
+              if (selColor) { logo.style.setProperty('--selColor', selColor); }
+              else { getLineColors(raw).then(([bg])=>{ logo.style.setProperty('--selColor', bg); }); }
+              routesHost.style.margin = '8px 6px 25px';
+              renderRoutesForLine(line, routesHost);
+              grid.querySelectorAll('.dbus-logo').forEach(el=>{ if (el!==logo) el.classList.add('dim'); else el.classList.remove('dim'); });
+              body.querySelectorAll('.dbus-logo.sel').forEach(el=> el.classList.remove('sel'));
+              logo.classList.add('sel');
+              closeNonGridSections();
+              window.__DBUS_GRID_OPEN = { section: title, clear: clearLocal };
+            });
+
+            grid.appendChild(block);
+          });
+          body.appendChild(routesHost);
+        }
+      }
+
       function getLineId(line, route) {
         if (line.number && line.number !== "?") {
           return line.number;
@@ -2027,14 +2716,22 @@
         const item = document.createElement("div");
         item.className = "dbus-item";
 
-        const { lineNumber, routeTitle } = parseRouteName(route.name);
-        const badge = makeLineBadge(lineNumber, "#444", "#fff", "72x32");
+        const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
+        const mTitus = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
+        const displayNumber = mTitus ? mTitus[1] : lineNumber;
+        const badge = makeLineBadge(displayNumber, "#444", "#fff", "72x32");
+        
         const titleEl = document.createElement("div");
         titleEl.className = "rname";
-        titleEl.innerHTML = withRERIcon(routeTitle);
+        titleEl.style.flex = "1 1 auto";
+        let titleHtml = withRERIcon(routeTitle);
+        if (flag) {
+          titleHtml = `<span class="route-flag">${flag}</span> ` + titleHtml;
+        }
+        titleEl.innerHTML = titleHtml;
 
         const duration = document.createElement("div");
-        duration.style.marginLeft = "auto";
+        duration.style.marginLeft = "8px";
         duration.style.color = "#9fb1cc";
         duration.style.fontSize = "13px";
 
@@ -2067,7 +2764,8 @@
 
         const effNum = effectiveLineNumber(line, route);
 
-        getLineColors(lineNumber).then(([bg,text])=>{
+        const colorKey = mTitus ? lineNumber : getLineNumber(line, route);
+        getLineColors(colorKey).then(([bg,text])=>{
           badge.style.background = bg;
           badge.style.color = text;
           if (isNoctilien2(getLineNumber(line, route))) {
@@ -2098,8 +2796,8 @@
         container.appendChild(item);
       }
 
-      renderSection("Urbaines",  buckets["Urbain"]);
-      renderSection("Noctiliens",  buckets["Noctilien"]);
+      renderSectionGrid("IDFM",  buckets["Urbain"]);
+      renderSectionGrid("Noctiliens",  buckets["Noctilien"]);
       renderSection("FlixBus", buckets["FlixBus"]);
       renderSection("Scolaires",  buckets["Scolaire"]);
       renderSection("Autres",  buckets["Autres"]);
@@ -2123,6 +2821,7 @@
           return m ? parseInt(m[0], 10) : Infinity;
         }
 
+        const mTitus = /^titus\s*(\d+)/i.exec(String(route.name||""));
         searchIndex.push({
           type: "Lignes DBus",
           name: formatLineName(line, route),
@@ -2135,7 +2834,8 @@
             showOnlyRoute(lineIdx, line, route);
             renderSelectedChip();
           },
-          num: extractNum(line.number)
+          num: extractNum(line.number),
+          titusNum: mTitus ? mTitus[1] : null
         });
 
 
@@ -2299,7 +2999,7 @@
         const div = document.createElement("div");
         div.className = "result-item";
 
-        if (item.type === "Lignes DBus") {
+          if (item.type === "Lignes DBus") {
           const img = document.createElement("img");
           img.className = "ico ico-service";
           img.src = "./Overlays/bus_ico.png";
@@ -2320,21 +3020,39 @@
           const category = getCategory({ number: lineNumber });
 
           if (category !== "Autres") {
-            const [bg, text] = getLineColorsSync(lineNumber);
-            const badge = makeLineBadge(
-              lineNumber,
-              bg,
-              text,
-              "72x32",
-              isNoctilien2(lineNumber) ? noctilienStripeColor(lineNumber) : null,
-              false
-            );
-            div.appendChild(badge);
+            const tnum = item.titusNum || (/^titus\s*(\d+)/i.exec(String(lineNumber||""))?.[1] ?? null);
+            if (tnum) {
+              const wrap = document.createElement('div');
+              wrap.style.display = 'inline-flex';
+              wrap.style.alignItems = 'center';
+              wrap.style.gap = '6px';
+              const img = document.createElement('img');
+              img.src = './Overlays/reseau_titus.png';
+              img.alt = 'Réseau Titus';
+              img.style.height = '22px';
+              img.style.width = 'auto';
+              const [bg, text] = getLineColorsSync('Titus ' + tnum);
+              const chip = makeLineBadge(tnum, bg, text, '48x24');
+              wrap.appendChild(img);
+              wrap.appendChild(chip);
+              div.appendChild(wrap);
+            } else {
+              const [bg, text] = getLineColorsSync(lineNumber);
+              const badge = makeLineBadge(
+                lineNumber,
+                bg,
+                text,
+                "72x32",
+                isNoctilien2(lineNumber) ? noctilienStripeColor(lineNumber) : null,
+                false
+              );
+              div.appendChild(badge);
+            }
           }
 
           const span = document.createElement("div");
           span.className = "result-text";
-          span.textContent = routeName;
+          span.textContent = routeName.replace(/^\s*Titus\s*\d+\s*[:-]?\s*/i, '');
           div.appendChild(span);
         } else {
           if (item.logo) {
@@ -2354,13 +3072,13 @@
           let label;
           if (item.type === "Concessionnaire"){
             const brand = (item.brand || String(item.name||"").replace(/^Concessionnaire\s+/i,"")).trim();
-            label = item.city ? `${brand} — ${item.city}` : brand;
+            label = item.city ? `${brand} - ${item.city}` : brand;
           } else if (["Atelier","Agence","Garage"].includes(item.type)){
             label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
           } else if (item.type === "Monument"){
-            label = item.city ? `${item.name} — ${item.city}` : item.name; 
+            label = item.city ? `${item.name} - ${item.city}` : item.name; 
           } else {
-            label = item.city ? `${item.name} — ${item.city}` : item.name;
+            label = item.city ? `${item.name} - ${item.city}` : item.name;
           }
 
           const span = document.createElement("div");
@@ -2369,7 +3087,6 @@
           div.appendChild(span);
         }
 
-        // Clic = aller sur la ligne/lieu
         div.addEventListener("click", () => {
           $search.value = "";
           $search.blur();
@@ -2500,9 +3217,7 @@
           text-align:center;padding:24px
         ">
           <div>
-            <div style="font-size:64px;line-height:1">🛠️</div>
             <div style="font-size:28px;font-weight:800;margin-bottom:10px">${t("maintenance_title")}</div>
-            <div style="color:#9fb1cc;margin-bottom:18px">${t("maintenance_desc")}</div>
           </div>
         </div>
       `;
@@ -2512,5 +3227,6 @@
   </script>
 
 </body>
-
 </html>
+
+

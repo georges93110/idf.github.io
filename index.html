@@ -28,6 +28,7 @@
     .search-panel{position:fixed;top:12px;right:12px;z-index:1000;width:min(950px,92vw);max-width:92vw}
     .search-row{display:flex;gap:8px;align-items:center}
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
+    .search-input:disabled{opacity:.5;cursor:not-allowed;background:color-mix(in oklab, var(--panel) 85%, #000 15%)}
     .search-input::placeholder{color:var(--muted)}
     .btn{padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
     .btn:hover{background:#101926}
@@ -185,7 +186,7 @@
       background:transparent;
       border:none;
       color:#ef4444;
-      font-size:16px;
+      font-size:25px;
       line-height:1;
       cursor:pointer;
       padding:0 2px;
@@ -193,6 +194,23 @@
     .dbus-depart-close:hover{color:#ff6666}
     .dbus-stop-panel .dbus-close{margin-left:auto}
     .dbus-list{padding:6px}
+    .dbus-depart-actions{padding:6px 12px 0}
+    .dbus-depart-map-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #1f2732;
+      background:#0f1722;
+      color:#d7e2f7;
+      font-size:20px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .dbus-depart-map-btn:hover{background:#111c2a;color:#f8fbff}
     .dbus-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, 90px);
@@ -784,6 +802,9 @@
       </div>
       <div class="dbus-content">
         <div id="dbusList" class="dbus-list"></div>
+        <div id="dbusDepartActions" class="dbus-depart-actions" hidden>
+          <button type="button" id="dbusDepartMapBtn" class="dbus-depart-map-btn"></button>
+        </div>
         <div id="dbusDepartList" class="dbus-list"></div>
       </div>
       <div class="dbus-footer">
@@ -872,6 +893,7 @@
       dbus_mode_lines: "Catégorie",
       dbus_mode_length: "Longueur",
       dbus_mode_stops: "Départs de lignes",
+      dbus_depart_map_btn: "🗺️ Voir les départs de lignes sur le plan",
       dbus_school_toggle: "Scolaires",
       dbus_fictive_toggle: "Fictif",
       lang_btn: "FR",
@@ -905,6 +927,7 @@
       dbus_mode_lines: "Default",
       dbus_mode_length: "Length",
       dbus_mode_stops: "Departure stops",
+      dbus_depart_map_btn: "🗺️ See line departures on the map",
       dbus_school_toggle: "School lines",
       dbus_fictive_toggle: "Fictive lines",
       lang_btn: "EN",
@@ -968,6 +991,13 @@
       if (mode === "length") btn.textContent = t("dbus_mode_length");
       if (mode === "departures") btn.textContent = t("dbus_mode_stops");
     });
+    const $dbusDepartMapBtn = document.getElementById("dbusDepartMapBtn");
+    if ($dbusDepartMapBtn) {
+      const label = t("dbus_depart_map_btn");
+      $dbusDepartMapBtn.textContent = label;
+      $dbusDepartMapBtn.setAttribute("aria-label", label);
+      $dbusDepartMapBtn.title = label;
+    }
     const $dbusFilterLabel = document.getElementById("dbusFilterLabel");
     if ($dbusFilterLabel) $dbusFilterLabel.textContent = t("dbus_filter_label");
     const $dbusSchoolLabel = document.getElementById("dbusSchoolLabel");
@@ -1213,6 +1243,8 @@
     const $panelDbus = document.getElementById("dbusPanel");
     const $dbusList = document.getElementById("dbusList");
     const $dbusDepartList = document.getElementById("dbusDepartList");
+    const $dbusDepartActions = document.getElementById("dbusDepartActions");
+    const $dbusDepartMapBtn = document.getElementById("dbusDepartMapBtn");
     const $selectedChip = document.getElementById("selectedChip");
     const $dbusStopPanel = document.getElementById("dbusStopPanel");
     const $dbusStopTitle = document.getElementById("dbusStopTitle");
@@ -2639,6 +2671,7 @@
       if (typeof firstId !== 'undefined') setActiveStopById(firstId);
 
       wrap.style.display = "block";
+      updateUiOverlays();
       applyI18N();
     }
 
@@ -2646,6 +2679,7 @@
       const wrap = document.getElementById("linePreviewWrap");
       if (wrap) wrap.style.display = "none";
       clearActiveStop()
+      updateUiOverlays();
     }
 
     document.getElementById("lpClose")?.addEventListener("click", () => {
@@ -2666,20 +2700,45 @@
       $panelDbus.style.display = 'flex';
       $btnDbus?.setAttribute('aria-expanded','true');
       updateDbusDepartIndicator();
+      updateUiOverlays();
     }
     function closeDbusPanel() {
       $panelDbus.style.display = 'none';
       $btnDbus?.setAttribute('aria-expanded','false');
       closeDbusStopPanel();
       updateDbusDepartIndicator();
+      updateUiOverlays();
     }
     document.getElementById("dbusPanelClose")?.addEventListener("click", closeDbusPanel);
     document.getElementById("dbusStopClose")?.addEventListener("click", closeDbusStopPanel);
     function isDbusOpen() { return getComputedStyle($panelDbus).display !== 'none'; }
+    function isDbusStopOpen() { return $dbusStopPanel && getComputedStyle($dbusStopPanel).display !== 'none'; }
+    function isLinePreviewOpen() {
+      const wrap = document.getElementById("linePreviewWrap");
+      return !!wrap && getComputedStyle(wrap).display !== "none";
+    }
+    function updateUiOverlays() {
+      const isMenuOpen = isDbusOpen() || isDbusStopOpen();
+      const isPreviewOpen = isLinePreviewOpen();
+      const isDepartIndicatorOpen = !!$dbusDepartIndicatorWrap && !$dbusDepartIndicatorWrap.hidden;
+      const disableSearch = isMenuOpen || isPreviewOpen || isDepartIndicatorOpen;
+      if ($search) {
+        if ($search.disabled !== disableSearch) $search.disabled = disableSearch;
+        if (disableSearch) {
+          $search.setAttribute("aria-disabled", "true");
+          closeSearchUI();
+        } else {
+          $search.removeAttribute("aria-disabled");
+        }
+      }
+      const scaleEl = document.getElementById("custom-scale");
+      if (scaleEl) scaleEl.hidden = isMenuOpen || isPreviewOpen || isDepartIndicatorOpen;
+    }
     function updateDbusDepartIndicator(){
       if (!$dbusDepartIndicatorWrap) return;
       const show = currentDbusMode === DBUS_MODES.DEPARTS && !isDbusOpen();
       $dbusDepartIndicatorWrap.hidden = !show;
+      updateUiOverlays();
     }
     function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
     function closeSearchUI({ reset = false } = {}) {
@@ -2737,6 +2796,11 @@
       setDbusMode(DBUS_MODES.LINES);
       updateDbusDepartIndicator();
     });
+    $dbusDepartMapBtn?.addEventListener("click", () => {
+      if (currentDbusMode !== DBUS_MODES.DEPARTS) setDbusMode(DBUS_MODES.DEPARTS);
+      showDbusDepartures();
+      closeDbusPanel();
+    });
 
 
     function renderSelectedChip(){
@@ -2766,9 +2830,12 @@
         btn.classList.toggle("active", active);
         btn.setAttribute("aria-pressed", active ? "true" : "false");
       });
+      const isDepartMode = currentDbusMode === DBUS_MODES.DEPARTS;
       const isListMode = (currentDbusMode === DBUS_MODES.LINES || currentDbusMode === DBUS_MODES.LENGTH);
       if ($dbusList) $dbusList.style.display = isListMode ? "" : "none";
-      if ($dbusDepartList) $dbusDepartList.style.display = (currentDbusMode === DBUS_MODES.DEPARTS) ? "" : "none";
+      if ($dbusDepartActions) $dbusDepartActions.hidden = !isDepartMode;
+      if ($dbusDepartList) $dbusDepartList.style.display = isDepartMode ? "" : "none";
+      updateUiOverlays();
     }
 
     function setDbusMode(mode){
@@ -3008,7 +3075,7 @@
         showOnlyRoute(lineIdx >= 0 ? lineIdx : 0, line, route);
         renderSelectedChip();
         closeDbusStopPanel();
-        $panelDbus.style.display = "none";
+        closeDbusPanel();
       });
 
       container.appendChild(item);
@@ -3050,6 +3117,7 @@
     function closeDbusStopPanel() {
       if ($dbusStopPanel) $dbusStopPanel.style.display = "none";
       clearDepartMarkerSelection();
+      updateUiOverlays();
     }
 
     function normalizeDepartName(name) {
@@ -3097,6 +3165,7 @@
         sections.forEach(section => renderDepartStopSection(section, $dbusStopList));
       }
       $dbusStopPanel.style.display = "flex";
+      updateUiOverlays();
     }
 
     function openDbusStopPanelForName(nameRec) {
@@ -3107,6 +3176,7 @@
       renderDepartCategories(nameRec.routes, $dbusStopList);
 
       $dbusStopPanel.style.display = "flex";
+      updateUiOverlays();
     }
 
     function renderDbusDepartList() {
@@ -3756,7 +3826,7 @@
           currentSelectedKey = `${line.uid}:${route.uid}`;
           showOnlyRoute(0, line, route);
           renderSelectedChip();
-          $panelDbus.style.display = "none";
+          closeDbusPanel();
         });
 
         container.appendChild(item);
@@ -4211,6 +4281,7 @@
         closeSearchUI({ reset: true });
         closeDbusPanel();
         try { map.closePopup(); } catch {}
+        updateUiOverlays();
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
         e.preventDefault();

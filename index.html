@@ -1887,6 +1887,7 @@
     let dbusDepartNameIndex = new Map();
     let selectedDepartMarker = null;
     let dbusDepartFilterKey = `${showSchoolLines}-${showFictiveLines}`;
+    let dbusDepartPreviewActive = false;
 
     async function fetchXml(path){
       const res = await fetch(path);
@@ -2691,6 +2692,10 @@
     });
 
     function openDbusPanel() {
+      if (dbusDepartPreviewActive) {
+        dbusDepartPreviewActive = false;
+        hideDbusDepartures();
+      }
       closeSearchUI({ reset: true });
       clearDbusSelection();
       hideLinePreview();
@@ -2736,9 +2741,16 @@
     }
     function updateDbusDepartIndicator(){
       if (!$dbusDepartIndicatorWrap) return;
-      const show = currentDbusMode === DBUS_MODES.DEPARTS && !isDbusOpen();
+      const show = dbusDepartPreviewActive && currentDbusMode === DBUS_MODES.DEPARTS && !isDbusOpen();
       $dbusDepartIndicatorWrap.hidden = !show;
       updateUiOverlays();
+    }
+    function refreshDbusDepartures(showOnMap){
+      const needsBuild = !dbusDepartGroups.length || dbusDepartFilterKey !== `${showSchoolLines}-${showFictiveLines}`;
+      if (needsBuild) buildDbusDepartures();
+      else renderDbusDepartList();
+      if (showOnMap) showDbusDepartures();
+      else hideDbusDepartures();
     }
     function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
     function closeSearchUI({ reset = false } = {}) {
@@ -2765,8 +2777,7 @@
       }
       if (currentDbusMode === DBUS_MODES.DEPARTS) {
         closeDbusStopPanel();
-        buildDbusDepartures();
-        showDbusDepartures();
+        refreshDbusDepartures(dbusDepartPreviewActive);
         return;
       }
       if (typeof renderDbusLinesList === "function") renderDbusLinesList(currentDbusMode);
@@ -2793,12 +2804,14 @@
     });
 
     $dbusDepartIndicatorClose?.addEventListener("click", () => {
+      dbusDepartPreviewActive = false;
       setDbusMode(DBUS_MODES.LINES);
       updateDbusDepartIndicator();
     });
     $dbusDepartMapBtn?.addEventListener("click", () => {
+      dbusDepartPreviewActive = true;
       if (currentDbusMode !== DBUS_MODES.DEPARTS) setDbusMode(DBUS_MODES.DEPARTS);
-      showDbusDepartures();
+      else refreshDbusDepartures(true);
       closeDbusPanel();
     });
 
@@ -2844,9 +2857,9 @@
       updateDbusModeUI();
       if (mode === DBUS_MODES.DEPARTS) {
         resetDbusSelection();
-        showDbusDepartures();
-        renderDbusDepartList();
+        refreshDbusDepartures(dbusDepartPreviewActive);
       } else {
+        dbusDepartPreviewActive = false;
         resetDbusSelection();
         hideDbusDepartures();
         closeDbusStopPanel();
@@ -2899,6 +2912,10 @@
       if (aNum !== bNum) return aNum ? -1 : 1;
       const cmp = numA.localeCompare(numB, 'fr', { numeric: true, sensitivity: "base" });
       if (cmp !== 0) return cmp;
+      const uidCmp = String(a.line?.uid || "").localeCompare(String(b.line?.uid || ""), 'fr', { numeric: true, sensitivity: "base" });
+      if (uidCmp !== 0) return uidCmp;
+      const durDiff = (b.route?.totalMinutes || 0) - (a.route?.totalMinutes || 0);
+      if (durDiff !== 0) return durDiff;
       return String(a.route?.name || "").localeCompare(String(b.route?.name || ""), 'fr', { numeric: true, sensitivity: "base" });
     }
 
@@ -3925,7 +3942,7 @@
       renderDbusLinesList(currentDbusMode);
       applyI18N();
       buildDbusDepartures();
-      if (currentDbusMode === DBUS_MODES.DEPARTS) showDbusDepartures();
+      if (currentDbusMode === DBUS_MODES.DEPARTS && dbusDepartPreviewActive) showDbusDepartures();
 
     }
     initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});

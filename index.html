@@ -25,7 +25,7 @@
     }
     .city-selected{color:#ffda3a !important;text-shadow:0 0 0 rgba(0,0,0,0),0 2px 6px rgba(0,0,0,.9)}
 
-    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;min-width:950px;max-width:min(92vw,920px)}
+    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;width:min(950px,92vw);max-width:92vw}
     .search-row{display:flex;gap:8px;align-items:center}
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
     .search-input::placeholder{color:var(--muted)}
@@ -62,9 +62,12 @@
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
-      width:1240px;
-      height:760px;
-      padding:12px 18px 0;
+      width:min(1240px,94vw);
+      height:min(760px,92vh);
+      max-width:94vw;
+      max-height:92vh;
+      box-sizing:border-box;
+      padding:12px 18px;
       border-radius:22px;
       border:1px solid var(--border);
       background:var(--panel);
@@ -72,11 +75,37 @@
       display:none;
       overflow:hidden;
       z-index:1200;
+      flex-direction:column;
     }
     .dbus-panel .dbus-content{
+      flex:1 1 auto;
       overflow:auto;
+      scrollbar-gutter: stable;
+      min-height:0;
     }
-    .dbus-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:16px}
+    .dbus-stop-panel{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:min(1240px,92vw);
+      max-width:92vw;
+      height:min(760px,92vh);
+      max-height:92vh;
+      box-sizing:border-box;
+      padding:12px 18px 0;
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:var(--panel);
+      box-shadow:0 25px 90px rgba(0,0,0,.7);
+      display:none;
+      overflow:hidden;
+      z-index:1250;
+      flex-direction:column;
+    }
+    .dbus-stop-panel .dbus-title{white-space:normal;line-height:1.25}
+    .dbus-stop-content{flex:1 1 auto;overflow:auto;scrollbar-gutter: stable;min-height:0}
+    .dbus-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #1f2732;color:var(--muted);font-size:16px}
     .dbus-header .dbus-title{font-size:20px;font-weight:700;color:#f8fbff;}
     .dbus-header .dbus-close{
       background:transparent;
@@ -86,6 +115,83 @@
       cursor:pointer;
       line-height:1;
     }
+    .dbus-mode-group{display:flex;gap:8px;align-items:center;margin-left:auto}
+    .dbus-group-label{
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:#7c879d;
+      font-weight:700;
+    }
+    .dbus-modes{display:flex;gap:6px;align-items:center}
+    .dbus-mode-btn{border:1px solid #1f2732;background:#0f1722;color:#a7b2c9;padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+    .dbus-mode-btn:hover{background:#111c2a;color:#d0d6e6}
+    .dbus-mode-btn.active{background:#1b2a3f;color:#f8fbff;border-color:#2a3a52;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04)}
+    .dbus-footer{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-top:1px solid #1f2732;
+      background:var(--panel2);
+      border-radius:12px;
+      margin-top:10px;
+      flex:0 0 auto;
+    }
+    .dbus-filters{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+    .dbus-switch{display:inline-flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid #1f2732;border-radius:999px;background:#0f1722;color:#a7b2c9;font-size:12px;font-weight:700}
+    .dbus-switch-label{white-space:nowrap}
+    .dbus-switch input{
+      appearance:none;
+      width:34px;height:20px;
+      background:#1a2434;
+      border-radius:999px;
+      border:1px solid #2a3a52;
+      position:relative;
+      cursor:pointer;
+      transition:background .2s ease,border-color .2s ease;
+    }
+    .dbus-switch input::after{
+      content:"";
+      position:absolute;
+      width:16px;height:16px;
+      border-radius:50%;
+      background:#e8eefb;
+      top:1px;left:1px;
+      transition:transform .2s ease;
+      box-shadow:0 2px 6px rgba(0,0,0,.4);
+    }
+    .dbus-switch input:checked{
+      background:#1b6dff;
+      border-color:#1b6dff;
+    }
+    .dbus-switch input:checked::after{transform:translateX(14px)}
+    .dbus-depart-indicator-wrap{display:flex;justify-content:flex-end;margin-top:6px}
+    .dbus-depart-indicator-wrap[hidden]{display:none !important}
+    .dbus-depart-indicator{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid #2a3a52;
+      background:color-mix(in oklab, var(--panel) 92%, #000 8%);
+      color:#d7e2f7;
+      font-size:12px;
+      font-weight:700;
+      box-shadow:0 8px 20px rgba(0,0,0,.35);
+    }
+    .dbus-depart-close{
+      background:transparent;
+      border:none;
+      color:#ef4444;
+      font-size:16px;
+      line-height:1;
+      cursor:pointer;
+      padding:0 2px;
+    }
+    .dbus-depart-close:hover{color:#ff6666}
+    .dbus-stop-panel .dbus-close{margin-left:auto}
     .dbus-list{padding:6px}
     .dbus-grid {
       display: grid;
@@ -123,6 +229,8 @@
     .dbus-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #1f2732;border-radius:10px;background:var(--panel2);cursor:pointer;margin:6px}
     .dbus-item:hover{background:#101926}
     .dbus-item .badge{display:flex;align-items:center;justify-content:center;width:72px;height:32px;border-radius:8px;font-weight:800;font-size:16px}
+    .dbus-route-logo{width:46px;height:26px;object-fit:contain;flex:0 0 auto}
+    .dbus-route-logo + .dbus-route-logo{margin-left:6px}
     .dbus-item .rname{
       color:var(--text);
       font-size:14px;
@@ -131,6 +239,19 @@
       text-overflow:clip;
       word-break:break-word;
       line-height:1.3;
+    }
+    .dbus-duration{margin-left:auto;min-width:90px;text-align:right;color:#9fb1cc;font-size:13px;align-self:flex-start}
+    .dbus-stop-count{
+      min-width:44px;
+      height:32px;
+      border-radius:8px;
+      background:#1b2a3f;
+      color:#f8fbff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:14px;
     }
     .dbus-none{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px dashed #223047;border-radius:10px;background:#0c1421;color:#9fb1cc;cursor:pointer;margin:6px}
     .dbus-item.active{ outline:2px solid #ffffff55; background:#101926; }
@@ -164,6 +285,30 @@
       transform: rotate(-90deg);
     }
     .dbus-secbody[hidden] { display:none; }
+    .dbus-stop-panel .dbus-sec{margin:6px 6px 4px}
+    .dbus-stop-panel .dbus-sec h4{margin:8px 6px 4px}
+    .dbus-stop-panel .dbus-sec .dbus-sec{margin:6px 4px 4px}
+
+    .dbus-depart-icon{background:transparent;border:none}
+    .dbus-depart-dot{
+      width:24px;height:24px;border-radius:50%;
+      background:#f8fbff;border:2px solid #0b1118;color:#0b1118;
+      display:flex;align-items:center;justify-content:center;
+      font-size:12px;font-weight:800;box-shadow:0 4px 10px rgba(0,0,0,.35);
+    }
+    .dbus-depart-dot.is-hover{background:#dbeafe}
+    .dbus-depart-dot.is-selected{background:#60a5fa}
+    .leaflet-tooltip.dbus-depart-tooltip{
+      background:color-mix(in oklab, var(--panel2) 90%, #000 10%);
+      border:1px solid #1f2732;
+      color:var(--text);
+      padding:4px 8px;
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      font-size:12px;
+      font-weight:700;
+    }
+    .leaflet-tooltip.dbus-depart-tooltip:before{border-top-color:#1f2732}
 
 
     .watermark{position:fixed;right:14px;bottom:14px;z-index:400;pointer-events:none;opacity:.125;filter:grayscale(10%);mix-blend-mode:screen}
@@ -250,7 +395,7 @@
     .line-chip .close{margin-left:10px;border:none;background:transparent;color:#ef4444;font-weight:900;font-size:22px;cursor:pointer;line-height:1}
     .line-chip .close:hover{color:#ff6666}
 
-    .line-preview-wrap{ position:fixed;left:0;right:0;bottom:0;z-index:1100; pointer-events:none; }
+    .line-preview-wrap{ position:fixed;left:0;right:0;bottom:0;z-index:1100; pointer-events:none; padding-bottom:env(safe-area-inset-bottom, 0); }
     .line-preview{
       margin:10px auto 12px; max-width:min(1100px,94vw);
       background:color-mix(in oklab, var(--panel) 92%, #000 8%);
@@ -350,24 +495,24 @@
     }
 
     .results::-webkit-scrollbar,
-    .dbus-panel::-webkit-scrollbar,
     .dbus-content::-webkit-scrollbar,
+    .dbus-stop-content::-webkit-scrollbar,
     .transit-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
     .results::-webkit-scrollbar-track,
-    .dbus-panel::-webkit-scrollbar-track,
     .dbus-content::-webkit-scrollbar-track,
+    .dbus-stop-content::-webkit-scrollbar-track,
     .transit-scroll::-webkit-scrollbar-track { background: var(--panel2); border-radius: 8px; }
     .results::-webkit-scrollbar-thumb,
-    .dbus-panel::-webkit-scrollbar-thumb,
     .dbus-content::-webkit-scrollbar-thumb,
+    .dbus-stop-content::-webkit-scrollbar-thumb,
     .transit-scroll::-webkit-scrollbar-thumb {
       background: var(--muted); border-radius: 8px; border: 2px solid var(--panel2);
     }
     .results::-webkit-scrollbar-thumb:hover,
-    .dbus-panel::-webkit-scrollbar-thumb:hover,
     .dbus-content::-webkit-scrollbar-thumb:hover,
+    .dbus-stop-content::-webkit-scrollbar-thumb:hover,
     .transit-scroll::-webkit-scrollbar-thumb:hover { background: var(--text); }
-    .results, .dbus-panel, .dbus-content, .transit-scroll { scrollbar-width: thin; scrollbar-color: var(--muted) var(--panel2); }
+    .results, .dbus-content, .dbus-stop-content, .transit-scroll { scrollbar-width: thin; scrollbar-color: var(--muted) var(--panel2); }
 
     .result-sechead{ display:flex;align-items:center;justify-content:space-between; cursor:pointer; user-select:none; }
     .result-sechead .chev{ font-size:14px; opacity:.9; transition:transform .18s ease; }
@@ -518,7 +663,6 @@
       transform: rotate(-90deg);
     }
 
-    .dbus-panel, 
     .results {
       overflow-y: auto;
       scrollbar-gutter: stable;
@@ -548,6 +692,53 @@
       left: 0;
     }
 
+    @media (max-width:1200px){
+      .search-panel{width:min(900px,94vw)}
+    }
+    @media (max-width:980px){
+      .search-panel{left:12px;right:12px;width:auto;max-width:none}
+      .search-row{flex-wrap:wrap}
+      .search-input{flex:1 1 100%;min-width:0}
+      .search-row .btn{flex:1 1 48%}
+      .results{max-height:50vh}
+      .dbus-header{flex-wrap:wrap;align-items:flex-start}
+      .dbus-mode-group{width:100%;flex-wrap:wrap;justify-content:flex-start}
+      .dbus-modes{flex-wrap:wrap}
+      .dbus-mode-btn{padding:6px 8px;font-size:12px}
+      .dbus-footer{flex-wrap:wrap}
+    }
+    @media (max-width:700px){
+      .dbus-panel,.dbus-stop-panel{border-radius:16px}
+      .dbus-header{gap:8px;font-size:14px}
+      .dbus-header .dbus-title{font-size:18px}
+      .dbus-grid{grid-template-columns:repeat(auto-fill,72px)}
+      .dbus-double{grid-template-columns:1fr}
+      .dbus-item{flex-wrap:wrap;gap:8px}
+      .dbus-item .badge{width:64px;height:28px;font-size:14px}
+      .dbus-route-logo{width:38px;height:22px}
+      .line-preview{padding:8px 10px;margin:8px auto 10px}
+      .line-preview .dbus-badge{font-size:20px;min-width:44px;height:24px}
+      .line-preview-route{font-size:13px}
+      .stop .name{font-size:11px;max-width:90px}
+      .watermark img{width:150px}
+    }
+    @media (max-width:520px){
+      .search-panel{top:8px;left:8px;right:8px}
+      .search-row{gap:6px}
+      .btn{padding:10px 12px;font-size:13px}
+      .search-input{padding:10px 12px;font-size:14px}
+      .dbus-panel{padding:10px 12px}
+      .dbus-footer{padding:8px 10px}
+      .dbus-group-label{font-size:10px}
+      .dbus-switch{padding:3px 6px}
+      .dbus-switch-label{font-size:11px}
+      .dbus-route-logo{width:34px;height:20px}
+      .results{max-height:55vh}
+    }
+    @media (max-height:700px){
+      .dbus-panel,.dbus-stop-panel{height:92vh}
+    }
+
     .analysis-hud{
       position:fixed; right:8px; bottom:6px; z-index:1500;
       color:#ffffff; font-size:5px; font-weight:600; letter-spacing:.02em;
@@ -567,18 +758,57 @@
       <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
       <!-- <button id="langToggle" class="btn" type="button" aria-label="Langue">FR</button> -->
     </div>
+
+    <div id="dbusDepartIndicatorWrap" class="dbus-depart-indicator-wrap" hidden>
+      <div class="dbus-depart-indicator" role="status" aria-live="polite">
+        <span id="dbusDepartIndicatorLabel"></span>
+        <button type="button" class="dbus-depart-close" id="dbusDepartIndicatorClose" aria-label="Désactiver">&times;</button>
+      </div>
+    </div>
     
     <div id="selectedChip" class="selected-chip"></div>
     <div id="results" class="results" hidden></div>
 
-  <div id="dbusPanel" class="dbus-panel">
+    <div id="dbusPanel" class="dbus-panel">
       <div class="dbus-header">
         <div class="dbus-title" id="dbusPanelTitle">Lignes DBus</div>
+        <div class="dbus-mode-group">
+          <span class="dbus-group-label" id="dbusModeLabel">Trier par</span>
+          <div class="dbus-modes" role="tablist" aria-label="Mode">
+            <button type="button" class="dbus-mode-btn active" data-mode="lines" aria-pressed="true">Catégorie</button>
+            <button type="button" class="dbus-mode-btn" data-mode="length" aria-pressed="false">Longueur</button>
+            <button type="button" class="dbus-mode-btn" data-mode="departures" aria-pressed="false">Départs de lignes</button>
+          </div>
+        </div>
         <button type="button" class="line-preview-close dbus-close" id="dbusPanelClose" aria-label="Fermer">&times;</button>
       </div>
       <div class="dbus-content">
         <div id="dbusList" class="dbus-list"></div>
+        <div id="dbusDepartList" class="dbus-list"></div>
       </div>
+      <div class="dbus-footer">
+        <span class="dbus-group-label" id="dbusFilterLabel">Filtres</span>
+        <div class="dbus-filters">
+          <label class="dbus-switch">
+            <span class="dbus-switch-label" id="dbusSchoolLabel">Scolaires</span>
+            <input type="checkbox" id="dbusSchoolToggle">
+          </label>
+          <label class="dbus-switch">
+            <span class="dbus-switch-label" id="dbusFictiveLabel">Fictif</span>
+            <input type="checkbox" id="dbusFictiveToggle">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dbusStopPanel" class="dbus-stop-panel">
+    <div class="dbus-header">
+      <div class="dbus-title" id="dbusStopTitle">Arrêt</div>
+      <button type="button" class="line-preview-close dbus-close" id="dbusStopClose" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="dbus-stop-content">
+      <div id="dbusStopList" class="dbus-list"></div>
     </div>
   </div>
 
@@ -615,6 +845,7 @@
     "114":        ["#8cc299", "#221f20"],
     "121":        ["#d63e34", "#FFFFFF"],
     "124":        ["#e6a4b2", "#221f20"],
+    "210":        ["#fecd08", "#221f20"],
     "221":        ["#e7a5b3", "#221f20"],
     "303":        ["#99974a", "#FFFFFF"],
     "325":        ["#9ad1dc", "#221f20"],
@@ -622,6 +853,7 @@
     "FLIXBUS":    ["#a7d245", "#FFFFFF"],
     "N11":        ["#e9682a", "#221f20"],
     "N23":        ["#d09835", "#221f20"],
+    "N33":        ["#e9682a", "#221f20"],
     "Titus 1":    ["#e63b20", "#FFFFFF"],
     "Titus 2":    ["#49713e", "#FFFFFF"],
     "Scolaire":   ["#31387e", "#FFFFFF"],
@@ -635,6 +867,13 @@
     fr: {
       search_placeholder: "Rechercher...",
       dbus_button: "Lignes DBus",
+      dbus_mode_label: "Trier par",
+      dbus_filter_label: "Filtres",
+      dbus_mode_lines: "Catégorie",
+      dbus_mode_length: "Longueur",
+      dbus_mode_stops: "Départs de lignes",
+      dbus_school_toggle: "Scolaires",
+      dbus_fictive_toggle: "Fictif",
       lang_btn: "FR",
       results_empty: "Aucun résultat",
       none: "Aucune",
@@ -649,6 +888,9 @@
       loading: "Chargement...",
       depart: "Départ",
       terminus: "Terminus",
+      departures_active: "Aperçu des emplacements de départs des lignes actif",
+      departures_disable: "Désactiver l'aperçu",
+      destination: "Destination",
       stop: "Arrêt",
       home_tooltip: "Revenir à la vue initiale",
       maintenance_title: "En maintenance",
@@ -658,6 +900,13 @@
     en: {
       search_placeholder: "Search...",
       dbus_button: "DBus Lines",
+      dbus_mode_label: "Categories",
+      dbus_filter_label: "Filters",
+      dbus_mode_lines: "Default",
+      dbus_mode_length: "Length",
+      dbus_mode_stops: "Departure stops",
+      dbus_school_toggle: "School lines",
+      dbus_fictive_toggle: "Fictive lines",
       lang_btn: "EN",
       results_empty: "No results",
       none: "None",
@@ -672,6 +921,9 @@
       loading: "Loading...",
       depart: "Departure",
       terminus: "Terminus",
+      departures_active: "Departure previews active",
+      departures_disable: "Disable previews",
+      destination: "Destination",
       stop: "Stop",
       home_tooltip: "Return to initial view",
       maintenance_title: "Under maintenance",
@@ -708,8 +960,43 @@
     if ($btnDbus) $btnDbus.textContent = t("dbus_button");
     const panelTitle = document.getElementById("dbusPanelTitle");
     if (panelTitle) panelTitle.textContent = t("dbus_button");
+    const $dbusModeLabel = document.getElementById("dbusModeLabel");
+    if ($dbusModeLabel) $dbusModeLabel.textContent = t("dbus_mode_label");
+    document.querySelectorAll(".dbus-mode-btn").forEach(btn => {
+      const mode = btn.dataset.mode;
+      if (mode === "lines") btn.textContent = t("dbus_mode_lines");
+      if (mode === "length") btn.textContent = t("dbus_mode_length");
+      if (mode === "departures") btn.textContent = t("dbus_mode_stops");
+    });
+    const $dbusFilterLabel = document.getElementById("dbusFilterLabel");
+    if ($dbusFilterLabel) $dbusFilterLabel.textContent = t("dbus_filter_label");
+    const $dbusSchoolLabel = document.getElementById("dbusSchoolLabel");
+    const $dbusSchoolToggle = document.getElementById("dbusSchoolToggle");
+    if ($dbusSchoolLabel) $dbusSchoolLabel.textContent = t("dbus_school_toggle");
+    if ($dbusSchoolToggle) {
+      const label = t("dbus_school_toggle");
+      $dbusSchoolToggle.setAttribute("aria-label", label);
+      $dbusSchoolToggle.title = label;
+    }
+    const $dbusFictiveLabel = document.getElementById("dbusFictiveLabel");
+    const $dbusFictiveToggle = document.getElementById("dbusFictiveToggle");
+    if ($dbusFictiveLabel) $dbusFictiveLabel.textContent = t("dbus_fictive_toggle");
+    if ($dbusFictiveToggle) {
+      const label = t("dbus_fictive_toggle");
+      $dbusFictiveToggle.setAttribute("aria-label", label);
+      $dbusFictiveToggle.title = label;
+    }
     const $lpClose = document.getElementById("lpClose");
     if ($lpClose){ $lpClose.setAttribute("aria-label", t("close")); $lpClose.title = t("close"); }
+    const $dbusStopClose = document.getElementById("dbusStopClose");
+    if ($dbusStopClose){ $dbusStopClose.setAttribute("aria-label", t("close")); $dbusStopClose.title = t("close"); }
+    const $dbusDepartIndicatorLabel = document.getElementById("dbusDepartIndicatorLabel");
+    if ($dbusDepartIndicatorLabel) $dbusDepartIndicatorLabel.textContent = t("departures_active");
+    const $dbusDepartIndicatorClose = document.getElementById("dbusDepartIndicatorClose");
+    if ($dbusDepartIndicatorClose){
+      $dbusDepartIndicatorClose.setAttribute("aria-label", t("departures_disable"));
+      $dbusDepartIndicatorClose.title = t("departures_disable");
+    }
     const home = document.querySelector(".leaflet-custom-home a.home-btn");
     if (home) home.title = t("home_tooltip");
 
@@ -850,15 +1137,14 @@
     function addSectionBlock(typeKey, label){
       const head = document.createElement("div");
       head.className = "result-sechead";
-      const labelMap = {
-        "Ville": t("villes"),
-        "Monument": t("emblematic"),
-        "Atelier": t("repair_shops"),
-        "Agence": t("agencies"),
-        "Concessionnaire": t("dealers"),
-        "Entreprise": t("companies"),
-        "Centre commercial": t("malls")
-      };
+        const labelMap = {
+          "Ville": t("villes"),
+          "Monument": t("emblematic"),
+          "Atelier": t("repair_shops"),
+          "Agence": t("agencies"),
+          "Concessionnaire": t("dealers"),
+          "Entreprise": t("companies")
+        };
       head.textContent = labelMap[typeKey] || label;
       $results.appendChild(head);
 
@@ -926,7 +1212,17 @@
     const $btnDbus = document.getElementById("btnDbus");
     const $panelDbus = document.getElementById("dbusPanel");
     const $dbusList = document.getElementById("dbusList");
+    const $dbusDepartList = document.getElementById("dbusDepartList");
     const $selectedChip = document.getElementById("selectedChip");
+    const $dbusStopPanel = document.getElementById("dbusStopPanel");
+    const $dbusStopTitle = document.getElementById("dbusStopTitle");
+    const $dbusStopList = document.getElementById("dbusStopList");
+    const $dbusModeButtons = document.querySelectorAll(".dbus-mode-btn");
+    const $dbusSchoolToggle = document.getElementById("dbusSchoolToggle");
+    const $dbusFictiveToggle = document.getElementById("dbusFictiveToggle");
+    const $dbusDepartIndicatorWrap = document.getElementById("dbusDepartIndicatorWrap");
+    const $dbusDepartIndicatorLabel = document.getElementById("dbusDepartIndicatorLabel");
+    const $dbusDepartIndicatorClose = document.getElementById("dbusDepartIndicatorClose");
     
     map.on('mousemove', (e) => {
       if (!$analysisHUD) return;
@@ -937,7 +1233,7 @@
     });
 
     function wikiTitleForCity(name){
-      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|Ã¨me|th|st|nd|rd)?$/i.exec(String(name||"").trim());
+      const m = /^Paris\s+(\d{1,2})(?:er|e|eme|ème|th|st|nd|rd)?$/i.exec(String(name||"").trim());
       if (m){
         const n = parseInt(m[1], 10);
         if (LANG === "en"){
@@ -1015,10 +1311,10 @@
       const txt = String(s || "").trim();
       if (!/\bRER\b/i.test(txt)) return txt;
       if (mode === 'start'){
-        const m = txt.match(/^(.*?)\s*[â€“â€”-]\s*RER\b/i);
+        const m = txt.match(/^(.*?)\s*[–—-]\s*RER\b/i);
         return (m && m[1]) ? m[1].trim() : txt;
       } else {
-        const m = txt.match(/\bRER\b\s*[â€“â€”-]\s*(.+)$/i);
+        const m = txt.match(/\bRER\b\s*[–—-]\s*(.+)$/i);
         return (m && m[1]) ? m[1].trim() : txt;
       }
     }
@@ -1054,7 +1350,7 @@
           const sufList = (LANG === "en")
             ? [",_Val-de-Marne", ",_Essonne", ",_Hauts-de-Seine", ",_Seine-Saint-Denis",
               ",_Val-d'Oise", ",_Seine-et-Marne", ",_Yvelines"]
-            : ["_(Commune_franÃ Â§aise)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
+            : ["_(Commune_franà§aise)", "_(Val-de-Marne)", "_(Essonne)", "_(Hauts-de-Seine)",
               "_(Seine-Saint-Denis)", "_(Val-d'Oise)", "_(Seine-et-Marne)", "_(Yvelines)"];
 
           for (const suf of sufList) {
@@ -1147,12 +1443,12 @@
 
     const ICON_NAMES = {
       "gas_ico": "Station service",
-      "bus_ico": "Gare routiÃ¨re",
+      "bus_ico": "Gare routière",
       "service_ico": "Atelier de réparation",
       "garage_large_ico": "Garage",
       "recruitment_ico": "Agence de recrutement",
       "dealer_ico": "Concessionnaire",
-      "border_ico": "ContrÃ´le d'identité",
+      "border_ico": "Contrôle d'identité",
       "toll_ico": "Péage",
       "parking_ico": "Parking"
     };
@@ -1210,7 +1506,7 @@
                   if (d0?.type !== "disambiguation") return { title, data: d0 };
                 } catch {}
                 for (const suf of [
-                  "_(Paris)", "_(ÃƒÆ’Ã…Â½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+                  "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
                   "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
                   "_(Centre_commercial)", "_(Centre_commercial_en_France)"
                 ]) {
@@ -1322,7 +1618,7 @@
         });
       } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
-            const btxt = brandsText(ov) || 'ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â';
+            const btxt = brandsText(ov) || 'Ã¢â‚¬â€';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
 
             const brandKey = dealerBrandKeyFrom(ov);
@@ -1444,7 +1740,7 @@
               if (d0?.type !== "disambiguation") return { title: baseTitle, data: d0 };
             } catch {}
             for (const suf of [
-              "_(Paris)", "_(ÃƒÆ’Ã…Â½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
+              "_(Paris)", "_(ÃƒÅ½le-de-France)", "_(Hauts-de-Seine)", "_(Seine-Saint-Denis)",
               "_(Val-de-Marne)", "_(Yvelines)", "_(Val-d'Oise)", "_(Essonne)", "_(Seine-et-Marne)",
               "_(Monument)"
             ]) {
@@ -1545,8 +1841,20 @@
 
     const dbusRoot = "DBus/IDF MAP";
     const dbusLayers = L.layerGroup().addTo(map);
+    const dbusDepartLayers = L.layerGroup();
     const dbusRouteLayers = new Map();
     let currentSelectedKey = "";
+    const DBUS_MODES = { LINES: "lines", LENGTH: "length", DEPARTS: "departures" };
+    let currentDbusMode = DBUS_MODES.LINES;
+    let showSchoolLines = false;
+    let showFictiveLines = false;
+    let renderDbusLinesList = null;
+    const DBUS_DEPART_MERGE_PX = 100;
+    let dbusDepartGroups = [];
+    let dbusDepartMarkers = new Map();
+    let dbusDepartNameIndex = new Map();
+    let selectedDepartMarker = null;
+    let dbusDepartFilterKey = `${showSchoolLines}-${showFictiveLines}`;
 
     async function fetchXml(path){
       const res = await fetch(path);
@@ -1835,9 +2143,34 @@
         ' <span class="rer-ico" aria-label="RER"></span> ');
     }
 
+    const PROV_RE = /\bprovisoire\b/i;
+    function hasProvisoire(text){
+      return PROV_RE.test(String(text || ""));
+    }
+    function stripProvisoire(text){
+      return String(text || "")
+        .replace(/\s*\(\s*provisoire\s*\)\s*/i, " ")
+        .replace(/\s*-\s*provisoire\b/i, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function getRouteTerminusLabel(route, titleEndFallback = ""){
+      const stops = route?.stops || [];
+      const lastStopId = stops.length ? stops[stops.length - 1].uid : undefined;
+      const lastStop = (typeof lastStopId !== "undefined") ? DBUS_STOPS.get(lastStopId) : null;
+      const rawStopName = lastStop?.name || "";
+      const rawFallback = String(titleEndFallback || "").trim();
+      const raw = rawStopName || rawFallback;
+      if (!raw) return "";
+      const isProvisoire = hasProvisoire(rawStopName) || hasProvisoire(rawFallback);
+      const clean = stripProvisoire(raw);
+      return isProvisoire ? `${clean} (Provisoire)` : clean;
+    }
+
     function splitRouteEndpoints(routeTitle){
       const s = decodeHTML(String(routeTitle || "").trim());
-      const parts = s.split(/\s*(?:>|ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢|ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬Â|ÃƒÂ¢Ã¢â‚¬Â¡Ã¢â‚¬Å¾|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
+      const parts = s.split(/\s*(?:>|Ã¢â€ â€™|Ã¢â€ â€|Ã¢â€¡â€ž|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
       if (parts.length >= 2){ return [parts[0].trim(), parts[parts.length-1].trim()]; }
       return [s, s];
     }
@@ -1900,13 +2233,14 @@
         const n = String(line.number||"").trim();
 
         if (!st) return null;
-        let displayName = st.name || "";
+        const rawStopName = st.name || "";
+        let displayName = rawStopName;
 
         if (isFirst) displayName = titleStart;
         if (isLast)  displayName = titleEnd;
 
-        const isProvisoireStop = /\(provisoire\)/i.test(displayName);
-        const cleanDisplayName = displayName.replace(/\s*\(provisoire\)\s*/i, "");
+        const isProvisoireStop = hasProvisoire(rawStopName) || hasProvisoire(displayName);
+        const cleanDisplayName = stripProvisoire(displayName);
         const stopNameHTML = withRERIconInStop(cleanDisplayName);
         const coordParts = [st.X, st.Y, st.Z].map(v => Number(v).toFixed(2));
         const coordsDisplay = escapeHTML(coordParts.join(", "));
@@ -1926,7 +2260,6 @@
           <div class="stop-popup">
             <div class="sp-header">
               <div class="sp-title">${stopNameHTML}${isProvisoireStop ? ' <span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
-              <span>‎  ‎  ‎  ‎  </span>
               <div class="sp-index">${stopOrderLabel}</div>
             </div>
             <div class="sp-body">
@@ -2170,6 +2503,7 @@
         badge.className = "lp-badge-wrapper";
         badge.style.background = "transparent";
         badge.style.color = "#fff";
+        delete badge.dataset.networkBadge;
         const { wrap, chip } = createNetworkBadgeElement(opts);
         badge.appendChild(wrap);
         previewBadgeChip = chip;
@@ -2178,9 +2512,26 @@
       function applyDefaultBadgeToPreview(){
         badge.className = "dbus-badge";
         badge.innerHTML = "";
+        delete badge.dataset.networkBadge;
         ensureBadgeLabel(badge, lineNumber);
         badge.style.background = "#444";
         badge.style.color = "#fff";
+        previewBadgeChip = badge;
+      }
+
+      function applySchoolBadgeToPreview(){
+        badge.innerHTML = "";
+        badge.className = "lp-badge-wrapper";
+        badge.style.background = "transparent";
+        badge.style.color = "#fff";
+        badge.dataset.networkBadge = "true";
+        const wrap = document.createElement("div");
+        wrap.className = "network-badge";
+        const school = document.createElement("img");
+        school.src = "./Overlays/bus_school.png";
+        school.alt = "Scolaire";
+        wrap.appendChild(school);
+        badge.appendChild(wrap);
         previewBadgeChip = badge;
       }
 
@@ -2188,7 +2539,7 @@
         applyNetworkBadgeToPreview({
           label: mTitusLP[1],
           imgSrc: "./Overlays/reseau_titus.png",
-          alt: "Réseau Titus",
+          alt: "Reseau Titus",
           colorKey: lineNumber,
           chipClass: "dbus-badge titus-chip"
         });
@@ -2199,11 +2550,19 @@
           alt: "Noctilien",
           stripeColor: noctilienStripeColor(lineNumber)
         });
-      } else if (lineCategory === "Urbain") {
+      } else if (lineCategory === "Scolaire") {
+        applySchoolBadgeToPreview();
+      } else if (lineCategory === "FlixBus") {
+        applyNetworkBadgeToPreview({
+          label: lineNumber,
+          imgSrc: "./Overlays/bus_ico.png",
+          alt: "FlixBus"
+        });
+      } else if (lineCategory === "Urbain" || lineCategory === "Autres") {
         applyNetworkBadgeToPreview({
           label: lineNumber,
           imgSrc: "./Overlays/bus_logo_idfm.png",
-          alt: "Réseau urbain ÃŽle-de-France Mobilités"
+          alt: "Reseau urbain Ile-de-France Mobilites"
         });
       } else {
         applyDefaultBadgeToPreview();
@@ -2233,15 +2592,16 @@
       const ids = route.stops.map(s => s.uid);
       ids.forEach((id, idx) => {
         const st = DBUS_STOPS.get(id); if(!st) return;
-        let label = st.name;
+        const rawStopName = st.name || "";
+        let label = rawStopName;
         if (idx === 0) label = titleStart;
         else if (idx === ids.length-1) label = titleEnd;
 
         const stopEl = document.createElement("div");
         stopEl.className = "stop" + (idx===0 ? " first" : (idx===ids.length-1 ? " last" : ""));
         stopEl.dataset.stopId = String(id);
-        const isProvisoire = /\(provisoire\)/i.test(label);
-        const cleanLabel = label.replace(/\s*\(provisoire\)\s*/i, "");
+        const isProvisoire = hasProvisoire(rawStopName) || hasProvisoire(label);
+        const cleanLabel = stripProvisoire(label);
         stopEl.innerHTML = `
           <div class="dot"></div>
           <div class="name">${withRERIcon(cleanLabel)}${isProvisoire ? '<span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
@@ -2300,15 +2660,27 @@
       closeSearchUI({ reset: true });
       clearDbusSelection();
       hideLinePreview();
-      $panelDbus.style.display = 'block';
+      closeDbusStopPanel();
+      updateDbusModeUI();
+      if (currentDbusMode === DBUS_MODES.DEPARTS) renderDbusDepartList();
+      $panelDbus.style.display = 'flex';
       $btnDbus?.setAttribute('aria-expanded','true');
+      updateDbusDepartIndicator();
     }
     function closeDbusPanel() {
       $panelDbus.style.display = 'none';
       $btnDbus?.setAttribute('aria-expanded','false');
+      closeDbusStopPanel();
+      updateDbusDepartIndicator();
     }
     document.getElementById("dbusPanelClose")?.addEventListener("click", closeDbusPanel);
-    function isDbusOpen() { return $panelDbus.style.display === 'block'; }
+    document.getElementById("dbusStopClose")?.addEventListener("click", closeDbusStopPanel);
+    function isDbusOpen() { return getComputedStyle($panelDbus).display !== 'none'; }
+    function updateDbusDepartIndicator(){
+      if (!$dbusDepartIndicatorWrap) return;
+      const show = currentDbusMode === DBUS_MODES.DEPARTS && !isDbusOpen();
+      $dbusDepartIndicatorWrap.hidden = !show;
+    }
     function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
     function closeSearchUI({ reset = false } = {}) {
       if (reset) $search.value = '';
@@ -2318,17 +2690,102 @@
     }
     function isSearchOpen(){ return !$results.hidden; }
 
+    $dbusModeButtons.forEach(btn => {
+      btn.addEventListener("click", () => setDbusMode(btn.dataset.mode));
+    });
+    updateDbusModeUI();
+    function onDbusFilterChange() {
+      if ((!showSchoolLines || !showFictiveLines) && currentSelectedKey) {
+        try {
+          const [lu] = currentSelectedKey.split(":");
+          const line = DBUS_LINES.find(l => l.uid === lu);
+          const cat = line ? getCategory(line) : "";
+          if (!showSchoolLines && cat === "Scolaire") clearDbusSelection();
+          if (!showFictiveLines && cat === "Autres") clearDbusSelection();
+        } catch {}
+      }
+      if (currentDbusMode === DBUS_MODES.DEPARTS) {
+        closeDbusStopPanel();
+        buildDbusDepartures();
+        showDbusDepartures();
+        return;
+      }
+      if (typeof renderDbusLinesList === "function") renderDbusLinesList(currentDbusMode);
+    }
+    if ($dbusSchoolToggle) {
+      showSchoolLines = $dbusSchoolToggle.checked;
+      $dbusSchoolToggle.addEventListener("change", () => {
+        showSchoolLines = $dbusSchoolToggle.checked;
+        onDbusFilterChange();
+      });
+    }
+    if ($dbusFictiveToggle) {
+      showFictiveLines = $dbusFictiveToggle.checked;
+      $dbusFictiveToggle.addEventListener("change", () => {
+        showFictiveLines = $dbusFictiveToggle.checked;
+        onDbusFilterChange();
+      });
+    }
+
     $btnDbus.addEventListener('click', () => {
       if (isDbusOpen()) closeDbusPanel();
       else openDbusPanel();
       renderSelectedChip();
     });
 
+    $dbusDepartIndicatorClose?.addEventListener("click", () => {
+      setDbusMode(DBUS_MODES.LINES);
+      updateDbusDepartIndicator();
+    });
+
+
     function renderSelectedChip(){
       const host = $selectedChip;
       if (!currentSelectedKey) { host.style.display="none"; host.innerHTML=""; return; }
       host.style.display = "none";
       host.innerHTML = "";
+    }
+
+    function resetDbusSelection(){
+      document.getElementById("dbusList")?.querySelectorAll(".dbus-item.active")?.forEach(item => {
+        item.classList.remove("active");
+        item.style.outline = "none";
+      });
+      currentSelectedKey = "";
+      hideAllRoutes();
+      renderSelectedChip();
+      if (window.__DBUS_GRID_OPEN && typeof window.__DBUS_GRID_OPEN.clear === "function") {
+        try { window.__DBUS_GRID_OPEN.clear(); } catch {}
+        window.__DBUS_GRID_OPEN = null;
+      }
+    }
+
+    function updateDbusModeUI(){
+      $dbusModeButtons.forEach(btn => {
+        const active = btn.dataset.mode === currentDbusMode;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      const isListMode = (currentDbusMode === DBUS_MODES.LINES || currentDbusMode === DBUS_MODES.LENGTH);
+      if ($dbusList) $dbusList.style.display = isListMode ? "" : "none";
+      if ($dbusDepartList) $dbusDepartList.style.display = (currentDbusMode === DBUS_MODES.DEPARTS) ? "" : "none";
+    }
+
+    function setDbusMode(mode){
+      if (!mode || currentDbusMode === mode) return;
+      currentDbusMode = mode;
+      updateDbusModeUI();
+      if (mode === DBUS_MODES.DEPARTS) {
+        resetDbusSelection();
+        showDbusDepartures();
+        renderDbusDepartList();
+      } else {
+        resetDbusSelection();
+        hideDbusDepartures();
+        closeDbusStopPanel();
+        if (typeof renderDbusLinesList === "function") renderDbusLinesList(mode);
+      }
+      updateDbusDepartIndicator();
     }
 
     function clearDbusSelection(scope = $dbusList){
@@ -2367,6 +2824,490 @@
       return "Autres";
     }
 
+    function compareDepartRoutes(a, b) {
+      const numA = String(getLineNumber(a.line, a.route) || "").trim();
+      const numB = String(getLineNumber(b.line, b.route) || "").trim();
+      const aNum = isNumericOnly(numA);
+      const bNum = isNumericOnly(numB);
+      if (aNum !== bNum) return aNum ? -1 : 1;
+      const cmp = numA.localeCompare(numB, 'fr', { numeric: true, sensitivity: "base" });
+      if (cmp !== 0) return cmp;
+      return String(a.route?.name || "").localeCompare(String(b.route?.name || ""), 'fr', { numeric: true, sensitivity: "base" });
+    }
+
+    function countDepartEntries(entries) {
+      let total = 0;
+      const scolaireLines = new Set();
+      entries.forEach(entry => {
+        if (getCategory(entry.line) === "Scolaire") {
+          scolaireLines.add(entry.line.uid);
+        } else {
+          total += 1;
+        }
+      });
+      return total + scolaireLines.size;
+    }
+
+    const DEPART_CATEGORY_ORDER = [
+      ["Urbain", "IDFM"],
+      ["Noctilien", "Noctiliens"],
+      ["FlixBus", "FlixBus"],
+      ["Scolaire", "Scolaires"],
+      ["Autres", "Fictives"]
+    ];
+
+    function buildDepartBuckets(entries) {
+      const buckets = {
+        "Urbain": [],
+        "Noctilien": [],
+        "FlixBus": [],
+        "Scolaire": [],
+        "Autres": []
+      };
+      entries.forEach(entry => {
+        const cat = getCategory(entry.line);
+        if (buckets[cat]) buckets[cat].push(entry);
+      });
+      return buckets;
+    }
+
+    function renderDepartCategorySection(title, entries, container, isOpenByDefault = false) {
+      if (!entries.length) return;
+      const sec = document.createElement("div");
+      sec.className = "dbus-sec";
+      container.appendChild(sec);
+
+      const head = document.createElement("div");
+      head.className = "dbus-sechead";
+      head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+      head.innerHTML = `<span>${title} (${entries.length})</span><span class="chev" style="margin-left:auto">▼</span>`;
+      sec.appendChild(head);
+
+      const body = document.createElement("div");
+      body.className = "dbus-secbody";
+      body.hidden = !isOpenByDefault;
+      sec.appendChild(body);
+
+      const sorted = [...entries].sort(compareDepartRoutes);
+      sorted.forEach(({ line, route }) => renderDepartLineItem(line, route, body));
+
+      head.addEventListener("click", () => {
+        const expanded = head.getAttribute("aria-expanded") === "true";
+        head.setAttribute("aria-expanded", expanded ? "false" : "true");
+        body.hidden = expanded;
+      });
+    }
+
+    function renderDepartCategories(entries, container) {
+      if (!entries.length) {
+        const empty = document.createElement("div");
+        empty.className = "dbus-none";
+        empty.textContent = t("none");
+        container.appendChild(empty);
+        return;
+      }
+
+      const buckets = buildDepartBuckets(entries);
+      DEPART_CATEGORY_ORDER.forEach(([key, label]) => {
+        const list = buckets[key] || [];
+        if (!list.length) return;
+        renderDepartCategorySection(label, list, container, true);
+      });
+    }
+
+    function appendRouteLogo(item, line, lineNumber, showLogo) {
+      if (!showLogo) return;
+      const rawLineNumber = String(lineNumber || line.number || "").trim();
+      const isNoct = isNoctilien2(rawLineNumber);
+      const isTitusLogo = /^titus\s*(\d+)/i.test(rawLineNumber) || isTitusLine(line);
+      const cat = getCategory(line);
+      const logos = [];
+      if (isTitusLogo) {
+        logos.push({ src: "./Overlays/reseau_titus.png", alt: "Reseau Titus" });
+      } else if (isNoct) {
+        logos.push({ src: "./Overlays/noctilien_logo_idfm.png", alt: "Noctilien" });
+      } else if (cat === "FlixBus") {
+        logos.push({ src: "./Overlays/bus_ico.png", alt: "FlixBus" });
+      } else if (cat === "Scolaire") {
+        logos.push({ src: "./Overlays/bus_school.png", alt: "Scolaire" });
+      } else if (cat === "Urbain" || cat === "Autres") {
+        logos.push({ src: "./Overlays/bus_logo_idfm.png", alt: "IDFM" });
+      }
+      if (!logos.length) return;
+      logos.forEach(({ src, alt }) => {
+        const logo = document.createElement("img");
+        logo.className = "dbus-route-logo";
+        logo.src = src;
+        logo.alt = alt;
+        item.appendChild(logo);
+      });
+    }
+
+    function renderDepartLineItem(line, route, container) {
+      const item = document.createElement("div");
+      item.className = "dbus-item";
+
+      const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
+      const { titleEnd } = getRouteEndpoints(route);
+      const mTitus = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
+      const displayNumber = mTitus ? mTitus[1] : lineNumber;
+      const isScolaire = getCategory(line) === "Scolaire";
+      const badge = isScolaire ? null : makeLineBadge(displayNumber, "#444", "#fff", "72x32");
+      appendRouteLogo(item, line, lineNumber, true);
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "rname";
+      titleEl.style.flex = "1 1 auto";
+      const dirName = getRouteTerminusLabel(route, titleEnd) || String(titleEnd || routeTitle || "").trim();
+      const dirLabel = t("destination");
+      const dirText = dirName || routeTitle || "?";
+      let titleHtml = `${dirLabel} : ${withRERIcon(dirText)}`;
+      if (flag) titleHtml = titleHtml + ` <span class="route-flag">${flag}</span>`;
+      titleEl.innerHTML = titleHtml; 
+
+      const duration = document.createElement("div");
+      duration.className = "dbus-duration";
+
+      const stopCount = route.stops.length;
+      let durationText;
+      if (route.totalMinutes >= 60) {
+        const h = Math.floor(route.totalMinutes / 60);
+        const m = route.totalMinutes % 60;
+        if (m > 0) {
+          durationText = `${h} h ${m} min`;
+        } else {
+          durationText = `${h} h`;
+        }
+      } else {
+        durationText = `${route.totalMinutes} min`;
+      }
+      duration.textContent = `${stopCount} arrêts (${durationText})`;
+
+      if (badge) item.appendChild(badge);
+      item.appendChild(titleEl);
+      item.appendChild(duration);
+
+      const colorKey = mTitus ? lineNumber : getLineNumber(line, route);
+      if (badge) {
+        getLineColors(colorKey).then(([bg,text])=>{
+          badge.style.background = bg;
+          badge.style.color = text;
+          if (isNoctilien2(getLineNumber(line, route))) {
+            ensureStripe(badge, noctilienStripeColor(getLineNumber(line, route)));
+          }
+          if (getCategory(line) === "Autres") {
+            ensureFictiveStripe(badge);
+          }
+        });
+      }
+
+      item.addEventListener("click", () => {
+        const lineIdx = DBUS_LINES.indexOf(line);
+        setDbusMode(DBUS_MODES.LINES);
+        currentSelectedKey = `${line.uid}:${route.uid}`;
+        showOnlyRoute(lineIdx >= 0 ? lineIdx : 0, line, route);
+        renderSelectedChip();
+        closeDbusStopPanel();
+        $panelDbus.style.display = "none";
+      });
+
+      container.appendChild(item);
+    }
+
+    function updateDepartMarkerClasses(marker, { hover = false, selected = false } = {}) {
+      const el = marker?.getElement?.();
+      if (!el) return;
+      const dot = el.querySelector(".dbus-depart-dot");
+      if (!dot) return;
+      dot.classList.toggle("is-hover", hover);
+      dot.classList.toggle("is-selected", selected);
+    }
+
+    function setDepartMarkerHover(marker, isHover) {
+      if (!marker) return;
+      marker._departHover = !!isHover;
+      updateDepartMarkerClasses(marker, {
+        hover: marker._departHover,
+        selected: marker === selectedDepartMarker
+      });
+    }
+
+    function clearDepartMarkerSelection() {
+      if (!selectedDepartMarker) return;
+      updateDepartMarkerClasses(selectedDepartMarker, { hover: !!selectedDepartMarker._departHover, selected: false });
+      selectedDepartMarker = null;
+    }
+
+    function setSelectedDepartMarker(marker) {
+      if (!marker) return;
+      if (selectedDepartMarker && selectedDepartMarker !== marker) {
+        updateDepartMarkerClasses(selectedDepartMarker, { hover: !!selectedDepartMarker._departHover, selected: false });
+      }
+      selectedDepartMarker = marker;
+      updateDepartMarkerClasses(marker, { hover: !!marker._departHover, selected: true });
+    }
+
+    function closeDbusStopPanel() {
+      if ($dbusStopPanel) $dbusStopPanel.style.display = "none";
+      clearDepartMarkerSelection();
+    }
+
+    function normalizeDepartName(name) {
+      const txt = String(name || "").trim();
+      return txt || t("stop");
+    }
+
+    function getDepartGroupNames(group) {
+      const names = [...group.nameMap.keys()].map(n => String(n || "").trim()).filter(Boolean);
+      names.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: "base" }));
+      if (!names.length) return [t("stop")];
+      return names;
+    }
+
+    function renderDepartStopSection(nameRec, container) {
+      const sec = document.createElement("div");
+      sec.className = "dbus-sec";
+      const h = document.createElement("h4");
+      h.innerHTML = `${withRERIcon(nameRec.name)} (${countDepartEntries(nameRec.routes)})`;
+      sec.appendChild(h);
+
+      const body = document.createElement("div");
+      sec.appendChild(body);
+      renderDepartCategories(nameRec.routes, body);
+
+      container.appendChild(sec);
+    }
+
+    function openDbusStopPanelForGroup(group) {
+      if (!$dbusStopPanel || !$dbusStopTitle || !$dbusStopList) return;
+      const nameList = getDepartGroupNames(group);
+      $dbusStopTitle.innerHTML = nameList.map(n => withRERIcon(n)).join(" / ");
+      $dbusStopList.innerHTML = "";
+
+      const sections = [...group.nameMap.values()].sort((a, b) => {
+        const countA = countDepartEntries(a.routes);
+        const countB = countDepartEntries(b.routes);
+        if (countB !== countA) return countB - countA;
+        return a.name.localeCompare(b.name, 'fr', { sensitivity: "base" });
+      });
+      if (sections.length <= 1) {
+        const routes = sections[0]?.routes ? [...sections[0].routes] : [];
+        renderDepartCategories(routes, $dbusStopList);
+      } else {
+        sections.forEach(section => renderDepartStopSection(section, $dbusStopList));
+      }
+      $dbusStopPanel.style.display = "flex";
+    }
+
+    function openDbusStopPanelForName(nameRec) {
+      if (!$dbusStopPanel || !$dbusStopTitle || !$dbusStopList) return;
+      $dbusStopTitle.innerHTML = "Arrêt : " + withRERIcon(nameRec.name);
+      $dbusStopList.innerHTML = "";
+
+      renderDepartCategories(nameRec.routes, $dbusStopList);
+
+      $dbusStopPanel.style.display = "flex";
+    }
+
+    function renderDbusDepartList() {
+      if (!$dbusDepartList) return;
+      $dbusDepartList.innerHTML = "";
+      const items = [...dbusDepartNameIndex.values()];
+      items.sort((a, b) => {
+        const countA = countDepartEntries(a.routes);
+        const countB = countDepartEntries(b.routes);
+        if (countB !== countA) return countB - countA;
+        return a.name.localeCompare(b.name, 'fr', { sensitivity: "base" });
+      });
+
+      if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "dbus-none";
+        empty.textContent = t("none");
+        $dbusDepartList.appendChild(empty);
+        return;
+      }
+
+      items.forEach(rec => {
+        const item = document.createElement("div");
+        item.className = "dbus-item";
+
+        const count = document.createElement("div");
+        count.className = "dbus-stop-count";
+        count.textContent = String(countDepartEntries(rec.routes));
+
+        const titleEl = document.createElement("div");
+        titleEl.className = "rname";
+        titleEl.style.flex = "1 1 auto";
+        titleEl.innerHTML = withRERIcon(rec.name);
+
+        item.appendChild(count);
+        item.appendChild(titleEl);
+
+        item.addEventListener("click", () => {
+          openDbusStopPanelForName(rec);
+          if (rec.centerLatLng) centerWithPreview(rec.centerLatLng, { zoom: map.getZoom() });
+          let bestGroupId = null;
+          let bestCount = -1;
+          rec.groupIds?.forEach(id => {
+            const group = dbusDepartGroups.find(g => g.id === id);
+            if (group && group.lineCount > bestCount) {
+              bestCount = group.lineCount;
+              bestGroupId = id;
+            }
+          });
+          if (bestGroupId && dbusDepartMarkers.has(bestGroupId)) {
+            setSelectedDepartMarker(dbusDepartMarkers.get(bestGroupId));
+          }
+        });
+
+        $dbusDepartList.appendChild(item);
+      });
+    }
+
+    function buildDbusDepartures() {
+      dbusDepartGroups = [];
+      dbusDepartMarkers = new Map();
+      dbusDepartNameIndex = new Map();
+      dbusDepartLayers.clearLayers();
+
+      const entries = [];
+      DBUS_LINES.forEach((line, lineIdx) => {
+        const cat = getCategory(line);
+        if (!showSchoolLines && cat === "Scolaire") return;
+        if (!showFictiveLines && cat === "Autres") return;
+        line.routes.forEach(route => {
+          const firstStopId = route.stops[0]?.uid;
+          if (typeof firstStopId === "undefined") return;
+          const stop = DBUS_STOPS.get(firstStopId);
+          if (!stop?.latlng) return;
+          const pt = map.project(stop.latlng, maxNativeZoom);
+          const { titleStart } = getRouteEndpoints(route);
+          const rawStartName = titleStart || stop.name || "";
+          const isProvisoireStart = hasProvisoire(stop.name) || hasProvisoire(titleStart);
+          const cleanStartName = stripProvisoire(rawStartName);
+          const startName = normalizeDepartName(isProvisoireStart ? `${cleanStartName} (Provisoire)` : cleanStartName);
+          const entry = { line, lineIdx, route, stop, pt, startName };
+          entries.push(entry);
+
+          let nameRec = dbusDepartNameIndex.get(startName);
+          if (!nameRec) {
+            nameRec = { name: startName, routes: [], lineIds: new Set(), stopIds: new Set(), latlngs: [], groupIds: new Set() };
+            dbusDepartNameIndex.set(startName, nameRec);
+          }
+          nameRec.routes.push(entry);
+          nameRec.lineIds.add(line.uid);
+          if (!nameRec.stopIds.has(stop.id)) {
+            nameRec.stopIds.add(stop.id);
+            if (stop.latlng) nameRec.latlngs.push(stop.latlng);
+          }
+        });
+      });
+
+      const groups = [];
+      const distSq = DBUS_DEPART_MERGE_PX * DBUS_DEPART_MERGE_PX;
+
+      entries.forEach(entry => {
+        const { stop, pt } = entry;
+        let target = null;
+        for (const g of groups) {
+          const dx = pt.x - g.centerPt.x;
+          const dy = pt.y - g.centerPt.y;
+          if ((dx * dx + dy * dy) <= distSq) { target = g; break; }
+        }
+        if (!target) {
+          target = {
+            id: groups.length + 1,
+            centerPt: { x: pt.x, y: pt.y },
+            stopIds: new Set(),
+            stops: [],
+            routes: [],
+            lineIds: new Set(),
+            nameMap: new Map()
+          };
+          groups.push(target);
+        }
+        target.routes.push(entry);
+        target.lineIds.add(entry.line.uid);
+
+        let nameRec = target.nameMap.get(entry.startName);
+        if (!nameRec) {
+          nameRec = { name: entry.startName, routes: [], lineIds: new Set(), stopIds: new Set() };
+          target.nameMap.set(entry.startName, nameRec);
+        }
+        nameRec.routes.push(entry);
+        nameRec.lineIds.add(entry.line.uid);
+        nameRec.stopIds.add(stop.id);
+
+        if (!target.stopIds.has(stop.id)) {
+          target.stopIds.add(stop.id);
+          target.stops.push(stop);
+          const count = target.stops.length;
+          target.centerPt.x = target.centerPt.x + (pt.x - target.centerPt.x) / count;
+          target.centerPt.y = target.centerPt.y + (pt.y - target.centerPt.y) / count;
+        }
+      });
+
+      groups.forEach(group => {
+        const nameList = getDepartGroupNames(group);
+        group.displayName = nameList.join(" / ");
+        group.latlng = map.unproject(L.point(group.centerPt.x, group.centerPt.y), maxNativeZoom);
+        group.lineCount = countDepartEntries(group.routes);
+        group.nameMap.forEach((rec, nameKey) => {
+          const nameRec = dbusDepartNameIndex.get(nameKey);
+          if (nameRec) nameRec.groupIds.add(group.id);
+        });
+      });
+
+      dbusDepartNameIndex.forEach(rec => {
+        if (!rec.latlngs.length) return;
+        let lat = 0, lng = 0;
+        rec.latlngs.forEach(ll => { lat += ll.lat; lng += ll.lng; });
+        rec.centerLatLng = L.latLng(lat / rec.latlngs.length, lng / rec.latlngs.length);
+      });
+
+      dbusDepartGroups = groups;
+
+      groups.forEach(group => {
+        const icon = L.divIcon({
+          className: "dbus-depart-icon",
+          html: `<div class="dbus-depart-dot">${group.lineCount}</div>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
+        });
+        const marker = L.marker(group.latlng, { icon, riseOnHover: true });
+        marker._departGroupId = group.id;
+        marker._departHover = false;
+        marker.on("click", () => {
+          openDbusStopPanelForGroup(group);
+          setSelectedDepartMarker(marker);
+        });
+        marker.on("mouseover", () => setDepartMarkerHover(marker, true));
+        marker.on("mouseout", () => setDepartMarkerHover(marker, false));
+
+        const tooltipHtml = escapeHTML(group.displayName);
+        const tooltipOpts = { direction: "top", className: "dbus-depart-tooltip", offset: [0, -10] };
+        marker.bindTooltip(tooltipHtml, tooltipOpts);
+
+        dbusDepartMarkers.set(group.id, marker);
+        dbusDepartLayers.addLayer(marker);
+      });
+
+      dbusDepartFilterKey = `${showSchoolLines}-${showFictiveLines}`;
+      renderDbusDepartList();
+    }
+
+    function showDbusDepartures() {
+      if (!DBUS_LINES.length || !DBUS_STOPS.size) return;
+      if (!dbusDepartGroups.length || dbusDepartFilterKey !== `${showSchoolLines}-${showFictiveLines}`) buildDbusDepartures();
+      if (!map.hasLayer(dbusDepartLayers)) dbusDepartLayers.addTo(map);
+    }
+
+    function hideDbusDepartures() {
+      if (map.hasLayer(dbusDepartLayers)) map.removeLayer(dbusDepartLayers);
+      clearDepartMarkerSelection();
+    }
+
     async function initDbusUI(){
       try{
         await loadStops();
@@ -2377,8 +3318,6 @@
       }
 
       $dbusList.innerHTML = "";
-
-      const buckets = { "Urbain": [], "FlixBus": [], "Noctilien": [], "Autres": [], "Scolaire": [] };
 
       const URBAIN_CUSTOM_ORDER = ["24","63","109","112","114","121","124","221","303","351","reseau titus"]; 
       function normLineId(x){
@@ -2403,23 +3342,51 @@
         return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
       }
 
-      DBUS_LINES.forEach(line => {
-        const cat = getCategory(line);
-        buckets[cat].push(line);
-      });
+      function buildLineBuckets(){
+        const buckets = { "Urbain": [], "FlixBus": [], "Noctilien": [], "Autres": [], "Scolaire": [] };
+        DBUS_LINES.forEach(line => {
+          const cat = getCategory(line);
+          if (!showSchoolLines && cat === "Scolaire") return;
+          if (!showFictiveLines && cat === "Autres") return;
+          buckets[cat].push(line);
+        });
 
-      if (buckets["Noctilien"] && buckets["Noctilien"].length) {
-        buckets["Urbain"].push(...buckets["Noctilien"]);
-        buckets["Noctilien"] = [];
+        if (buckets["Noctilien"] && buckets["Noctilien"].length) {
+          buckets["Urbain"].push(...buckets["Noctilien"]);
+          buckets["Noctilien"] = [];
+        }
+
+        buckets["Urbain"].sort(compareUrbainLines);
+        buckets["Noctilien"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+        buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+        buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
+        buckets["Scolaire"].sort((a, b) => {
+          return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
+        });
+        return buckets;
       }
 
-      buckets["Urbain"].sort(compareUrbainLines);
-      buckets["Noctilien"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
-      buckets["FlixBus"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
-      buckets["Autres"].sort((a,b)=> String(a.number).localeCompare(String(b.number), 'fr', {numeric:true}));
-      buckets["Scolaire"].sort((a, b) => {
-        return String(a.number).localeCompare(String(b.number), 'fr', {numeric:true});
-      });
+      function buildRouteBuckets(){
+        const buckets = { "Urbain": [], "FlixBus": [], "Noctilien": [], "Autres": [], "Scolaire": [] };
+        DBUS_LINES.forEach(line => {
+          const cat = getCategory(line);
+          if (!showSchoolLines && cat === "Scolaire") return;
+          if (!showFictiveLines && cat === "Autres") return;
+          line.routes.forEach(route => buckets[cat].push({ line, route }));
+        });
+        if (buckets["Noctilien"] && buckets["Noctilien"].length) {
+          buckets["Urbain"].push(...buckets["Noctilien"]);
+          buckets["Noctilien"] = [];
+        }
+        Object.values(buckets).forEach(list => {
+          list.sort((a, b) => {
+            const diff = (b.route.totalMinutes || 0) - (a.route.totalMinutes || 0);
+            if (diff) return diff;
+            return String(a.route.name || "").localeCompare(String(b.route.name || ""), 'fr', {numeric:true, sensitivity:"base"});
+          });
+        });
+        return buckets;
+      }
 
       function renderSection(title, lines) {
         if (!lines.length) return;
@@ -2451,34 +3418,16 @@
 
         head.addEventListener("click", () => {
           const expanded = head.getAttribute("aria-expanded") === "true";
-          const willOpen = !expanded;
           head.setAttribute("aria-expanded", expanded ? "false" : "true");
           body.hidden = expanded;
           if (expanded) {
             clearDbusSelection(body);
             return;
           }
-          if (willOpen) {
-            try {
-              $dbusList.querySelectorAll('.dbus-sechead').forEach(h => {
-                if (h !== head) {
-                  h.setAttribute('aria-expanded','false');
-                  const b = h.nextElementSibling;
-                  if (b && b.classList.contains('dbus-secbody')) {
-                    b.hidden = true;
-                    clearDbusSelection(b);
-                  }
-                }
-              });
-              if (window.__DBUS_GRID_OPEN && typeof window.__DBUS_GRID_OPEN.clear === 'function') {
-                window.__DBUS_GRID_OPEN.clear();
-                window.__DBUS_GRID_OPEN = null;
-              }
-            } catch {}
-          }
         });
 
-        if (title === "Scolaire") {
+        const showSchoolLogo = title === "Scolaires";
+        if (title === "Scolaires") {
           const allRoutes = [];
           lines.forEach(line => {
             line.routes.forEach(route => allRoutes.push({ line, route }));
@@ -2490,10 +3439,10 @@
             return depA.localeCompare(depB, 'fr', { numeric: true, sensitivity: "base" });
           });
 
-          allRoutes.forEach(({ line, route }) => renderLineItem(line, route, body));
+          allRoutes.forEach(({ line, route }) => renderLineItem(line, route, body, { showLogo: showSchoolLogo }));
         } else {
           lines.forEach(line => {
-            line.routes.forEach(route => renderLineItem(line, route, body));
+            line.routes.forEach(route => renderLineItem(line, route, body, { showLogo: showSchoolLogo }));
           });
         }
       }
@@ -2537,7 +3486,6 @@
 
         head.addEventListener("click", () => {
           const expanded = head.getAttribute("aria-expanded") === "true";
-          const willOpen = !expanded;
           head.setAttribute("aria-expanded", expanded ? "false" : "true");
           body.hidden = expanded;
           if (expanded) {
@@ -2545,17 +3493,6 @@
             if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) {
               window.__DBUS_GRID_OPEN = null;
             }
-          }
-          if (willOpen) {
-            try {
-              $dbusList.querySelectorAll('.dbus-sechead').forEach(h => {
-                if (h !== head) {
-                  h.setAttribute('aria-expanded','false');
-                  const b = h.nextElementSibling;
-                  if (b && b.classList.contains('dbus-secbody')) b.hidden = true;
-                }
-              });
-            } catch {}
           }
         });
 
@@ -2739,28 +3676,28 @@
         return lineNumber || "?";
       }
 
-      function renderLineItem(line, route, container) {
+      function renderLineItem(line, route, container, { showLogo = false } = {}) {
         const item = document.createElement("div");
         item.className = "dbus-item";
 
-        const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
-        const mTitus = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
-        const displayNumber = mTitus ? mTitus[1] : lineNumber;
-        const badge = makeLineBadge(displayNumber, "#444", "#fff", "72x32");
+      const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
+      const mTitus = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
+      const displayNumber = mTitus ? mTitus[1] : lineNumber;
+      const isScolaire = getCategory(line) === "Scolaire";
+      const badge = isScolaire ? null : makeLineBadge(displayNumber, "#444", "#fff", "72x32");
+      appendRouteLogo(item, line, lineNumber, showLogo);
         
         const titleEl = document.createElement("div");
         titleEl.className = "rname";
         titleEl.style.flex = "1 1 auto";
         let titleHtml = withRERIcon(routeTitle);
         if (flag) {
-          titleHtml = `<span class="route-flag">${flag}</span> ` + titleHtml;
+          titleHtml = titleHtml + ` <span class="route-flag">${flag}</span>`;
         }
         titleEl.innerHTML = titleHtml;
 
         const duration = document.createElement("div");
-        duration.style.marginLeft = "8px";
-        duration.style.color = "#9fb1cc";
-        duration.style.fontSize = "13px";
+        duration.className = "dbus-duration";
 
         const stopCount = route.stops.length;
 
@@ -2779,9 +3716,9 @@
 
         duration.textContent = `${stopCount} arrêts (${durationText})`;
 
-        item.appendChild(badge);
-        item.appendChild(titleEl);
-        item.appendChild(duration);
+      if (badge) item.appendChild(badge);
+      item.appendChild(titleEl);
+      item.appendChild(duration);
 
         function effectiveLineNumber(line, route) {
           if (line.number && line.number !== "?") return line.number;
@@ -2792,6 +3729,7 @@
         const effNum = effectiveLineNumber(line, route);
 
         const colorKey = mTitus ? lineNumber : getLineNumber(line, route);
+      if (badge) {
         getLineColors(colorKey).then(([bg,text])=>{
           badge.style.background = bg;
           badge.style.color = text;
@@ -2802,6 +3740,7 @@
             ensureFictiveStripe(badge);
           }
         });
+      }
 
 
         item.addEventListener("click", ()=> {
@@ -2823,53 +3762,100 @@
         container.appendChild(item);
       }
 
-      renderSectionGrid("IDFM",  buckets["Urbain"]);
-      renderSectionGrid("Noctiliens",  buckets["Noctilien"]);
-      renderSection("FlixBus", buckets["FlixBus"]);
-      renderSection("Scolaires",  buckets["Scolaire"]);
-      renderSection("Autres",  buckets["Autres"]);
-      applyI18N();
+      function renderSectionByDuration(title, entries) {
+        if (!entries.length) return;
 
-      function formatLineName(line, route) {
-        const { titleStart, titleEnd } = getRouteEndpoints(route);
-        const num = line.number && line.number !== "?" ? line.number : (parseRouteName(route.name).lineNumber || "?");
-        return `Ligne ${num}: ${titleStart} > ${titleEnd}`;
-      }
+        const sec = document.createElement("div");
+        sec.className = "dbus-sec";
+        $dbusList.appendChild(sec);
 
-      DBUS_LINES.forEach((line, lineIdx) => {
-      line.routes.forEach(route => {
-        const { titleStart, titleEnd } = getRouteEndpoints(route);
+        const isOpenByDefault = (title === "IDFM" || title === "Noctiliens");
 
-        const firstStop = DBUS_STOPS.get(route.stops[0]?.uid);
-        const center = firstStop?.latlng || map.getCenter();
+        const head = document.createElement("div");
+        head.className = "dbus-sechead";
+        head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+        head.innerHTML = `
+          <span>${title} (${entries.length})</span>
+          <span class="chev" style="margin-left:auto">▼</span>
+        `;
+        sec.appendChild(head);
 
-        function extractNum(val) {
-          const m = String(val||"").match(/\d+/);
-          return m ? parseInt(m[0], 10) : Infinity;
-        }
+        const body = document.createElement("div");
+        body.className = "dbus-secbody";
+        body.hidden = !isOpenByDefault;
+        sec.appendChild(body);
 
-        const mTitus = /^titus\s*(\d+)/i.exec(String(route.name||""));
-        searchIndex.push({
-          type: "Lignes DBus",
-          name: formatLineName(line, route),
-          city: "",
-          center,
-          logo: "./Overlays/bus_ico.png",
-          fallbackLogo: "./Overlays/bus_ico.png",
-          open: () => {
-            currentSelectedKey = `${line.uid}:${route.uid}`;
-            showOnlyRoute(lineIdx, line, route);
-            renderSelectedChip();
-          },
-          num: extractNum(line.number),
-          titusNum: mTitus ? mTitus[1] : null
+        head.addEventListener("click", () => {
+          const expanded = head.getAttribute("aria-expanded") === "true";
+          const willOpen = !expanded;
+          head.setAttribute("aria-expanded", expanded ? "false" : "true");
+          body.hidden = expanded;
+          if (expanded) {
+            clearDbusSelection(body);
+            return;
+          }
+          if (willOpen) {
+            try {
+              $dbusList.querySelectorAll('.dbus-sechead').forEach(h => {
+                if (h !== head) {
+                  h.setAttribute('aria-expanded','false');
+                  const b = h.nextElementSibling;
+                  if (b && b.classList.contains('dbus-secbody')) {
+                    b.hidden = true;
+                    clearDbusSelection(b);
+                  }
+                }
+              });
+              if (window.__DBUS_GRID_OPEN && typeof window.__DBUS_GRID_OPEN.clear === 'function') {
+                window.__DBUS_GRID_OPEN.clear();
+                window.__DBUS_GRID_OPEN = null;
+              }
+            } catch {}
+          }
         });
 
+        entries.forEach(({ line, route }) => renderLineItem(line, route, body, { showLogo: true }));
+      }
 
+      function renderDbusLinesListInner(mode) {
+        if (!$dbusList) return;
+        $dbusList.innerHTML = "";
+        if (mode === DBUS_MODES.LENGTH) {
+          const routeBuckets = buildRouteBuckets();
+          const entries = [];
+          Object.values(routeBuckets).forEach(list => entries.push(...list));
+          entries.sort((a, b) => {
+            const diff = (b.route.totalMinutes || 0) - (a.route.totalMinutes || 0);
+            if (diff) return diff;
+            return String(a.route.name || "").localeCompare(
+              String(b.route.name || ""),
+              "fr",
+              { numeric: true, sensitivity: "base" }
+            );
+          });
+          if (!entries.length) {
+            const empty = document.createElement("div");
+            empty.className = "dbus-none";
+            empty.textContent = t("none");
+            $dbusList.appendChild(empty);
+            return;
+          }
+          entries.forEach(({ line, route }) => renderLineItem(line, route, $dbusList, { showLogo: true }));
+          return;
+        }
+        const lineBuckets = buildLineBuckets();
+        renderSectionGrid("IDFM",  lineBuckets["Urbain"]);
+        renderSectionGrid("Noctiliens",  lineBuckets["Noctilien"]);
+        renderSection("FlixBus", lineBuckets["FlixBus"]);
+        renderSection("Scolaires",  lineBuckets["Scolaire"]);
+        renderSection("Fictives",  lineBuckets["Autres"]);
+      }
 
-      });
-    });
-
+      renderDbusLinesList = renderDbusLinesListInner;
+      renderDbusLinesList(currentDbusMode);
+      applyI18N();
+      buildDbusDepartures();
+      if (currentDbusMode === DBUS_MODES.DEPARTS) showDbusDepartures();
 
     }
     initDbusUI().then(()=>renderSelectedChip()).catch(()=>{});
@@ -2901,8 +3887,6 @@
         {types:["Entreprise"],   keys:["entreprise","societe","company"]},
         {types:["Ville"],        keys:["ville","commune","city"]},
         {types:["Monument"],     keys:["monument","monuments","monu","lieu","lieu emblématique","lieux emblématiques","lieux","emblématique","emblématiques"]},
-        {types:["Centre commercial"], keys:["centre commercial","centrecom","centre commerciaux","mall","shopping"]},
-        {types:["Lignes DBus"],          keys:["ligne","bus","dbus"]},
       ];
 
       for(const row of MAP){
@@ -2919,20 +3903,18 @@
     function getExpanded(key){ return sectionState[key] !== false; }
     function setExpanded(key, val){ sectionState[key] = !!val; }
     
-    const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise","Centre commercial","Lignes DBus" ];
+    const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise" ];
     const ORDER = [
       ["Ville","Villes"],
       ["Monument","Lieux Emblématiques"],
       ["Atelier","Ateliers de réparation"],
       ["Agence","Agences de recrutement"],
       ["Concessionnaire","Concessionnaires"],
-      ["Entreprise","Entreprises"],
-      ["Centre commercial","Centres commerciaux"],
-      ["Lignes DBus","Lignes DBus"] 
+      ["Entreprise","Entreprises"]
     ];
     const PLURIEL = Object.fromEntries(ORDER);
 
-    const DEFAULT_OFF = new Set(["Atelier","Agence","Centre commercial","Lignes DBus"]);
+    const DEFAULT_OFF = new Set(["Atelier","Agence"]);
     let SELECTED_TYPES = new Set(ALL_TYPES.filter(t => !DEFAULT_OFF.has(t)));
 
     const saveSelectedTypes = () => {};
@@ -2951,8 +3933,7 @@
           "Atelier": t("repair_shops"),
           "Agence": t("agencies"),
           "Concessionnaire": t("dealers"),
-          "Entreprise": t("companies"),
-          "Centre commercial": t("malls")
+          "Entreprise": t("companies")
         })[type] || type;
 
         const chip = document.createElement("label");
@@ -2994,9 +3975,7 @@
         "Garage": [],
         "Concessionnaire": [],
         "Entreprise": [],
-        "Monument": [],
-        "Centre commercial": [],
-        "Lignes DBus": []
+        "Monument": []
       };
       for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
 
@@ -3009,8 +3988,7 @@
           "Atelier": t("repair_shops"),
           "Agence": t("agencies"),
           "Concessionnaire": t("dealers"),
-          "Entreprise": t("companies"),
-          "Centre commercial": t("malls")
+          "Entreprise": t("companies")
         };
         head.textContent = mapLbl[typeKey] || label;
         $results.appendChild(head);
@@ -3210,12 +4188,21 @@
     $search.addEventListener('keydown', e => { if (e.key === 'Enter') { const first = $results.querySelector('.result-item'); if (first) first.click(); } });
 
     document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
       const searchPanel = document.querySelector('.search-panel');
-      const clickInSearch = !!searchPanel && searchPanel.contains(e.target);
-      const clickInDbus   = !!$panelDbus && ($panelDbus.contains(e.target) || e.target === $btnDbus);
+      const clickInSearch = !!searchPanel && searchPanel.contains(target);
+      const clickInDbus   = (!!$panelDbus && $panelDbus.contains(target))
+        || (!!$dbusStopPanel && $dbusStopPanel.contains(target))
+        || target === $btnDbus;
+      const clickOnMarker = !!target.closest(".leaflet-marker-icon")
+        || !!target.closest(".dbus-depart-icon")
+        || !!target.closest(".dbus-depart-dot")
+        || !!target.closest(".leaflet-popup")
+        || !!target.closest(".leaflet-tooltip");
 
       if (!clickInSearch) closeSearchUI({ reset: true });
-      if (!clickInDbus)   closeDbusPanel();
+      if (!clickInDbus && !clickOnMarker) closeDbusPanel();
     });
 
     window.addEventListener('keydown', e => {
@@ -3255,6 +4242,20 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

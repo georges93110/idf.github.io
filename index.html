@@ -12,6 +12,7 @@
       --panel:#0b1118;--panel2:#0f1722;--border:#2b2f3a;--text:#e8eefb;--muted:#8892a6;--shadow:0 10px 30px rgba(0,0,0,.40);
       --logoW:110px; --logoH:44px;
       --busA:#2b2f3a; --busB:#2b2f3a; --busC:#2b2f3a; --busD:#2b2f3a; --busE:#2b2f3a;
+      --rer-mask-url: url("./Overlays/o_rer.png");
     }
     html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
     #map{position:fixed;inset:0}
@@ -25,13 +26,19 @@
     }
     .city-selected{color:#ffda3a !important;text-shadow:0 0 0 rgba(0,0,0,0),0 2px 6px rgba(0,0,0,.9)}
 
-    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;width:min(950px,92vw);max-width:92vw}
-    .search-row{display:flex;gap:8px;align-items:center}
+    .search-panel{position:fixed;top:12px;right:12px;z-index:1000;width:max-content;max-width:92vw}
+    .search-row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
     .search-input:disabled{opacity:.5;cursor:not-allowed;background:color-mix(in oklab, var(--panel) 85%, #000 15%)}
     .search-input::placeholder{color:var(--muted)}
     .btn{padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
     .btn:hover{background:#101926}
+    .btn:disabled,
+    .btn.is-disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+    .btn.is-open{
+      outline:2px solid #f59e0b;
+      outline-offset:2px;
+    }
     .results{margin-top:6px;max-height:42vh;overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
     .result-item{display:flex;align-items:center;gap:12px;padding:10px 12px;cursor:pointer;border-bottom:1px solid #1f2732;color:var(--text);font-size:14px}
     .result-item:last-child{border-bottom:none}
@@ -47,6 +54,26 @@
     .result-item img.ico { width: var(--logoW); height: var(--logoH); }
     .result-item img.ico.ico-service { width: calc(var(--logoW) / 2); height: calc(var(--logoH) / 2); }
 
+    .search-panel-modal .search-toolbar{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      padding:10px 12px;
+      border-bottom:1px solid #1f2732;
+      background:var(--panel2);
+    }
+    .search-panel-modal .search-input{width:100%;min-width:0;box-shadow:none}
+    .search-panel-modal .results{
+      margin:0;
+      padding:6px;
+      max-height:none;
+      border:0;
+      background:transparent;
+      box-shadow:none;
+      overflow:visible;
+    }
+    #searchFilters{flex:1;min-width:0}
+    .search-panel-modal .dbus-header .dbus-close{margin-left:auto}
     .result-sechead{
       padding:8px 10px;
       color:#a7b2c9;
@@ -77,6 +104,11 @@
       overflow:hidden;
       z-index:1200;
       flex-direction:column;
+    }
+    .dbus-panel.is-open,
+    .dbus-stop-panel.is-open{
+      outline:2px solid #ffffff33;
+      outline-offset:-2px;
     }
     .dbus-panel .dbus-content{
       flex:1 1 auto;
@@ -404,7 +436,7 @@
     }
 
     @media (max-width:800px){
-      .search-panel{min-width:300px;max-width:92vw}
+      .search-panel{min-width:0;max-width:92vw}
       .search-input{min-width:180px}
       .watermark img{width:180px}
     }
@@ -500,8 +532,8 @@
       width:1.1em; height:1.1em;
       vertical-align:-.2em;
       background-color: currentColor;
-      -webkit-mask: url("./Overlays/o_rer.png") no-repeat center / contain;
-              mask: url("./Overlays/o_rer.png") no-repeat center / contain;
+      -webkit-mask: var(--rer-mask-url) no-repeat center / contain;
+              mask: var(--rer-mask-url) no-repeat center / contain;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -537,32 +569,18 @@
     .result-sechead[aria-expanded="false"] .chev{ transform:rotate(-90deg); }
     .result-secbody[hidden]{ display:none !important; }
     
-    .results-filters{
-      position: sticky; top: 0; z-index: 2;
-      display:flex; flex-wrap:wrap; align-items:center; gap:6px;
-      padding:8px 10px; border-bottom:1px solid #1f2732;
-      background:var(--panel2); backdrop-filter:blur(6px);
+    .results-filters,
+    .search-categories{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:6px;
+      width:100%;
     }
-    .rf-chip{ display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border:1px solid var(--border); border-radius:999px;
-      background:var(--panel); color:var(--text); font-size:12px; cursor:pointer; user-select:none; }
-    .rf-chip input{ appearance:none; width:16px; height:16px; border:2px solid #5b6b85; border-radius:4px; display:inline-block; }
-    .rf-chip input:checked{ background:#3aa0ff; border-color:#3aa0ff; }
-    .rf-chip .dot{ width:10px; height:10px; border-radius:50%; opacity:.95; }
-    .rf-chip[data-type="Ville"]              .dot{ background:#9ca3af; }
-    .rf-chip[data-type="Monument"]           .dot{ background:#f59e0b; }
-    .rf-chip[data-type="Atelier"]            .dot{ background:#22c55e; }
-    .rf-chip[data-type="Agence"]             .dot{ background:#8b5cf6; }
-    .rf-chip[data-type="Concessionnaire"]    .dot{ background:#3aa0ff; }
-    .rf-chip[data-type="Entreprise"]         .dot{ background:#ef4444; }
-    .rf-chip[data-type="Centre commercial"]  .dot{ background:#10b981; }
-
-    .rf-actions{ margin-left:auto; display:flex; gap:6px; }
-    .rf-btn{ padding:6px 10px; font-size:12px; border-radius:10px; border:1px solid var(--border);
-      background:color-mix(in oklab, var(--panel) 92%, #000 8%); color:var(--text); cursor:pointer; }
-    .rf-btn:hover{ background:#101926; }
-
-    .rf-chip .dot{ display:none !important; }
+    .search-categories .dbus-mode-btn{
+      padding:6px 10px;
+      font-size:12px;
+    }
 
     .result-sechead{ display:block; cursor:default; user-select:text; }
     .result-sechead .chev{ display:none !important; }
@@ -711,7 +729,7 @@
     }
 
     @media (max-width:1200px){
-      .search-panel{width:min(900px,94vw)}
+      .search-panel{width:max-content}
     }
     @media (max-width:980px){
       .search-panel{left:12px;right:12px;width:auto;max-width:none}
@@ -772,8 +790,8 @@
 
   <div class="search-panel">
     <div class="search-row">
-      <input id="search" class="search-input" type="search" placeholder="Rechercher..." autocomplete="off"/>
-      <button id="btnDbus" class="btn" type="button">Lignes DBus</button>
+      <button id="btnSearch" class="btn" type="button" aria-expanded="false">Recherche</button>
+      <button id="btnDbus" class="btn" type="button" aria-expanded="false">Lignes DBus</button>
       <!-- <button id="langToggle" class="btn" type="button" aria-label="Langue">FR</button> -->
     </div>
 
@@ -785,7 +803,23 @@
     </div>
     
     <div id="selectedChip" class="selected-chip"></div>
-    <div id="results" class="results" hidden></div>
+
+    <div id="searchPanel" class="dbus-panel search-panel-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="searchPanelTitle">
+      <div class="dbus-header">
+        <div class="dbus-title" id="searchPanelTitle">Recherche</div>
+        <button type="button" class="line-preview-close dbus-close" id="searchPanelClose" aria-label="Fermer">&times;</button>
+      </div>
+      <div class="search-toolbar">
+        <input id="search" class="search-input" type="search" placeholder="Rechercher..." autocomplete="off"/>
+      </div>
+      <div class="dbus-content">
+        <div id="results" class="results results-panel" hidden></div>
+      </div>
+      <div class="dbus-footer">
+        <span class="dbus-group-label" id="searchFilterLabel">Filtres</span>
+        <div id="searchFilters"></div>
+      </div>
+    </div>
 
     <div id="dbusPanel" class="dbus-panel">
       <div class="dbus-header">
@@ -849,7 +883,7 @@
   </div>
 
   <div class="watermark">
-    <img src="./Overlays/idf_logo.png" alt="IDF Logo">
+    <img id="watermarkLogo" src="./Overlays/idf_logo.png" alt="IDF Logo">
   </div>
 
   <!-- <div id="analysisHUD" class="analysis-hud"></div>*/ -->
@@ -887,6 +921,9 @@
   const I18N = {
     fr: {
       search_placeholder: "Rechercher...",
+      search_button: "Recherche",
+      search_category_label: "Catégories",
+      search_category_all: "Tout",
       dbus_button: "Lignes DBus",
       dbus_mode_label: "Trier par",
       dbus_filter_label: "Filtres",
@@ -898,6 +935,7 @@
       dbus_fictive_toggle: "Fictif",
       lang_btn: "FR",
       results_empty: "Aucun résultat",
+      results_empty_category: "Aucun résultat dans la catégorie {category}",
       none: "Aucune",
       villes: "Villes",
       emblematic: "Lieux Emblématiques",
@@ -921,6 +959,9 @@
     },
     en: {
       search_placeholder: "Search...",
+      search_button: "Search",
+      search_category_label: "Categories",
+      search_category_all: "All",
       dbus_button: "DBus Lines",
       dbus_mode_label: "Categories",
       dbus_filter_label: "Filters",
@@ -932,6 +973,7 @@
       dbus_fictive_toggle: "Fictive lines",
       lang_btn: "EN",
       results_empty: "No results",
+      results_empty_category: "No results in the {category} category",
       none: "None",
       villes: "Cities",
       emblematic: "Landmarks",
@@ -966,6 +1008,37 @@
   }
   let LANG = detectInitialLang();
   function t(key){ return (I18N[LANG] && I18N[LANG][key]) || (I18N.fr[key]||key); }
+  const SEARCH_CATEGORY_ALL = "ALL";
+  const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise" ];
+  let ACTIVE_SEARCH_CATEGORY = SEARCH_CATEGORY_ALL;
+  let SEARCH_CATEGORY_COUNTS = Object.fromEntries(ALL_TYPES.map(t => [t, 0]));
+  let SEARCH_CATEGORY_TOTAL = 0;
+  function searchCategoryLabel(typeKey){
+    const map = {
+      "Ville": t("villes"),
+      "Monument": t("emblematic"),
+      "Atelier": t("repair_shops"),
+      "Agence": t("agencies"),
+      "Concessionnaire": t("dealers"),
+      "Entreprise": t("companies")
+    };
+    return map[typeKey] || typeKey;
+  }
+  function searchCategoryDisplay(typeKey){
+    if (typeKey === SEARCH_CATEGORY_ALL) return t("search_category_all");
+    return searchCategoryLabel(typeKey);
+  }
+  function searchCategoryButtonLabel(typeKey){
+    const label = searchCategoryDisplay(typeKey);
+    const count = typeKey === SEARCH_CATEGORY_ALL
+      ? SEARCH_CATEGORY_TOTAL
+      : (SEARCH_CATEGORY_COUNTS[typeKey] ?? 0);
+    return `${label} (${count})`;
+  }
+  function resultsEmptyText(){
+    const label = searchCategoryDisplay(ACTIVE_SEARCH_CATEGORY);
+    return t("results_empty_category").replace("{category}", label);
+  }
   function wikiBase(){ return LANG === "en" ? "https://en.wikipedia.org/wiki/" : "https://fr.wikipedia.org/wiki/"; }
   function setLang(lang, {persist=true, apply=true} = {}){
     if (!SUPPORTED.has(lang)) lang = "fr";
@@ -979,6 +1052,18 @@
   function applyI18N(){
     const $search = document.getElementById("search");
     if ($search) $search.placeholder = t("search_placeholder");
+    const $btnSearch = document.getElementById("btnSearch");
+    if ($btnSearch) $btnSearch.textContent = t("search_button");
+    const $searchPanelTitle = document.getElementById("searchPanelTitle");
+    if ($searchPanelTitle) $searchPanelTitle.textContent = t("search_button");
+    const $searchPanelClose = document.getElementById("searchPanelClose");
+    if ($searchPanelClose){ $searchPanelClose.setAttribute("aria-label", t("close")); $searchPanelClose.title = t("close"); }
+    const $searchFilterLabel = document.getElementById("searchFilterLabel");
+    if ($searchFilterLabel) $searchFilterLabel.textContent = t("search_category_label");
+    document.querySelectorAll(".search-categories .dbus-mode-btn").forEach(btn => {
+      const key = btn.dataset.category;
+      if (key) btn.textContent = searchCategoryButtonLabel(key);
+    });
     const $btnDbus = document.getElementById("btnDbus");
     if ($btnDbus) $btnDbus.textContent = t("dbus_button");
     const panelTitle = document.getElementById("dbusPanelTitle");
@@ -1033,7 +1118,7 @@
     const results = document.getElementById("results");
     if (results && !results.hidden) {
       const empty = results.querySelector(".result-empty");
-      if (empty) empty.textContent = t("results_empty");
+      if (empty) empty.textContent = resultsEmptyText();
       results.querySelectorAll(".result-sechead").forEach(h => {
         const raw = h.textContent.trim().toLowerCase();
         const map = {
@@ -1048,6 +1133,15 @@
         if (map[raw]) h.textContent = map[raw];
       });
     }
+    if (results && !results.hidden) {
+      results.querySelectorAll(".result-sechead").forEach(h => {
+        const typeKey = h.dataset.type;
+        const count = h.dataset.count;
+        if (typeKey && count !== undefined) {
+          h.textContent = `${searchCategoryLabel(typeKey)} (${count})`;
+        }
+      });
+    }
     const none = document.querySelector(".dbus-none");
     if (none) none.textContent = t("none");
   }
@@ -1056,7 +1150,23 @@
   </script>
 
   <script>
-    const minNativeZoom=0,maxNativeZoom=8,tileSize=256,TILE_BASE="./Tiles";
+    const QS = new URLSearchParams(location.search);
+    const IS_DEV = QS.has("dev");
+    const DATA_BASE = IS_DEV ? "./new" : ".";
+    const OVERLAY_BASE = `${DATA_BASE}/Overlays`;
+    const TILE_BASE = `${DATA_BASE}/Tiles`;
+    const DBUS_BASE = `${DATA_BASE}/DBus`;
+    const dataPath = (file) => `${DATA_BASE}/${file}`;
+    const overlayPath = (file) => `${OVERLAY_BASE}/${file}`;
+
+    const watermarkLogo = document.getElementById("watermarkLogo");
+    if (watermarkLogo) watermarkLogo.src = overlayPath("idf_logo.png");
+    document.documentElement.style.setProperty(
+      "--rer-mask-url",
+      `url("${overlayPath("o_rer.png")}")`
+    );
+
+    const minNativeZoom=0,maxNativeZoom=8,tileSize=256;
     const widthPx=tileSize*Math.pow(2,maxNativeZoom),heightPx=tileSize*Math.pow(2,maxNativeZoom);
 
     const map=L.map('map',{crs:L.CRS.Simple,attributionControl:false,minZoom:minNativeZoom+3,maxZoom:maxNativeZoom+2,maxBoundsViscosity:1.0,inertia:true});
@@ -1119,8 +1229,7 @@
     map.fitBounds(innerBounds(MARGIN),{animate:false});applyBounds();map.on('zoomend resize',applyBounds);
 
     let TileMapInfo;
-    const tileInfoReady = fetch('./TileMapInfo.json').then(r=>{ if(!r.ok) throw new Error('TileMapInfo'); return r.json(); }).then(info => (TileMapInfo = info));
-    const QS = new URLSearchParams(location.search);
+    const tileInfoReady = fetch(dataPath("TileMapInfo.json")).then(r=>{ if(!r.ok) throw new Error('TileMapInfo'); return r.json(); }).then(info => (TileMapInfo = info));
     const OX = parseFloat(QS.get('ox') ?? '0');
     const OY = parseFloat(QS.get('oy') ?? '0');
     const SX = parseFloat(QS.get('sx') ?? '1');
@@ -1128,6 +1237,10 @@
     
     const $search = document.getElementById("search");
     const $results = document.getElementById("results");
+    const $searchPanel = document.getElementById("searchPanel");
+    const $searchFilters = document.getElementById("searchFilters");
+    const $btnSearch = document.getElementById("btnSearch");
+    const $searchPanelClose = document.getElementById("searchPanelClose");
     const $analysisHUD = document.getElementById("analysisHUD");
 
     const BRAND_DISPLAY = { renault: 'Renault Trucks', daf: 'DAF', mercedes: 'Mercedes-Benz', volvo : 'Volvo Trucks' };
@@ -1414,7 +1527,7 @@
       } catch {}
     }
 
-    tileInfoReady.then(()=> fetch("Cities.json")).then(r=>r.json()).then(cities=>{
+    tileInfoReady.then(()=> fetch(dataPath("Cities.json"))).then(r=>r.json()).then(cities=>{
       cities.forEach(city=>{
         const icon=L.divIcon({className:"",html:`<span class="city-label">${city.Name}</span>`,iconSize:[0,0]});
         const m=L.marker(toLatLng(city.X,city.Y),{icon,interactive:true,bubblingMouseEvents:true}).addTo(cityLayer);
@@ -1486,7 +1599,7 @@
     };
 
     tileInfoReady
-      .then(() => fetch("CentreCommerciaux.json"))
+      .then(() => fetch(dataPath("CentreCommerciaux.json")))
       .then(r => r.ok ? r.json() : Promise.reject("CentreCommerciaux.json"))
       .then(malls => {
         malls.forEach(ov => {
@@ -1501,7 +1614,7 @@
           const minPx = Math.max(DEDUPE_MIN_PX_BASE, Math.max(width, height) * 0.75);
           if (_isTooClose(key, centerLL, minPx)) return;
 
-          const overlay = L.imageOverlay(`./Overlays/overlay_centrecom.png`, bounds, { interactive: true }).addTo(map);
+          const overlay = L.imageOverlay(overlayPath("overlay_centrecom.png"), bounds, { interactive: true }).addTo(map);
           const popup = L.popup({ maxWidth: 420, autoPan: true });
           overlay.bindPopup(popup);
 
@@ -1587,14 +1700,14 @@
             city,
             center: bounds.getCenter(),
             open: () => { overlay.fire('click'); },
-            logo: `./Overlays/overlay_centrecom.png`,
-            fallbackLogo: `./Overlays/overlay_centrecom.png`
+            logo: overlayPath("overlay_centrecom.png"),
+            fallbackLogo: overlayPath("overlay_centrecom.png")
           });
         });
       })
       .catch(err => console.error("CentreCommerciaux.json error:", err));
 
-    tileInfoReady.then(()=> fetch("Overlays.json")).then(r=>r.json()).then(overlays=>{
+    tileInfoReady.then(()=> fetch(dataPath("Overlays.json"))).then(r=>r.json()).then(overlays=>{
       overlays.forEach(ov=>{
         let width=ov.Width, height=ov.Height;
         if(ov.IconId==="bus_ico"){ width=32; height=32; }
@@ -1628,9 +1741,9 @@
        if (ov.Type==="Company"){
         const compTopLeft=toLatLng(ov.X,ov.Y), compBottomRight=toLatLng(ov.X+20,ov.Y-20);
         const compBounds=L.latLngBounds(compTopLeft,compBottomRight);
-        const overlay=L.imageOverlay(`./Overlays/button.png`,compBounds,{interactive:true}).addTo(map);
+        const overlay=L.imageOverlay(overlayPath("button.png"),compBounds,{interactive:true}).addTo(map);
 
-        const logoPath = `./Overlays/${ov.IconId}.png`;
+        const logoPath = overlayPath(`${ov.IconId}.png`);
 
         bindPopupWithImage(overlay, `
           <div style="text-align:center">
@@ -1649,12 +1762,12 @@
           logo:logoPath
         });
       } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
-            const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true }).addTo(map);
+            const overlay = L.imageOverlay(overlayPath(`${ov.IconId}.png`), bounds, { interactive: true }).addTo(map);
             const btxt = brandsText(ov) || 'Ã¢â‚¬â€';
             const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
 
             const brandKey = dealerBrandKeyFrom(ov);
-            const brandLogo = brandKey ? `./Overlays/dealer_${brandKey}.png` : `./Overlays/dealer_ico.png`;
+            const brandLogo = brandKey ? overlayPath(`dealer_${brandKey}.png`) : overlayPath("dealer_ico.png");
 
             bindPopupWithImage(overlay, `
               <div style="text-align:center">
@@ -1674,12 +1787,12 @@
               center: bounds.getCenter(),
               open: () => { overlay.openPopup(bounds.getCenter()); },
               logo: brandLogo,
-              fallbackLogo: `./Overlays/dealer_ico.png`
+              fallbackLogo: overlayPath("dealer_ico.png")
             });
           
         } else {
            const label = ICON_NAMES[ov.IconId] || ov.Name || ov.Type || "Lieu";
-          const overlay = L.imageOverlay(`./Overlays/${ov.IconId}.png`, bounds, { interactive: true })
+          const overlay = L.imageOverlay(overlayPath(`${ov.IconId}.png`), bounds, { interactive: true })
             .addTo(map)
             .bindPopup(`<b>${escapeHTML(label)}</b>`);
 
@@ -1691,10 +1804,10 @@
 
           if (typeTag) {
             const logoPath =
-              ov.IconId === "service_ico"      ? `./Overlays/service_ico.png` :
-              ov.IconId === "recruitment_ico"  ? `./Overlays/recruitment_ico.png` :
-              ov.IconId === "garage_large_ico" ? `./Overlays/garage_large_ico.png` :
-              `./Overlays/${ov.IconId}.png`;
+              ov.IconId === "service_ico"      ? overlayPath("service_ico.png") :
+              ov.IconId === "recruitment_ico"  ? overlayPath("recruitment_ico.png") :
+              ov.IconId === "garage_large_ico" ? overlayPath("garage_large_ico.png") :
+              overlayPath(`${ov.IconId}.png`);
 
             const keywordName =
               typeTag === "Atelier" ? `Atelier de réparation ${ov.City || ""}` :
@@ -1728,7 +1841,7 @@
 
 
   tileInfoReady
-  .then(() => fetch("Monuments.json"))
+  .then(() => fetch(dataPath("Monuments.json")))
   .then(r => r.ok ? r.json() : Promise.reject("Monuments.json"))
   .then(monuments => {
     monuments.forEach(ov => {
@@ -1743,7 +1856,7 @@
       const minPx = Math.max(DEDUPE_MIN_PX_BASE, Math.max(width, height) * 0.75);
       if (_isTooClose(key, centerLL, minPx)) return;
 
-      const overlay = L.imageOverlay(`./Overlays/overlay_monument.png`, bounds, { interactive: true }).addTo(map);
+      const overlay = L.imageOverlay(overlayPath("overlay_monument.png"), bounds, { interactive: true }).addTo(map);
       const popup = L.popup({ maxWidth: 420, autoPan: true });
       overlay.bindPopup(popup);
 
@@ -1820,8 +1933,8 @@
           if (p) { p.setLatLng(bounds.getCenter()); }
           overlay.fire('click');
         },
-        logo: `./Overlays/overlay_monument.png`,
-        fallbackLogo: `./Overlays/overlay_monument.png`
+        logo: overlayPath("overlay_monument.png"),
+        fallbackLogo: overlayPath("overlay_monument.png")
       });
     });
   })
@@ -1871,7 +1984,7 @@
     function startLineAnim(key, poly) { stopLineAnim(key); const h = animatePolyline(poly, { speed: 0.1, dash: "30 10", reverse: true }); routeAnimHandles.set(key, h); }
     function stopLineAnim(key) { const h = routeAnimHandles.get(key); if (h) { h.stop(); routeAnimHandles.delete(key); } }
 
-    const dbusRoot = "DBus/IDF MAP";
+    const dbusRoot = `${DBUS_BASE}/IDF MAP`;
     const dbusLayers = L.layerGroup().addTo(map);
     const dbusDepartLayers = L.layerGroup();
     const dbusRouteLayers = new Map();
@@ -2561,7 +2674,7 @@
         const wrap = document.createElement("div");
         wrap.className = "network-badge";
         const school = document.createElement("img");
-        school.src = "./Overlays/bus_school.png";
+        school.src = overlayPath("bus_school.png");
         school.alt = "Scolaire";
         wrap.appendChild(school);
         badge.appendChild(wrap);
@@ -2571,7 +2684,7 @@
       if (mTitusLP) {
         applyNetworkBadgeToPreview({
           label: mTitusLP[1],
-          imgSrc: "./Overlays/reseau_titus.png",
+          imgSrc: overlayPath("reseau_titus.png"),
           alt: "Reseau Titus",
           colorKey: lineNumber,
           chipClass: "dbus-badge titus-chip"
@@ -2579,7 +2692,7 @@
       } else if (isNoctLinePreview) {
         applyNetworkBadgeToPreview({
           label: lineNumber,
-          imgSrc: "./Overlays/noctilien_logo_idfm.png",
+          imgSrc: overlayPath("noctilien_logo_idfm.png"),
           alt: "Noctilien",
           stripeColor: noctilienStripeColor(lineNumber)
         });
@@ -2588,13 +2701,13 @@
       } else if (lineCategory === "FlixBus") {
         applyNetworkBadgeToPreview({
           label: lineNumber,
-          imgSrc: "./Overlays/bus_ico.png",
+          imgSrc: overlayPath("bus_ico.png"),
           alt: "FlixBus"
         });
       } else if (lineCategory === "Urbain" || lineCategory === "Autres") {
         applyNetworkBadgeToPreview({
           label: lineNumber,
-          imgSrc: "./Overlays/bus_logo_idfm.png",
+          imgSrc: overlayPath("bus_logo_idfm.png"),
           alt: "Reseau urbain Ile-de-France Mobilites"
         });
       } else {
@@ -2700,15 +2813,17 @@
       clearDbusSelection();
       hideLinePreview();
       closeDbusStopPanel();
-      updateDbusModeUI();
-      if (currentDbusMode === DBUS_MODES.DEPARTS) renderDbusDepartList();
+      if (currentDbusMode !== DBUS_MODES.LINES) setDbusMode(DBUS_MODES.LINES);
+      else updateDbusModeUI();
       $panelDbus.style.display = 'flex';
+      setMenuOpen($panelDbus, true);
       $btnDbus?.setAttribute('aria-expanded','true');
       updateDbusDepartIndicator();
       updateUiOverlays();
     }
     function closeDbusPanel() {
       $panelDbus.style.display = 'none';
+      setMenuOpen($panelDbus, false);
       $btnDbus?.setAttribute('aria-expanded','false');
       closeDbusStopPanel();
       updateDbusDepartIndicator();
@@ -2722,16 +2837,41 @@
       const wrap = document.getElementById("linePreviewWrap");
       return !!wrap && getComputedStyle(wrap).display !== "none";
     }
+    function isButtonDisabled(btn){
+      return !!btn && (btn.classList.contains("is-disabled") || btn.getAttribute("aria-disabled") === "true");
+    }
+    function setButtonDisabled(btn, disabled){
+      if (!btn) return;
+      btn.classList.toggle("is-disabled", disabled);
+      if (disabled) btn.setAttribute("aria-disabled", "true");
+      else btn.removeAttribute("aria-disabled");
+    }
+    function setMenuOpen(el, open){
+      if (!el) return;
+      el.classList.toggle("is-open", !!open);
+    }
+    function closeAllMenus({ resetSearch = true } = {}){
+      closeSearchUI({ reset: resetSearch });
+      closeDbusPanel();
+      closeDbusStopPanel();
+      hideLinePreview();
+      try { resetDbusSelection(); } catch {}
+    }
     function updateUiOverlays() {
       const isMenuOpen = isDbusOpen() || isDbusStopOpen();
       const isPreviewOpen = isLinePreviewOpen();
       const isDepartIndicatorOpen = !!$dbusDepartIndicatorWrap && !$dbusDepartIndicatorWrap.hidden;
+      const isSearchPanelOpen = isSearchOpen();
       const disableSearch = isMenuOpen || isPreviewOpen || isDepartIndicatorOpen;
+      if ($btnSearch) $btnSearch.classList.toggle("is-open", isSearchPanelOpen);
+      if ($btnDbus) $btnDbus.classList.toggle("is-open", isMenuOpen || isPreviewOpen || isDepartIndicatorOpen);
+      setButtonDisabled($btnSearch, disableSearch);
+      setButtonDisabled($btnDbus, isSearchPanelOpen);
       if ($search) {
         if ($search.disabled !== disableSearch) $search.disabled = disableSearch;
         if (disableSearch) {
           $search.setAttribute("aria-disabled", "true");
-          closeSearchUI();
+          if (isSearchOpen()) closeSearchUI();
         } else {
           $search.removeAttribute("aria-disabled");
         }
@@ -2752,14 +2892,52 @@
       if (showOnMap) showDbusDepartures();
       else hideDbusDepartures();
     }
-    function openSearchUI() { closeDbusPanel(); $results.hidden = false; }
+    function openSearchUI({ focus = false, refresh = false } = {}) {
+      if (isButtonDisabled($btnSearch)) return;
+      closeDbusPanel();
+      if ($searchPanel) {
+        $searchPanel.style.display = 'flex';
+        $searchPanel.setAttribute("aria-hidden", "false");
+        setMenuOpen($searchPanel, true);
+      }
+      $btnSearch?.setAttribute("aria-expanded", "true");
+      if (refresh) doSearch($search.value);
+      $results.hidden = false;
+      if (focus) setTimeout(() => $search?.focus(), 0);
+      updateUiOverlays();
+    }
     function closeSearchUI({ reset = false } = {}) {
       if (reset) $search.value = '';
       renderResults([]); 
       $results.hidden = true;
       $search.blur();
+      if ($searchPanel) {
+        $searchPanel.style.display = 'none';
+        $searchPanel.setAttribute("aria-hidden", "true");
+        setMenuOpen($searchPanel, false);
+      }
+      $btnSearch?.setAttribute("aria-expanded", "false");
+      updateUiOverlays();
     }
-    function isSearchOpen(){ return !$results.hidden; }
+    function isSearchOpen(){
+      return !!$searchPanel && getComputedStyle($searchPanel).display !== 'none';
+    }
+
+    if ($btnSearch) {
+      $btnSearch.addEventListener("click", () => {
+        if (isButtonDisabled($btnSearch)) {
+          closeAllMenus({ resetSearch: true });
+          return;
+        }
+        if (isSearchOpen()) closeSearchUI({ reset: true });
+        else {
+          setActiveSearchCategory(SEARCH_CATEGORY_ALL);
+          $search.value = "";
+          openSearchUI({ focus: true, refresh: true });
+        }
+      });
+    }
+    $searchPanelClose?.addEventListener("click", () => closeSearchUI({ reset: true }));
 
     $dbusModeButtons.forEach(btn => {
       btn.addEventListener("click", () => setDbusMode(btn.dataset.mode));
@@ -2798,6 +2976,10 @@
     }
 
     $btnDbus.addEventListener('click', () => {
+      if (isButtonDisabled($btnDbus)) {
+        closeAllMenus({ resetSearch: true });
+        return;
+      }
       if (isDbusOpen()) closeDbusPanel();
       else openDbusPanel();
       renderSelectedChip();
@@ -3007,15 +3189,15 @@
       const cat = getCategory(line);
       const logos = [];
       if (isTitusLogo) {
-        logos.push({ src: "./Overlays/reseau_titus.png", alt: "Reseau Titus" });
+        logos.push({ src: overlayPath("reseau_titus.png"), alt: "Reseau Titus" });
       } else if (isNoct) {
-        logos.push({ src: "./Overlays/noctilien_logo_idfm.png", alt: "Noctilien" });
+        logos.push({ src: overlayPath("noctilien_logo_idfm.png"), alt: "Noctilien" });
       } else if (cat === "FlixBus") {
-        logos.push({ src: "./Overlays/bus_ico.png", alt: "FlixBus" });
+        logos.push({ src: overlayPath("bus_ico.png"), alt: "FlixBus" });
       } else if (cat === "Scolaire") {
-        logos.push({ src: "./Overlays/bus_school.png", alt: "Scolaire" });
+        logos.push({ src: overlayPath("bus_school.png"), alt: "Scolaire" });
       } else if (cat === "Urbain" || cat === "Autres") {
-        logos.push({ src: "./Overlays/bus_logo_idfm.png", alt: "IDFM" });
+        logos.push({ src: overlayPath("bus_logo_idfm.png"), alt: "IDFM" });
       }
       if (!logos.length) return;
       logos.forEach(({ src, alt }) => {
@@ -3133,6 +3315,7 @@
 
     function closeDbusStopPanel() {
       if ($dbusStopPanel) $dbusStopPanel.style.display = "none";
+      setMenuOpen($dbusStopPanel, false);
       clearDepartMarkerSelection();
       updateUiOverlays();
     }
@@ -3182,6 +3365,7 @@
         sections.forEach(section => renderDepartStopSection(section, $dbusStopList));
       }
       $dbusStopPanel.style.display = "flex";
+      setMenuOpen($dbusStopPanel, true);
       updateUiOverlays();
     }
 
@@ -3193,6 +3377,7 @@
       renderDepartCategories(nameRec.routes, $dbusStopList);
 
       $dbusStopPanel.style.display = "flex";
+      setMenuOpen($dbusStopPanel, true);
       updateUiOverlays();
     }
 
@@ -3614,7 +3799,7 @@
             wrap.style.background = 'transparent';
             const img = document.createElement('img');
             img.alt = 'Réseau Titus';
-            img.src = './Overlays/reseau_titus.png';
+            img.src = overlayPath("reseau_titus.png");
             img.style.width = '100%';
             img.style.height = '100%';
             img.style.objectFit = 'contain';
@@ -3990,7 +4175,6 @@
     function getExpanded(key){ return sectionState[key] !== false; }
     function setExpanded(key, val){ sectionState[key] = !!val; }
     
-    const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise" ];
     const ORDER = [
       ["Ville","Villes"],
       ["Monument","Lieux Emblématiques"],
@@ -4001,43 +4185,70 @@
     ];
     const PLURIEL = Object.fromEntries(ORDER);
 
-    const DEFAULT_OFF = new Set(["Atelier","Agence"]);
-    let SELECTED_TYPES = new Set(ALL_TYPES.filter(t => !DEFAULT_OFF.has(t)));
+    const SEARCH_CATEGORIES = [SEARCH_CATEGORY_ALL, ...ALL_TYPES];
+    function setActiveSearchCategory(next){
+      if (!next || ACTIVE_SEARCH_CATEGORY === next) return;
+      ACTIVE_SEARCH_CATEGORY = next;
+    }
+    function filterSearchList(list, raw, allowTypeFilter){
+      const nQ = norm(raw);
+      if (nQ === "") return list.slice();
+      let filtered = list.slice();
+      const typeInfo = allowTypeFilter ? detectTypeFilter(nQ) : null;
 
-    const saveSelectedTypes = () => {};
+      if (typeInfo){
+        filtered = filtered.filter(it => typeInfo.types.includes(it.type));
+        let rest = norm(raw.replace(new RegExp(typeInfo.hit,'i'), '').trim())
+                    .replace(/^[\s,;:>-]+|[\s,;:>-]+$/g,'');
+        if (rest){
+          filtered = filtered.filter(it => {
+            const hay = [it.name, it.city, it.brand].filter(Boolean).join(" ");
+            return includesNorm(hay, rest);
+          });
+        }
+      } else {
+        const words = norm(raw).split(/\s+/).filter(Boolean);
+        filtered = filtered.filter(it => {
+          const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
+          const normHay = norm(hay);
+          return words.every(w => normHay.includes(w));
+        });
+      }
+      return filtered;
+    }
+    function updateSearchCategoryCounts(list){
+      const counts = Object.fromEntries(ALL_TYPES.map(t => [t, 0]));
+      for (const it of list){
+        if (counts[it.type] !== undefined) counts[it.type] += 1;
+      }
+      SEARCH_CATEGORY_COUNTS = counts;
+      SEARCH_CATEGORY_TOTAL = Object.values(counts).reduce((sum, n) => sum + n, 0);
+    }
 
-    function buildResultsFilterBar(host){
+    function buildResultsFilterBar(host = ($searchFilters || $results)){
+      if (!host) return;
       host.querySelector(".results-filters")?.remove();
 
       const bar = document.createElement("div");
-      bar.className = "results-filters";
+      bar.className = "search-categories results-filters";
 
-      ALL_TYPES.forEach(type=>{
-        const id = "rf_" + type.replace(/\s+/g,'_');
-        const labelText = ({
-          "Ville": t("villes"),
-          "Monument": t("emblematic"),
-          "Atelier": t("repair_shops"),
-          "Agence": t("agencies"),
-          "Concessionnaire": t("dealers"),
-          "Entreprise": t("companies")
-        })[type] || type;
-
-        const chip = document.createElement("label");
-        chip.className = "rf-chip";
-        chip.dataset.type = type;
-        chip.innerHTML = `
-          <span>${labelText}</span>
-          <input type="checkbox" id="${id}" ${SELECTED_TYPES.has(type)?'checked':''} aria-label="${labelText}">
-        `;
-        const input = chip.querySelector("input");
-        input.addEventListener("change", () => {
-          if (input.checked) SELECTED_TYPES.add(type);
-          else SELECTED_TYPES.delete(type);
-          saveSelectedTypes(SELECTED_TYPES);
+      SEARCH_CATEGORIES.forEach(typeKey=>{
+        const labelText = searchCategoryButtonLabel(typeKey);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "dbus-mode-btn";
+        btn.dataset.category = typeKey;
+        const active = typeKey === ACTIVE_SEARCH_CATEGORY;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+        btn.textContent = labelText;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (ACTIVE_SEARCH_CATEGORY === typeKey) return;
+          setActiveSearchCategory(typeKey);
           doSearch($search.value);
         });
-        bar.appendChild(chip);
+        bar.appendChild(btn);
       });
 
       host.prepend(bar);
@@ -4045,11 +4256,11 @@
 
     function renderResults(list){
       $results.innerHTML = "";
-      buildResultsFilterBar($results);
+      buildResultsFilterBar();
       if (!list.length){
         const empty = document.createElement("div");
         empty.className = "result-empty";
-        empty.textContent = t("results_empty");
+        empty.textContent = resultsEmptyText();
         $results.appendChild(empty);
         $results.hidden = false;
         return;
@@ -4066,7 +4277,7 @@
       };
       for (const it of list){ if (buckets[it.type]) buckets[it.type].push(it); }
 
-      function addSectionBlockLocal(typeKey, label){
+      function addSectionBlockLocal(typeKey, label, count){
         const head = document.createElement("div");
         head.className = "result-sechead";
         const mapLbl = {
@@ -4077,7 +4288,10 @@
           "Concessionnaire": t("dealers"),
           "Entreprise": t("companies")
         };
-        head.textContent = mapLbl[typeKey] || label;
+        const base = mapLbl[typeKey] || label;
+        head.dataset.type = typeKey;
+        head.dataset.count = String(count);
+        head.textContent = `${base} (${count})`;
         $results.appendChild(head);
 
         const body = document.createElement("div");
@@ -4094,7 +4308,7 @@
           if (item.type === "Lignes DBus") {
           const img = document.createElement("img");
           img.className = "ico ico-service";
-          img.src = "./Overlays/bus_ico.png";
+          img.src = overlayPath("bus_ico.png");
           img.alt = "Bus";
           div.appendChild(img);
 
@@ -4119,7 +4333,7 @@
               wrap.style.alignItems = 'center';
               wrap.style.gap = '6px';
               const img = document.createElement('img');
-              img.src = './Overlays/reseau_titus.png';
+              img.src = overlayPath("reseau_titus.png");
               img.alt = 'Réseau Titus';
               img.style.height = '22px';
               img.style.width = 'auto';
@@ -4180,9 +4394,7 @@
         }
 
         div.addEventListener("click", () => {
-          $search.value = "";
-          $search.blur();
-          $results.hidden = true;
+          closeSearchUI({ reset: true });
           map.setView(item.center, Math.max(map.getZoom(), minNativeZoom + 4));
           if (item.open) setTimeout(()=> item.open(), 150);
         });
@@ -4196,7 +4408,7 @@
       for (const [typeKey,label] of ORDER){
         const arr = buckets[typeKey];
         if (!arr.length) continue;
-        const body = addSectionBlockLocal(typeKey,label);
+        const body = addSectionBlockLocal(typeKey,label, arr.length);
         for (const it of arr){
           if (shown >= 250) break;
           addItem(body,it);
@@ -4211,37 +4423,20 @@
 
     function doSearch(q){
       const raw = String(q||"");
-      const nQ  = norm(raw);
+      const allowTypeFilter = ACTIVE_SEARCH_CATEGORY === SEARCH_CATEGORY_ALL;
+      const baseFiltered = filterSearchList(searchIndex, raw, allowTypeFilter);
+      updateSearchCategoryCounts(baseFiltered);
 
-      const ALLOWED = new Set(ALL_TYPES.filter(t => SELECTED_TYPES.has(t)));
+      const activeTypes = (ACTIVE_SEARCH_CATEGORY === SEARCH_CATEGORY_ALL)
+        ? ALL_TYPES
+        : [ACTIVE_SEARCH_CATEGORY];
+      const ALLOWED = new Set(activeTypes);
+      let filtered = baseFiltered.filter(it => ALLOWED.has(it.type));
 
-      if (nQ === ""){
-        const all = searchIndex.filter(it => ALLOWED.has(it.type));
-        renderResults(all);
+      if (!raw.trim()){
+        renderResults(filtered);
         $results.hidden = false;
         return;
-      }
-
-      let filtered = searchIndex.filter(it => ALLOWED.has(it.type));
-      const typeInfo = detectTypeFilter(nQ);
-
-      if (typeInfo){
-        filtered = filtered.filter(it => typeInfo.types.includes(it.type));
-        let rest = norm(raw.replace(new RegExp(typeInfo.hit,'i'), '').trim())
-                    .replace(/^[\s,;:>-]+|[\s,;:>-]+$/g,'');
-        if (rest){
-          filtered = filtered.filter(it => {
-            const hay = [it.name, it.city, it.brand].filter(Boolean).join(" ");
-            return includesNorm(hay, rest);
-          });
-        }
-      } else {
-        const words = norm(raw).split(/\s+/).filter(Boolean);
-        filtered = filtered.filter(it => {
-          const hay = [it.type, it.name, it.city, it.brand].filter(Boolean).join(" ");
-          const normHay = norm(hay);
-          return words.every(w => normHay.includes(w));
-        });
       }
 
       filtered.sort((a,b)=>{
@@ -4277,8 +4472,10 @@
     document.addEventListener('click', (e) => {
       const target = e.target;
       if (!(target instanceof Element)) return;
-      const searchPanel = document.querySelector('.search-panel');
-      const clickInSearch = !!searchPanel && searchPanel.contains(target);
+      const path = (typeof e.composedPath === "function") ? e.composedPath() : [];
+      const clickInSearch = path.includes($searchPanel)
+        || path.includes($btnSearch)
+        || ((!!$searchPanel && $searchPanel.contains(target)) || target === $btnSearch);
       const clickInDbus   = (!!$panelDbus && $panelDbus.contains(target))
         || (!!$dbusStopPanel && $dbusStopPanel.contains(target))
         || target === $btnDbus;
@@ -4302,7 +4499,7 @@
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
         e.preventDefault();
-        $search?.focus();
+        openSearchUI({ focus: true, refresh: true });
       }
     });
   </script>
@@ -4328,16 +4525,8 @@
     }
   </script>
 
-  <script>
-const url = new URL(window.location.href);
-if (url.searchParams.has("dev")) {
-  window.location.href = "/0.1.6/index.html";
-}
-</script>
-
 </body>
 </html>
-
 
 
 

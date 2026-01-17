@@ -4328,8 +4328,16 @@
     }
   </script>
 
+  <script>
+const url = new URL(window.location.href);
+if (url.searchParams.has("dev")) {
+  window.location.href = "/0.1.6/index.html";
+}
+</script>
+
 </body>
 </html>
+
 
 
 

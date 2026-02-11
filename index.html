@@ -13,6 +13,8 @@
       --logoW:110px; --logoH:44px;
       --busA:#2b2f3a; --busB:#2b2f3a; --busC:#2b2f3a; --busD:#2b2f3a; --busE:#2b2f3a;
       --rer-mask-url: url("./Overlays/o_rer.png");
+      --metro-icon-url: url("./Overlays/o_metro.png");
+      --metro-mask-url: url("./Overlays/o_metro.png");
     }
     html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
     #map{position:fixed;inset:0}
@@ -28,6 +30,62 @@
 
     .search-panel{position:fixed;top:12px;right:12px;z-index:1000;width:max-content;max-width:92vw}
     .search-row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+    .lang-switch{position:relative}
+    .lang-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 12px}
+    .lang-btn .lang-flag{
+      width:20px;height:15px;display:block;object-fit:cover;border-radius:3px;
+      box-shadow:0 0 0 1px rgba(0,0,0,.35)
+    }
+    .lang-btn .lang-caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--muted)}
+    .lang-menu{
+      position:absolute;top:calc(100% + 8px);left:0;
+      min-width:min(220px, 90vw);
+      padding:6px;border-radius:12px;border:1px solid var(--border);
+      background:var(--panel);box-shadow:var(--shadow);display:none;z-index:1300
+    }
+    .lang-menu[aria-hidden="false"]{display:block}
+    .lang-option{
+      width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;
+      border-radius:10px;border:1px solid transparent;background:transparent;
+      color:var(--text);cursor:pointer;font-weight:700;text-align:left
+    }
+    .lang-option:hover{background:#101926;border-color:#1f2732}
+    .lang-option[aria-selected="true"]{
+      background:#1b2a3f;border-color:#2a3a52;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04)
+    }
+    .lang-option .lang-name{text-transform:uppercase;letter-spacing:.05em;font-size:12px}
+    .lang-option .lang-flag{
+      width:20px;height:15px;display:block;object-fit:cover;border-radius:3px;
+      box-shadow:0 0 0 1px rgba(0,0,0,.35)
+    }
+    .lang-menu-sep{height:1px;background:#1f2732;margin:6px 8px}
+    .lang-toggle-row{
+      display:flex;align-items:center;gap:10px;padding:8px 10px;
+      border-radius:10px;border:1px solid transparent;color:var(--text);
+      cursor:pointer;font-weight:600;font-size:12px;letter-spacing:.02em
+    }
+    .lang-toggle-row:hover{background:#101926;border-color:#1f2732}
+    .lang-toggle-row input{
+      width:16px;height:16px;accent-color:#f59e0b;cursor:pointer
+    }
+    .lang-toggle-label{display:block;flex:1 1 auto}
+    .lang-toggle-row.is-disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+    .lang-toggle-row.is-disabled input{cursor:not-allowed}
+    .lang-toggle-badge{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      padding:2px 6px;
+      border-radius:999px;
+      background:rgba(245,158,11,0.15);
+      border:1px solid rgba(245,158,11,0.45);
+      color:#fbbf24;
+      font-weight:800;
+    }
     .search-input{flex:1;min-width:300px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab, var(--panel) 92%, #000 8%);color:var(--text);font-size:15px;box-shadow:var(--shadow);outline:none}
     .search-input:disabled{opacity:.5;cursor:not-allowed;background:color-mix(in oklab, var(--panel) 85%, #000 15%)}
     .search-input::placeholder{color:var(--muted)}
@@ -463,6 +521,15 @@
     .line-preview-route{ color:var(--text);font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
     .line-preview-close{ border:none;background:transparent;color:#ef4444;font-weight:900; font-size:22px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:8px; }
     .line-preview-close:hover{ color:#ff6666; background:#0f1722; }
+    .line-preview-actions{ display:flex; align-items:center; gap:6px; flex:0 0 auto; }
+    .line-preview-link{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:28px; height:28px; border-radius:8px;
+      border:1px solid #1f2732; background:transparent; color:#9fb1cc;
+      text-decoration:none; cursor:pointer;
+    }
+    .line-preview-link:hover{ background:#0f1722; color:#f8fbff; }
+    .line-preview-link svg{ width:16px; height:16px; display:block; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
     .transit-scroll{ overflow-x:auto;overflow-y:hidden;white-space:nowrap; padding-bottom:4px; }
     .transit{
@@ -534,6 +601,12 @@
       background-color: currentColor;
       -webkit-mask: var(--rer-mask-url) no-repeat center / contain;
               mask: var(--rer-mask-url) no-repeat center / contain;
+    }
+    .metro-ico{
+      display:inline-block;
+      width:1.1em; height:1.1em;
+      vertical-align:-.2em;
+      background: var(--metro-icon-url) no-repeat center / contain;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -736,6 +809,8 @@
       .search-row{flex-wrap:wrap}
       .search-input{flex:1 1 100%;min-width:0}
       .search-row .btn{flex:1 1 48%}
+      .lang-switch{flex:1 1 48%}
+      .lang-btn{width:100%;justify-content:center}
       .results{max-height:50vh}
       .dbus-header{flex-wrap:wrap;align-items:flex-start}
       .dbus-mode-group{width:100%;flex-wrap:wrap;justify-content:flex-start}
@@ -790,9 +865,15 @@
 
   <div class="search-panel">
     <div class="search-row">
+      <div class="lang-switch" id="langSwitch">
+        <button id="langToggle" class="btn lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <img class="lang-flag" src="https://flagcdn.com/w40/fr.png" alt="" aria-hidden="true">
+          <span class="lang-caret" aria-hidden="true"></span>
+        </button>
+        <div id="langMenu" class="lang-menu" role="listbox" aria-label="Langue" aria-hidden="true"></div>
+      </div>
       <button id="btnSearch" class="btn" type="button" aria-expanded="false">Recherche</button>
       <button id="btnDbus" class="btn" type="button" aria-expanded="false">Lignes DBus</button>
-      <!-- <button id="langToggle" class="btn" type="button" aria-label="Langue">FR</button> -->
     </div>
 
     <div id="dbusDepartIndicatorWrap" class="dbus-depart-indicator-wrap" hidden>
@@ -874,7 +955,15 @@
           <div class="dbus-badge" id="lpBadge">?</div>
           <div class="line-preview-route" id="lpRouteTitle">-</div>
         </div>
-        <button type="button" class="line-preview-close" id="lpClose" aria-label="Fermer">X</button>
+        <div class="line-preview-actions">
+          <a class="line-preview-link" id="lpLink" href="" target="_blank" rel="noopener" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+          </a>
+          <button type="button" class="line-preview-close" id="lpClose" aria-label="Fermer">X</button>
+        </div>
       </div>
       <div class="transit-scroll">
         <div class="transit" id="lpTransit"></div>
@@ -893,35 +982,35 @@
   <script>
 
   const LINE_STYLES = {
-    "24":         ["#ab5798", "#FFFFFF"],
-    "63":         ["#cdc74f", "#221f20"],
-    "109":        ["#cdc74f", "#221f20"],
-    "112":        ["#e69459", "#221f20"],
-    "114":        ["#8cc299", "#221f20"],
-    "121":        ["#d63e34", "#FFFFFF"],
-    "124":        ["#e6a4b2", "#221f20"],
-    "210":        ["#fecd08", "#221f20"],
-    "221":        ["#e7a5b3", "#221f20"],
-    "303":        ["#99974a", "#FFFFFF"],
-    "325":        ["#9ad1dc", "#221f20"],
-    "351":        ["#d7b152", "#221f20"],
-    "FLIXBUS":    ["#a7d245", "#FFFFFF"],
-    "N11":        ["#e9682a", "#221f20"],
-    "N23":        ["#d09835", "#221f20"],
-    "N33":        ["#e9682a", "#221f20"],
-    "Titus 1":    ["#e63b20", "#FFFFFF"],
-    "Titus 2":    ["#49713e", "#FFFFFF"],
-    "Scolaire":   ["#31387e", "#FFFFFF"],
-    "Express 75": ["#6fb2e1", "#FFFFFF"],
-    "Express 77": ["#6fb2e1", "#FFFFFF"],
-    "Express 93": ["#6fb2e1", "#FFFFFF"],
-    "Express 94": ["#6fb2e1", "#FFFFFF"],
+    "24":         ["#ab5798", "#FFFFFF","https://www.bonjour-ratp.fr/lignes-bus/ligne-24/"],
+    "63":         ["#cdc74f", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-63/"],
+    "109":        ["#cdc74f", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-109/"],
+    "112":        ["#e69459", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-112/"],
+    "114":        ["#8cc299", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-114/"],
+    "121":        ["#d63e34", "#FFFFFF","https://www.bonjour-ratp.fr/lignes-bus/ligne-121/"],
+    "124":        ["#e6a4b2", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-124/"],
+    "210":        ["#fecd08", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-210/"],
+    "221":        ["#e7a5b3", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-221/"],
+    "303":        ["#99974a", "#FFFFFF","https://www.bonjour-ratp.fr/lignes-bus/ligne-303/"],
+    "325":        ["#9ad1dc", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-325/"],
+    "351":        ["#d7b152", "#221f20","https://www.bonjour-ratp.fr/lignes-bus/ligne-351/"],
+    "FLIXBUS":    ["#a7d245", "#FFFFFF","https://www.flixbus.fr/"],
+    "N11":        ["#e9682a", "#221f20","https://www.ratp.fr/plans-lignes/noctilien/n11"],
+    "N23":        ["#d09835", "#221f20","https://www.ratp.fr/plans-lignes/noctilien/n23"],
+    "N33":        ["#e9682a", "#221f20","https://www.ratp.fr/plans-lignes/noctilien/n33"],
+    "Titus 1":    ["#e63b20", "#FFFFFF","https://www.rosnysousbois.fr/mobilites/le-titus/"],
+    "Titus 2":    ["#49713e", "#FFFFFF","https://www.rosnysousbois.fr/mobilites/le-titus/"],
+    "Scolaire":   ["#31387e", "#FFFFFF",""],
+    "Express 75": ["#6fb2e1", "#FFFFFF",""],
+    "Express 77": ["#6fb2e1", "#FFFFFF",""],
+    "Express 93": ["#6fb2e1", "#FFFFFF",""],
+    "Express 94": ["#6fb2e1", "#FFFFFF",""],
   };
 
   const I18N = {
     fr: {
       search_placeholder: "Rechercher...",
-      search_button: "Recherche",
+      search_button: "Rechercher",
       search_category_label: "Catégories",
       search_category_all: "Tout",
       dbus_button: "Lignes DBus",
@@ -932,13 +1021,103 @@
       dbus_mode_stops: "Départs de lignes",
       dbus_depart_map_btn: "🗺️ Voir les départs de lignes sur le plan",
       dbus_school_toggle: "Scolaires",
-      dbus_fictive_toggle: "Fictif",
+      dbus_fictive_toggle: "Fictives",
+      dbus_sub_urban: "Urbaines",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Autres réseaux",
       lang_btn: "FR",
+      language_label: "Langue",
+      translate_stop_types: "Traduire les arrêts",
+      experimental: "Expérimental",
+      lang_fr: "Français",
+      lang_en: "Anglais",
+      lang_es: "Espagnol",
+      lang_de: "Allemand",
+      lang_pl: "Polonais",
+      lang_pt: "Portugais",
+      lang_nl: "Néerlandais",
+      lang_it: "Italien",
+      lang_ru: "Russe",
+      lang_zh: "Chinois",
+      lang_ko: "Coréen",
+      lang_ja: "Japonais",
+      coordinates: "Coordonnées",
+      temporary_stop: "Arrêt provisoire",
+      stop_count_singular: "{count} arrêt",
+      stop_count_plural: "{count} arrêts",
+      recruitment_agency: "Agence de recrutement",
+      repair_shop: "Atelier de réparation",
+      garage: "Garage",
+      mall: "Centre commercial",
+      place: "Lieu",
+      dealer: "Concessionnaire",
+      city: "Ville",
+      company: "Entreprise",
+      stop_centre_aquatique: "Centre aquatique",
+      stop_centre_aquanautique: "Centre aquanautique",
+      stop_centre_commercial: "Centre commercial",
+      stop_centre_municipal: "Centre municipal",
+      stop_centre_pmi: "Centre de protection maternelle et infantile",
+      stop_centre: "Centre",
+      stop_parc_floral: "Parc Floral",
+      stop_parc: "Parc",
+      stop_gare: "Gare",
+      stop_chateau: "Château",
+      stop_cimetiere: "Cimetière",
+      stop_ecole_elementaire: "École élémentaire",
+      stop_ecole_primaire: "École primaire",
+      stop_ecole: "École",
+      stop_piscine: "Piscine",
+      stop_stade: "Stade",
+      stop_mairie: "Mairie",
+      stop_hotel_de_ville: "Hôtel de Ville",
+      stop_pont: "Pont",
+      stop_porte: "Porte",
+      stop_place: "Place",
+      stop_avenue: "Avenue",
+      stop_rue: "Rue",
+      stop_maison: "Maison",
+      stop_plateau: "Plateau",
+      stop_marche_international: "Marché international",
+      dir_north: "Nord",
+      dir_south: "Sud",
+      dir_east: "Est",
+      dir_west: "Ouest",
+      stop_ecole_maternelle: "École maternelle",
+      stop_ecole_maternelle_publique: "École maternelle publique",
+
+      stop_college: "Collège",
+      stop_lycee: "Lycée",
+      stop_lycee_polyvalent: "Lycée polyvalent",
+
+      stop_cite_scolaire: "Cité scolaire",
+
+      stop_hopital: "Hôpital",
+      stop_eglise: "Église",
+      stop_square: "Square",
+      stop_allee: "Allée",
+      stop_chemin: "Chemin",
+      stop_tour: "Tour",
+      stop_ferme: "Ferme",
+      stop_ferme_pedagogique: "Ferme pédagogique",
+
+      stop_ministere: "Ministère",
+      stop_ministere_economie_finances: "Ministère de l'Économie et des Finances",
+      stop_echangeur: "Échangeur",
+      icon_gas: "Station service",
+      icon_bus_station: "Gare routière",
+      icon_repair_shop: "Atelier de réparation",
+      icon_garage: "Garage",
+      icon_recruitment_agency: "Agence de recrutement",
+      icon_dealer: "Concessionnaire",
+      icon_border_control: "Contrôle d'identité",
+      icon_toll: "Péage",
+      icon_parking: "Parking",
       results_empty: "Aucun résultat",
       results_empty_category: "Aucun résultat dans la catégorie {category}",
       none: "Aucune",
       villes: "Villes",
-      emblematic: "Lieux Emblématiques",
+      emblematic: "Lieux emblématiques",
       repair_shops: "Ateliers de réparation",
       agencies: "Agences de recrutement",
       dealers: "Concessionnaires",
@@ -955,7 +1134,17 @@
       home_tooltip: "Revenir à la vue initiale",
       maintenance_title: "En maintenance",
       close: "Fermer",
+      open_link: "Ouvrir le lien",
       analyze_mode: "Mode Analyse",
+      color_yellow: "Jaune",
+      color_green: "Vert",
+      color_red: "Rouge",
+      color_blue: "Bleu",
+      color_orange: "Orange",
+      color_purple: "Violet",
+      color_black: "Noir",
+      color_white: "Blanc",
+      color_grey: "Gris",
     },
     en: {
       search_placeholder: "Search...",
@@ -971,7 +1160,97 @@
       dbus_depart_map_btn: "🗺️ See line departures on the map",
       dbus_school_toggle: "School lines",
       dbus_fictive_toggle: "Fictive lines",
+      dbus_sub_urban: "Urban",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Other networks",
       lang_btn: "EN",
+      language_label: "Language",
+      translate_stop_types: "Translate stops",
+      experimental: "Experimental",
+      lang_fr: "French",
+      lang_en: "English",
+      lang_es: "Spanish",
+      lang_de: "German",
+      lang_pl: "Polish",
+      lang_pt: "Portuguese",
+      lang_nl: "Dutch",
+      lang_it: "Italian",
+      lang_ru: "Russian",
+      lang_zh: "Chinese",
+      lang_ko: "Korean",
+      lang_ja: "Japanese",
+      coordinates: "Coordinates",
+      temporary_stop: "Temporary stop",
+      stop_count_singular: "{count} stop",
+      stop_count_plural: "{count} stops",
+      recruitment_agency: "Recruitment agency",
+      repair_shop: "Repair shop",
+      garage: "Garage",
+      mall: "Shopping center",
+      place: "Place",
+      dealer: "Dealer",
+      city: "City",
+      company: "Company",
+      stop_centre_aquatique: "Aquatic Center",
+      stop_centre_aquanautique: "Aquatic Center",
+      stop_centre_commercial: "Shopping Center",
+      stop_centre_municipal: "Municipal Center",
+      stop_centre_pmi: "Maternal and Child Protection Center",
+      stop_centre: "Center",
+      stop_parc_floral: "Floral Park",
+      stop_parc: "Park",
+      stop_gare: "Station",
+      stop_chateau: "Castle",
+      stop_cimetiere: "Cemetery",
+      stop_ecole_elementaire: "Elementary School",
+      stop_ecole_primaire: "Primary School",
+      stop_ecole: "School",
+      stop_piscine: "Swimming Pool",
+      stop_stade: "Stadium",
+      stop_mairie: "Town Hall",
+      stop_hotel_de_ville: "City Hall",
+      stop_pont: "Bridge",
+      stop_porte: "Gate",
+      stop_place: "Square",
+      stop_avenue: "Avenue",
+      stop_rue: "Street",
+      stop_maison: "House",
+      stop_plateau: "Plateau",
+      stop_marche_international: "International Market",
+      dir_north: "North",
+      dir_south: "South",
+      dir_east: "East",
+      dir_west: "West",
+      stop_ecole_maternelle: "Nursery school",
+      stop_ecole_maternelle_publique: "Public kindergarten",
+
+      stop_college: "Middle School",
+      stop_lycee: "High School",
+      stop_lycee_polyvalent: "Comprehensive High School",
+
+      stop_cite_scolaire: "School campus",
+
+      stop_hopital: "Hospital",
+      stop_eglise: "Church",
+      stop_square: "Square",
+      stop_allee: "Lane",
+      stop_chemin: "Path",
+      stop_tour: "Tower",
+      stop_ferme: "Farm",
+      stop_ferme_pedagogique: "Educational farm",
+
+      stop_ministere: "Ministry",
+      stop_ministere_economie_finances: "Ministry of Economy and Finance",
+      stop_echangeur: "Interchange",
+      icon_gas: "Gas station",
+      icon_bus_station: "Bus station",
+      icon_repair_shop: "Repair shop",
+      icon_garage: "Garage",
+      icon_recruitment_agency: "Recruitment agency",
+      icon_dealer: "Dealer",
+      icon_border_control: "ID check",
+      icon_toll: "Toll",
+      icon_parking: "Parking",
       results_empty: "No results",
       results_empty_category: "No results in the {category} category",
       none: "None",
@@ -993,10 +1272,1415 @@
       home_tooltip: "Return to initial view",
       maintenance_title: "Under maintenance",
       close: "Close",
+      open_link: "Open link",
       analyze_mode: "Analyze Mode",
+      color_yellow: "Yellow",
+      color_green: "Green",
+      color_red: "Red",
+      color_blue: "Blue",
+      color_orange: "Orange",
+      color_purple: "Purple",
+      color_black: "Black",
+      color_white: "White",
+      color_grey: "Grey",
+    },
+    es: {
+      search_placeholder: "Buscar...",
+      search_button: "Buscar",
+      search_category_label: "Categorías",
+      search_category_all: "Todo",
+      dbus_button: "Líneas DBus",
+      dbus_mode_label: "Ordenar por",
+      dbus_filter_label: "Filtros",
+      dbus_mode_lines: "Categoría",
+      dbus_mode_length: "Longitud",
+      dbus_mode_stops: "Paradas de salida",
+      dbus_depart_map_btn: "🗺️ Ver salidas de líneas en el mapa",
+      dbus_school_toggle: "Escolares",
+      dbus_fictive_toggle: "Ficticias",
+      dbus_sub_urban: "Urbanas",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Otras redes",
+      lang_btn: "ES",
+      language_label: "Idioma",
+      translate_stop_types: "Traducir paradas",
+      experimental: "Experimental",
+      lang_fr: "Francés",
+      lang_en: "Inglés",
+      lang_es: "Español",
+      lang_de: "Alemán",
+      lang_pl: "Polaco",
+      lang_pt: "Portugués",
+      lang_nl: "Neerlandés",
+      lang_it: "Italiano",
+      lang_ru: "Ruso",
+      lang_zh: "Chino",
+      lang_ko: "Coreano",
+      lang_ja: "Japonés",
+      coordinates: "Coordenadas",
+      temporary_stop: "Parada temporal",
+      stop_count_singular: "{count} parada",
+      stop_count_plural: "{count} paradas",
+      recruitment_agency: "Agencia de contratación",
+      repair_shop: "Taller de reparación",
+      garage: "Garaje",
+      mall: "Centro comercial",
+      place: "Lugar",
+      dealer: "Concesionario",
+      city: "Ciudad",
+      company: "Empresa",
+      stop_centre_aquatique: "Centro acuático",
+      stop_centre_aquanautique: "Centro acuático",
+      stop_centre_commercial: "Centro comercial",
+      stop_centre_municipal: "Centro municipal",
+      stop_centre_pmi: "Centro de protección maternoinfantil",
+      stop_centre: "Centro",
+      stop_parc_floral: "Parque Floral",
+      stop_parc: "Parque",
+      stop_gare: "Estación",
+      stop_chateau: "Castillo",
+      stop_cimetiere: "Cementerio",
+      stop_ecole_elementaire: "Escuela primaria",
+      stop_ecole_primaire: "Escuela primaria",
+      stop_ecole: "Escuela",
+      stop_piscine: "Piscina",
+      stop_stade: "Estadio",
+      stop_mairie: "Ayuntamiento",
+      stop_hotel_de_ville: "Ayuntamiento",
+      stop_pont: "Puente",
+      stop_porte: "Puerta",
+      stop_place: "Plaza",
+      stop_avenue: "Avenida",
+      stop_rue: "Calle",
+      stop_maison: "Casa",
+      stop_plateau: "Meseta",
+      stop_marche_international: "Mercado internacional",
+      dir_north: "Norte",
+      dir_south: "Sur",
+      dir_east: "Este",
+      dir_west: "Oeste",
+      stop_ecole_maternelle: "Jardín de infancia",
+      stop_ecole_maternelle_publique: "Escuela infantil pública",
+
+      stop_college: "Escuela secundaria",
+      stop_lycee: "Instituto",
+      stop_lycee_polyvalent: "Instituto polivalente",
+
+      stop_cite_scolaire: "Complejo escolar",
+
+      stop_hopital: "Hospital",
+      stop_eglise: "Iglesia",
+      stop_square: "Plaza",
+      stop_allee: "Alameda",
+      stop_chemin: "Camino",
+      stop_tour: "Torre",
+      stop_ferme: "Granja",
+      stop_ferme_pedagogique: "Granja educativa",
+
+      stop_ministere: "Ministerio",
+      stop_ministere_economie_finances: "Ministerio de Economía y Finanzas",
+      stop_echangeur: "Intercambiador",
+      icon_gas: "Gasolinera",
+      icon_bus_station: "Estación de autobuses",
+      icon_repair_shop: "Taller de reparación",
+      icon_garage: "Garaje",
+      icon_recruitment_agency: "Agencia de contratación",
+      icon_dealer: "Concesionario",
+      icon_border_control: "Control de identidad",
+      icon_toll: "Peaje",
+      icon_parking: "Aparcamiento",
+      results_empty: "Sin resultados",
+      results_empty_category: "No hay resultados en la categoría {category}",
+      none: "Ninguna",
+      villes: "Ciudades",
+      emblematic: "Lugares emblemáticos",
+      repair_shops: "Talleres de reparación",
+      agencies: "Agencias de contratación",
+      dealers: "Concesionarios",
+      companies: "Empresas",
+      malls: "Centros comerciales",
+      see_wiki: "Ver en Wikipedia",
+      loading: "Cargando...",
+      depart: "Salida",
+      terminus: "Terminal",
+      departures_active: "Vista previa de ubicaciones de salida de líneas activada",
+      departures_disable: "Desactivar vista previa",
+      destination: "Destino",
+      stop: "Parada",
+      home_tooltip: "Volver a la vista inicial",
+      maintenance_title: "En mantenimiento",
+      close: "Cerrar",
+      open_link: "Abrir enlace",
+      analyze_mode: "Modo de análisis",
+      color_yellow: "Amarillo",
+      color_green: "Verde",
+      color_red: "Rojo",
+      color_blue: "Azul",
+      color_orange: "Naranja",
+      color_purple: "Morado",
+      color_black: "Negro",
+      color_white: "Blanco",
+      color_grey: "Gris",
+    },
+    de: {
+      search_placeholder: "Suchen...",
+      search_button: "Suche",
+      search_category_label: "Kategorien",
+      search_category_all: "Alle",
+      dbus_button: "DBus-Linien",
+      dbus_mode_label: "Sortieren nach",
+      dbus_filter_label: "Filter",
+      dbus_mode_lines: "Kategorie",
+      dbus_mode_length: "Länge",
+      dbus_mode_stops: "Abfahrthaltestellen",
+      dbus_depart_map_btn: "🗺️ Abfahrten der Linien auf der Karte ansehen",
+      dbus_school_toggle: "Schulverkehr",
+      dbus_fictive_toggle: "Fiktiv",
+      dbus_sub_urban: "Städtisch",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Andere Netze",
+      lang_btn: "DE",
+      language_label: "Sprache",
+      translate_stop_types: "Haltestellen übersetzen",
+      experimental: "Experimentell",
+      lang_fr: "Französisch",
+      lang_en: "Englisch",
+      lang_es: "Spanisch",
+      lang_de: "Deutsch",
+      lang_pl: "Polnisch",
+      lang_pt: "Portugiesisch",
+      lang_nl: "Niederländisch",
+      lang_it: "Italienisch",
+      lang_ru: "Russisch",
+      lang_zh: "Chinesisch",
+      lang_ko: "Koreanisch",
+      lang_ja: "Japanisch",
+      coordinates: "Koordinaten",
+      temporary_stop: "Vorübergehende Haltestelle",
+      stop_count_singular: "{count} Halt",
+      stop_count_plural: "{count} Haltestellen",
+      recruitment_agency: "Personalvermittlungsagentur",
+      repair_shop: "Reparaturwerkstatt",
+      garage: "Garage",
+      mall: "Einkaufszentrum",
+      place: "Ort",
+      dealer: "Händler",
+      city: "Stadt",
+      company: "Unternehmen",
+      stop_centre_aquatique: "Aquazentrum",
+      stop_centre_aquanautique: "Aquazentrum",
+      stop_centre_commercial: "Einkaufszentrum",
+      stop_centre_municipal: "Kommunalzentrum",
+      stop_centre_pmi: "Zentrum für Mutter-Kind-Schutz",
+      stop_centre: "Zentrum",
+      stop_parc_floral: "Blumenpark",
+      stop_parc: "Park",
+      stop_gare: "Bahnhof",
+      stop_chateau: "Schloss",
+      stop_cimetiere: "Friedhof",
+      stop_ecole_elementaire: "Grundschule",
+      stop_ecole_primaire: "Grundschule",
+      stop_ecole: "Schule",
+      stop_piscine: "Schwimmbad",
+      stop_stade: "Stadion",
+      stop_mairie: "Rathaus",
+      stop_hotel_de_ville: "Rathaus",
+      stop_pont: "Brücke",
+      stop_porte: "Tor",
+      stop_place: "Platz",
+      stop_avenue: "Allee",
+      stop_rue: "Straße",
+      stop_maison: "Haus",
+      stop_plateau: "Hochplateau",
+      stop_marche_international: "Internationaler Markt",
+      dir_north: "Nord",
+      dir_south: "Süd",
+      dir_east: "Ost",
+      dir_west: "West",
+      stop_ecole_maternelle: "Kindergarten",
+      stop_ecole_maternelle_publique: "Öffentlicher Kindergarten",
+
+      stop_college: "Mittelschule",
+      stop_lycee: "Gymnasium",
+      stop_lycee_polyvalent: "Gesamtschule",
+
+      stop_cite_scolaire: "Schulzentrum",
+
+      stop_hopital: "Krankenhaus",
+      stop_eglise: "Kirche",
+      stop_square: "Platz",
+      stop_allee: "Allee",
+      stop_chemin: "Weg",
+      stop_tour: "Turm",
+      stop_ferme: "Bauernhof",
+      stop_ferme_pedagogique: "Pädagogischer Bauernhof",
+
+      stop_ministere: "Ministerium",
+      stop_ministere_economie_finances: "Ministerium für Wirtschaft und Finanzen",
+      stop_echangeur: "Autobahnkreuz",
+      icon_gas: "Tankstelle",
+      icon_bus_station: "Busbahnhof",
+      icon_repair_shop: "Reparaturwerkstatt",
+      icon_garage: "Garage",
+      icon_recruitment_agency: "Personalvermittlungsagentur",
+      icon_dealer: "Händler",
+      icon_border_control: "Ausweiskontrolle",
+      icon_toll: "Maut",
+      icon_parking: "Parkplatz",
+      results_empty: "Keine Ergebnisse",
+      results_empty_category: "Keine Ergebnisse in der Kategorie {category}",
+      none: "Keine",
+      villes: "Städte",
+      emblematic: "Wahrzeichen",
+      repair_shops: "Reparaturwerkstätten",
+      agencies: "Personalvermittlungen",
+      dealers: "Händler",
+      companies: "Unternehmen",
+      malls: "Einkaufszentren",
+      see_wiki: "Auf Wikipedia ansehen",
+      loading: "Laden...",
+      depart: "Abfahrt",
+      terminus: "Endstation",
+      departures_active: "Vorschau der Abfahrtsstandorte der Linien aktiviert",
+      departures_disable: "Vorschau deaktivieren",
+      destination: "Ziel",
+      stop: "Haltestelle",
+      home_tooltip: "Zur Ausgangsansicht zurückkehren",
+      maintenance_title: "Wartung",
+      close: "Schließen",
+      open_link: "Link öffnen",
+      analyze_mode: "Analysemodus",
+      color_yellow: "Gelb",
+      color_green: "Grün",
+      color_red: "Rot",
+      color_blue: "Blau",
+      color_orange: "Orange",
+      color_purple: "Lila",
+      color_black: "Schwarz",
+      color_white: "Weiß",
+      color_grey: "Grau",
+    },
+    pl: {
+      search_placeholder: "Szukaj...",
+      search_button: "Szukaj",
+      search_category_label: "Kategorie",
+      search_category_all: "Wszystkie",
+      dbus_button: "Linie DBus",
+      dbus_mode_label: "Sortuj według",
+      dbus_filter_label: "Filtry",
+      dbus_mode_lines: "Kategoria",
+      dbus_mode_length: "Długość",
+      dbus_mode_stops: "Przystanki początkowe",
+      dbus_depart_map_btn: "🗺️ Zobacz odjazdy linii na mapie",
+      dbus_school_toggle: "Szkolne",
+      dbus_fictive_toggle: "Fikcyjne",
+      dbus_sub_urban: "Miejskie",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Inne sieci",
+      lang_btn: "PL",
+      language_label: "Język",
+      translate_stop_types: "Tłumacz przystanki",
+      experimental: "Eksperymentalne",
+      lang_fr: "Francuski",
+      lang_en: "Angielski",
+      lang_es: "Hiszpański",
+      lang_de: "Niemiecki",
+      lang_pl: "Polski",
+      lang_pt: "Portugalski",
+      lang_nl: "Niderlandzki",
+      lang_it: "Włoski",
+      lang_ru: "Rosyjski",
+      lang_zh: "Chiński",
+      lang_ko: "Koreański",
+      lang_ja: "Japoński",
+      coordinates: "Współrzędne",
+      temporary_stop: "Tymczasowy przystanek",
+      stop_count_singular: "{count} przystanek",
+      stop_count_plural: "{count} przystanków",
+      recruitment_agency: "Agencja rekrutacyjna",
+      repair_shop: "Warsztat naprawczy",
+      garage: "Garaż",
+      mall: "Centrum handlowe",
+      place: "Miejsce",
+      dealer: "Dealer",
+      city: "Miasto",
+      company: "Firma",
+      stop_centre_aquatique: "Centrum wodne",
+      stop_centre_aquanautique: "Centrum wodne",
+      stop_centre_commercial: "Centrum handlowe",
+      stop_centre_municipal: "Centrum miejskie",
+      stop_centre_pmi: "Centrum ochrony matki i dziecka",
+      stop_centre: "Centrum",
+      stop_parc_floral: "Park kwiatowy",
+      stop_parc: "Park",
+      stop_gare: "Stacja",
+      stop_chateau: "Zamek",
+      stop_cimetiere: "Cmentarz",
+      stop_ecole_elementaire: "Szkoła podstawowa",
+      stop_ecole_primaire: "Szkoła podstawowa",
+      stop_ecole: "Szkoła",
+      stop_piscine: "Basen",
+      stop_stade: "Stadion",
+      stop_mairie: "Ratusz",
+      stop_hotel_de_ville: "Ratusz",
+      stop_pont: "Most",
+      stop_porte: "Brama",
+      stop_place: "Plac",
+      stop_avenue: "Aleja",
+      stop_rue: "Ulica",
+      stop_maison: "Dom",
+      stop_plateau: "Płaskowyż",
+      stop_marche_international: "Międzynarodowy targ",
+      dir_north: "Północ",
+      dir_south: "Południe",
+      dir_east: "Wschód",
+      dir_west: "Zachód",
+      stop_ecole_maternelle: "Przedszkole",
+      stop_ecole_maternelle_publique: "Publiczne przedszkole",
+
+      stop_college: "Gimnazjum",
+      stop_lycee: "Liceum",
+      stop_lycee_polyvalent: "Liceum wieloprofilowe",
+
+      stop_cite_scolaire: "Zespół szkół",
+
+      stop_hopital: "Szpital",
+      stop_eglise: "Kościół",
+      stop_square: "Skwer",
+      stop_allee: "Aleja",
+      stop_chemin: "Droga",
+      stop_tour: "Wieża",
+      stop_ferme: "Farma",
+      stop_ferme_pedagogique: "Gospodarstwo edukacyjne",
+
+      stop_ministere: "Ministerstwo",
+      stop_ministere_economie_finances: "Ministerstwo Gospodarki i Finansów",
+      stop_echangeur: "Węzeł",
+      icon_gas: "Stacja paliw",
+      icon_bus_station: "Dworzec autobusowy",
+      icon_repair_shop: "Warsztat naprawczy",
+      icon_garage: "Garaż",
+      icon_recruitment_agency: "Agencja rekrutacyjna",
+      icon_dealer: "Dealer",
+      icon_border_control: "Kontrola tożsamości",
+      icon_toll: "Opłata drogowa",
+      icon_parking: "Parking",
+      results_empty: "Brak wyników",
+      results_empty_category: "Brak wyników w kategorii {category}",
+      none: "Brak",
+      villes: "Miasta",
+      emblematic: "Miejsca symboliczne",
+      repair_shops: "Warsztaty naprawcze",
+      agencies: "Agencje rekrutacyjne",
+      dealers: "Dealerzy",
+      companies: "Firmy",
+      malls: "Centra handlowe",
+      see_wiki: "Zobacz w Wikipedii",
+      loading: "Ładowanie...",
+      depart: "Odjazd",
+      terminus: "Końcowy",
+      departures_active: "Podgląd lokalizacji odjazdów linii włączony",
+      departures_disable: "Wyłącz podgląd",
+      destination: "Cel",
+      stop: "Przystanek",
+      home_tooltip: "Wróć do widoku początkowego",
+      maintenance_title: "W trakcie konserwacji",
+      close: "Zamknij",
+      open_link: "Otwórz link",
+      analyze_mode: "Tryb analizy",
+      color_yellow: "Żółty",
+      color_green: "Zielony",
+      color_red: "Czerwony",
+      color_blue: "Niebieski",
+      color_orange: "Pomarańczowy",
+      color_purple: "Fioletowy",
+      color_black: "Czarny",
+      color_white: "Biały",
+      color_grey: "Szary",
+    },
+    pt: {
+      search_placeholder: "Pesquisar...",
+      search_button: "Pesquisar",
+      search_category_label: "Categorias",
+      search_category_all: "Tudo",
+      dbus_button: "Linhas DBus",
+      dbus_mode_label: "Ordenar por",
+      dbus_filter_label: "Filtros",
+      dbus_mode_lines: "Categoria",
+      dbus_mode_length: "Comprimento",
+      dbus_mode_stops: "Paradas de partida",
+      dbus_depart_map_btn: "🗺️ Ver partidas das linhas no mapa",
+      dbus_school_toggle: "Escolares",
+      dbus_fictive_toggle: "Fictícias",
+      dbus_sub_urban: "Urbanas",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Outras redes",
+      lang_btn: "PT",
+      language_label: "Idioma",
+      translate_stop_types: "Traduzir paradas",
+      experimental: "Experimental",
+      lang_fr: "Francês",
+      lang_en: "Inglês",
+      lang_es: "Espanhol",
+      lang_de: "Alemão",
+      lang_pl: "Polonês",
+      lang_pt: "Português",
+      lang_nl: "Neerlandês",
+      lang_it: "Italiano",
+      lang_ru: "Russo",
+      lang_zh: "Chinês",
+      lang_ko: "Coreano",
+      lang_ja: "Japonês",
+      coordinates: "Coordenadas",
+      temporary_stop: "Parada temporária",
+      stop_count_singular: "{count} parada",
+      stop_count_plural: "{count} paradas",
+      recruitment_agency: "Agência de recrutamento",
+      repair_shop: "Oficina de reparo",
+      garage: "Garagem",
+      mall: "Centro comercial",
+      place: "Local",
+      dealer: "Concessionária",
+      city: "Cidade",
+      company: "Empresa",
+      stop_centre_aquatique: "Centro aquático",
+      stop_centre_aquanautique: "Centro aquático",
+      stop_centre_commercial: "Centro comercial",
+      stop_centre_municipal: "Centro municipal",
+      stop_centre_pmi: "Centro de proteção materno-infantil",
+      stop_centre: "Centro",
+      stop_parc_floral: "Parque Floral",
+      stop_parc: "Parque",
+      stop_gare: "Estação",
+      stop_chateau: "Castelo",
+      stop_cimetiere: "Cemitério",
+      stop_ecole_elementaire: "Escola primária",
+      stop_ecole_primaire: "Escola primária",
+      stop_ecole: "Escola",
+      stop_piscine: "Piscina",
+      stop_stade: "Estádio",
+      stop_mairie: "Prefeitura",
+      stop_hotel_de_ville: "Prefeitura",
+      stop_pont: "Ponte",
+      stop_porte: "Porta",
+      stop_place: "Praça",
+      stop_avenue: "Avenida",
+      stop_rue: "Rua",
+      stop_maison: "Casa",
+      stop_plateau: "Planalto",
+      stop_marche_international: "Mercado internacional",
+      dir_north: "Norte",
+      dir_south: "Sul",
+      dir_east: "Este",
+      dir_west: "Oeste",
+      stop_ecole_maternelle: "Jardim de infância",
+      stop_ecole_maternelle_publique: "Jardim de infância público",
+
+      stop_college: "Colégio",
+      stop_lycee: "Liceu",
+      stop_lycee_polyvalent: "Escola secundária polivalente",
+
+      stop_cite_scolaire: "Complexo escolar",
+
+      stop_hopital: "Hospital",
+      stop_eglise: "Igreja",
+      stop_square: "Praça",
+      stop_allee: "Alameda",
+      stop_chemin: "Caminho",
+      stop_tour: "Torre",
+      stop_ferme: "Fazenda",
+      stop_ferme_pedagogique: "Quinta pedagógica",
+
+      stop_ministere: "Ministério",
+      stop_ministere_economie_finances: "Ministério da Economia e Finanças",
+      stop_echangeur: "Entrocamento",
+      icon_gas: "Posto de gasolina",
+      icon_bus_station: "Estação rodoviária",
+      icon_repair_shop: "Oficina de reparo",
+      icon_garage: "Garagem",
+      icon_recruitment_agency: "Agência de recrutamento",
+      icon_dealer: "Concessionária",
+      icon_border_control: "Controle de identidade",
+      icon_toll: "Pedágio",
+      icon_parking: "Estacionamento",
+      results_empty: "Sem resultados",
+      results_empty_category: "Sem resultados na categoria {category}",
+      none: "Nenhuma",
+      villes: "Cidades",
+      emblematic: "Locais emblemáticos",
+      repair_shops: "Oficinas de reparo",
+      agencies: "Agências de recrutamento",
+      dealers: "Concessionárias",
+      companies: "Empresas",
+      malls: "Centros comerciais",
+      see_wiki: "Ver na Wikipédia",
+      loading: "Carregando...",
+      depart: "Partida",
+      terminus: "Terminal",
+      departures_active: "Pré-visualização das localizações de partida das linhas ativa",
+      departures_disable: "Desativar pré-visualização",
+      destination: "Destino",
+      stop: "Parada",
+      home_tooltip: "Voltar à vista inicial",
+      maintenance_title: "Em manutenção",
+      close: "Fechar",
+      open_link: "Abrir link",
+      analyze_mode: "Modo de análise",
+      color_yellow: "Amarelo",
+      color_green: "Verde",
+      color_red: "Vermelho",
+      color_blue: "Azul",
+      color_orange: "Laranja",
+      color_purple: "Roxo",
+      color_black: "Preto",
+      color_white: "Branco",
+      color_grey: "Cinza",
+    },
+    nl: {
+      search_placeholder: "Zoeken...",
+      search_button: "Zoeken",
+      search_category_label: "Categorieën",
+      search_category_all: "Alles",
+      dbus_button: "DBus-lijnen",
+      dbus_mode_label: "Sorteren op",
+      dbus_filter_label: "Filters",
+      dbus_mode_lines: "Categorie",
+      dbus_mode_length: "Lengte",
+      dbus_mode_stops: "Vertrekhaltes",
+      dbus_depart_map_btn: "🗺️ Vertrekken van lijnen op de kaart bekijken",
+      dbus_school_toggle: "Schoollijnen",
+      dbus_fictive_toggle: "Fictief",
+      dbus_sub_urban: "Stedelijk",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Andere netwerken",
+      lang_btn: "NL",
+      language_label: "Taal",
+      translate_stop_types: "Haltes vertalen",
+      experimental: "Experimenteel",
+      lang_fr: "Frans",
+      lang_en: "Engels",
+      lang_es: "Spaans",
+      lang_de: "Duits",
+      lang_pl: "Pools",
+      lang_pt: "Portugees",
+      lang_nl: "Nederlands",
+      lang_it: "Italiaans",
+      lang_ru: "Russisch",
+      lang_zh: "Chinees",
+      lang_ko: "Koreaans",
+      lang_ja: "Japans",
+      coordinates: "Coördinaten",
+      temporary_stop: "Tijdelijke halte",
+      stop_count_singular: "{count} halte",
+      stop_count_plural: "{count} haltes",
+      recruitment_agency: "Wervingsbureau",
+      repair_shop: "Reparatiewerkplaats",
+      garage: "Garage",
+      mall: "Winkelcentrum",
+      place: "Plaats",
+      dealer: "Dealer",
+      city: "Stad",
+      company: "Bedrijf",
+      stop_centre_aquatique: "Aquacentrum",
+      stop_centre_aquanautique: "Aquacentrum",
+      stop_centre_commercial: "Winkelcentrum",
+      stop_centre_municipal: "Gemeentelijk centrum",
+      stop_centre_pmi: "Centrum voor moeder- en kindbescherming",
+      stop_centre: "Centrum",
+      stop_parc_floral: "Bloemenpark",
+      stop_parc: "Park",
+      stop_gare: "Station",
+      stop_chateau: "Kasteel",
+      stop_cimetiere: "Begraafplaats",
+      stop_ecole_elementaire: "Basisschool",
+      stop_ecole_primaire: "Basisschool",
+      stop_ecole: "School",
+      stop_piscine: "Zwembad",
+      stop_stade: "Stadion",
+      stop_mairie: "Gemeentehuis",
+      stop_hotel_de_ville: "Stadhuis",
+      stop_pont: "Brug",
+      stop_porte: "Poort",
+      stop_place: "Plein",
+      stop_avenue: "Laan",
+      stop_rue: "Straat",
+      stop_maison: "Huis",
+      stop_plateau: "Plateau",
+      stop_marche_international: "Internationale markt",
+      dir_north: "Noord",
+      dir_south: "Zuid",
+      dir_east: "Oost",
+      dir_west: "West",
+      stop_ecole_maternelle: "Kleuterschool",
+      stop_ecole_maternelle_publique: "Openbare kleuterschool",
+
+      stop_college: "Middelbare school",
+      stop_lycee: "Lyceum",
+      stop_lycee_polyvalent: "Brede scholengemeenschap",
+
+      stop_cite_scolaire: "Scholencampus",
+
+      stop_hopital: "Ziekenhuis",
+      stop_eglise: "Kerk",
+      stop_square: "Plein",
+      stop_allee: "Laan",
+      stop_chemin: "Pad",
+      stop_tour: "Toren",
+      stop_ferme: "Boerderij",
+      stop_ferme_pedagogique: "Educatieve boerderij",
+
+      stop_ministere: "Ministerie",
+      stop_ministere_economie_finances: "Ministerie van Economie en Financiën",
+      stop_echangeur: "Knooppunt",
+      icon_gas: "Tankstation",
+      icon_bus_station: "Busstation",
+      icon_repair_shop: "Reparatiewerkplaats",
+      icon_garage: "Garage",
+      icon_recruitment_agency: "Wervingsbureau",
+      icon_dealer: "Dealer",
+      icon_border_control: "Identiteitscontrole",
+      icon_toll: "Tol",
+      icon_parking: "Parkeerplaats",
+      results_empty: "Geen resultaten",
+      results_empty_category: "Geen resultaten in de categorie {category}",
+      none: "Geen",
+      villes: "Steden",
+      emblematic: "Bezienswaardigheden",
+      repair_shops: "Reparatiewerkplaatsen",
+      agencies: "Wervingsbureaus",
+      dealers: "Dealers",
+      companies: "Bedrijven",
+      malls: "Winkelcentra",
+      see_wiki: "Bekijk op Wikipedia",
+      loading: "Laden...",
+      depart: "Vertrek",
+      terminus: "Eindpunt",
+      departures_active: "Voorvertoning van vertreklocaties van lijnen actief",
+      departures_disable: "Voorvertoning uitschakelen",
+      destination: "Bestemming",
+      stop: "Halte",
+      home_tooltip: "Terug naar de beginweergave",
+      maintenance_title: "In onderhoud",
+      close: "Sluiten",
+      open_link: "Link openen",
+      analyze_mode: "Analysemodus",
+      color_yellow: "Geel",
+      color_green: "Groen",
+      color_red: "Rood",
+      color_blue: "Blauw",
+      color_orange: "Oranje",
+      color_purple: "Paars",
+      color_black: "Zwart",
+      color_white: "Wit",
+      color_grey: "Grijs",
+    },
+    it: {
+      search_placeholder: "Cerca...",
+      search_button: "Cerca",
+      search_category_label: "Categorie",
+      search_category_all: "Tutto",
+      dbus_button: "Linee DBus",
+      dbus_mode_label: "Ordina per",
+      dbus_filter_label: "Filtri",
+      dbus_mode_lines: "Categoria",
+      dbus_mode_length: "Lunghezza",
+      dbus_mode_stops: "Fermate di partenza",
+      dbus_depart_map_btn: "🗺️ Vedi le partenze delle linee sulla mappa",
+      dbus_school_toggle: "Scolastiche",
+      dbus_fictive_toggle: "Fittizie",
+      dbus_sub_urban: "Urbane",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Altre reti",
+      lang_btn: "IT",
+      language_label: "Lingua",
+      translate_stop_types: "Traduci fermate",
+      experimental: "Sperimentale",
+      lang_fr: "Francese",
+      lang_en: "Inglese",
+      lang_es: "Spagnolo",
+      lang_de: "Tedesco",
+      lang_pl: "Polacco",
+      lang_pt: "Portoghese",
+      lang_nl: "Olandese",
+      lang_it: "Italiano",
+      lang_ru: "Russo",
+      lang_zh: "Cinese",
+      lang_ko: "Coreano",
+      lang_ja: "Giapponese",
+      coordinates: "Coordinate",
+      temporary_stop: "Fermata temporanea",
+      stop_count_singular: "{count} fermata",
+      stop_count_plural: "{count} fermate",
+      recruitment_agency: "Agenzia di reclutamento",
+      repair_shop: "Officina di riparazione",
+      garage: "Garage",
+      mall: "Centro commerciale",
+      place: "Luogo",
+      dealer: "Concessionario",
+      city: "Città",
+      company: "Azienda",
+      stop_centre_aquatique: "Centro acquatico",
+      stop_centre_aquanautique: "Centro acquatico",
+      stop_centre_commercial: "Centro commerciale",
+      stop_centre_municipal: "Centro comunale",
+      stop_centre_pmi: "Centro di protezione materno-infantile",
+      stop_centre: "Centro",
+      stop_parc_floral: "Parco floreale",
+      stop_parc: "Parco",
+      stop_gare: "Stazione",
+      stop_chateau: "Castello",
+      stop_cimetiere: "Cimitero",
+      stop_ecole_elementaire: "Scuola primaria",
+      stop_ecole_primaire: "Scuola primaria",
+      stop_ecole: "Scuola",
+      stop_piscine: "Piscina",
+      stop_stade: "Stadio",
+      stop_mairie: "Municipio",
+      stop_hotel_de_ville: "Municipio",
+      stop_pont: "Ponte",
+      stop_porte: "Porta",
+      stop_place: "Piazza",
+      stop_avenue: "Viale",
+      stop_rue: "Via",
+      stop_maison: "Casa",
+      stop_plateau: "Altopiano",
+      stop_marche_international: "Mercato internazionale",
+      dir_north: "Nord",
+      dir_south: "Sud",
+      dir_east: "Est",
+      dir_west: "Ovest",
+      stop_ecole_maternelle: "Scuola materna",
+      stop_ecole_maternelle_publique: "Scuola materna pubblica",
+
+      stop_college: "Scuola media",
+      stop_lycee: "Liceo",
+      stop_lycee_polyvalent: "Liceo polivalente",
+
+      stop_cite_scolaire: "Complesso scolastico",
+
+      stop_hopital: "Ospedale",
+      stop_eglise: "Chiesa",
+      stop_square: "Piazza",
+      stop_allee: "Viale",
+      stop_chemin: "Sentiero",
+      stop_tour: "Torre",
+      stop_ferme: "Fattoria",
+      stop_ferme_pedagogique: "Fattoria didattica",
+
+      stop_ministere: "Ministero",
+      stop_ministere_economie_finances: "Ministero dell'Economia e delle Finanze",
+      stop_echangeur: "Svincolo",
+      icon_gas: "Stazione di servizio",
+      icon_bus_station: "Stazione autobus",
+      icon_repair_shop: "Officina di riparazione",
+      icon_garage: "Garage",
+      icon_recruitment_agency: "Agenzia di reclutamento",
+      icon_dealer: "Concessionario",
+      icon_border_control: "Controllo identità",
+      icon_toll: "Pedaggio",
+      icon_parking: "Parcheggio",
+      results_empty: "Nessun risultato",
+      results_empty_category: "Nessun risultato nella categoria {category}",
+      none: "Nessuna",
+      villes: "Città",
+      emblematic: "Luoghi emblematici",
+      repair_shops: "Officine di riparazione",
+      agencies: "Agenzie di reclutamento",
+      dealers: "Concessionari",
+      companies: "Aziende",
+      malls: "Centri commerciali",
+      see_wiki: "Vedi su Wikipedia",
+      loading: "Caricamento...",
+      depart: "Partenza",
+      terminus: "Capolinea",
+      departures_active: "Anteprima delle posizioni di partenza delle linee attiva",
+      departures_disable: "Disattiva anteprima",
+      destination: "Destinazione",
+      stop: "Fermata",
+      home_tooltip: "Torna alla vista iniziale",
+      maintenance_title: "In manutenzione",
+      close: "Chiudi",
+      open_link: "Apri link",
+      analyze_mode: "Modalità analisi",
+      color_yellow: "Giallo",
+      color_green: "Verde",
+      color_red: "Rosso",
+      color_blue: "Blu",
+      color_orange: "Arancione",
+      color_purple: "Viola",
+      color_black: "Nero",
+      color_white: "Bianco",
+      color_grey: "Grigio",
+    },
+    ru: {
+      search_placeholder: "Поиск...",
+      search_button: "Поиск",
+      search_category_label: "Категории",
+      search_category_all: "Все",
+      dbus_button: "Линии DBus",
+      dbus_mode_label: "Сортировать по",
+      dbus_filter_label: "Фильтры",
+      dbus_mode_lines: "Категория",
+      dbus_mode_length: "Длина",
+      dbus_mode_stops: "Остановки отправления",
+      dbus_depart_map_btn: "🗺️ Посмотреть отправления линий на карте",
+      dbus_school_toggle: "Школьные",
+      dbus_fictive_toggle: "Вымышленные",
+      dbus_sub_urban: "Городские",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "Другие сети",
+      lang_btn: "RU",
+      language_label: "Язык",
+      translate_stop_types: "Переводить остановки",
+      experimental: "Экспериментально",
+      lang_fr: "Французский",
+      lang_en: "Английский",
+      lang_es: "Испанский",
+      lang_de: "Немецкий",
+      lang_pl: "Польский",
+      lang_pt: "Португальский",
+      lang_nl: "Нидерландский",
+      lang_it: "Итальянский",
+      lang_ru: "Русский",
+      lang_zh: "Китайский",
+      lang_ko: "Корейский",
+      lang_ja: "Японский",
+      coordinates: "Координаты",
+      temporary_stop: "Временная остановка",
+      stop_count_singular: "{count} остановка",
+      stop_count_plural: "{count} остановок",
+      recruitment_agency: "Кадровое агентство",
+      repair_shop: "Ремонтная мастерская",
+      garage: "Гараж",
+      mall: "Торговый центр",
+      place: "Место",
+      dealer: "Дилер",
+      city: "Город",
+      company: "Компания",
+      stop_centre_aquatique: "Аквацентр",
+      stop_centre_aquanautique: "Аквацентр",
+      stop_centre_commercial: "Торговый центр",
+      stop_centre_municipal: "Муниципальный центр",
+      stop_centre_pmi: "Центр охраны материнства и детства",
+      stop_centre: "Центр",
+      stop_parc_floral: "Цветочный парк",
+      stop_parc: "Парк",
+      stop_gare: "Станция",
+      stop_chateau: "Замок",
+      stop_cimetiere: "Кладбище",
+      stop_ecole_elementaire: "Начальная школа",
+      stop_ecole_primaire: "Начальная школа",
+      stop_ecole: "Школа",
+      stop_piscine: "Бассейн",
+      stop_stade: "Стадион",
+      stop_mairie: "Мэрия",
+      stop_hotel_de_ville: "Мэрия",
+      stop_pont: "Мост",
+      stop_porte: "Ворота",
+      stop_place: "Площадь",
+      stop_avenue: "Проспект",
+      stop_rue: "Улица",
+      stop_maison: "Дом",
+      stop_plateau: "Плато",
+      stop_marche_international: "Международный рынок",
+      dir_north: "Север",
+      dir_south: "Юг",
+      dir_east: "Восток",
+      dir_west: "Запад",
+      stop_ecole_maternelle: "Детский сад",
+      stop_ecole_maternelle_publique: "Государственный детский сад",
+
+      stop_college: "Средняя школа",
+      stop_lycee: "Лицей",
+      stop_lycee_polyvalent: "Многопрофильный лицей",
+
+      stop_cite_scolaire: "Школьный комплекс",
+
+      stop_hopital: "Больница",
+      stop_eglise: "Церковь",
+      stop_square: "Сквер",
+      stop_allee: "Аллея",
+      stop_chemin: "Дорога",
+      stop_tour: "Башня",
+      stop_ferme: "Ферма",
+      stop_ferme_pedagogique: "Учебная ферма",
+
+      stop_ministere: "Министерство",
+      stop_ministere_economie_finances: "Министерство экономики и финансов",
+      stop_echangeur: "Развязка",
+      icon_gas: "Заправка",
+      icon_bus_station: "Автовокзал",
+      icon_repair_shop: "Ремонтная мастерская",
+      icon_garage: "Гараж",
+      icon_recruitment_agency: "Кадровое агентство",
+      icon_dealer: "Дилер",
+      icon_border_control: "Проверка личности",
+      icon_toll: "Платная дорога",
+      icon_parking: "Парковка",
+      results_empty: "Нет результатов",
+      results_empty_category: "Нет результатов в категории {category}",
+      none: "Нет",
+      villes: "Города",
+      emblematic: "Знаковые места",
+      repair_shops: "Ремонтные мастерские",
+      agencies: "Агентства по подбору персонала",
+      dealers: "Дилеры",
+      companies: "Компании",
+      malls: "Торговые центры",
+      see_wiki: "Смотреть в Википедии",
+      loading: "Загрузка...",
+      depart: "Отправление",
+      terminus: "Конечная",
+      departures_active: "Предпросмотр мест отправления линий активен",
+      departures_disable: "Отключить предпросмотр",
+      destination: "Назначение",
+      stop: "Остановка",
+      home_tooltip: "Вернуться к первоначальному виду",
+      maintenance_title: "На обслуживании",
+      close: "Закрыть",
+      open_link: "Открыть ссылку",
+      analyze_mode: "Режим анализа",
+      color_yellow: "Желтый",
+      color_green: "Зеленый",
+      color_red: "Красный",
+      color_blue: "Синий",
+      color_orange: "Оранжевый",
+      color_purple: "Фиолетовый",
+      color_black: "Черный",
+      color_white: "Белый",
+      color_grey: "Серый",
+    },
+    zh: {
+      search_placeholder: "搜索...",
+      search_button: "搜索",
+      search_category_label: "类别",
+      search_category_all: "全部",
+      dbus_button: "DBus线路",
+      dbus_mode_label: "排序依据",
+      dbus_filter_label: "筛选",
+      dbus_mode_lines: "类别",
+      dbus_mode_length: "长度",
+      dbus_mode_stops: "出发站点",
+      dbus_depart_map_btn: "🗺️ 在地图上查看线路出发点",
+      dbus_school_toggle: "校车",
+      dbus_fictive_toggle: "虚构",
+      dbus_sub_urban: "城市",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "其他网络",
+      lang_btn: "ZH",
+      language_label: "语言",
+      translate_stop_types: "翻译站点",
+      experimental: "实验性",
+      lang_fr: "法语",
+      lang_en: "英语",
+      lang_es: "西班牙语",
+      lang_de: "德语",
+      lang_pl: "波兰语",
+      lang_pt: "葡萄牙语",
+      lang_nl: "荷兰语",
+      lang_it: "意大利语",
+      lang_ru: "俄语",
+      lang_zh: "中文",
+      lang_ko: "韩语",
+      lang_ja: "日语",
+      coordinates: "坐标",
+      temporary_stop: "临时站点",
+      stop_count_singular: "{count} 站",
+      stop_count_plural: "{count} 站",
+      recruitment_agency: "招聘机构",
+      repair_shop: "维修车间",
+      garage: "车库",
+      mall: "购物中心",
+      place: "地点",
+      dealer: "经销商",
+      city: "城市",
+      company: "公司",
+      stop_centre_aquatique: "水上中心",
+      stop_centre_aquanautique: "水上中心",
+      stop_centre_commercial: "购物中心",
+      stop_centre_municipal: "市政中心",
+      stop_centre_pmi: "母婴保健中心",
+      stop_centre: "中心",
+      stop_parc_floral: "花卉公园",
+      stop_parc: "公园",
+      stop_gare: "车站",
+      stop_chateau: "城堡",
+      stop_cimetiere: "公墓",
+      stop_ecole_elementaire: "小学",
+      stop_ecole_primaire: "小学",
+      stop_ecole: "学校",
+      stop_piscine: "游泳馆",
+      stop_stade: "体育场",
+      stop_mairie: "市政厅",
+      stop_hotel_de_ville: "市政厅",
+      stop_pont: "桥",
+      stop_porte: "门",
+      stop_place: "广场",
+      stop_avenue: "大道",
+      stop_rue: "街",
+      stop_maison: "之家",
+      stop_plateau: "高原",
+      stop_marche_international: "国际市场",
+      dir_north: "北",
+      dir_south: "南",
+      dir_east: "东",
+      dir_west: "西",
+      stop_ecole_maternelle: "幼儿园",
+      stop_ecole_maternelle_publique: "公立幼儿园",
+
+      stop_college: "初中",
+      stop_lycee: "高中",
+      stop_lycee_polyvalent: "综合高中",
+
+      stop_cite_scolaire: "校园",
+
+      stop_hopital: "医院",
+      stop_eglise: "教堂",
+      stop_square: "广场",
+      stop_allee: "林荫道",
+      stop_chemin: "小路",
+      stop_tour: "塔",
+      stop_ferme: "农场",
+      stop_ferme_pedagogique: "教育农场",
+
+      stop_ministere: "部",
+      stop_ministere_economie_finances: "经济和财政部",
+      stop_echangeur: "立交",
+      icon_gas: "加油站",
+      icon_bus_station: "汽车站",
+      icon_repair_shop: "维修车间",
+      icon_garage: "车库",
+      icon_recruitment_agency: "招聘机构",
+      icon_dealer: "经销商",
+      icon_border_control: "身份检查",
+      icon_toll: "收费站",
+      icon_parking: "停车场",
+      results_empty: "没有结果",
+      results_empty_category: "类别 {category} 中没有结果",
+      none: "无",
+      villes: "城市",
+      emblematic: "标志性地点",
+      repair_shops: "维修车间",
+      agencies: "招聘机构",
+      dealers: "经销商",
+      companies: "企业",
+      malls: "购物中心",
+      see_wiki: "在维基百科查看",
+      loading: "加载中...",
+      depart: "出发",
+      terminus: "终点",
+      departures_active: "线路出发位置预览已启用",
+      departures_disable: "禁用预览",
+      destination: "目的地",
+      stop: "站点",
+      home_tooltip: "返回初始视图",
+      maintenance_title: "维护中",
+      close: "关闭",
+      open_link: "打开链接",
+      analyze_mode: "分析模式",
+      color_yellow: "黄色",
+      color_green: "绿色",
+      color_red: "红色",
+      color_blue: "蓝色",
+      color_orange: "橙色",
+      color_purple: "紫色",
+      color_black: "黑色",
+      color_white: "白色",
+      color_grey: "灰色",
+    },
+    ko: {
+      search_placeholder: "검색...",
+      search_button: "검색",
+      search_category_label: "카테고리",
+      search_category_all: "전체",
+      dbus_button: "DBus 노선",
+      dbus_mode_label: "정렬 기준",
+      dbus_filter_label: "필터",
+      dbus_mode_lines: "카테고리",
+      dbus_mode_length: "길이",
+      dbus_mode_stops: "출발 정류장",
+      dbus_depart_map_btn: "🗺️ 지도에서 노선 출발 지점 보기",
+      dbus_school_toggle: "학교 노선",
+      dbus_fictive_toggle: "가상",
+      dbus_sub_urban: "도시",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "기타 네트워크",
+      lang_btn: "KO",
+      language_label: "언어",
+      translate_stop_types: "정류장 번역",
+      experimental: "실험적",
+      lang_fr: "프랑스어",
+      lang_en: "영어",
+      lang_es: "스페인어",
+      lang_de: "독일어",
+      lang_pl: "폴란드어",
+      lang_pt: "포르투갈어",
+      lang_nl: "네덜란드어",
+      lang_it: "이탈리아어",
+      lang_ru: "러시아어",
+      lang_zh: "중국어",
+      lang_ko: "한국어",
+      lang_ja: "일본어",
+      coordinates: "좌표",
+      temporary_stop: "임시 정류장",
+      stop_count_singular: "{count} 정류장",
+      stop_count_plural: "{count} 정류장",
+      recruitment_agency: "채용 대행사",
+      repair_shop: "수리점",
+      garage: "차고",
+      mall: "쇼핑센터",
+      place: "장소",
+      dealer: "대리점",
+      city: "도시",
+      company: "회사",
+      stop_centre_aquatique: "아쿠아센터",
+      stop_centre_aquanautique: "아쿠아센터",
+      stop_centre_commercial: "쇼핑센터",
+      stop_centre_municipal: "시립 센터",
+      stop_centre_pmi: "모자보건센터",
+      stop_centre: "센터",
+      stop_parc_floral: "꽃공원",
+      stop_parc: "공원",
+      stop_gare: "역",
+      stop_chateau: "성",
+      stop_cimetiere: "묘지",
+      stop_ecole_elementaire: "초등학교",
+      stop_ecole_primaire: "초등학교",
+      stop_ecole: "학교",
+      stop_piscine: "수영장",
+      stop_stade: "경기장",
+      stop_mairie: "시청",
+      stop_hotel_de_ville: "시청",
+      stop_pont: "다리",
+      stop_porte: "문",
+      stop_place: "광장",
+      stop_avenue: "대로",
+      stop_rue: "거리",
+      stop_maison: "집",
+      stop_plateau: "고원",
+      stop_marche_international: "국제 시장",
+      dir_north: "북",
+      dir_south: "남",
+      dir_east: "동",
+      dir_west: "서",
+      stop_ecole_maternelle: "유치원",
+      stop_ecole_maternelle_publique: "공립 유치원",
+
+      stop_college: "중학교",
+      stop_lycee: "고등학교",
+      stop_lycee_polyvalent: "종합고등학교",
+
+      stop_cite_scolaire: "학교 캠퍼스",
+
+      stop_hopital: "병원",
+      stop_eglise: "교회",
+      stop_square: "광장",
+      stop_allee: "가로수길",
+      stop_chemin: "길",
+      stop_tour: "탑",
+      stop_ferme: "농장",
+      stop_ferme_pedagogique: "교육 농장",
+
+      stop_ministere: "부",
+      stop_ministere_economie_finances: "경제재정부",
+      stop_echangeur: "입체교차로",
+      icon_gas: "주유소",
+      icon_bus_station: "버스터미널",
+      icon_repair_shop: "수리점",
+      icon_garage: "차고",
+      icon_recruitment_agency: "채용 대행사",
+      icon_dealer: "대리점",
+      icon_border_control: "신원 확인",
+      icon_toll: "통행료",
+      icon_parking: "주차장",
+      results_empty: "결과 없음",
+      results_empty_category: "카테고리 {category}에 결과가 없습니다",
+      none: "없음",
+      villes: "도시",
+      emblematic: "상징적 장소",
+      repair_shops: "수리점",
+      agencies: "채용 대행사",
+      dealers: "대리점",
+      companies: "기업",
+      malls: "쇼핑몰",
+      see_wiki: "위키백과에서 보기",
+      loading: "로딩 중...",
+      depart: "출발",
+      terminus: "종점",
+      departures_active: "노선 출발 위치 미리보기 활성화됨",
+      departures_disable: "미리보기 비활성화",
+      destination: "목적지",
+      stop: "정류장",
+      home_tooltip: "초기 보기로 돌아가기",
+      maintenance_title: "점검 중",
+      close: "닫기",
+      open_link: "링크 열기",
+      analyze_mode: "분석 모드",
+      color_yellow: "노랑",
+      color_green: "초록",
+      color_red: "빨강",
+      color_blue: "파랑",
+      color_orange: "주황",
+      color_purple: "보라",
+      color_black: "검정",
+      color_white: "흰색",
+      color_grey: "회색",
+    },
+    ja: {
+      search_placeholder: "検索...",
+      search_button: "検索",
+      search_category_label: "カテゴリ",
+      search_category_all: "すべて",
+      dbus_button: "DBus路線",
+      dbus_mode_label: "並び替え",
+      dbus_filter_label: "フィルター",
+      dbus_mode_lines: "カテゴリ",
+      dbus_mode_length: "長さ",
+      dbus_mode_stops: "出発停留所",
+      dbus_depart_map_btn: "🗺️ 地図で路線の出発点を見る",
+      dbus_school_toggle: "スクール路線",
+      dbus_fictive_toggle: "架空",
+      dbus_sub_urban: "都市",
+      dbus_sub_noctilien: "Noctilien",
+      dbus_sub_other_networks: "その他のネットワーク",
+      lang_btn: "JA",
+      language_label: "言語",
+      translate_stop_types: "停留所を翻訳",
+      experimental: "実験的",
+      lang_fr: "フランス語",
+      lang_en: "英語",
+      lang_es: "スペイン語",
+      lang_de: "ドイツ語",
+      lang_pl: "ポーランド語",
+      lang_pt: "ポルトガル語",
+      lang_nl: "オランダ語",
+      lang_it: "イタリア語",
+      lang_ru: "ロシア語",
+      lang_zh: "中国語",
+      lang_ko: "韓国語",
+      lang_ja: "日本語",
+      coordinates: "座標",
+      temporary_stop: "臨時停留所",
+      stop_count_singular: "{count} 停留所",
+      stop_count_plural: "{count} 停留所",
+      recruitment_agency: "人材紹介会社",
+      repair_shop: "修理工房",
+      garage: "ガレージ",
+      mall: "ショッピングセンター",
+      place: "場所",
+      dealer: "ディーラー",
+      city: "都市",
+      company: "企業",
+      stop_centre_aquatique: "アクアセンター",
+      stop_centre_aquanautique: "アクアセンター",
+      stop_centre_commercial: "ショッピングセンター",
+      stop_centre_municipal: "市民センター",
+      stop_centre_pmi: "母子保健センター",
+      stop_centre: "センター",
+      stop_parc_floral: "フローラルパーク",
+      stop_parc: "公園",
+      stop_gare: "駅",
+      stop_chateau: "城",
+      stop_cimetiere: "墓地",
+      stop_ecole_elementaire: "小学校",
+      stop_ecole_primaire: "小学校",
+      stop_ecole: "学校",
+      stop_piscine: "プール",
+      stop_stade: "スタジアム",
+      stop_mairie: "市役所",
+      stop_hotel_de_ville: "市役所",
+      stop_pont: "橋",
+      stop_porte: "門",
+      stop_place: "広場",
+      stop_avenue: "大通り",
+      stop_rue: "通り",
+      stop_maison: "ハウス",
+      stop_plateau: "高原",
+      stop_marche_international: "国際市場",
+      dir_north: "北",
+      dir_south: "南",
+      dir_east: "東",
+      dir_west: "西",
+      stop_ecole_maternelle: "幼稚園",
+      stop_ecole_maternelle_publique: "公立幼稚園",
+
+      stop_college: "中学校",
+      stop_lycee: "高校",
+      stop_lycee_polyvalent: "総合高校",
+
+      stop_cite_scolaire: "学校キャンパス",
+
+      stop_hopital: "病院",
+      stop_eglise: "教会",
+      stop_square: "広場",
+      stop_allee: "並木道",
+      stop_chemin: "道",
+      stop_tour: "塔",
+      stop_ferme: "農場",
+      stop_ferme_pedagogique: "教育農場",
+
+      stop_ministere: "省",
+      stop_ministere_economie_finances: "経済財政省",
+      stop_echangeur: "ジャンクション",
+      icon_gas: "ガソリンスタンド",
+      icon_bus_station: "バスターミナル",
+      icon_repair_shop: "修理工房",
+      icon_garage: "ガレージ",
+      icon_recruitment_agency: "人材紹介会社",
+      icon_dealer: "ディーラー",
+      icon_border_control: "身分確認",
+      icon_toll: "料金所",
+      icon_parking: "駐車場",
+      results_empty: "結果がありません",
+      results_empty_category: "カテゴリ {category} に結果はありません",
+      none: "なし",
+      villes: "都市",
+      emblematic: "象徴的な場所",
+      repair_shops: "修理工房",
+      agencies: "人材紹介会社",
+      dealers: "ディーラー",
+      companies: "企業",
+      malls: "ショッピングセンター",
+      see_wiki: "Wikipediaで見る",
+      loading: "読み込み中...",
+      depart: "出発",
+      terminus: "終点",
+      departures_active: "路線の出発位置のプレビューが有効です",
+      departures_disable: "プレビューを無効化",
+      destination: "目的地",
+      stop: "停留所",
+      home_tooltip: "初期表示に戻る",
+      maintenance_title: "メンテナンス中",
+      close: "閉じる",
+      open_link: "リンクを開く",
+      analyze_mode: "分析モード",
+      color_yellow: "黄色",
+      color_green: "緑",
+      color_red: "赤",
+      color_blue: "青",
+      color_orange: "オレンジ",
+      color_purple: "紫",
+      color_black: "黒",
+      color_white: "白",
+      color_grey: "灰色",
     }
   };
-  const SUPPORTED = new Set(["fr","en"]);
+  const LANG_OPTIONS = [
+    { code: "fr", label: "Français", flagSrc: "https://flagcdn.com/w40/fr.png" },
+    { code: "en", label: "English", flagSrc: "https://flagcdn.com/w40/gb.png" },
+    { code: "es", label: "Español", flagSrc: "https://flagcdn.com/w40/es.png" },
+    { code: "de", label: "Deutsch", flagSrc: "https://flagcdn.com/w40/de.png" },
+    { code: "pl", label: "Polski", flagSrc: "https://flagcdn.com/w40/pl.png" },
+    { code: "pt", label: "Português", flagSrc: "https://flagcdn.com/w40/pt.png" },
+    { code: "nl", label: "Nederlands", flagSrc: "https://flagcdn.com/w40/nl.png" },
+    { code: "it", label: "Italiano", flagSrc: "https://flagcdn.com/w40/it.png" },
+    { code: "ru", label: "Русский", flagSrc: "https://flagcdn.com/w40/ru.png" },
+    { code: "zh", label: "中文", flagSrc: "https://flagcdn.com/w40/cn.png" },
+    { code: "ko", label: "한국어", flagSrc: "https://flagcdn.com/w40/kr.png" },
+    { code: "ja", label: "日本語", flagSrc: "https://flagcdn.com/w40/jp.png" }
+  ];
+  const LANG_META = Object.fromEntries(LANG_OPTIONS.map(entry => [entry.code, entry]));
+  const SUPPORTED = new Set(LANG_OPTIONS.map(entry => entry.code));
   function detectInitialLang(){
     const qs = new URLSearchParams(location.search);
     const fromURL = (qs.get("lang")||"").toLowerCase();
@@ -1007,7 +2691,174 @@
     return SUPPORTED.has(nav) ? nav : "fr";
   }
   let LANG = detectInitialLang();
+  const STOP_TYPE_TRANSLATION_KEY = "idf_translate_stop_types";
+  let TRANSLATE_STOP_TYPES = (() => {
+    const stored = localStorage.getItem(STOP_TYPE_TRANSLATION_KEY);
+    return stored === "1" || stored === "true";
+  })();
   function t(key){ return (I18N[LANG] && I18N[LANG][key]) || (I18N.fr[key]||key); }
+  const STOP_PREFIXES = [
+    { re: /^centre\s+de\s+protection\s+maternelle\s+et\s+infantile\b/i, key: "stop_centre_pmi" },
+    { re: /^centre\s+aquanautique\b/i, key: "stop_centre_aquanautique" },
+    { re: /^centre\s+aquatique\b/i, key: "stop_centre_aquatique" },
+    { re: /^centre\s+commercial\b/i, key: "stop_centre_commercial" },
+    { re: /^centre\s+municipal\b/i, key: "stop_centre_municipal" },
+    { re: /^march[eé]\s+international\b/i, key: "stop_marche_international" },
+    { re: /^parc\s+floral\b/i, key: "stop_parc_floral" },
+    { re: /^plateau\b/i, key: "stop_plateau" },
+    { re: /^h(?:ô|o)tel\s+de\s+ville\b/i, key: "stop_hotel_de_ville" },
+    { re: /^(?:é|e)cole\s+(?:élémentaire|elementaire)\b/i, key: "stop_ecole_elementaire" },
+    { re: /^(?:é|e)l[ée]mentaire\b/i, key: "stop_ecole" },
+    { re: /^(?:é|e)cole\s+primaire\b/i, key: "stop_ecole_primaire" },
+    { re: /^(?:é|e)cole\s+maternelle\s+publique\b/i, key: "stop_ecole_maternelle_publique" },
+    { re: /^(?:é|e)cole\s+maternelle\b/i, key: "stop_ecole_maternelle" },
+    { re: /^cit[ée]\s+scolaire\b/i, key: "stop_cite_scolaire" },
+    { re: /^(?:é|e)cole\b/i, key: "stop_ecole" },
+    { re: /^coll[èe]ge\b/i, key: "stop_college" },
+    { re: /^lyc[ée]e\s+polyvalent\b/i, key: "stop_lycee_polyvalent" },
+    { re: /^lyc[ée]e\b/i, key: "stop_lycee" },
+    { re: /^h[ôo]pital\b/i, key: "stop_hopital" },
+    { re: /^(?:é|e)glise\b/i, key: "stop_eglise" },
+    { re: /^square\b/i, key: "stop_square" },
+    { re: /^all[ée]e\b/i, key: "stop_allee" },
+    { re: /^chemin\b/i, key: "stop_chemin" },
+    { re: /^tour\b/i, key: "stop_tour" },
+    { re: /^ferme\s+p[ée]dagogique\b/i, key: "stop_ferme_pedagogique" },
+    { re: /^ferme\b/i, key: "stop_ferme" },
+    { re: /^minist[èe]re\s+de\s+l['’]?(?:é|e)conomie\s+et\s+des\s+finances\b/i, key: "stop_ministere_economie_finances" },
+    { re: /^minist[èe]re\b/i, key: "stop_ministere" },
+    { re: /^(?:é|e)changeur\b/i, key: "stop_echangeur" },
+    { re: /^(?:cimetière|cimetiere)\b/i, key: "stop_cimetiere" },
+    { re: /^(?:château|chateau)\b/i, key: "stop_chateau" },
+    { re: /^gare\b/i, key: "stop_gare" },
+    { re: /^piscine\b/i, key: "stop_piscine" },
+    { re: /^stade\b/i, key: "stop_stade" },
+    { re: /^mairie\b/i, key: "stop_mairie" },
+    { re: /^pont\b/i, key: "stop_pont" },
+    { re: /^porte\b/i, key: "stop_porte" },
+    { re: /^place\b/i, key: "stop_place" },
+    { re: /^avenue\b/i, key: "stop_avenue" },
+    { re: /^rue\b/i, key: "stop_rue" },
+    { re: /^parc\b/i, key: "stop_parc" },
+    { re: /^centre\b/i, key: "stop_centre" },
+    { re: /^maison\b/i, key: "stop_maison" },
+    { re: /^jaune\b/i, key: "color_yellow" },
+    { re: /^vert\b/i, key: "color_green" },
+    { re: /^verte\b/i, key: "color_green" },
+    { re: /^rouge\b/i, key: "color_red" },
+    { re: /^bleu/i, key: "color_blue" },
+    { re: /^bleue/i, key: "color_blue" },
+    { re: /^orange\b/i, key: "color_orange" },
+    { re: /^violet\b/i, key: "color_purple" },
+    { re: /^violete\b/i, key: "color_purple" },
+    { re: /^blanc\b/i, key: "color_white" },
+    { re: /^blanche\b/i, key: "color_white" },
+    { re: /^noir\b/i, key: "color_black" },
+    { re: /^noire\b/i, key: "color_black" },
+    { re: /^gris\b/i, key: "color_grey" },
+    { re: /^grise\b/i, key: "color_grey" },
+  ];
+  const POSTFIX_LANGS = new Set(["en"]);
+  function stripFrenchJoiners(text){
+    let s = String(text || "").trim();
+    let prev;
+    do {
+      prev = s;
+      s = s.replace(/^(?:d['’]|de l['’]|de la|du|des|de|l['’]|la|le|les)\s*/i, "").trim();
+    } while (s && s !== prev);
+    return s;
+  }
+  function appendPostfix(base, postfix){
+    const trimmed = String(base || "").trim();
+    if (!trimmed) return postfix;
+    const m = trimmed.match(/^(.*?)(\s*\([^)]*\))$/);
+    if (m) {
+      const main = (m[1] || "").trim();
+      if (main) return `${main} ${postfix}${m[2]}`.replace(/\s+/g, " ").trim();
+      return `${postfix}${m[2]}`.replace(/\s+/g, " ").trim();
+    }
+    return `${trimmed} ${postfix}`.replace(/\s+/g, " ").trim();
+  }
+  function endsWithWord(text, word){
+    const t = String(text || "").trim();
+    const w = String(word || "").trim();
+    if (!t || !w) return false;
+    const m = t.match(/^(.*?)(\s*\([^)]*\))$/);
+    const core = (m ? m[1] : t).trim();
+    const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`\\b${escaped}$`, "i").test(core);
+  }
+  function startsWithWord(text, word){
+    const t = String(text || "").trim();
+    const w = String(word || "").trim();
+    if (!t || !w) return false;
+    const m = t.match(/^(.*?)(\s*\([^)]*\))$/);
+    const core = (m ? m[1] : t).trim();
+    const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`^${escaped}\\b`, "i").test(core);
+  }
+  function translateDirectionTokens(text){
+    if (!TRANSLATE_STOP_TYPES || LANG === "fr") return text;
+    let s = String(text || "");
+    const tokens = [
+      { re: /\bnord\b/gi, key: "dir_north" },
+      { re: /\bsud\b/gi, key: "dir_south" },
+      { re: /\best\b/gi, key: "dir_east" },
+      { re: /\bouest\b/gi, key: "dir_west" },
+    ];
+    tokens.forEach(({ re, key }) => { s = s.replace(re, t(key)); });
+    return s;
+  }
+  function translateStopNameSegment(name, depth = 0){
+    const raw = String(name || "").trim();
+    if (!raw || !TRANSLATE_STOP_TYPES || LANG === "fr") return raw;
+    if (depth > 2) return raw;
+    for (const { re, key } of STOP_PREFIXES){
+      if (re.test(raw)) {
+        const translatedPrefix = t(key);
+        const remainderRaw = raw.replace(re, "").trim();
+        const remainderNoJoin = stripFrenchJoiners(remainderRaw);
+        let remainderTranslated = remainderNoJoin ? translateStopNameSegment(remainderNoJoin, depth + 1) : "";
+        remainderTranslated = translateDirectionTokens(remainderTranslated);
+        if (POSTFIX_LANGS.has(LANG) && remainderTranslated) {
+          if (endsWithWord(remainderTranslated, translatedPrefix)) return remainderTranslated;
+          return appendPostfix(remainderTranslated, translatedPrefix);
+        }
+        if (remainderTranslated) {
+          if (startsWithWord(remainderTranslated, translatedPrefix)) return remainderTranslated;
+          return `${translatedPrefix} ${remainderTranslated}`.replace(/\s+/g, " ").trim();
+        }
+        return translatedPrefix;
+      }
+    }
+    return raw;
+  }
+  function translateStopName(raw){
+    const name = String(raw || "").trim();
+    if (!name || !TRANSLATE_STOP_TYPES || LANG === "fr") return name;
+    const parts = name.split(/(\s+[–—/]\s+|\s+-\s+)/);
+    if (parts.length > 1) {
+      const translated = parts.map(part => {
+        if (/^\s*[-–—/]\s*$/.test(part)) return part;
+        return translateStopNameSegment(part, 0);
+      }).join("");
+      return translateDirectionTokens(translated).replace(/\s+/g, " ").trim();
+    }
+    return translateDirectionTokens(translateStopNameSegment(name, 0)).replace(/\s+/g, " ").trim();
+  }
+  const I18N_LAYERS = [];
+  function registerI18nLayer(layer, updater){
+    if (!layer || typeof updater !== "function") return;
+    I18N_LAYERS.push({ layer, updater });
+  }
+  function refreshI18nLayers(){
+    I18N_LAYERS.forEach(entry => {
+      const layer = entry.layer;
+      if (!layer || typeof layer.getPopup !== "function") return;
+      if (!layer.getPopup()) return;
+      try { entry.updater(); } catch {}
+    });
+  }
   const SEARCH_CATEGORY_ALL = "ALL";
   const ALL_TYPES = [ "Ville","Monument","Atelier","Agence","Concessionnaire","Entreprise" ];
   let ACTIVE_SEARCH_CATEGORY = SEARCH_CATEGORY_ALL;
@@ -1039,17 +2890,184 @@
     const label = searchCategoryDisplay(ACTIVE_SEARCH_CATEGORY);
     return t("results_empty_category").replace("{category}", label);
   }
+  function langLabel(code){
+    const meta = LANG_META[code];
+    if (meta && meta.label) return meta.label;
+    return String(code || "").toUpperCase();
+  }
+  function formatStopCount(count){
+    const key = count === 1 ? "stop_count_singular" : "stop_count_plural";
+    return t(key).replace("{count}", count);
+  }
+  function formatStopDuration(count, durationText, format = "paren"){
+    const base = formatStopCount(count);
+    if (!durationText) return base;
+    if (format === "dash") return `${base} - ${durationText}`;
+    return `${base} (${durationText})`;
+  }
+  function dbusCategoryTitle(key){
+    if (key === "Scolaire") return t("dbus_school_toggle");
+    if (key === "Autres") return t("dbus_fictive_toggle");
+    if (key === "Urbain") return "IDFM";
+    if (key === "Noctilien") return "Noctiliens";
+    if (key === "FlixBus") return "FlixBus";
+    return key;
+  }
+  function setStopDurationText(el, stopCount, durationText, format){
+    if (!el) return;
+    el.dataset.stopCount = String(stopCount);
+    el.dataset.durationText = String(durationText || "");
+    el.dataset.durationFormat = format || "paren";
+    el.textContent = formatStopDuration(stopCount, durationText, format);
+  }
+  function typeFallbackLabel(type){
+    if (type === "Agence") return t("recruitment_agency");
+    if (type === "Atelier") return t("repair_shop");
+    if (type === "Garage") return t("garage");
+    return type;
+  }
+  function setStopTypeTranslation(enabled, { persist = true, apply = true } = {}) {
+    TRANSLATE_STOP_TYPES = !!enabled;
+    if (persist) {
+      localStorage.setItem(STOP_TYPE_TRANSLATION_KEY, TRANSLATE_STOP_TYPES ? "1" : "0");
+    }
+    if (apply) applyI18N();
+  }
   function wikiBase(){ return LANG === "en" ? "https://en.wikipedia.org/wiki/" : "https://fr.wikipedia.org/wiki/"; }
+  function buildLangMenu(){
+    const menu = document.getElementById("langMenu");
+    if (!menu) return;
+    menu.innerHTML = "";
+    LANG_OPTIONS.forEach(option => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lang-option";
+      btn.setAttribute("role", "option");
+      btn.dataset.lang = option.code;
+      btn.setAttribute("aria-selected", option.code === LANG ? "true" : "false");
+      const img = document.createElement("img");
+      img.className = "lang-flag";
+      img.src = option.flagSrc;
+      img.alt = "";
+      img.loading = "lazy";
+      img.setAttribute("aria-hidden", "true");
+      const name = document.createElement("span");
+      name.className = "lang-name";
+      name.textContent = langLabel(option.code);
+      btn.appendChild(img);
+      btn.appendChild(name);
+      btn.addEventListener("click", () => {
+        setLang(option.code);
+      });
+      menu.appendChild(btn);
+    });
+
+    const sep = document.createElement("div");
+    sep.className = "lang-menu-sep";
+    menu.appendChild(sep);
+
+    const toggleRow = document.createElement("label");
+    toggleRow.className = "lang-toggle-row";
+    const toggle = document.createElement("input");
+    toggle.type = "checkbox";
+    toggle.id = "langStopTypeToggle";
+    toggle.checked = !!TRANSLATE_STOP_TYPES;
+    toggle.setAttribute("aria-label", t("translate_stop_types"));
+    toggle.addEventListener("change", (event) => {
+      if (LANG === "fr") {
+        event.target.checked = false;
+        return;
+      }
+      setStopTypeTranslation(event.target.checked);
+    });
+    const toggleLabel = document.createElement("span");
+    toggleLabel.className = "lang-toggle-label";
+    toggleLabel.textContent = t("translate_stop_types");
+    const badge = document.createElement("span");
+    badge.className = "lang-toggle-badge";
+    badge.textContent = t("experimental");
+    toggleRow.appendChild(toggle);
+    toggleRow.appendChild(toggleLabel);
+    toggleRow.appendChild(badge);
+    menu.appendChild(toggleRow);
+  }
+  function setLangMenuOpen(open){
+    const menu = document.getElementById("langMenu");
+    const btn = document.getElementById("langToggle");
+    if (!menu || !btn) return;
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  function isLangMenuOpen(){
+    const menu = document.getElementById("langMenu");
+    return !!menu && menu.getAttribute("aria-hidden") === "false";
+  }
+  function openLangMenu(){ setLangMenuOpen(true); }
+  function closeLangMenu(){ setLangMenuOpen(false); }
+  function toggleLangMenu(){ isLangMenuOpen() ? closeLangMenu() : openLangMenu(); }
+  function updateLangUI(){
+    const meta = LANG_META[LANG] || LANG_META.fr;
+    const btn = document.getElementById("langToggle");
+    if (btn) {
+      const flag = btn.querySelector(".lang-flag");
+      if (flag) flag.src = meta.flagSrc;
+      const label = `${t("language_label")}: ${langLabel(LANG)}`;
+      btn.setAttribute("aria-label", label);
+      btn.title = label;
+    }
+    const menu = document.getElementById("langMenu");
+    if (menu) {
+      menu.setAttribute("aria-label", t("language_label"));
+      menu.querySelectorAll(".lang-option").forEach(option => {
+        const isActive = option.dataset.lang === LANG;
+        option.setAttribute("aria-selected", isActive ? "true" : "false");
+        const name = option.querySelector(".lang-name");
+        if (name) name.textContent = langLabel(option.dataset.lang);
+      });
+      const toggle = menu.querySelector("#langStopTypeToggle");
+      const toggleRow = menu.querySelector(".lang-toggle-row");
+      if (toggle) {
+        toggle.checked = !!TRANSLATE_STOP_TYPES;
+        toggle.setAttribute("aria-label", t("translate_stop_types"));
+        toggle.disabled = LANG === "fr";
+      }
+      if (toggleRow) toggleRow.classList.toggle("is-disabled", LANG === "fr");
+      const toggleLabel = menu.querySelector(".lang-toggle-label");
+      if (toggleLabel) toggleLabel.textContent = t("translate_stop_types");
+      const badge = menu.querySelector(".lang-toggle-badge");
+      if (badge) badge.textContent = t("experimental");
+    }
+  }
   function setLang(lang, {persist=true, apply=true} = {}){
     if (!SUPPORTED.has(lang)) lang = "fr";
     LANG = lang;
     if (persist) localStorage.setItem("idf_lang", lang);
     document.documentElement.setAttribute("lang", lang);
-    const btn = document.getElementById("langToggle");
-    if (btn) btn.textContent = I18N[lang].lang_btn;
+    if (LANG === "fr" && TRANSLATE_STOP_TYPES) {
+      setStopTypeTranslation(false, { persist: true, apply: false });
+    }
+    if (typeof isLinePreviewOpen === "function" && isLinePreviewOpen()) {
+      try { currentSelectedKey = ""; } catch {}
+      if (typeof hideAllRoutes === "function") {
+        try { hideAllRoutes(); } catch {}
+      }
+      if (typeof hideLinePreview === "function") {
+        try { hideLinePreview(); } catch {}
+      }
+      document.getElementById("dbusList")?.querySelectorAll(".dbus-item").forEach(it => {
+        it.classList.remove("active");
+        it.style.outline = "none";
+      });
+      if (typeof renderSelectedChip === "function") {
+        try { renderSelectedChip(); } catch {}
+      }
+    }
     if (apply) applyI18N();
   }
   function applyI18N(){
+    const routeTitleFn = (typeof translateRouteTitle === "function")
+      ? translateRouteTitle
+      : (title) => translateStopName(title);
     const $search = document.getElementById("search");
     if ($search) $search.placeholder = t("search_placeholder");
     const $btnSearch = document.getElementById("btnSearch");
@@ -1103,6 +3121,12 @@
     }
     const $lpClose = document.getElementById("lpClose");
     if ($lpClose){ $lpClose.setAttribute("aria-label", t("close")); $lpClose.title = t("close"); }
+    const $lpLink = document.getElementById("lpLink");
+    if ($lpLink){
+      const label = t("open_link");
+      $lpLink.setAttribute("aria-label", label);
+      $lpLink.title = label;
+    }
     const $dbusStopClose = document.getElementById("dbusStopClose");
     if ($dbusStopClose){ $dbusStopClose.setAttribute("aria-label", t("close")); $dbusStopClose.title = t("close"); }
     const $dbusDepartIndicatorLabel = document.getElementById("dbusDepartIndicatorLabel");
@@ -1142,10 +3166,127 @@
         }
       });
     }
+    const $dbusStopTitle = document.getElementById("dbusStopTitle");
+    if ($dbusStopTitle) {
+      const mode = $dbusStopTitle.dataset.stopMode || "";
+      const name = $dbusStopTitle.dataset.stopName || "";
+      if (mode === "single" && name) {
+        $dbusStopTitle.innerHTML = `${t("stop")} : ${withRERIcon(translateStopName(name))}`;
+      } else if (mode === "group") {
+        const raw = $dbusStopTitle.dataset.stopNames || "[]";
+        let list = [];
+        try { list = JSON.parse(raw); } catch { list = []; }
+        const translated = list.map(n => translateStopName(n));
+        $dbusStopTitle.innerHTML = translated.map(n => withRERIcon(n)).join(" / ");
+      } else if (!mode) {
+        $dbusStopTitle.textContent = t("stop");
+      }
+    }
+    document.querySelectorAll(".stop-flag").forEach(flag => {
+      const label = t("temporary_stop");
+      flag.textContent = label;
+      flag.setAttribute("aria-label", label);
+    });
+    document.querySelectorAll(".stop[data-raw-label]").forEach(stop => {
+      const raw = stop.dataset.rawLabel || "";
+      const isProv = stop.dataset.provisoire === "1";
+      const label = translateStopName(raw);
+      const nameEl = stop.querySelector(".name");
+      if (nameEl) {
+        const flag = isProv ? ` <span class="stop-flag" aria-label="${t("temporary_stop")}">${t("temporary_stop")}</span>` : "";
+        nameEl.innerHTML = `${withRERIcon(label)}${flag}`;
+      }
+    });
+    document.querySelectorAll(".sp-coords span").forEach(span => {
+      span.textContent = t("coordinates");
+    });
+    document.querySelectorAll(".dbus-sec h4[data-stop-name]").forEach(h => {
+      const raw = h.dataset.stopName || "";
+      const count = h.dataset.stopCount || "";
+      const label = withRERIcon(translateStopName(raw));
+      h.innerHTML = `${label}${count ? ` (${count})` : ""}`;
+    });
+    document.querySelectorAll(".rname[data-raw-name]").forEach(el => {
+      const raw = el.dataset.rawName || "";
+      el.innerHTML = withRERIcon(translateStopName(raw));
+    });
+    document.querySelectorAll(".rname[data-route-kind]").forEach(el => {
+      const kind = el.dataset.routeKind;
+      const routeTitle = el.dataset.routeTitle || "";
+      const flag = el.dataset.routeFlag || "";
+      if (kind === "line") {
+        const displayTitle = routeTitleFn(routeTitle);
+        let html = withRERIcon(displayTitle || routeTitle);
+        if (flag) html += ` <span class="route-flag">${flag}</span>`;
+        el.innerHTML = html;
+      } else if (kind === "depart") {
+        const titleEnd = el.dataset.routeEnd || "";
+        const dirName = getRouteTerminusLabel({ stops: [] }, titleEnd) || String(titleEnd || routeTitle || "").trim();
+        const dirLabel = t("destination");
+        const dirText = dirName || routeTitle || "?";
+        let html = `${dirLabel} : ${withRERIcon(dirText)}`;
+        if (flag) html += ` <span class="route-flag">${flag}</span>`;
+        el.innerHTML = html;
+      }
+    });
+    document.querySelectorAll(".result-text[data-route-title]").forEach(el => {
+      const raw = el.dataset.routeTitle || "";
+      el.textContent = routeTitleFn(raw);
+    });
+    document.querySelectorAll("[data-stop-count]").forEach(el => {
+      const count = parseInt(el.dataset.stopCount || "0", 10);
+      const durationText = el.dataset.durationText || "";
+      const format = el.dataset.durationFormat || "paren";
+      if (Number.isFinite(count)) {
+        el.textContent = formatStopDuration(count, durationText, format);
+      }
+    });
+    const $lpRouteTitle = document.getElementById("lpRouteTitle");
+    if ($lpRouteTitle && ($lpRouteTitle.dataset.rawStart || $lpRouteTitle.dataset.rawEnd)) {
+      const durationEl = $lpRouteTitle.querySelector(".stop-duration");
+      const count = parseInt(durationEl?.dataset.stopCount || "0", 10);
+      const durationText = durationEl?.dataset.durationText || "";
+      const format = durationEl?.dataset.durationFormat || "dash";
+      const start = translateStopName($lpRouteTitle.dataset.rawStart || "");
+      const end = translateStopName($lpRouteTitle.dataset.rawEnd || "");
+      $lpRouteTitle.innerHTML = `
+        <div>${withRERIcon(start)} &gt; ${withRERIcon(end)}</div>
+        <div style="font-weight:400; font-size:12px; color:#9fb1cc; margin-top:2px">
+          <span class="stop-duration"></span>
+        </div>
+      `;
+      if (Number.isFinite(count)) {
+        setStopDurationText($lpRouteTitle.querySelector(".stop-duration"), count, durationText, format);
+      }
+    }
+    document.querySelectorAll(".dbus-sechead").forEach(head => {
+      const key = head.dataset.cat;
+      const count = head.dataset.count;
+      if (!key || !count) return;
+      const label = dbusCategoryTitle(key);
+      head.innerHTML = `<span>${label} (${count})</span><span class="chev" style="margin-left:auto">▼</span>`;
+    });
+    document.querySelectorAll("h4[data-sub-key]").forEach(head => {
+      const key = head.dataset.subKey || "";
+      if (key) head.textContent = t(key);
+    });
     const none = document.querySelector(".dbus-none");
     if (none) none.textContent = t("none");
+    refreshI18nLayers();
+    updateLangUI();
   }
-  document.getElementById("langToggle")?.addEventListener("click", ()=> setLang(LANG === "fr" ? "en" : "fr"));
+  buildLangMenu();
+  document.getElementById("langToggle")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleLangMenu();
+  });
+  document.addEventListener("click", (event) => {
+    const host = document.getElementById("langSwitch");
+    if (host && !host.contains(event.target)) closeLangMenu();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeLangMenu();
+  });
   setLang(LANG, {persist:false, apply:true});
   </script>
 
@@ -1164,6 +3305,10 @@
     document.documentElement.style.setProperty(
       "--rer-mask-url",
       `url("${overlayPath("o_rer.png")}")`
+    );
+    document.documentElement.style.setProperty(
+      "--metro-icon-url",
+      `url("${overlayPath("o_metro.png")}")`
     );
 
     const minNativeZoom=0,maxNativeZoom=8,tileSize=256;
@@ -1476,6 +3621,8 @@
       return esc
         .replace(new RegExp("(?:\\s*[---]\\s*)?\\bRER\\b(?:\\s*[---]\\s*)?", flags),
                 ' <span class="rer-ico" aria-label="RER"></span> ')
+        .replace(new RegExp("(?:\\s*[---]\\s*)?\\bM[ée]tro\\b(?:\\s*[---]\\s*)?", flags),
+                ' <span class="metro-ico" aria-label="Métro"></span> ')
         .replace(/\s{2,}/g, " ")
         .trim();
     }
@@ -1533,7 +3680,7 @@
         const m=L.marker(toLatLng(city.X,city.Y),{icon,interactive:true,bubblingMouseEvents:true}).addTo(cityLayer);
         m.on("click", ()=> openCityPopup(city, m));
         cityMarkers.push(m);
-        searchIndex.push({type:"Ville",name:city.Name||"Ville",city:"",center:m.getLatLng(),open:()=>openCityPopup(city, m)});
+        searchIndex.push({type:"Ville",name:city.Name||t("city"),city:"",center:m.getLatLng(),open:()=>openCityPopup(city, m)});
       });
       updateCityLabels();
     }).catch(err=>console.error("Erreur chargement Cities.json",err));
@@ -1565,6 +3712,13 @@
         }
       });
     }
+    function setPopupContentWithImage(layer, html){
+      if (layer.getPopup()) {
+        layer.setPopupContent(html);
+      } else {
+        bindPopupWithImage(layer, html);
+      }
+    }
 
     const homeBtn = L.control({ position: 'topleft' });
 
@@ -1586,17 +3740,20 @@
 
     homeBtn.addTo(map);
 
-    const ICON_NAMES = {
-      "gas_ico": "Station service",
-      "bus_ico": "Gare routière",
-      "service_ico": "Atelier de réparation",
-      "garage_large_ico": "Garage",
-      "recruitment_ico": "Agence de recrutement",
-      "dealer_ico": "Concessionnaire",
-      "border_ico": "Contrôle d'identité",
-      "toll_ico": "Péage",
-      "parking_ico": "Parking"
-    };
+    function iconLabel(iconId){
+      const map = {
+        "gas_ico": t("icon_gas"),
+        "bus_ico": t("icon_bus_station"),
+        "service_ico": t("icon_repair_shop"),
+        "garage_large_ico": t("icon_garage"),
+        "recruitment_ico": t("icon_recruitment_agency"),
+        "dealer_ico": t("icon_dealer"),
+        "border_ico": t("icon_border_control"),
+        "toll_ico": t("icon_toll"),
+        "parking_ico": t("icon_parking")
+      };
+      return map[iconId];
+    }
 
     tileInfoReady
       .then(() => fetch(dataPath("CentreCommerciaux.json")))
@@ -1626,21 +3783,22 @@
             }
           });
 
-          const name = "Centre Commercial " + String(ov.Name || "").trim();
+          const rawName = String(ov.Name || "").trim();
           const city = String(ov.City || "").trim();
           const wikiKey = String(ov.wiki || "").trim();
 
           overlay.on("click", async () => {
+            const displayName = `${t("mall")} ${rawName}`.trim();
             const p = overlay.getPopup();
             p.setLatLng(bounds.getCenter());
 
             if (!wikiKey) {
-              p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
+              p.setContent(`<div style="min-width:0"><b>${escapeHTML(displayName)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
               overlay.openPopup();
               return;
             }
 
-            p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b><br><span class="spinner" aria-label="${t('loading')}"></span></div>`);
+            p.setContent(`<div style="min-width:0"><b>${escapeHTML(displayName)}</b><br><span class="spinner" aria-label="${t('loading')}"></span></div>`);
             overlay.openPopup();
 
             try {
@@ -1676,27 +3834,27 @@
                 <div style="display:flex;gap:10px;align-items:flex-start">
                   ${img ? `<img data-autosize src="${img}" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;flex:0 0 auto">` : ``}
                   <div style="min-width:0">
-                    <div style="font-weight:700;margin-bottom:4px">${escapeHTML(name)}</div>
+                    <div style="font-weight:700;margin-bottom:4px">${escapeHTML(displayName)}</div>
                     ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:6px">${escapeHTML(city)}</div>` : ``}
                     <div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(desc)}</div>
                     ${linkHTML}
                   </div>
                 </div>` :
                 `<div style="min-width:0">
-                  <div style="font-weight:700;margin-bottom:6px">${escapeHTML(name)}</div>
+                  <div style="font-weight:700;margin-bottom:6px">${escapeHTML(displayName)}</div>
                   ${city ? `<div style="color:#8892a6;font-size:12px;margin-bottom:8px">${escapeHTML(city)}</div>` : ``}
                 </div>`;
 
 
               p.setContent(html);
             } catch {
-              p.setContent(`<div style="min-width:0"><b>${escapeHTML(name)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
+              p.setContent(`<div style="min-width:0"><b>${escapeHTML(displayName)}</b>${city?`<br><i>${escapeHTML(city)}</i>`:""}</div>`);
             }
           });
 
           searchIndex.push({
             type: "Centre commercial",
-            name,
+            name: rawName,
             city,
             center: bounds.getCenter(),
             open: () => { overlay.fire('click'); },
@@ -1755,7 +3913,7 @@
 
         searchIndex.push({
           type:"Entreprise",
-          name:ov.Name||"Entreprise",
+          name:ov.Name||t("company"),
           city:ov.City||"",
           center:compBounds.getCenter(),
           open:()=>{ overlay.openPopup(compBounds.getCenter()); },
@@ -1764,20 +3922,27 @@
       } else if (ov.Type === "TruckDealer" || ov.IconId === "dealer_ico") {
             const overlay = L.imageOverlay(overlayPath(`${ov.IconId}.png`), bounds, { interactive: true }).addTo(map);
             const btxt = brandsText(ov) || 'Ã¢â‚¬â€';
-            const titleLine = `Concessionnaire ${escapeHTML(btxt)}`;
 
             const brandKey = dealerBrandKeyFrom(ov);
             const brandLogo = brandKey ? overlayPath(`dealer_${brandKey}.png`) : overlayPath("dealer_ico.png");
 
-            bindPopupWithImage(overlay, `
-              <div style="text-align:center">
-                <img data-autosize src="${brandLogo}"
-                    style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
-                <b>${escapeHTML(titleLine)}</b><br/><i>${escapeHTML(ov.City || "")}</i>
-              </div>
-            `);
+            const updateDealerPopup = () => {
+              const html = `
+                <div style="text-align:center">
+                  <img data-autosize src="${brandLogo}"
+                      style="width:168px;height:auto;display:block;margin:0 auto 10px;object-fit:contain"/>
+                  <b>${escapeHTML(`${t("dealer")} ${btxt}`.trim())}</b><br/><i>${escapeHTML(ov.City || "")}</i>
+                </div>
+              `;
+              setPopupContentWithImage(overlay, html);
+            };
 
-            overlay.on("click", () => { overlay.openPopup(bounds.getCenter()); });
+            const openDealerPopup = () => {
+              updateDealerPopup();
+              overlay.openPopup(bounds.getCenter());
+            };
+            overlay.on("click", openDealerPopup);
+            registerI18nLayer(overlay, updateDealerPopup);
 
             searchIndex.push({
               type: "Concessionnaire",
@@ -1785,16 +3950,27 @@
               brand: btxt,                   
               city: ov.City || "",
               center: bounds.getCenter(),
-              open: () => { overlay.openPopup(bounds.getCenter()); },
+              open: openDealerPopup,
               logo: brandLogo,
               fallbackLogo: overlayPath("dealer_ico.png")
             });
           
         } else {
-           const label = ICON_NAMES[ov.IconId] || ov.Name || ov.Type || "Lieu";
-          const overlay = L.imageOverlay(overlayPath(`${ov.IconId}.png`), bounds, { interactive: true })
-            .addTo(map)
-            .bindPopup(`<b>${escapeHTML(label)}</b>`);
+          const overlay = L.imageOverlay(overlayPath(`${ov.IconId}.png`), bounds, { interactive: true }).addTo(map);
+          const updateIconPopup = () => {
+            const label = iconLabel(ov.IconId) || ov.Name || ov.Type || t("place");
+            if (overlay.getPopup()) {
+              overlay.setPopupContent(`<b>${escapeHTML(label)}</b>`);
+            } else {
+              overlay.bindPopup(`<b>${escapeHTML(label)}</b>`);
+            }
+          };
+          const openIconPopup = () => {
+            updateIconPopup();
+            overlay.openPopup(bounds.getCenter());
+          };
+          overlay.on("click", openIconPopup);
+          registerI18nLayer(overlay, updateIconPopup);
 
           const typeTag =
             ov.IconId === "service_ico"       ? "Atelier" :
@@ -1819,7 +3995,7 @@
               name: keywordName.trim(),    
               city: ov.City || "",
               center: bounds.getCenter(),
-              open: () => { overlay.openPopup(bounds.getCenter()); },
+              open: openIconPopup,
               logo: logoPath,
               fallbackLogo: logoPath
             });
@@ -2099,6 +4275,46 @@
       return /^N\d+$/.test(String(num || "").trim().toUpperCase());
     }
 
+    function getLineStyleEntry(number){
+      const n = String(number || "").trim();
+      if (!n) return null;
+      const STYLE_LC = getLineStyleEntry.STYLE_LC || (
+        getLineStyleEntry.STYLE_LC = Object.fromEntries(
+          Object.entries(LINE_STYLES).map(([k,v]) => [k.toLowerCase(), v])
+        )
+      );
+      return STYLE_LC[n.toLowerCase()] || null;
+    }
+
+    function getLineLink(line, route){
+      const candidates = [];
+      try {
+        const { lineNumber } = parseRouteName(route?.name || "");
+        if (lineNumber) candidates.push(lineNumber);
+      } catch {}
+      if (line?.number) candidates.push(line.number);
+      try {
+        const cat = getCategory(line);
+        if (cat) candidates.push(cat);
+        if (cat === "FlixBus") candidates.push("FLIXBUS");
+      } catch {}
+
+      const seen = new Set();
+      for (const cand of candidates){
+        const key = String(cand || "").trim();
+        if (!key) continue;
+        const lc = key.toLowerCase();
+        if (seen.has(lc)) continue;
+        seen.add(lc);
+        const entry = getLineStyleEntry(key);
+        if (entry) {
+          const url = (typeof entry[2] === "string") ? entry[2].trim() : "";
+          if (url) return url;
+        }
+      }
+      return "";
+    }
+
     const LINE_COLOR_CACHE = new Map();
     function getLineColors(number){
       const n = String(number || "").trim();
@@ -2286,7 +4502,9 @@
     function withRERIconInStop(text){
       const esc = escapeHTML(text ?? "");
       return esc.replace(/\s*[---]?\s*RER\s*[---]?\s*/gi,
-        ' <span class="rer-ico" aria-label="RER"></span> ');
+        ' <span class="rer-ico" aria-label="RER"></span> ')
+        .replace(/\s*[---]?\s*M[ée]tro\s*[---]?\s*/gi,
+        ' <span class="metro-ico" aria-label="Métro"></span> ');
     }
 
     const PROV_RE = /\bprovisoire\b/i;
@@ -2300,7 +4518,6 @@
         .replace(/\s+/g, " ")
         .trim();
     }
-
     function getRouteTerminusLabel(route, titleEndFallback = ""){
       const stops = route?.stops || [];
       const lastStopId = stops.length ? stops[stops.length - 1].uid : undefined;
@@ -2311,7 +4528,8 @@
       if (!raw) return "";
       const isProvisoire = hasProvisoire(rawStopName) || hasProvisoire(rawFallback);
       const clean = stripProvisoire(raw);
-      return isProvisoire ? `${clean} (Provisoire)` : clean;
+      const translated = translateStopName(clean);
+      return isProvisoire ? `${translated} (${t("temporary_stop")})` : translated;
     }
 
     function splitRouteEndpoints(routeTitle){
@@ -2319,6 +4537,16 @@
       const parts = s.split(/\s*(?:>|Ã¢â€ â€™|Ã¢â€ â€|Ã¢â€¡â€ž|<->|->|\bvers\b|\bto\b)\s*/i).filter(Boolean);
       if (parts.length >= 2){ return [parts[0].trim(), parts[parts.length-1].trim()]; }
       return [s, s];
+    }
+
+    function translateRouteTitle(routeTitle){
+      const raw = String(routeTitle || "").trim();
+      if (!raw || !TRANSLATE_STOP_TYPES || LANG === "fr") return raw;
+      const [start0, end0] = splitRouteEndpoints(raw);
+      if (!start0 || !end0 || start0 === end0) return translateStopName(raw);
+      const start = translateStopName(start0);
+      const end = translateStopName(end0);
+      return `${start} > ${end}`;
     }
 
     function getLineColorsSync(number){
@@ -2366,10 +4594,7 @@
       getLineColors(effNum).then(([bg])=>{ if(bg) poly.setStyle({color:bg}); });
 
       const { lineNumber, routeTitle, flag } = parseRouteName(route.name || "");
-      const routeTitleRaw = routeTitle;
-      const [titleStart0, titleEnd0] = splitRouteEndpoints(routeTitleRaw);
-      const titleStart = trimAroundRER(titleStart0, 'start');
-      const titleEnd   = trimAroundRER(titleEnd0,   'end');
+      const { titleStart, titleEnd } = getRouteEndpoints(route);
 
       const lineCategory = getCategory(line);
       const stops = route.stops.map((s, idx, arr)=> {
@@ -2387,7 +4612,8 @@
 
         const isProvisoireStop = hasProvisoire(rawStopName) || hasProvisoire(displayName);
         const cleanDisplayName = stripProvisoire(displayName);
-        const stopNameHTML = withRERIconInStop(cleanDisplayName);
+        const translatedDisplayName = translateStopName(cleanDisplayName);
+        const stopNameHTML = withRERIconInStop(translatedDisplayName);
         const coordParts = [st.X, st.Y, st.Z].map(v => Number(v).toFixed(2));
         const coordsDisplay = escapeHTML(coordParts.join(", "));
         const gotoCmd = `goto ${st.X.toFixed(2)};${st.Y.toFixed(2)};${st.Z.toFixed(2)};${st.rotX.toFixed(6)};${st.rotY.toFixed(6)}`;
@@ -2402,15 +4628,17 @@
         });
         
         const stopOrderLabel = `${idx+1} / ${arr.length}`;
+        const temporaryStopLabel = escapeHTML(t("temporary_stop"));
+        const coordinatesLabel = escapeHTML(t("coordinates"));
         const html = `
           <div class="stop-popup">
             <div class="sp-header">
-              <div class="sp-title">${stopNameHTML}${isProvisoireStop ? ' <span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
+              <div class="sp-title">${stopNameHTML}${isProvisoireStop ? ` <span class="stop-flag" aria-label="${temporaryStopLabel}">${temporaryStopLabel}</span>` : ''}</div>
               <div class="sp-index">${stopOrderLabel}</div>
             </div>
             <div class="sp-body">
               <div class="sp-coords">
-                <span>Coordonnées</span>
+                <span>${coordinatesLabel}</span>
                 <div class="sp-coords-code">${coordsDisplay}</div>
               </div>
             </div>
@@ -2567,9 +4795,11 @@
     function getRouteEndpoints(route){
       const routeTitleRaw = route.name.includes(":") ? route.name.split(":")[1].trim() : route.name;
       const [titleStart0, titleEnd0] = splitRouteEndpoints(routeTitleRaw);
-      const titleStart = trimAroundRER(titleStart0, 'start');
-      const titleEnd   = trimAroundRER(titleEnd0,   'end');
-      return { routeTitleRaw, titleStart, titleEnd };
+      const rawStart = trimAroundRER(titleStart0, 'start');
+      const rawEnd   = trimAroundRER(titleEnd0,   'end');
+      const titleStart = translateStopName(rawStart);
+      const titleEnd   = translateStopName(rawEnd);
+      return { routeTitleRaw, titleStart, titleEnd, rawStart, rawEnd };
     }
 
     let PREVIEW_STOP_ELEMS = new Map();
@@ -2612,7 +4842,7 @@
       const transit = document.getElementById("lpTransit");
       if(!wrap || !badge || !title || !transit) return;
 
-      const { titleStart, titleEnd } = getRouteEndpoints(route);
+      const { titleStart, titleEnd, rawStart, rawEnd } = getRouteEndpoints(route);
       const cleanedStart = withRERIcon(titleStart);
       const cleanedEnd   = withRERIcon(titleEnd);
 
@@ -2634,15 +4864,33 @@
       title.innerHTML = `
         <div>${cleanedStart} &gt; ${cleanedEnd}</div>
         <div style="font-weight:400; font-size:12px; color:#9fb1cc; margin-top:2px">
-          ${stopCount} arrêts - ${durationText}
+          <span class="stop-duration"></span>
         </div>
       `;
+      title.dataset.rawStart = rawStart || "";
+      title.dataset.rawEnd = rawEnd || "";
+      setStopDurationText(title.querySelector(".stop-duration"), stopCount, durationText, "dash");
 
       const { lineNumber } = parseRouteName(route.name || "");
       const lineCategory = getCategory(line);
       const mTitusLP = /^titus\s*(\d+)/i.exec(String(lineNumber||""));
       const isNoctLinePreview = isNoctilien2(lineNumber);
       let previewBadgeChip = null;
+
+      const lpLink = document.getElementById("lpLink");
+      if (lpLink){
+        const url = getLineLink(line, route);
+        const hasUrl = !!url;
+        if (hasUrl) {
+          lpLink.href = url;
+          lpLink.hidden = false;
+          lpLink.style.display = "";
+        } else {
+          lpLink.removeAttribute("href");
+          lpLink.hidden = true;
+          lpLink.style.display = "none";
+        }
+      }
 
       function applyNetworkBadgeToPreview(opts){
         badge.innerHTML = "";
@@ -2675,7 +4923,7 @@
         wrap.className = "network-badge";
         const school = document.createElement("img");
         school.src = overlayPath("bus_school.png");
-        school.alt = "Scolaire";
+        school.alt = t("dbus_school_toggle");
         wrap.appendChild(school);
         badge.appendChild(wrap);
         previewBadgeChip = badge;
@@ -2735,6 +4983,7 @@
       });
 
       transit.innerHTML = "";
+      const temporaryStopLabel = escapeHTML(t("temporary_stop"));
       const ids = route.stops.map(s => s.uid);
       ids.forEach((id, idx) => {
         const st = DBUS_STOPS.get(id); if(!st) return;
@@ -2748,9 +4997,12 @@
         stopEl.dataset.stopId = String(id);
         const isProvisoire = hasProvisoire(rawStopName) || hasProvisoire(label);
         const cleanLabel = stripProvisoire(label);
+        const translatedLabel = translateStopName(cleanLabel);
+        stopEl.dataset.rawLabel = cleanLabel;
+        stopEl.dataset.provisoire = isProvisoire ? "1" : "0";
         stopEl.innerHTML = `
           <div class="dot"></div>
-          <div class="name">${withRERIcon(cleanLabel)}${isProvisoire ? '<span class="stop-flag" aria-label="Arrêt provisoire">Arrêt provisoire</span>' : ''}</div>
+          <div class="name">${withRERIcon(translatedLabel)}${isProvisoire ? ` <span class="stop-flag" aria-label="${temporaryStopLabel}">${temporaryStopLabel}</span>` : ''}</div>
         `;
         
         stopEl.addEventListener('click', ()=>{
@@ -2788,6 +5040,16 @@
       updateUiOverlays();
       applyI18N();
     }
+
+    function restoreLinePreview(key){
+      const routeKey = key || currentSelectedKey;
+      if (!routeKey) return;
+      const [lineUid, routeUid] = routeKey.split(":");
+      const line = (DBUS_LINES || []).find(l => String(l.uid) === String(lineUid));
+      const route = line?.routes?.find(r => String(r.uid) === String(routeUid));
+      if (line && route) renderLinePreview(line, route);
+    }
+    window.restoreLinePreview = restoreLinePreview;
 
     function hideLinePreview(){
       const wrap = document.getElementById("linePreviewWrap");
@@ -2856,6 +5118,7 @@
       closeDbusStopPanel();
       hideLinePreview();
       try { resetDbusSelection(); } catch {}
+      try { closeLangMenu(); } catch {}
     }
     function updateUiOverlays() {
       const isMenuOpen = isDbusOpen() || isDbusStopOpen();
@@ -3114,13 +5377,7 @@
       return total + scolaireLines.size;
     }
 
-    const DEPART_CATEGORY_ORDER = [
-      ["Urbain", "IDFM"],
-      ["Noctilien", "Noctiliens"],
-      ["FlixBus", "FlixBus"],
-      ["Scolaire", "Scolaires"],
-      ["Autres", "Fictives"]
-    ];
+    const DEPART_CATEGORY_ORDER = ["Urbain", "Noctilien", "FlixBus", "Scolaire", "Autres"];
 
     function buildDepartBuckets(entries) {
       const buckets = {
@@ -3137,8 +5394,9 @@
       return buckets;
     }
 
-    function renderDepartCategorySection(title, entries, container, isOpenByDefault = false) {
+    function renderDepartCategorySection(key, entries, container, isOpenByDefault = false) {
       if (!entries.length) return;
+      const title = dbusCategoryTitle(key);
       const sec = document.createElement("div");
       sec.className = "dbus-sec";
       container.appendChild(sec);
@@ -3146,6 +5404,8 @@
       const head = document.createElement("div");
       head.className = "dbus-sechead";
       head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+      head.dataset.cat = key;
+      head.dataset.count = String(entries.length);
       head.innerHTML = `<span>${title} (${entries.length})</span><span class="chev" style="margin-left:auto">▼</span>`;
       sec.appendChild(head);
 
@@ -3174,10 +5434,10 @@
       }
 
       const buckets = buildDepartBuckets(entries);
-      DEPART_CATEGORY_ORDER.forEach(([key, label]) => {
+      DEPART_CATEGORY_ORDER.forEach((key) => {
         const list = buckets[key] || [];
         if (!list.length) return;
-        renderDepartCategorySection(label, list, container, true);
+        renderDepartCategorySection(key, list, container, true);
       });
     }
 
@@ -3227,6 +5487,10 @@
       const dirName = getRouteTerminusLabel(route, titleEnd) || String(titleEnd || routeTitle || "").trim();
       const dirLabel = t("destination");
       const dirText = dirName || routeTitle || "?";
+      titleEl.dataset.routeKind = "depart";
+      titleEl.dataset.routeTitle = routeTitle || "";
+      titleEl.dataset.routeEnd = titleEnd || "";
+      if (flag) titleEl.dataset.routeFlag = flag;
       let titleHtml = `${dirLabel} : ${withRERIcon(dirText)}`;
       if (flag) titleHtml = titleHtml + ` <span class="route-flag">${flag}</span>`;
       titleEl.innerHTML = titleHtml; 
@@ -3247,7 +5511,7 @@
       } else {
         durationText = `${route.totalMinutes} min`;
       }
-      duration.textContent = `${stopCount} arrêts (${durationText})`;
+      setStopDurationText(duration, stopCount, durationText, "paren");
 
       if (badge) item.appendChild(badge);
       item.appendChild(titleEl);
@@ -3327,16 +5591,21 @@
 
     function getDepartGroupNames(group) {
       const names = [...group.nameMap.keys()].map(n => String(n || "").trim()).filter(Boolean);
-      names.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: "base" }));
-      if (!names.length) return [t("stop")];
-      return names;
+      const translated = names.map(n => translateStopName(n));
+      translated.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: "base" }));
+      if (!translated.length) return [t("stop")];
+      return translated;
     }
 
     function renderDepartStopSection(nameRec, container) {
       const sec = document.createElement("div");
       sec.className = "dbus-sec";
       const h = document.createElement("h4");
-      h.innerHTML = `${withRERIcon(nameRec.name)} (${countDepartEntries(nameRec.routes)})`;
+      const displayName = translateStopName(nameRec.name);
+      h.dataset.stopName = nameRec.name;
+      const stopCount = countDepartEntries(nameRec.routes);
+      h.dataset.stopCount = String(stopCount);
+      h.innerHTML = `${withRERIcon(displayName)} (${stopCount})`;
       sec.appendChild(h);
 
       const body = document.createElement("div");
@@ -3348,8 +5617,12 @@
 
     function openDbusStopPanelForGroup(group) {
       if (!$dbusStopPanel || !$dbusStopTitle || !$dbusStopList) return;
-      const nameList = getDepartGroupNames(group);
+      const rawNames = [...group.nameMap.keys()].map(n => String(n || "").trim()).filter(Boolean);
+      const nameList = rawNames.map(n => translateStopName(n));
       $dbusStopTitle.innerHTML = nameList.map(n => withRERIcon(n)).join(" / ");
+      $dbusStopTitle.dataset.stopMode = "group";
+      $dbusStopTitle.dataset.stopNames = JSON.stringify(rawNames);
+      delete $dbusStopTitle.dataset.stopName;
       $dbusStopList.innerHTML = "";
 
       const sections = [...group.nameMap.values()].sort((a, b) => {
@@ -3371,7 +5644,9 @@
 
     function openDbusStopPanelForName(nameRec) {
       if (!$dbusStopPanel || !$dbusStopTitle || !$dbusStopList) return;
-      $dbusStopTitle.innerHTML = "Arrêt : " + withRERIcon(nameRec.name);
+      $dbusStopTitle.dataset.stopMode = "single";
+      $dbusStopTitle.dataset.stopName = nameRec.name;
+      $dbusStopTitle.innerHTML = `${t("stop")} : ${withRERIcon(translateStopName(nameRec.name))}`;
       $dbusStopList.innerHTML = "";
 
       renderDepartCategories(nameRec.routes, $dbusStopList);
@@ -3411,7 +5686,8 @@
         const titleEl = document.createElement("div");
         titleEl.className = "rname";
         titleEl.style.flex = "1 1 auto";
-        titleEl.innerHTML = withRERIcon(rec.name);
+        titleEl.dataset.rawName = rec.name || "";
+        titleEl.innerHTML = withRERIcon(translateStopName(rec.name));
 
         item.appendChild(count);
         item.appendChild(titleEl);
@@ -3660,8 +5936,9 @@
         return buckets;
       }
 
-      function renderSection(title, lines) {
+      function renderSection(key, lines) {
         if (!lines.length) return;
+        const title = dbusCategoryTitle(key);
 
         const sec = document.createElement("div");
         sec.className = "dbus-sec";
@@ -3672,11 +5949,13 @@
           totalRoutes += (line.routes ? line.routes.length : 0);
         });
 
-        const isOpenByDefault = (title === "IDFM" || title === "Noctiliens");
+        const isOpenByDefault = (key === "Urbain" || key === "Noctilien");
 
         const head = document.createElement("div");
         head.className = "dbus-sechead";
         head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+        head.dataset.cat = key;
+        head.dataset.count = String(totalRoutes);
         head.innerHTML = `
           <span>${title} (${totalRoutes})</span>
           <span class="chev" style="margin-left:auto">▼</span>
@@ -3698,8 +5977,8 @@
           }
         });
 
-        const showSchoolLogo = title === "Scolaires";
-        if (title === "Scolaires") {
+        const showSchoolLogo = key === "Scolaire";
+        if (key === "Scolaire") {
           const allRoutes = [];
           lines.forEach(line => {
             line.routes.forEach(route => allRoutes.push({ line, route }));
@@ -3719,8 +5998,9 @@
         }
       }
 
-      function renderSectionGrid(title, lines) {
+      function renderSectionGrid(key, lines) {
         if (!lines.length) return;
+        const title = dbusCategoryTitle(key);
 
         const sec = document.createElement("div");
         sec.className = "dbus-sec";
@@ -3729,11 +6009,13 @@
         let totalRoutes = 0;
         lines.forEach(line => { totalRoutes += (line.routes ? line.routes.length : 0); });
 
-        const isOpenByDefault = (title === "IDFM" || title === "Noctiliens");
+        const isOpenByDefault = (key === "Urbain" || key === "Noctilien");
 
         const head = document.createElement("div");
         head.className = "dbus-sechead";
         head.setAttribute("aria-expanded", isOpenByDefault ? "true" : "false");
+        head.dataset.cat = key;
+        head.dataset.count = String(totalRoutes);
         head.innerHTML = `<span>${title} (${totalRoutes})</span><span class=\"chev\" style=\"margin-left:auto\">▼</span>`;
         sec.appendChild(head);
 
@@ -3762,7 +6044,7 @@
           body.hidden = expanded;
           if (expanded) {
             clearLocal();
-            if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) {
+            if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === key) {
               window.__DBUS_GRID_OPEN = null;
             }
           }
@@ -3834,9 +6116,18 @@
           const nocti = lines.filter(l => isNoctilien(l));
           const autresReseaux = lines.filter(l => !isNumericOnly(l.number) && !isNoctilien(l));
 
-          function renderSub(label, items){
+          function renderSub(key, items){
             if (!items.length) return;
-          const h = document.createElement('h4'); h.textContent = label; body.appendChild(h);
+            const map = {
+              urban: "dbus_sub_urban",
+              noctilien: "dbus_sub_noctilien",
+              other_networks: "dbus_sub_other_networks"
+            };
+            const labelKey = map[key] || key;
+            const h = document.createElement('h4');
+            h.textContent = t(labelKey);
+            h.dataset.subKey = labelKey;
+            body.appendChild(h);
             const subGrid = document.createElement('div'); subGrid.className = 'dbus-grid'; body.appendChild(subGrid);
 
             items.sort((a, b) => {
@@ -3865,11 +6156,11 @@
 
               logo.addEventListener('click', () => {
                 const isSame = (selectedLineUid === line.uid);
-                if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== title) {
+                if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== key) {
                   try { window.__DBUS_GRID_OPEN.clear && window.__DBUS_GRID_OPEN.clear(); } catch {}
                   window.__DBUS_GRID_OPEN = null;
                 }
-                if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) { window.__DBUS_GRID_OPEN = null; } return; }
+                if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === key) { window.__DBUS_GRID_OPEN = null; } return; }
                 clearLocal(); selectedLineUid = line.uid;
                 const raw = String(line.number||''); const norm = raw.toLowerCase().replace('é','e');
                 const selColor = selectionColorForLine(line);
@@ -3881,16 +6172,16 @@
                 body.querySelectorAll('.dbus-logo.sel').forEach(el=> el.classList.remove('sel'));
                 logo.classList.add('sel');
                 closeNonGridSections();
-                window.__DBUS_GRID_OPEN = { section: title, clear: clearLocal };
+                window.__DBUS_GRID_OPEN = { section: key, clear: clearLocal };
               });
 
               subGrid.appendChild(block);
             });
           }
 
-          renderSub('URBAINES', normals);
-          renderSub('NOCTILIEN', nocti);
-          renderSub('AUTRES RÉSEAUX', autresReseaux);
+          renderSub('urban', normals);
+          renderSub('noctilien', nocti);
+          renderSub('other_networks', autresReseaux);
           body.appendChild(routesHost);
         } else {
           lines.forEach(line => {
@@ -3915,11 +6206,11 @@
 
             logo.addEventListener('click', () => {
               const isSame = (selectedLineUid === line.uid);
-              if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== title) {
+              if (!isSame && window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section !== key) {
                 try { window.__DBUS_GRID_OPEN.clear && window.__DBUS_GRID_OPEN.clear(); } catch {}
                 window.__DBUS_GRID_OPEN = null;
               }
-              if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === title) { window.__DBUS_GRID_OPEN = null; } return; }
+              if (isSame) { clearLocal(); if (window.__DBUS_GRID_OPEN && window.__DBUS_GRID_OPEN.section === key) { window.__DBUS_GRID_OPEN = null; } return; }
               clearLocal(); selectedLineUid = line.uid;
               const raw = String(line.number||''); const norm = raw.toLowerCase().replace('é','e');
               const selColor = selectionColorForLine(line);
@@ -3931,7 +6222,7 @@
               body.querySelectorAll('.dbus-logo.sel').forEach(el=> el.classList.remove('sel'));
               logo.classList.add('sel');
               closeNonGridSections();
-              window.__DBUS_GRID_OPEN = { section: title, clear: clearLocal };
+              window.__DBUS_GRID_OPEN = { section: key, clear: clearLocal };
             });
 
             grid.appendChild(block);
@@ -3962,7 +6253,11 @@
         const titleEl = document.createElement("div");
         titleEl.className = "rname";
         titleEl.style.flex = "1 1 auto";
-        let titleHtml = withRERIcon(routeTitle);
+        const displayTitle = translateRouteTitle(routeTitle);
+        titleEl.dataset.routeKind = "line";
+        titleEl.dataset.routeTitle = routeTitle || "";
+        if (flag) titleEl.dataset.routeFlag = flag;
+        let titleHtml = withRERIcon(displayTitle || routeTitle);
         if (flag) {
           titleHtml = titleHtml + ` <span class="route-flag">${flag}</span>`;
         }
@@ -3986,7 +6281,7 @@
           durationText = `${route.totalMinutes} min`;
         }
 
-        duration.textContent = `${stopCount} arrêts (${durationText})`;
+        setStopDurationText(duration, stopCount, durationText, "paren");
 
       if (badge) item.appendChild(badge);
       item.appendChild(titleEl);
@@ -4116,11 +6411,11 @@
           return;
         }
         const lineBuckets = buildLineBuckets();
-        renderSectionGrid("IDFM",  lineBuckets["Urbain"]);
-        renderSectionGrid("Noctiliens",  lineBuckets["Noctilien"]);
+        renderSectionGrid("Urbain",  lineBuckets["Urbain"]);
+        renderSectionGrid("Noctilien",  lineBuckets["Noctilien"]);
         renderSection("FlixBus", lineBuckets["FlixBus"]);
-        renderSection("Scolaires",  lineBuckets["Scolaire"]);
-        renderSection("Fictives",  lineBuckets["Autres"]);
+        renderSection("Scolaire",  lineBuckets["Scolaire"]);
+        renderSection("Autres",  lineBuckets["Autres"]);
       }
 
       renderDbusLinesList = renderDbusLinesListInner;
@@ -4358,7 +6653,9 @@
 
           const span = document.createElement("div");
           span.className = "result-text";
-          span.textContent = routeName.replace(/^\s*Titus\s*\d+\s*[:-]?\s*/i, '');
+          const cleanTitle = routeName.replace(/^\s*Titus\s*\d+\s*[:-]?\s*/i, '');
+          span.dataset.routeTitle = cleanTitle;
+          span.textContent = translateRouteTitle(cleanTitle);
           div.appendChild(span);
         } else {
           if (item.logo) {
@@ -4380,7 +6677,7 @@
             const brand = (item.brand || String(item.name||"").replace(/^Concessionnaire\s+/i,"")).trim();
             label = item.city ? `${brand} - ${item.city}` : brand;
           } else if (["Atelier","Agence","Garage"].includes(item.type)){
-            label = item.city || (item.type === "Agence" ? "Agence de recrutement" : item.type);
+            label = item.city || typeFallbackLabel(item.type);
           } else if (item.type === "Monument"){
             label = item.city ? `${item.name} - ${item.city}` : item.name; 
           } else {
@@ -4527,6 +6824,7 @@
 
 </body>
 </html>
+
 
 
 

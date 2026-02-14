@@ -315,10 +315,26 @@
     }
     #settingsPanel .dbus-content{
       padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+      display:block;
       min-height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      scrollbar-gutter:stable;
+    }
+    #settingsPanel .dbus-content::-webkit-scrollbar{
+      width:12px;
+    }
+    #settingsPanel .dbus-content::-webkit-scrollbar-track{
+      background:#0f1722;
+      border-radius:10px;
+    }
+    #settingsPanel .dbus-content::-webkit-scrollbar-thumb{
+      background:#8ea0bf;
+      border-radius:10px;
+      border:2px solid #0f1722;
+    }
+    #settingsPanel .dbus-content::-webkit-scrollbar-thumb:hover{
+      background:#c3d4f4;
     }
     #settingsPanel .settings-category{
       margin:0 0 14px;
@@ -353,7 +369,7 @@
       text-transform:uppercase;
     }
     #settingsPanel .settings-legend{
-      margin-top:auto;
+      margin-top:12px;
       position:sticky;
       bottom:0;
       border:1px solid #1f2732;
